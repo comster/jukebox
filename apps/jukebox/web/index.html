@@ -68,8 +68,8 @@
 		<div id="chart">
 		</div>
 		<script type="text/javascript">
-		    var w = 960,
-		        h = 500,
+		    var w = 1000,
+		        h = 700,
 		        links = [],
 		        voronoiVertices = [],
 		        color = d3.scale.quantize().domain([7000, 10000]).range(d3.range(2, 9));
@@ -91,11 +91,11 @@
 		            .append("svg")
 		            .attr("width", w)
 		            .attr("height", h)
-		            .attr("class", "Reds")
+		            .attr("class", "Reds") //have the color be manipulated by admin user
 		            .call(zoom)
 
 		    var force = self.force = d3.layout.force()
-		            .charge(-300)
+		            .charge(-150)
 		            .size([w, h])
 		            .on("tick", update);
 
@@ -125,13 +125,13 @@
 		              .transition().duration(1000).attr("r", 5);
 		        circle.attr("cx", function(d) { return d.x; })
 		              .attr("cy", function(d) { return d.y; });
-		        circle.exit().transition().attr("r", 0).remove();
+		        circle.exit().transition().attr("r", 0).remove(); //leave alone
 
 		        links = []
 		        d3.geom.delaunay(voronoiVertices).forEach(function(d) {
 		            links.push(edge(d[0], d[1]));
 		            links.push(edge(d[1], d[2]));
-		            links.push(edge(d[2], d[0]));
+		            links.push(edge(d[2], d[0])); //audio can be moved in here
 		        });
 
 		        link = link.data(links)
