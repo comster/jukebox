@@ -1,0 +1,133 @@
+<html>
+	<head>
+		<title>Desktop</title>
+        <style>
+        body {
+            margin: 0 0;
+        }
+        header {
+            display: flex;
+            display: -webkit-flex;
+            display: -moz-flex;
+            display: -ms-flex;
+            display: -o-flex;
+            
+            justify-content: center;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
+            -ms-justify-content: center;
+            -o-justify-content: center;
+            
+            align-items: center;
+            -webkit-align-items: center;
+            -moz-align-items: center;
+            -ms-align-items: center;
+            -o-align-items: center;
+            
+        }
+        header > * {
+            -webkit-flex: 1 0 0px;
+        }
+        .close, .min, .max, .pop {
+            border-radius: 50%;
+            border: 6px solid grey;
+            height: 0px;
+            width: 0px;
+            display: block;
+            float: left;
+            margin: 2px;
+            cursor: pointer;
+        }
+        .chrome:hover .close {
+            border-color: red;
+        }
+        .chrome:hover .min {
+            border-color: orange;
+        }
+        .chrome:hover .max {
+            border-color: green;
+        }
+        .chrome:hover .pop {
+            border-color: blue;
+        }
+        ul#windows {
+            margin: 0 0;
+            padding: 0 0;
+        }
+        li.window {
+            position: absolute;
+            list-style: none;
+            background: #ccc;
+        }
+        li.window.maximized {
+            width: 100%;
+            height: 100%;
+        }
+        li.window.minimized {
+            width: 50%;
+        }
+        .window {
+            position: absolute;
+            z-index: 2;
+            border: 1px solid yellow;
+            width: 400px;
+            height: 600px;
+        }
+        .window .chrome {
+            width: 100%;
+            cursor: move;
+        }
+        .window .chrome .title {
+            bottom: 100%;
+        }
+        .window .chrome input {
+            width: 100%;
+        }
+        .window iframe {
+            width: 100%;
+            height: 90%;
+            border: 0px;
+            visibility: visible;
+            background: white;
+        }
+        .window.ui-resizable-resizing iframe, .window.ui-draggable-dragging iframe {
+            visibility: hidden;
+        }
+        .window[selected] {
+            z-index: 100;
+        }
+        
+        .ui-resizable { position: relative;}
+        .ui-resizable-handle { position: absolute;font-size: 0.1px;z-index: 99999; display: block; }
+        .ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle { display: none; }
+        .ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; left: 0; }
+        .ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0; }
+        .ui-resizable-e { cursor: e-resize; width: 7px; right: -5px; top: 0; height: 100%; }
+        .ui-resizable-w { cursor: w-resize; width: 7px; left: -5px; top: 0; height: 100%; }
+        .ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 1px; bottom: 1px; }
+        .ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: -5px; bottom: -5px; }
+        .ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: -5px; top: -5px; }
+        .ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;}
+        </style>
+	</head>
+	<body>
+        <header>
+    		<h1>Desktop</h1>
+            <nav></nav>
+            <me>Guest</me>
+        </header>
+        <div id="container"></div>
+        <footer></footer>
+        
+        <script src="require.js"></script>
+        <script>
+        require(['jquery.js'], function(){
+            require(['index.js'], function(desktop){
+                desktop.init(function(){
+                    
+                });
+            });
+        });
+        </script>
+	</body>
+</html>

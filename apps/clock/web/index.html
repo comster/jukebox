@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<title>Clock</title>
+        <style>
+        body {
+            margin: 0 0;
+            background: black;
+            color: white;
+            text-shadow: 2px 2px 2px green;
+        }
+        .clock {
+            font-size: 6em;
+            width: 100%;
+            text-align: center;
+        }
+        </style>
+	</head>
+	<body>
+        <header>
+    		<h1>Clock</h1>
+            <nav></nav>
+        </header>
+        <div id="container"></div>
+        <footer></footer>
+        
+        <script src="require.js"></script>
+        <script>
+        require(['jquery.js'], function(){
+            require(['index.js'], function(clockApp){
+                clockApp.init(function(){
+                    
+                });
+            });
+        });
+        </script>
+	</body>
+</html>

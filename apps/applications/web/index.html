@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<title>Applications</title>
+        <style>
+        body {
+            margin: 0 0;
+            background: black;
+            color: white;
+        }
+        h1 {
+            text-shadow: 2px 2px 2px green;
+        }
+        a {
+            color: lightblue;
+            text-decoration: none;
+        }
+        a:visited {
+            color: lightgray;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        </style>
+	</head>
+	<body>
+        <header>
+    		<h1>Apps</h1>
+            <nav></nav>
+        </header>
+        <div id="container"></div>
+        <footer></footer>
+        
+        <script src="require.js"></script>
+        <script>
+        require(['jquery.js'], function(){
+            require(['index.js'], function(appsApp){
+                appsApp.init(function(apps){
+                    var $c = $('#container');
+                    apps.init($c);
+                    apps.col.load();
+                });
+            });
+        });
+        </script>
+	</body>
+</html>

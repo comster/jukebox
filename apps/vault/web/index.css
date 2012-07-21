@@ -1,0 +1,142 @@
+#explorer {
+    position: relative;
+}
+#lists {
+    position: relative;
+}
+.list {
+    -webkit-transition: all .3s ease-in;
+    top: 0%;
+    left: 0%;
+    position: relative;
+    display: block;
+}
+.list.loading {
+    left: 100%;
+}
+.list[selected] {
+    z-index:2;
+}
+.list:not([selected]) {
+    color: grey;
+    left: -100%;
+    display: none;
+}
+
+#explorer ul {
+    list-style: none;
+    margin: 0 0;
+    padding: 0 0;
+}
+#explorer .list ul {
+    margin: 0 0 0 20px;
+}
+#explorer .list  ul li {
+    cursor: pointer;
+    padding: 0px 0px 20px 0px;
+}
+#explorer ul li:hover {
+    color: yellow;
+}
+
+.search {
+}
+
+.picker {
+   width: 250px;
+   display: block;
+   overflow-y: auto;
+   overflow-x: hidden;
+   position: fixed;
+   height: 100%;
+}
+.picker input {
+    width: 100%;
+}
+#explorer ul.resources {
+   display: block;
+   position: relative;
+   margin-left: 250px;
+   height: 100%;
+}
+#explorer ul.resources li.views {
+    
+}
+#explorer ul.resources li.views span {
+    padding-right: 4px;
+    cursor: pointer;
+}
+#explorer ul.resources li.views span[selected] {
+    color: orange;
+}
+#explorer ul.resources li.view {
+    display: none;
+}
+#explorer ul.resources li[selected] {
+    display: block;
+}
+.editor {
+    display: block;
+}
+.editor textarea {
+    margin: 72px 0 0 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.dropZone {
+    
+}
+.dropZone.dropping {
+    border: 2px solid green;
+}
+
+.uploadFrame {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+.uploadFrame iframe {
+    border: 0px;
+    height: 44px;
+}
+.uploadFrame iframe input {
+    
+}
+
+.lightbox { bottom: 0; left: 0; right: 0; top: 0; position: fixed; z-index: 1000; padding-top: 5%; }
+.lightbox .close a { background: rgba(0, 0, 0, 0.75); bottom: 0; left: 0; right: 0; top: 0; position: absolute; z-index: 1; }
+.lightbox .close span { color: #FFFFFF; font-size: 2em; text-indent: 0; position: absolute; right: 0.5em; top: 0.5em; }
+.lightbox .close {text-indent: -999em;}
+.lightbox > div {
+    position: absolute; left: 50%; z-index: 99;
+    max-height: 100%;
+    overflow: auto;
+}
+.lightbox > div {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgb(79,79,79)), to(rgb(0,0,0)));
+	-webkit-appearance: none;
+    -webkit-box-shadow: 1px 1px 11px rgb(79,79,79);
+    -webkit-border-radius: 1em;
+    margin-left: -45%;
+    width: 90%;
+}
+.lightbox > div {  }
+.lightbox .scroll { overflow-y: scroll; padding: 0 1em; }
+
+#me {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.clearfix:after{
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+  font-size: 0;
+}
