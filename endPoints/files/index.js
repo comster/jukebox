@@ -45,7 +45,8 @@ var ObjectID = mongo.ObjectID;
     
     var handleReq = function(req, res, next) {
         var path = req.url;
-        
+        console.log(req.headers)
+        console.log(req.method)
         var findQuery = function(query, callback) {
             ds.find(col, query, function(err, data){
                 if(err) {
@@ -62,12 +63,16 @@ var ObjectID = mongo.ObjectID;
             var query = {};
             
             console.log(path);
-            if(path === '' || path === '/') {
+            if(path && path === '' || path === '/') {
                 findQuery(query);
             } else {
                 var filename = decodeURIComponent(path.substr(1));
+                console.log(filename);
+                console.log('mongo.GridStore.exist');
                 mongo.GridStore.exist(ds.db, filename, filesRoot, function(err, result) {
+                    console.log('tests');
                     if(result) {
+                        
                         getReadableGridStore(filename).open(function(err, gs){
                             var resCode = 200;
                             var offset = 0;
@@ -75,14 +80,27 @@ var ObjectID = mongo.ObjectID;
                             var headerFields = {
                                 'Content-Type': gs.contentType
                                 , 'Date': gs.uploadDate
-                            	, 'ETag': etag
+                            	//, 'ETag': etag
                             };
                             
-                            if(req.headers['if-none-match'] == etag){
+                            if(req.method == 'HEAD') {
+                                console.log('HEAD');
+                                headerFields["Content-Length"] = gs.length;
+                                gs.close(function(){
+                                    house.log.debug('gridstore closed');
+                                    res.writeHead(200, headerFields);
+                                    res.end('');
+                                });
+                                return;
+                            }
+                            
+                            if(false && req.headers['if-none-match'] == etag){
                               resCode = 304;
                               headerFields['Content-Length'] = 0;
-                              res.writeHead(resCode, headerFields);
-                              res.end();
+                              gs.close(function(){
+                                  res.writeHead(resCode, headerFields);
+                                  res.end();
+                              });
                               return;
                             }
                             
@@ -90,9 +108,9 @@ var ObjectID = mongo.ObjectID;
                             var bytStr = 'bytes=';
                             var chunkSize = 1024
                             , lengthRemaining = gs.length;
-                            
+                            console.log('req.headers.range.substr(0,bytStr.length)');
                             if(req.headers.range && req.headers.range.substr(0,bytStr.length) == bytStr) {
-                                house.log.debug('range '+req.headers.range);
+                                console.log('range '+req.headers.range);
                             	var rangeString = '';
                                 var bytSelection = req.headers.range.substr(bytStr.length);
                             	var bytDashPos = bytSelection.indexOf('-');
@@ -110,16 +128,18 @@ var ObjectID = mongo.ObjectID;
                             		    rangeString = '0-' + (gs.length-1).toString();
                             		}
                             	} else if(bytEndDash != '' && bytPreDash != '') {
+                                    console.log('testtttttt');
                             		contentLen = parseInt(bytEndDash) - parseInt(bytPreDash) + 1;
                             		offset = parseInt(bytPreDash);
                             		rangeString = bytPreDash + '-' + bytEndDash;
+                                    console.log(offset);
                             	} else if(bytEndDash == '' && bytPreDash != '') {
                                     // ex, 1234-
                             		contentLen = contentLen - parseInt(bytPreDash);
                             		offset = parseInt(bytPreDash) - 1;
                             		rangeString = bytPreDash + '-' + (gs.length - 1).toString();
                             	}
-                            	headerFields["Content-Range"] = 'bytes=' + rangeString+'/'+gs.length; // needs to always be the full content length? // req.headers.range; //bytSelection; // should include bytes= ???
+                            	headerFields["Content-Range"] = 'bytes ' + rangeString+'/'+gs.length; // needs to always be the full content length? // req.headers.range; //bytSelection; // should include bytes= ???
                             	lengthRemaining = contentLen;
                             }
                             
@@ -136,16 +156,14 @@ var ObjectID = mongo.ObjectID;
                             
                             var gridStoreReadChunk = function(gs) {
                                 var readAndSend = function(chunk) {
-                                    console.log('chunk');
-                                    console.log(chunk);
                                   gs.read(chunk, function(err, data) {
                                 	if(err) {
                                 	  house.log.err('file read err: '+filename);
                                 	  house.log.err(err);
                                       gs.close(function(){
                                           house.log.debug('gridstore closed');
+                                          res.end();
                                       });
-                                      res.end();
                                       return;
                                 	} else {
                                 		
@@ -161,10 +179,9 @@ var ObjectID = mongo.ObjectID;
                                       // close the gridstore
                                       gs.close(function(){
                                           house.log.debug('gridstore closed');
+                                          res.end();
                                       });
-                                      res.end();
                                     } else {
-                                        console.log(chunkSize);
                                       readAndSend(chunkSize);
                                     }
                                   }); // read
