@@ -63,7 +63,7 @@ var ObjectID = mongo.ObjectID;
             var query = {};
             
             console.log(path);
-            if(path && path === '' || path === '/') {
+            if(path === '' || path === '/') {
                 findQuery(query);
             } else {
                 var filename = decodeURIComponent(path.substr(1));
@@ -207,7 +207,7 @@ var ObjectID = mongo.ObjectID;
                            house.log.err(err);
                            res.end('error');
                        } else {
-                           
+                           console.log(filename)
                            findQuery({_id:docId = new ObjectID(filename)});
                            //res.end('file does not exist');
                        }
