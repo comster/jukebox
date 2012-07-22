@@ -1,3 +1,7 @@
+.song[data-queue="true"] {
+    background: green;
+}
+
 #chat {
     width: 30%;
     text-align: right;

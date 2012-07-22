@@ -24,6 +24,8 @@ var ObjectID = mongo.ObjectID;
         }
         
         var file_name = decodeURIComponent(file.name);
+        file_name.substr(0,file_name.lastIndexOf('.')).replace('.','')+file_name.substr(file_name.lastIndexOf('.'));
+        
         var mime_type = file.type;
         
         var uploadFileGridStore = new mongo.GridStore(ds.db, file_name, "w", {
@@ -221,9 +223,60 @@ var ObjectID = mongo.ObjectID;
                 if(req.files) {
                     for(var i in req.files) {
                         var file = req.files[i];
+                        console.log(file)
                         importFileToGrid(file, {}, function(err, data){
-                            console.log('done upload');
-                            res.data(data);
+                            if(err) {
+                                console.log('file upload err');
+                            } else {
+                                if(data.contentType.indexOf('audio') === 0) {
+                                    console.log('proces file upload');
+                                    
+                                    var fs = require('fs'),
+                                        musicmetadata = require('musicmetadata');
+                                    
+                                    // create a new parser from a node ReadStream
+                                    var parser = new musicmetadata(fs.createReadStream(file.path));
+                                    
+                                    //listen for the metadata event
+                                    parser.on('metadata', function(result) {
+                                      console.log('metadata');
+                                      console.log(result);
+                                      if(result) {
+                                          var newSong = {
+                                              filename: data.filename
+                                          }
+                                          if(result.title) {
+                                              newSong.title = result.title;
+                                          }
+                                          if(result.album) {
+                                              newSong.album = result.album;
+                                          }
+                                          if(result.artist) {
+                                              if(_.isArray(result.artist)) {
+                                                  result.artist = _.first(result.artist);
+                                              }
+                                              newSong.artist = result.artist;
+                                          }
+                                          if(result.year) {
+                                              newSong.year = result.year;
+                                          }
+                                          if(result.genre) {
+                                              newSong.genre = result.genre;
+                                          }
+                                          // picture
+                                          // track
+                                          
+                                          ds.insert('songs', newSong, function(err, data) {
+                                              console.log('new song!');
+                                              res.data(data);
+                                          });
+                                      }
+                                    });
+                                } else {
+                                    console.log('done upload');
+                                    res.data(data);
+                                }
+                            }
                         });
                     }
                 }
