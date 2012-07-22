@@ -285,7 +285,7 @@
             , "click button.next": "next"
         },
         loadSong: function(fileName, song) {
-            
+            var self = this;
             if(fileName == this.currentFileName) return;
             this.currentFileName = fileName;
             
@@ -299,8 +299,12 @@
             }
             console.log(fileName)
             self.$el.find('.loading').html('Loading...');
+            
             var dancer = new Dancer(fileName);
             dancer.bind('loaded', function(){
+                if(self.dancer) self.dancer.stop();
+                delete self.dancer;
+                self.dancer = dancer;
                 console.log('loaded');
                 self.$el.find('.loading').html('');
                 
@@ -383,8 +387,6 @@
             dancer.waveform( canvas, { strokeStyle: '#ff0077' });
             
             self.$el.find('.playPause').html('Loading');
-            this.dancer = dancer;
-            this.dancers.push(dancer);
         },
         next: function() {
             this.loadSong('/api/files/02%20Dashboard.mp3');
