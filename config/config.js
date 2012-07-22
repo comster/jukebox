@@ -2,7 +2,7 @@ exports = module.exports.config = {
     env: "dev",
     version: .101,
     webPort: 8080,
-    webPortSecure: 8443,
+    tmp: __dirname+'/../tmp',
     filters: [
         {parser:{}},
         {session:{houseGuest:{
@@ -38,7 +38,7 @@ exports = module.exports.config = {
     },
     fileSystem: {
       fs: {
-        path: '/tmp'
+        path: __dirname+'/../tmp'
       }
     }
   }
