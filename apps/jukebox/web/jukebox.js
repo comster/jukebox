@@ -278,9 +278,6 @@
                 
                   return this;
                 });
-                
-                //self.loadSong('/api/files/15.%20Marcus%20Collins%20-%20Seven%20Nation%20Army.mp3');
-                
             });
         },
         events: {
@@ -348,12 +345,13 @@
             var w = 960,
                 h = 500,
                z = d3.scale.category20c(),
-               i = 0;
+               i = 1;
 
             var svg = d3.select("body").append("svg:svg")
                .attr("width", w)
                .attr("height", h)
-               //.style("pointer-events", "all")
+			 
+               // .style(particle)
                //.on("mousemove", particle);
             
             function particle() {
@@ -362,9 +360,10 @@
              svg.append("svg:circle")
                  .attr("cx", Math.random()*w)
                  .attr("cy", Math.random()*h)
-                 .attr("r", 1e-6) //radius
+                 .attr("r", Math.random()) //radius
+				 // .attr("t", Math.random())
                  .style("stroke", z(++i))
-                 .style("stroke-opacity", 1)
+                 .style("stroke-opacity", 5)
                .transition()
                  .duration(2000)
                  .ease(Math.sqrt)
