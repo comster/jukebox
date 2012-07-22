@@ -1,6 +1,6 @@
 #JukeBox.js
-Create amazing music experiences using node.js
 ==========
+Create amazing music experiences using node.js
 
 [Play a song in Jukebox](http://jeffshouse.com:8888/jukebox/)
 
