@@ -80,7 +80,7 @@ var ObjectID = mongo.ObjectID;
                             var headerFields = {
                                 'Content-Type': gs.contentType
                                 , 'Date': gs.uploadDate
-                            	//, 'ETag': etag
+                            	, 'ETag': etag
                             };
                             
                             if(req.method == 'HEAD') {
@@ -94,7 +94,7 @@ var ObjectID = mongo.ObjectID;
                                 return;
                             }
                             
-                            if(false && req.headers['if-none-match'] == etag){
+                            if(req.headers['if-none-match'] == etag){
                               resCode = 304;
                               headerFields['Content-Length'] = 0;
                               gs.close(function(){

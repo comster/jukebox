@@ -42,9 +42,14 @@
         className: 'player',
         element: 'div',
         render: function() {
-            this.$el.html('player <button class="playPause">Play</button><button class="next">next</button>');
+            this.$el.html('<span class="progress"></span><span class="currentTime"></span><span class="duration"></span><button class="playPause">Play</button><button class="next">next</button>');
             this.setElement(this.$el);
             return this;
+        },
+        renderDuration: function() {
+            console.log(this.duration)
+            var t = this.duration - this.currentTime;
+            this.$el.find('.progress').html('-'+Math.floor(t/60) +':'+ Math.floor(t%60));
         },
         initialize: function() {
             var self = this;
@@ -100,9 +105,6 @@
                   return this;
                 });
                 
-                window.testLoader = function() {
-                    self.loadSong('/api/files/02%20Dashboard.mp3');
-                }
                 self.loadSong('/api/files/01%20March%20into%20the%20Sea.mp3');
                 
             });
@@ -124,13 +126,15 @@
                 }
                 
                 dancer.play();
-                var duration = dancer.audioAdapter.buffer.duration;
+                self.duration = dancer.audioAdapter.buffer.duration;
                 var interval = setInterval(function(){
-                    var currentTime = dancer.getTime();
-                    if(currentTime > duration) {
+                    self.currentTime = dancer.getTime();
+                    if(self.currentTime > self.duration) {
                         clearTimeout(interval);
                     }
+                    self.renderDuration();
                 }, 1000);
+                self.renderDuration();
             });
             window.dancer = dancer;
             
