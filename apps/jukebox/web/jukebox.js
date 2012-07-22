@@ -23,21 +23,161 @@
         }
     });
     
+    
+    //
+    
+    function parseFile(file, callback){
+      if(localStorage[file.name]) return callback(JSON.parse(localStorage[file.name]));
+      ID3v2.parseFile(file,function(tags){
+        //to not overflow localstorage
+        localStorage[file.name] = JSON.stringify({
+          Title: tags.Title,
+          Artist: tags.Artist,
+          Album: tags.Album,
+          Genre: tags.Genre
+        });
+        callback(tags);
+      })
+    }
+    
     var UploadFrame = Backbone.View.extend({
         tagName: "span",
         className: "uploadFrame",
-        htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>',
+        //htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>',
+        htmlTemplate: '<table></table><input type="file" webkitdirectory directory multiple mozdirectory onchange="fileChangeListener(this.files)">',
         template: function(doc) {
             return $(_.template(this.htmlTemplate, doc));
         },
         render: function() {
             this.$el.html(this.template({}));
             this.setElement(this.$el);
+            this.$t = this.$el.find('table');
             return this;
         },
         initialize: function() {
+            window.fileChangeListener = this.inputChange;
         },
         events: {
+            //"change input": "inputChange"
+        },
+        inputChange: function(files) {
+            var self = this;
+            console.log(files);
+            function runSearch(query){
+              console.log(query);
+              var regex = new RegExp(query.trim().replace(/\s+/g, '.*'), 'ig');
+              for(var i = this.$t.find('tr'), l = i.length; l--;){
+                if(regex.test(i[l].innerHTML)){
+                  i[l].className = 'visible'
+                }else{
+                  i[l].className = 'hidden';
+                }
+              }
+            }
+            
+            function canPlay(type){
+              var a = document.createElement('audio');
+              return !!(a.canPlayType && a.canPlayType(type).replace(/no/, ''));
+            }
+            
+              var queue = [];
+              var mp3 = true;//canPlay('audio/mpeg;'), ogg = canPlay('audio/ogg; codecs="vorbis"');
+              for(var i = 0; i < files.length; i++){
+                var file = files[i];
+                console.log(file)
+                var path = file.webkitRelativePath || file.mozFullPath || file.name;
+                if (path.indexOf('.AppleDouble') != -1) {
+                 // Meta-data folder on Apple file systems, skip
+                continue;
+                }         
+                var size = file.size || file.fileSize || 4096;
+                if(size < 4095) { 
+                // Most probably not a real MP3
+                console.log(path);
+                continue;
+                }
+            
+                  queue.push(file);
+              }
+                                      
+              var process = function(){
+                  console.log(queue)
+                if(queue.length){
+                  
+                  var f = queue.shift();
+                  parseFile(f,function(tags){
+                    console.log(tags);
+                    var tr = document.createElement('tr');
+                    var t2 = guessSong(f.webkitRelativePath || f.mozFullPath || f.name); 
+                    //it should be innerText/contentText but its annoying.
+                    var td = document.createElement('td');
+                    td.innerHTML = tags.Title || t2.Title;
+                    tr.appendChild(td);
+                    
+                    var td = document.createElement('td');
+                    td.innerHTML = tags.Artist || t2.Artist;
+                    tr.appendChild(td);
+                    
+                    var td = document.createElement('td');
+                    td.innerHTML = tags.Album || t2.Album;
+                    tr.appendChild(td);
+                    
+                    var td = document.createElement('td');
+                    td.innerHTML = tags.Genre || "";
+                    tr.appendChild(td);
+                    tr.onclick = function(){
+                      var pl = document.createElement('tr');
+                      var st = document.createElement('td');
+                      st.innerHTML = tags.Title || t2.Title;
+                      pl.appendChild(st);
+                      $('table').append(pl);
+                      pl.file = f;
+                      pl.className = 'visible';
+                      pl.onclick = function(e){
+                        if(e && e.button == 1){
+                          pl.parentNode.removeChild(pl);
+                        }else{
+                          var url;
+                          if(window.createObjectURL){
+                            url = window.createObjectURL(f)
+                          }else if(window.createBlobURL){
+                            url = window.createBlobURL(f)
+                          }else if(window.URL && window.URL.createObjectURL){
+                            url = window.URL.createObjectURL(f)
+                          }else if(window.webkitURL && window.webkitURL.createObjectURL){
+                            url = window.webkitURL.createObjectURL(f)
+                          }
+                          
+                         
+                         
+                         
+                         mediaPlayer.loadSong(url);
+                         
+                         
+                         
+                          for(var i = document.querySelectorAll('.playing'), l = i.length; l--;){
+                            i[l].className = '';
+                          }
+                          pl.className += ' playing';
+                          currentSong = pl;
+                        }
+                      }
+                      if($('table').children().length == 1) pl.onclick();
+                    }
+                    $('table').append(tr);
+                    process();
+                  })
+                  var lq = queue.length;
+                  setTimeout(function(){
+                    if(queue.length == lq){
+                      process();
+                    }
+                  },300);
+                }
+              }
+              process();
+              
+              console.log(files);
         },
         remove: function() {
           $(this.el).remove();
@@ -49,14 +189,23 @@
         element: 'div',
         render: function() {
             this.$el.html('library');
+            this.$el.append(this.searchFrame.render().el);
             this.$el.append(this.uploadFrame.render().el);
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
             this.uploadFrame = new UploadFrame();
+            this.searchFrame = new SearchView();
+            
+            require(['id3v2.js'], function(){
+            });
         },
         events: {
+            "submit form": "submit"
+        }, submit: function() {
+            
+            return false;
         }
     });
     
@@ -77,6 +226,7 @@
         },
         initialize: function() {
             var self = this;
+            window.mediaPlayer = this;
             this.dancers = [];
             require(['dancer.js'], function() {
                 Dancer.addPlugin( 'waveform', function( canvasEl, options ) {
@@ -129,7 +279,7 @@
                   return this;
                 });
                 
-                self.loadSong('/api/files/03%20Hearing%20Damage%20-%20Thom%20Yorke.mp3');
+                self.loadSong('/api/files/01%20March%20into%20the%20Sea.mp3');
                 
             });
         },
@@ -226,7 +376,7 @@
             this.dancers.push(dancer);
         },
         next: function() {
-            this.loadSong('/api/files/06%20Sleep%20Ft.%20Young%20Buck,%20Chamillionaire.m4a');
+            this.loadSong('/api/files/02%20Dashboard.mp3');
         },
         playPause: function() {
             if(this.dancer.isPlaying()) {
@@ -250,8 +400,8 @@
         element: 'div',
         render: function() {
             this.$el.html('search');
-            
-            this.$el.append(this.$search);
+            var $form = $('<form></form>').append(this.$search);
+            this.$el.append($form);
             
             this.setElement(this.$el);
             return this;
@@ -267,8 +417,7 @@
         className: 'visual',
         element: 'div',
         render: function() {
-            this.$el.html('library');
-            this.$el.append(this.uploadFrame.render().el);
+            this.$el.html('<canvas />');
             this.setElement(this.$el);
             return this;
         },
@@ -286,9 +435,14 @@
                 if($el) {
                     var $app = $('<div id="app"></div>');
                     $el.append($app);
-                    
-                    self.view = new AppView({el: $el});
+                    self.view = new AppView({el: $app});
                     self.view.render();
+                    
+                    // chat
+                    var $appChat = $('<div id="chat"></div>');
+                    $el.append($appChat);
+                    self.chatView = new houseChat.AppView({el: $appChat});
+                    self.chatView.render();
                 }
                 
                 if(callback) callback();

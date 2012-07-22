@@ -73,7 +73,9 @@ require(['moment.min.js'], function(){});
         }, load: function(callback) {
             var self = this;
             this.reset();
-            this.fetch({add:true});
+            var fo = {add:true};
+            if(callback) fo.success = callback;
+            this.fetch(fo);
         }, comparator: function(a,b) {
             return a.get('name') > b.get('name');
         }
@@ -86,7 +88,9 @@ require(['moment.min.js'], function(){});
         }, load: function(callback) {
             var self = this;
             this.reset();
-            this.fetch({add:true});
+            var fo = {add:true};
+            if(callback) fo.success = callback;
+            this.fetch(fo);
         }
     });
     chat.MessageCollection = Backbone.Collection.extend({
@@ -382,6 +386,10 @@ require(['moment.min.js'], function(){});
         tag: 'div',
         className: 'roomsOpen',
         render: function() {
+            if(!this.initialized) {
+                this.on('initialized', this.render);
+                return this;
+            }
             this.$el.html('');
             
             this.$el.append(this.roomsFindOrCreateView.render().el);
@@ -394,6 +402,7 @@ require(['moment.min.js'], function(){});
             return this;
         },
         initialize: function() {
+            this.initialized = false;
             var self = this;
             self.rooms = {};
             this.$chatFrame = $('<div id="chats"></div>');
@@ -418,12 +427,6 @@ require(['moment.min.js'], function(){});
                 $r.attr('selected', true);
             });
             
-            this.roomsFindOrCreateView = new chat.RoomsFindOrCreateView();
-            this.roomsFindOrCreateView.on('room', function(room){
-                self.openRoom(room);
-                self.roomsOpenListView.trigger('select', room);
-            });
-            
             require(['/socket.io/socket.io.js'], function() {
                 var socket = self.io = io.connect('http://jeffshouse.com:8888/socket.io/chat');
                 socket.on('connect', function(data) {
@@ -446,6 +449,13 @@ require(['moment.min.js'], function(){});
                     
                     //self.rooms[data.room_id].messageCollection.add(data);
                 });
+                self.roomsFindOrCreateView = new chat.RoomsFindOrCreateView();
+                self.roomsFindOrCreateView.on('room', function(room){
+                    self.openRoom(room);
+                    self.roomsOpenListView.trigger('select', room);
+                });
+                self.initialized = true;
+                self.trigger('initialized');
             });
         },
         events: {
@@ -453,7 +463,9 @@ require(['moment.min.js'], function(){});
         openRoom: function(room) {
             this.collection.add(room.clone());
             
-            this.io.emit('join', room.get('id'));
+            if(this.io) {
+                this.io.emit('join', room.get('id'));
+            } 
         }
     });
     
@@ -470,7 +482,10 @@ require(['moment.min.js'], function(){});
             this.collection = new chat.RoomCollection();
             this.roomsFindListView = new chat.RoomListView({collection: this.collection});
             this.roomNewFormView = new chat.RoomNewFormView({collection: this.collection});
-            this.collection.load(function(){});
+            this.collection.load(function(){
+                console.log(self.collection.first());
+                self.trigger('room', self.collection.first());
+            });
             this.roomsFindListView.on('select', function(room){
                 // navigate to room
                 self.trigger('room', room);
