@@ -129,7 +129,7 @@
                   return this;
                 });
                 
-                self.loadSong('/api/files/01%20March%20into%20the%20Sea.mp3');
+                self.loadSong('/api/files/03%20Hearing%20Damage%20-%20Thom%20Yorke.mp3');
                 
             });
         },
@@ -143,7 +143,7 @@
             
             var beat = dancer.createBeat({
                 onBeat: function ( mag ) {
-                  particle();
+                  particle(mag); //pass in mag
                 },
                 offBeat: function ( mag ) {
                   console.log('no beat :(');
@@ -205,7 +205,7 @@
              svg.append("svg:circle")
                  .attr("cx", Math.random()*w)
                  .attr("cy", Math.random()*h)
-                 .attr("r", 1e-6)
+                 .attr("r", 1e-6) //radius
                  .style("stroke", z(++i))
                  .style("stroke-opacity", 1)
                .transition()
@@ -226,7 +226,7 @@
             this.dancers.push(dancer);
         },
         next: function() {
-            this.loadSong('/api/files/02%20Dashboard.mp3');
+            this.loadSong('/api/files/06%20Sleep%20Ft.%20Young%20Buck,%20Chamillionaire.m4a');
         },
         playPause: function() {
             if(this.dancer.isPlaying()) {

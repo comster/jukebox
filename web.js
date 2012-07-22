@@ -7,4 +7,3 @@ var house = new housejs(config);
 house.useApps(__dirname+'/apps');
 
 house.start();
-
