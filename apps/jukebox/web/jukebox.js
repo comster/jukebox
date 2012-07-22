@@ -23,16 +23,38 @@
         }
     });
     
+    var UploadFrame = Backbone.View.extend({
+        tagName: "span",
+        className: "uploadFrame",
+        htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>',
+        template: function(doc) {
+            return $(_.template(this.htmlTemplate, doc));
+        },
+        render: function() {
+            this.$el.html(this.template({}));
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+        },
+        events: {
+        },
+        remove: function() {
+          $(this.el).remove();
+        }
+    });
+    
     var LibraryView = Backbone.View.extend({
         className: 'library',
         element: 'div',
         render: function() {
             this.$el.html('library');
+            this.$el.append(this.uploadFrame.render().el);
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
-            
+            this.uploadFrame = new UploadFrame();
         },
         events: {
         }
@@ -42,14 +64,16 @@
         className: 'player',
         element: 'div',
         render: function() {
-            this.$el.html('<span class="progress"></span><span class="currentTime"></span><span class="duration"></span><button class="playPause">Play</button><button class="next">next</button>');
+            this.$el.html('<span class="progress"></span><span class="currentTime"></span><span class="duration"></span><button class="next">skip</button>');
             this.setElement(this.$el);
             return this;
         },
         renderDuration: function() {
             console.log(this.duration)
             var t = this.duration - this.currentTime;
-            this.$el.find('.progress').html('-'+Math.floor(t/60) +':'+ Math.floor(t%60));
+            if(t) {
+                this.$el.find('.progress').html('-'+Math.floor(t/60) +':'+ pad(Math.floor(t%60)));
+            }
         },
         initialize: function() {
             var self = this;
@@ -198,6 +222,7 @@
             dancer.waveform( canvas, { strokeStyle: '#ff0077' });
             
             self.$el.find('.playPause').html('Loading');
+            this.dancer = dancer;
             this.dancers.push(dancer);
         },
         next: function() {
@@ -220,17 +245,107 @@
         }
     });
     
+    var SearchView = Backbone.View.extend({
+        className: 'search',
+        element: 'div',
+        render: function() {
+            this.$el.html('search');
+            
+            this.$el.append(this.$search);
+            
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            this.$search = $('<input type="text" name="query" placeholder="search for tunes" />');
+        },
+        events: {
+        }
+    });
+    
+    var VisualView = Backbone.View.extend({
+        className: 'visual',
+        element: 'div',
+        render: function() {
+            this.$el.html('library');
+            this.$el.append(this.uploadFrame.render().el);
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            this.uploadFrame = new UploadFrame();
+        },
+        events: {
+        }
+    });
+    
     jukebox.init = function($el, callback) {
         var self = this;
-        if($el) {
-            self.view = new AppView({el: $el});
-            self.view.render();
-        }
+        this.initAuth(function(){
+            require(['houseChat.js'], function(houseChat) {
+                if($el) {
+                    var $app = $('<div id="app"></div>');
+                    $el.append($app);
+                    
+                    self.view = new AppView({el: $el});
+                    self.view.render();
+                }
+                
+                if(callback) callback();
+            });
+        });
+    }
+    
+    jukebox.initAuth = function(callback) {
+        require(['houseAuth.js'], function(auth) {
+            auth.get(function(err, loginStatus){
+                var $profile = $('<div id="me"></div>');
+                $('body').append($profile);
+                if(err) {
+                    
+                } else if(loginStatus) {
+                    if(loginStatus && loginStatus.has('user')) {
+                        var profileView = loginStatus.getView();
+                        $profile.html(profileView.render().el);
+                    } else {
+                        if(!jukebox.hasOwnProperty('$loginPrompt')) {
+                            var $auth = $('<div></div>');
+                            jukebox.$loginPrompt = $('<div class="lightbox"></div>');
+                            var $close = $('<p class="close"><a href="#" title="close"></a></p>').click(function(){
+                                jukebox.$loginPrompt.hide();
+                                return false;
+                            });
+                            jukebox.$loginPrompt.hide();
+                            $('body').append(jukebox.$loginPrompt.append($auth).append($close));
+                        }
+                        
+                        var $loginButton = $('<button>login</button>').click(function(){
+                            promptLogin();
+                        });
+                        $profile.html($loginButton);
+                        
+                        var promptLogin = function() {
+                            jukebox.$loginPrompt.show();
+                            auth.prompt($auth).authorized(function(loginStatus){
+                                jukebox.$loginPrompt.hide();
+                                console.log(loginStatus)
+                                var profileView = loginStatus.getView();
+                                $profile.html(profileView.render().el);
+                            });
+                        }
+                    }
+                }
+                callback();
+            });
+        });
     }
     
     if(define) {
         define(function () {
             return jukebox;
         });
+    }
+    function pad(n){
+        return n > 9 ? ''+n : '0'+n;
     }
 })();
