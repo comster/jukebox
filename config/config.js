@@ -22,8 +22,7 @@ exports = module.exports.config = {
   dataSources: {
     mongo: {
       mongodb: {
-        server: 'localhost',
-        db: 'jukebox'
+        url: process.env.MONGOHQ_URL
       }
     },
     memcache: {
