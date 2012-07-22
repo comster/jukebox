@@ -278,6 +278,10 @@
                 
                   return this;
                 });
+
+     			self.loadSong('/api/files/Satisfaction.mp3');
+
+                
             });
         },
         events: {
@@ -344,7 +348,7 @@
               // After 60s, let's get this real and map a frequency to an object's y position
               // Note that the instance of dancer is bound to "this"
               //object.y = this.getFrequency( 400 );
-            }).onceAt( 120, function() {
+            }).onceAt( 180, function() {
               // After 120s, we'll turn the beat off as another object's y position is still being mapped from the previous "after" method
               beat.off();
             });
@@ -375,9 +379,9 @@
                  .style("stroke", z(++i))
                  .style("stroke-opacity", 5)
                .transition()
-                 .duration(2000)
+                 .duration(1500)
                  .ease(Math.sqrt)
-                 .attr("r", 100)
+                 .attr("r", 200)
                  .style("stroke-opacity", 1e-6)
                  .remove();
             }
