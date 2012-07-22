@@ -2,7 +2,7 @@ exports = module.exports.config = {
     env: "dev",
     version: .101,
     webPort: 8888,
-    webPortSecure: 8443,
+    tmp: __dirname+'/../tmp',
     filters: [
 	{parser:{}},
         {session:{houseGuest:{
