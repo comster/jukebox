@@ -43,8 +43,8 @@
     var UploadFrame = Backbone.View.extend({
         tagName: "span",
         className: "uploadFrame",
-        //htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>',
-        htmlTemplate: '<table></table><input type="file" webkitdirectory directory multiple mozdirectory onchange="fileChangeListener(this.files)">',
+        htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>',
+        //htmlTemplate: '<table></table><input type="file" webkitdirectory directory multiple mozdirectory onchange="fileChangeListener(this.files)">',
         template: function(doc) {
             return $(_.template(this.htmlTemplate, doc));
         },
@@ -93,7 +93,7 @@
                 var size = file.size || file.fileSize || 4096;
                 if(size < 4095) { 
                 // Most probably not a real MP3
-                console.log(path);
+                //console.log(path);
                 continue;
                 }
             
@@ -149,11 +149,7 @@
                           }
                           
                          
-                         
-                         
                          mediaPlayer.loadSong(url);
-                         
-                         
                          
                           for(var i = document.querySelectorAll('.playing'), l = i.length; l--;){
                             i[l].className = '';
@@ -191,15 +187,16 @@
             this.$el.html('library');
             this.$el.append(this.searchFrame.render().el);
             this.$el.append(this.uploadFrame.render().el);
+            this.$el.append(this.songListView.render().el);
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
             this.uploadFrame = new UploadFrame();
             this.searchFrame = new SearchView();
+            this.songListView = new SongListView();
             
-            require(['id3v2.js'], function(){
-            });
+            //require(['id3v2.js'], function(){            });
         },
         events: {
             "submit form": "submit"
@@ -213,7 +210,10 @@
         className: 'player',
         element: 'div',
         render: function() {
-            this.$el.html('<span class="progress"></span><span class="currentTime"></span><span class="duration"></span><button class="next">skip</button>');
+            this.$el.html('<span class="progress"></span><span class="songInfo"></span><span class="currentTime"></span><span class="duration"></span><button class="next">skip</button>');
+            if(this.song) {
+                this.$el.find('.songInfo').html(this.song.get('artist')+' - '+this.song.get('title'));
+            }
             this.setElement(this.$el);
             return this;
         },
@@ -279,7 +279,7 @@
                   return this;
                 });
                 
-                self.loadSong('/api/files/01%20March%20into%20the%20Sea.mp3');
+                //self.loadSong('/api/files/15.%20Marcus%20Collins%20-%20Seven%20Nation%20Army.mp3');
                 
             });
         },
@@ -287,10 +287,37 @@
             "click button.playPause": "playPause"
             , "click button.next": "next"
         },
-        loadSong: function(fileName) {
+        loadSong: function(fileName, song) {
             var self = this;
+            console.log(fileName)
+            //fileName = '/api/files/15.%20Marcus%20Collins%20-%20Seven%20Nation%20Army.mp3';
+            if(song) {
+                console.log(song)
+                this.song = song;
+                this.render();
+            }
+            console.log(fileName)
             var dancer = new Dancer(fileName);
-            
+            dancer.bind('loaded', function(){
+                console.log('loaded');
+                self.$el.find('.playPause').html('Stop');
+                
+                if(self.dancers.length > 1) {
+                    var prevDancer = self.dancers.shift();
+                    prevDancer.stop();
+                }
+                
+                dancer.play();
+                self.duration = dancer.audioAdapter.buffer.duration;
+                var interval = setInterval(function(){
+                    self.currentTime = dancer.getTime();
+                    if(self.currentTime > self.duration) {
+                        clearTimeout(interval);
+                    }
+                    self.renderDuration();
+                }, 1000);
+                self.renderDuration();
+            });
             var beat = dancer.createBeat({
                 onBeat: function ( mag ) {
                   particle(mag); //pass in mag
@@ -316,26 +343,6 @@
               beat.off();
             });
             
-            dancer.bind('loaded', function(){
-                console.log('loaded');
-                self.$el.find('.playPause').html('Stop');
-                
-                if(self.dancers.length > 1) {
-                    var prevDancer = self.dancers.shift();
-                    prevDancer.stop();
-                }
-                
-                dancer.play();
-                self.duration = dancer.audioAdapter.buffer.duration;
-                var interval = setInterval(function(){
-                    self.currentTime = dancer.getTime();
-                    if(self.currentTime > self.duration) {
-                        clearTimeout(interval);
-                    }
-                    self.renderDuration();
-                }, 1000);
-                self.renderDuration();
-            });
             window.dancer = dancer;
             
             var w = 960,
@@ -425,6 +432,105 @@
             this.uploadFrame = new UploadFrame();
         },
         events: {
+        }
+    });
+    
+    
+    SongModel = Backbone.Model.extend({
+        initialize: function() {
+            var self = this;
+        },
+        getView: function(options) {
+            var viewType = 'SongRow';
+            if(options && options.hasOwnProperty('viewType')) {
+                viewType = options.viewType;
+            }
+            if(!this.hasOwnProperty(viewType)) {
+                if(!options) options = {};
+                options.model = this;
+                this[viewType] = new SongRow(options);
+            }
+            return this[viewType];
+        }
+    });
+    
+    SongCollection = Backbone.Collection.extend({
+        model: SongModel,
+        url: '/api/songs',
+        initialize: function(docs, options) {
+            var self = this;
+        }, load: function(callback) {
+            var self = this;
+            this.reset();
+            this.fetch({add:true});
+        //}, comparator: function(a,b) {
+            //return a.get('name') > b.get('name');
+        }
+    });
+    
+    SongListView = Backbone.View.extend({
+        tag: 'div',
+        className: 'songList',
+        render: function() {
+            this.$el.html('');
+            this.$el.append(this.$ul);
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            this.$ul = $('<ul class="songs"></ul>');
+            var self = this;
+            if(!this.collection) {
+                this.collection = new SongCollection();
+            }
+            this.collection.on('add', function(doc, col) {
+                var $li = $('<li></li>');
+                var view = doc.getView();
+                $li.append(view.render().el);
+                $li.attr('data-id', doc.get('id'));
+                self.$ul.append($li);
+                
+                doc.on('remove', function(){
+                    $li.remove();
+                    return false;
+                });
+            });
+            this.collection.load();
+        },
+        events: {
+            "click li": "selectLi"
+        },
+        selectLi: function(el) {
+            console.log(el);
+            //var room = this.collection.get($(el.target).attr('data-id'));
+            //this.trigger('select', room);
+            $(el.target).parent('li').attr('selected', true);
+            $(el.target).parent('li').siblings().removeAttr('selected');
+        }
+    });
+    
+    SongRow = Backbone.View.extend({
+        tag: 'span',
+        className: 'song',
+        render: function() {
+            this.$el.html('<button class="queue">Q</button><button class="play">Play</button><span class="artist">'+this.model.get('artist')+'</span><span class="title">'+this.model.get('title')+'</span>');
+            this.$el.attr('data-id', this.model.get('id'));
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            var self = this;
+        },
+        events: {
+            "click .queue": "queueSong"
+            , "click .play": "playSong"
+        },
+        playSong: function() {
+            mediaPlayer.loadSong('/api/files/'+encodeURIComponent(this.model.get('filename')), this.model);
+        },
+        queueSong: function() {
+            this.$el.attr('data-queue', true);
+            this.$el.siblings().removeAttr('data-queue');
         }
     });
     
