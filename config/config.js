@@ -1,16 +1,16 @@
 exports = module.exports.config = {
     env: "dev",
     version: .101,
-    webPort: 14401,
+    webPort: 8888,
     webPortSecure: 8443,
     filters: [
-        {parser:{}},
+	{parser:{}},
         {session:{houseGuest:{
-                guestName: "Anonymous Coward",
-                cookieDomain: "",
-                ds: "mongo",
-                col: "sessions"
-        }}},
+		guestName: "Anonymous Coward",
+		cookieDomain: "",
+		ds: "mongo",
+		col: "sessions"
+	}}},
         {router:{simpleRoute:{routes:[
                 {api: {api:{rest:{}}}},
         ]}}},
@@ -22,8 +22,9 @@ exports = module.exports.config = {
   dataSources: {
     mongo: {
       mongodb: {
-        server: "localhost",
-	db: "jukebox"
+        url: process.env.MONGOHQ_URL
+	//server: 'jeffshouse',
+        //db: 'jukebox'
       }
     },
     memcache: {
@@ -38,7 +39,7 @@ exports = module.exports.config = {
     },
     fileSystem: {
       fs: {
-        path: '/tmp'
+	path: '/tmp'
       }
     }
   }
