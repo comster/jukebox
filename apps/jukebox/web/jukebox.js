@@ -105,7 +105,7 @@
                   return this;
                 });
                 
-                self.loadSong('/api/files/10%20Para%20One%20-%20Midnight%20Swim%20(Riton%20Rerub).mp3');
+                self.loadSong('/api/files/Satisfaction.mp3');
                 
             });
         },
@@ -167,12 +167,13 @@
             var w = 960,
                 h = 500,
                z = d3.scale.category20c(),
-               i = 0;
+               i = 1;
 
             var svg = d3.select("body").append("svg:svg")
                .attr("width", w)
                .attr("height", h)
-               //.style("pointer-events", "all")
+			 
+               // .style(particle)
                //.on("mousemove", particle);
             
             function particle() {
@@ -181,9 +182,10 @@
              svg.append("svg:circle")
                  .attr("cx", Math.random()*w)
                  .attr("cy", Math.random()*h)
-                 .attr("r", 1e-6) //radius
+                 .attr("r", Math.random()) //radius
+				 // .attr("t", Math.random())
                  .style("stroke", z(++i))
-                 .style("stroke-opacity", 1)
+                 .style("stroke-opacity", 5)
                .transition()
                  .duration(2000)
                  .ease(Math.sqrt)
