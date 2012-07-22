@@ -10,5 +10,10 @@
         house.addRoutes(app.config.routes);
     }
     
+    house.io.configure(function () { 
+      house.io.set("transports", ["xhr-polling"]); 
+      house.io.set("polling duration", 10); 
+    });
+    
     return app;
 });

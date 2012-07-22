@@ -3,12 +3,7 @@
 
 /* css document */
 
-#jukebox {
-	height:620px;
-	background: #C86 url('../img/jukebox-scrn.gif') no-repeat left top;
-	background-position: top;
-	color: #C86;
-}
+#jukebox { background-position: top; background-color: #000000; }
 
 #forkme{ position: fixed; top: -10px; right: -10px; border: 0; z-index: 1; }
 #updates{  }
