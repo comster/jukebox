@@ -175,7 +175,7 @@ var ObjectID = mongo.ObjectID;
                                       }
                                     }
                                     
-                                    if(lengthRemaining <= 1) {
+                                    if(lengthRemaining === 0) {
                                       // close the gridstore
                                       gs.close(function(){
                                           house.log.debug('gridstore closed');
