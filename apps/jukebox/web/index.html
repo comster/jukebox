@@ -41,10 +41,10 @@
         <script src="require.js"></script>
         <script>
         require(['jquery.js'], function(){
-            require(['index.js'], function(chatApp){
-                chatApp.init(function(app, jukeboxApp){
+            require(['index.js'], function(webApp){
+                webApp.init(function(jukeboxApp){
                     var $c = $('#container');
-                    app.init($c, function(){
+                    jukeboxApp.init($c, function(){
                         var headID = document.getElementsByTagName('head')[0];
                         var cssEl = document.createElement('link');
                         cssEl.type = 'text/css';
@@ -52,11 +52,6 @@
                         cssEl.href = 'index.css';
                         cssEl.media = 'screen';
                         headID.appendChild(cssEl);
-                        
-                        var $jukebox = $('<div id="jukebox"></div>');
-                        $c.append($jukebox);
-                        jukeboxApp.init($jukebox, function(){
-                        });
                     });
                 });
             });
