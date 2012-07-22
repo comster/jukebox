@@ -42,9 +42,14 @@
         className: 'player',
         element: 'div',
         render: function() {
-            this.$el.html('player <button class="playPause">Play</button><button class="next">next</button>');
+            this.$el.html('<span class="progress"></span><span class="currentTime"></span><span class="duration"></span><button class="playPause">Play</button><button class="next">next</button>');
             this.setElement(this.$el);
             return this;
+        },
+        renderDuration: function() {
+            console.log(this.duration)
+            var t = this.duration - this.currentTime;
+            this.$el.find('.progress').html('-'+Math.floor(t/60) +':'+ Math.floor(t%60));
         },
         initialize: function() {
             var self = this;
@@ -100,9 +105,6 @@
                   return this;
                 });
                 
-                window.testLoader = function() {
-                    self.loadSong('/api/files/02%20Dashboard.mp3');
-                }
                 self.loadSong('/api/files/01%20March%20into%20the%20Sea.mp3');
                 
             });
@@ -114,6 +116,32 @@
         loadSong: function(fileName) {
             var self = this;
             var dancer = new Dancer(fileName);
+            
+            var beat = dancer.createBeat({
+                onBeat: function ( mag ) {
+                  particle();
+                },
+                offBeat: function ( mag ) {
+                  console.log('no beat :(');
+                }
+              });
+            
+            // Let's turn this beat on right away
+            beat.on();
+            
+            dancer.onceAt( 10, function() {
+              // Let's set up some things once at 10 seconds
+            }).between( 10, 60, function() {
+              // After 10s, let's do something on every frame for the first minute
+            }).after( 60, function() {
+              // After 60s, let's get this real and map a frequency to an object's y position
+              // Note that the instance of dancer is bound to "this"
+              //object.y = this.getFrequency( 400 );
+            }).onceAt( 120, function() {
+              // After 120s, we'll turn the beat off as another object's y position is still being mapped from the previous "after" method
+              beat.off();
+            });
+            
             dancer.bind('loaded', function(){
                 console.log('loaded');
                 self.$el.find('.playPause').html('Stop');
@@ -124,15 +152,45 @@
                 }
                 
                 dancer.play();
-                var duration = dancer.audioAdapter.buffer.duration;
+                self.duration = dancer.audioAdapter.buffer.duration;
                 var interval = setInterval(function(){
-                    var currentTime = dancer.getTime();
-                    if(currentTime > duration) {
+                    self.currentTime = dancer.getTime();
+                    if(self.currentTime > self.duration) {
                         clearTimeout(interval);
                     }
+                    self.renderDuration();
                 }, 1000);
+                self.renderDuration();
             });
             window.dancer = dancer;
+            
+            var w = 960,
+                h = 500,
+               z = d3.scale.category20c(),
+               i = 0;
+
+            var svg = d3.select("body").append("svg:svg")
+               .attr("width", w)
+               .attr("height", h)
+               //.style("pointer-events", "all")
+               //.on("mousemove", particle);
+            
+            function particle() {
+             //var m = d3.svg.mouse(this);
+            
+             svg.append("svg:circle")
+                 .attr("cx", Math.random()*w)
+                 .attr("cy", Math.random()*h)
+                 .attr("r", 1e-6)
+                 .style("stroke", z(++i))
+                 .style("stroke-opacity", 1)
+               .transition()
+                 .duration(2000)
+                 .ease(Math.sqrt)
+                 .attr("r", 100)
+                 .style("stroke-opacity", 1e-6)
+                 .remove();
+            }
             
             // Waveform test
             $('body').append('<canvas id="waveform" />');
