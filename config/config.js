@@ -1,7 +1,7 @@
 exports = module.exports.config = {
     env: "dev",
     version: .101,
-    webPort: 8080,
+    webPort: 14401,
     webPortSecure: 8443,
     filters: [
         {parser:{}},
