@@ -105,7 +105,7 @@
                   return this;
                 });
                 
-                self.loadSong('/api/files/03%20Hearing%20Damage%20-%20Thom%20Yorke.mp3');
+                self.loadSong('/api/files/10%20Para%20One%20-%20Midnight%20Swim%20(Riton%20Rerub).mp3');
                 
             });
         },
