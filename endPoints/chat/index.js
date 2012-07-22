@@ -20,6 +20,17 @@ var ObjectID = mongo.ObjectID;
     io.on('connection', function (socket) {
         house.log.debug('user connected to io chat');
         
+        socket.on('song', function(data) {
+            console.log('song via socket!!!!!!!!!!');
+            console.log(socket.handshake.session)
+            console.log(arguments);
+            if(socket.handshake.session.hasOwnProperty('user')) {
+                var song = data.song;
+                var roomId = data.roomId;
+                io.in(roomId).emit('song', song);
+            }
+        });
+        
         socket.on('join', function(roomId) {
             
             if(!roomUsers.hasOwnProperty(roomId)) {

@@ -1,13 +1,34 @@
+#waveform {
+    width: 100%;
+    height: 40px;
+}
+#jukebox { margin-top:120px; }
+.songList ul {
+    list-style:none;
+}
+.songList li {
+    padding: 10px;
+}
 .song[data-queue="true"] {
     background: green;
 }
-
+#app {
+    width: 100%;
+    float: left;
+    background: #222;
+    color: #ccc;
+    }
 #chat {
-    width: 30%;
+    width: 33%;
     text-align: right;
-    float: right;
+    position:absolute;
+    right: 0px;
     height: 100%;
     overflow-y: scroll;
+}
+
+.topbar-inner .container {
+    height: 120px;
 }
 
 ul.users, .roomsOpen ul.rooms {
@@ -124,4 +145,9 @@ ul.messages li .at, ul.messages li .user {
   height: 0;
   visibility: hidden;
   font-size: 0;
+}
+
+circle {
+    fill: none;
+    stroke-width: 8px;
 }

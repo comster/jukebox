@@ -7,7 +7,7 @@
     
     var AppView = Backbone.View.extend({
         render: function() {
-            this.$el.html('jukebox');
+            this.$el.html('');
             
             this.$el.append(this.libraryView.render().el);
             this.$el.append(this.playerView.render().el);
@@ -184,7 +184,7 @@
         className: 'library',
         element: 'div',
         render: function() {
-            this.$el.html('library');
+            this.$el.html('');
             this.$el.append(this.searchFrame.render().el);
             this.$el.append(this.uploadFrame.render().el);
             this.$el.append(this.songListView.render().el);
@@ -210,7 +210,7 @@
         className: 'player',
         element: 'div',
         render: function() {
-            this.$el.html('<span class="progress"></span><span class="songInfo"></span><span class="currentTime"></span><span class="duration"></span><button class="next">skip</button>');
+            this.$el.html('<span class="loading"></span><span class="songInfo"></span><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span>'); //<button class="next">skip</button>
             if(this.song) {
                 this.$el.find('.songInfo').html(this.song.get('artist')+' - '+this.song.get('title'));
             }
@@ -285,6 +285,10 @@
             , "click button.next": "next"
         },
         loadSong: function(fileName, song) {
+            
+            if(fileName == this.currentFileName) return;
+            this.currentFileName = fileName;
+            
             var self = this;
             console.log(fileName)
             //fileName = '/api/files/15.%20Marcus%20Collins%20-%20Seven%20Nation%20Army.mp3';
@@ -294,10 +298,11 @@
                 this.render();
             }
             console.log(fileName)
+            self.$el.find('.loading').html('Loading...');
             var dancer = new Dancer(fileName);
             dancer.bind('loaded', function(){
                 console.log('loaded');
-                self.$el.find('.playPause').html('Stop');
+                self.$el.find('.loading').html('');
                 
                 if(self.dancers.length > 1) {
                     var prevDancer = self.dancers.shift();
@@ -341,14 +346,15 @@
             });
             
             window.dancer = dancer;
-            
+            $('.player').append('<canvas id="waveform" />');
+            $('.player').append('<div id="vizual"></div>');
             var w = 960,
                 h = 500,
                z = d3.scale.category20c(),
                i = 1;
 
-            var svg = d3.select("body").append("svg:svg")
-               .attr("width", w)
+            var svg = d3.select("#vizual").append("svg:svg")
+               .attr("width", '100%')
                .attr("height", h)
 			 
                // .style(particle)
@@ -373,7 +379,6 @@
             }
             
             // Waveform test
-            $('body').append('<canvas id="waveform" />');
             var canvas = document.getElementById('waveform');
             dancer.waveform( canvas, { strokeStyle: '#ff0077' });
             
@@ -405,7 +410,7 @@
         className: 'search',
         element: 'div',
         render: function() {
-            this.$el.html('search');
+            this.$el.html('');
             var $form = $('<form></form>').append(this.$search);
             this.$el.append($form);
             
@@ -526,6 +531,7 @@
         },
         playSong: function() {
             mediaPlayer.loadSong('/api/files/'+encodeURIComponent(this.model.get('filename')), this.model);
+            window.socketSong($('.chatroom[selected]').attr('data-id'), '/api/files/'+encodeURIComponent(this.model.get('filename')));
         },
         queueSong: function() {
             this.$el.attr('data-queue', true);

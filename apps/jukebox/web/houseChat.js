@@ -444,8 +444,10 @@ require(['moment.min.js'], function(){});
                 });
                 socket.on('exited', function (data) {
                     console.log(data);
-                    self.rooms[data.room_id].userCollection.get(data.user.id).trigger('remove');
-                    self.rooms[data.room_id].userCollection.remove(data.user.id);
+                    if(data.user) {
+                        self.rooms[data.room_id].userCollection.get(data.user.id).trigger('remove');
+                        self.rooms[data.room_id].userCollection.remove(data.user.id);
+                    }
                     
                     //self.rooms[data.room_id].messageCollection.add(data);
                 });
@@ -454,6 +456,15 @@ require(['moment.min.js'], function(){});
                     self.openRoom(room);
                     self.roomsOpenListView.trigger('select', room);
                 });
+                
+                window.socketSong = function(filename, song) {
+                    socket.emit('song', {roomId: filename, song: song});
+                }
+                socket.on('song', function (filename) {
+                    window.mediaPlayer.loadSong(filename)
+                    console.log(filename)
+                });
+                
                 self.initialized = true;
                 self.trigger('initialized');
             });
@@ -461,11 +472,13 @@ require(['moment.min.js'], function(){});
         events: {
         },
         openRoom: function(room) {
-            this.collection.add(room.clone());
-            
-            if(this.io) {
-                this.io.emit('join', room.get('id'));
-            } 
+            if(room) {
+                this.collection.add(room.clone());
+                
+                if(this.io) {
+                    this.io.emit('join', room.get('id'));
+                } 
+            }
         }
     });
     
