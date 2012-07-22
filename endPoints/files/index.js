@@ -227,6 +227,7 @@ var ObjectID = mongo.ObjectID;
                         importFileToGrid(file, {}, function(err, data){
                             if(err) {
                                 console.log('file upload err');
+                                console.log(err);
                             } else {
                                 if(data.contentType.indexOf('audio') === 0) {
                                     console.log('proces file upload');
