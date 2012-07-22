@@ -10,6 +10,10 @@
 	color: #C86;
 }
 
+#forkme{ position: fixed; top: -10px; right: -10px; border: 0; z-index: 1; }
+#updates{  }
+
+
 .bold { font-weight:bold; }
 .em { font-style: italic; }
 
