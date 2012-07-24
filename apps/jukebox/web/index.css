@@ -27,6 +27,16 @@
     overflow-y: scroll;
 }
 
+button.play {
+    padding: 5px;
+    display: inline;
+}
+.songs li[selected="selected"] {
+    background: #CCC;
+}
+.song .artist {
+    padding: 5px;
+}
 .topbar-inner .container {
     height: 120px;
 }

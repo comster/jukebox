@@ -62,9 +62,7 @@
         },
         inputChange: function(files) {
             var self = this;
-            console.log(files);
             function runSearch(query){
-              console.log(query);
               var regex = new RegExp(query.trim().replace(/\s+/g, '.*'), 'ig');
               for(var i = this.$t.find('tr'), l = i.length; l--;){
                 if(regex.test(i[l].innerHTML)){
@@ -84,7 +82,6 @@
               var mp3 = true;//canPlay('audio/mpeg;'), ogg = canPlay('audio/ogg; codecs="vorbis"');
               for(var i = 0; i < files.length; i++){
                 var file = files[i];
-                console.log(file)
                 var path = file.webkitRelativePath || file.mozFullPath || file.name;
                 if (path.indexOf('.AppleDouble') != -1) {
                  // Meta-data folder on Apple file systems, skip
@@ -93,7 +90,6 @@
                 var size = file.size || file.fileSize || 4096;
                 if(size < 4095) { 
                 // Most probably not a real MP3
-                //console.log(path);
                 continue;
                 }
             
@@ -101,12 +97,10 @@
               }
                                       
               var process = function(){
-                  console.log(queue)
                 if(queue.length){
                   
                   var f = queue.shift();
                   parseFile(f,function(tags){
-                    console.log(tags);
                     var tr = document.createElement('tr');
                     var t2 = guessSong(f.webkitRelativePath || f.mozFullPath || f.name); 
                     //it should be innerText/contentText but its annoying.
@@ -172,8 +166,6 @@
                 }
               }
               process();
-              
-              console.log(files);
         },
         remove: function() {
           $(this.el).remove();
@@ -218,7 +210,6 @@
             return this;
         },
         renderDuration: function() {
-            console.log(this.duration)
             var t = this.duration - this.currentTime;
             if(t) {
                 this.$el.find('.progress').html('-'+Math.floor(t/60) +':'+ pad(Math.floor(t%60)));
@@ -278,10 +269,6 @@
                 
                   return this;
                 });
-
-     			self.loadSong('/api/files/Satisfaction.mp3');
-
-                
             });
         },
         events: {
@@ -294,10 +281,8 @@
             this.currentFileName = fileName;
             
             var self = this;
-            console.log(fileName)
             //fileName = '/api/files/15.%20Marcus%20Collins%20-%20Seven%20Nation%20Army.mp3';
             if(song) {
-                console.log(song)
                 this.song = song;
                 this.render();
             }
@@ -333,7 +318,6 @@
                   particle(mag); //pass in mag
                 },
                 offBeat: function ( mag ) {
-                  console.log('no beat :(');
                 }
               });
             
@@ -348,7 +332,7 @@
               // After 60s, let's get this real and map a frequency to an object's y position
               // Note that the instance of dancer is bound to "this"
               //object.y = this.getFrequency( 400 );
-            }).onceAt( 180, function() {
+            }).onceAt( 120, function() {
               // After 120s, we'll turn the beat off as another object's y position is still being mapped from the previous "after" method
               beat.off();
             });
@@ -379,9 +363,9 @@
                  .style("stroke", z(++i))
                  .style("stroke-opacity", 5)
                .transition()
-                 .duration(1500)
+                 .duration(2000)
                  .ease(Math.sqrt)
-                 .attr("r", 200)
+                 .attr("r", 100)
                  .style("stroke-opacity", 1e-6)
                  .remove();
             }
@@ -511,7 +495,6 @@
             "click li": "selectLi"
         },
         selectLi: function(el) {
-            console.log(el);
             //var room = this.collection.get($(el.target).attr('data-id'));
             //this.trigger('select', room);
             $(el.target).parent('li').attr('selected', true);
@@ -599,7 +582,6 @@
                             jukebox.$loginPrompt.show();
                             auth.prompt($auth).authorized(function(loginStatus){
                                 jukebox.$loginPrompt.hide();
-                                console.log(loginStatus)
                                 var profileView = loginStatus.getView();
                                 $profile.html(profileView.render().el);
                             });
