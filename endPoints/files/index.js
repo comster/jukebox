@@ -2,12 +2,50 @@
 // # Mongodb GridFs API Endpoint
 //
 var ObjectID = mongo.ObjectID;
+var spawn = require('child_process').spawn;
 (exports = module.exports = function(house, options){
     
     // This endpoint requires a data source
     var ds = options.ds;
     var filesRoot = options.collection;
     var col = filesRoot+'.files';
+    
+    var getExifDataFromPath = function(filePath) {
+        var self = this;
+       var exif = spawn('/usr/bin/exiftool', [filePath]);
+       var exifOut = '';
+       exif.stdout.on('data', function (data) {
+         //console.log('stdout: ' + data);
+         exifOut += data.toString();
+       });
+    
+       exif.stderr.on('data', function (data) {
+         console.log('stderr: ' + data);
+         console.dir(data);
+       });
+    
+       exif.on('close', function (code) {
+         console.log('exiftool process exited with code ' + code);
+         if(code == 0){ // good
+           var exifObject = {};
+           exifOut = exifOut.split('\n');
+           exifOut.forEach(function(e, i){
+             var tmp = e.split(': ');
+             exifObject[tmp[0].trim()] = tmp[1];
+           });
+           console.log(exifObject);
+           if(self.hasOwnProperty('resultCb')) {
+               self.resultCb(exifObject);
+           }
+         }
+       });
+           
+        return {
+            "result": function(callback){
+                self.resultCb = callback;
+            }
+        }
+    }
     
     var getUniqueFileName = function(name) {
         
@@ -230,51 +268,54 @@ var ObjectID = mongo.ObjectID;
                                 if(data.contentType.indexOf('audio') === 0) {
                                     console.log('proces file upload');
                                     
-                                    var fs = require('fs'),
-                                        musicmetadata = require('musicmetadata');
+                                    getExifDataFromPath(file.path).result(function(exif){
+                                        console.log('metadata');
+                                        console.log(exif);
                                     
-                                    // create a new parser from a node ReadStream
-                                    var parser = new musicmetadata(fs.createReadStream(file.path));
-                                    
-                                    //listen for the metadata event
-                                    parser.on('metadata', function(result) {
-                                      console.log('metadata');
-                                      console.log(result);
-                                      if(result) {
-                                          var newSong = {
-                                              filename: data.filename,
-                                              ss: ''
-                                          }
-                                          if(result.title) {
-                                              newSong.title = result.title;
-                                              newSong.ss += result.title;
-                                          }
-                                          if(result.album) {
-                                              newSong.album = result.album;
-                                              newSong.ss += ' '+result.album;
-                                          }
-                                          if(result.artist) {
-                                              if(_.isArray(result.artist)) {
-                                                  result.artist = _.first(result.artist);
-                                              }
-                                              newSong.artist = result.artist;
-                                              newSong.ss += ' '+result.artist;
-                                          }
-                                          if(result.year) {
-                                              newSong.year = result.year;
-                                          }
-                                          if(result.genre) {
-                                              newSong.genre = result.genre;
-                                          }
-                                          // picture
-                                          // track
-                                          
-                                          ds.insert('songs', newSong, function(err, songData) {
-                                              console.log('new song!');
-                                              res.data({song: songData, file: data});
-                                          });
-                                      }
+                                        var newSong = {
+                                            file_id: data._id,
+                                            filename: data.filename,
+                                            ss: ''
+                                        }
+                                        if(exif.Title) {
+                                            newSong.title = exif.Title;
+                                            newSong.ss += exif.Title;
+                                        }
+                                        if(exif.Album) {
+                                            newSong.album = exif.Album;
+                                            newSong.ss += ' '+exif.Album;
+                                        }
+                                        if(exif.Artist) {
+                                            newSong.artist = exif.Artist;
+                                            newSong.ss += ' '+exif.Artist;
+                                        }
+                                        if(exif.Year) {
+                                            newSong.year = exif.Year;
+                                        }
+                                        if(exif.Genre) {
+                                            newSong.genre = exif.Genre;
+                                        }
+                                        if(exif.Duration) {
+                                            newSong.duration = exif.Duration;
+                                            var iof = newSong.duration.indexOf(' (approx)');
+                                            if(iof !== -1) {
+                                                newSong.duration = newSong.duration.substr(0,iof);
+                                            }
+                                            var dArr = newSong.duration.split(':');
+                                            var mins = parseInt(dArr[0], 10);
+                                            var secs = parseInt(dArr[1], 10);
+                                            
+                                            newSong.duration = (mins * 60) + secs;
+                                        }
+                                        // picture
+                                        // track
+                                        
+                                        ds.insert('songs', newSong, function(err, songData) {
+                                            console.log('new song!');
+                                            res.data({song: songData, file: data});
+                                        });
                                     });
+                                    
                                 } else {
                                     console.log('done upload');
                                     res.data(data);

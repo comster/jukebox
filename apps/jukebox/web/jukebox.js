@@ -218,7 +218,7 @@
                   var data = JSON.parse(e.target.response);
                   
                   if(data.hasOwnProperty('song')) {
-                    LibraryView.songListView.collection.add(new SongModel(data.song));
+                    window.LibraryView.songListView.collection.add(new SongModel(data.song));
                   }
                   
                   $row.remove();
@@ -263,12 +263,12 @@
                       console.log(tags);
                       
                       var $localFile = $('<div class="localFile"></div>');
-                      var $actions = $('<div class="actions"></div>');
-                      var $title = $('<div class="title"></div>');
-                      var $artist = $('<div class="artist"></div>');
-                      var $album = $('<div class="album"></div>');
-                      var $year = $('<div class="year"></div>');
-                      var $genre = $('<div class="genre"></div>');
+                      var $actions = $('<span class="actions"></span> ');
+                      var $title = $('<span class="title"></span> ');
+                      var $artist = $('<span class="artist"></span> ');
+                      var $album = $('<span class="album"></span> ');
+                      var $year = $('<span class="year"></span> ');
+                      var $genre = $('<span class="genre"></span> ');
                       
                       var t2 = guessSong(f.webkitRelativePath || f.mozFullPath || f.name); 
                       console.log(t2);
@@ -372,7 +372,7 @@
         className: 'player',
         element: 'div',
         render: function() {
-            this.$el.html('<meter min="0.0" max="100.0" value="0"></meter><span class="loading"></span><span class="songInfo"></span><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span>'); //<button class="next">skip</button>
+            this.$el.html('<button class="seek">seek</button><button class="playPause">play</button><button class="next">skip</button><meter min="0.0" max="100.0" value="0"></meter><span class="loading"></span><span class="songInfo"></span><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span>'); //
             if(this.song) {
                 //this.$el.find('.songInfo').html(this.song.get('artist')+' - '+this.song.get('title'));
             }
@@ -417,6 +417,7 @@
         events: {
             "click button.playPause": "playPause"
             , "click button.next": "next"
+            , "click button.seek": "seek"
         },
         loadSong: function(fileName, song) {
             if(fileName == this.currentFileName) return;
@@ -522,6 +523,12 @@
             });
         },
         next: function() {
+        },
+        seek: function() {
+            this.player.pause();
+            this.player.device.seek(60000);
+            this.player.play();
+            //this.player.device.start();
         },
         playPause: function() {
             this.player.togglePlayback();

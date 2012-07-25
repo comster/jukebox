@@ -90,7 +90,7 @@ button.play {
 .songs li[selected="selected"] {
     background: #CCC;
 }
-.song .artist {
+.song .artist, .localFile .artist, .localFile .year {
     padding: 5px;
 }
 .topbar-inner .container {
