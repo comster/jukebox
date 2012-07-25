@@ -9,33 +9,145 @@
         render: function() {
             this.$el.html('');
             
-            this.$el.append(this.libraryView.render().el);
-            this.$el.append(this.playerView.render().el);
+            this.headerNavView.render();
+            
+            this.$el.append(this.$appHeader);
+            this.$el.append(this.$appFrames);
+            
+            this.headerNavView.go('Player');
             
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
-            this.libraryView = new LibraryView({});
-            this.playerView = new MediaPlayerView({});
+            var self = this;
+            this.$appHeader = $('<header id="jukeHead"><center>Loading..</center></header>');
+            this.$appFrames = $('<div id="frames"></div>');
+            
+            this.headerNavView = new HeaderNavView({el:this.$appHeader, "$frames": this.$appFrames});
+            self.headerNavView.render();
+            this.headerNavView.addView('Queue', new QueueView({el: $('<div id="queue"></div>')}));
+            this.headerNavView.addView('Player', new MediaPlayerView({el: $('<div id="mediaPlayer"></div>')}));
+            this.headerNavView.addView('Library', new LibraryView({el: $('<div id="library"></div>')}));
+            require(['houseChat.js'], function(houseChat) {
+                self.headerNavView.addView('Chat', new houseChat.AppView({el: $('<div id="chat"></div>')}));
+            });
         },
         events: {
         }
     });
     
+    var HeaderNavView = Backbone.View.extend({
+        addView: function(viewName, view) {
+            this.views[viewName] = view;
+            this.options.$frames.append(view.render().$el);
+        },
+        render: function() {
+            var txt = this.currentView || 'Loading ...';
+            this.$el.html('<a class="openNav" title="Menu" href="#"><img src="assets/img/logo-drums.png" /></a><center>'+txt+'</center>');
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            var self = this;
+            this.views = {};
+            this.addView('Jukebox', new NavView({"headerNav": this}));
+        },
+        events: {
+            "click .openNav": "openNav"
+        },
+        openNav: function(){
+            this.go('Jukebox');
+            return false;
+        },
+        go: function(viewName){
+            this.currentView = viewName;
+            for(var i in this.views) {
+                this.views[i].$el.removeAttr('selected');
+            }
+            this.views[viewName].render();
+            //this.views[viewName].$el.show();
+            this.views[viewName].$el.attr('selected', true);
+            
+            console.log(viewName);
+            this.options.$frames.attr('data-sel', viewName);
+            
+            this.render();
+        }
+    });
+    
+    var NavView = Backbone.View.extend({
+        className: 'nav',
+        render: function() {
+            this.$el.html('');
+            
+            this.$el.append('<div class="playing"><img src="assets/img/icons/library.png" /> Playing</div>');
+            this.$el.append('<div class="library"><img src="assets/img/icons/upload.png" /> Library</div>');
+            this.$el.append('<div class="history"><img src="assets/img/icons/queue.png" /> History</div>');
+            this.$el.append('<div class="chat"><img src="assets/img/icons/chat.png" /> Chat</div>');
+            
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            var self = this;
+        },
+        events: {
+            "click .playing": "goPlaying",
+            "click .library": "goLibrary",
+            "click .history": "goHistory",
+            "click .chat": "goChat"
+        },
+        deselectAll: function() {
+            this.$el.children().removeAttr('selected');
+        },
+        goPlaying: function() {
+            var self = this;
+            this.options.headerNav.go('Player');
+            this.deselectAll();
+            this.$el.find('.playing').attr('selected', true);
+        },
+        goLibrary: function() {
+            var self = this;
+            this.options.headerNav.go('Library');
+            this.deselectAll();
+            this.$el.find('.library').attr('selected', true);
+        },
+        goHistory: function() {
+            var self = this;
+            this.options.headerNav.go('Queue');
+            this.deselectAll();
+            this.$el.find('.history').attr('selected', true);
+        },
+        goChat: function() {
+            var self = this;
+            this.options.headerNav.go('Chat');
+            this.deselectAll();
+            this.$el.find('.chat').attr('selected', true);
+        }
+    });
+    
+    var QueueView = Backbone.View.extend({
+        render: function() {
+            this.$el.append(this.$div);
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            var self = this;
+            this.$div = $('<div>Queue</div>');
+            
+        },
+        events: {
+        }
+    });
     
     //
     
     function parseFile(file, callback){
-      if(localStorage[file.name]) return callback(JSON.parse(localStorage[file.name]));
+        console.log(file);
       ID3v2.parseFile(file,function(tags){
-        //to not overflow localstorage
-        localStorage[file.name] = JSON.stringify({
-          Title: tags.Title,
-          Artist: tags.Artist,
-          Album: tags.Album,
-          Genre: tags.Genre
-        });
+        console.log(tags);
         callback(tags);
       })
     }
@@ -43,19 +155,20 @@
     var UploadFrame = Backbone.View.extend({
         tagName: "span",
         className: "uploadFrame",
-        htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>',
-        //htmlTemplate: '<table></table><input type="file" webkitdirectory directory multiple mozdirectory onchange="fileChangeListener(this.files)">',
+        //htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>',
+        htmlTemplate: '<table class="uploadFiles"></table><input type="file" webkitdirectory directory multiple mozdirectory onchange="fileChangeListener(this.files)">',
         template: function(doc) {
             return $(_.template(this.htmlTemplate, doc));
         },
         render: function() {
-            this.$el.html(this.template({}));
+            this.$el.append(this.$up);
             this.setElement(this.$el);
             this.$t = this.$el.find('table');
             return this;
         },
         initialize: function() {
             window.fileChangeListener = this.inputChange;
+            this.$up = $(this.template({}));
         },
         events: {
             //"change input": "inputChange"
@@ -98,9 +211,10 @@
                                       
               var process = function(){
                 if(queue.length){
-                  
+                  console.log(queue);
                   var f = queue.shift();
                   parseFile(f,function(tags){
+                      console.log(tags);
                     var tr = document.createElement('tr');
                     var t2 = guessSong(f.webkitRelativePath || f.mozFullPath || f.name); 
                     //it should be innerText/contentText but its annoying.
@@ -143,7 +257,7 @@
                           }
                           
                          
-                         mediaPlayer.loadSong(url);
+                         mediaPlayer.loadSong(f);
                          
                           for(var i = document.querySelectorAll('.playing'), l = i.length; l--;){
                             i[l].className = '';
@@ -176,19 +290,19 @@
         className: 'library',
         element: 'div',
         render: function() {
-            this.$el.html('');
-            this.$el.append(this.searchFrame.render().el);
-            this.$el.append(this.uploadFrame.render().el);
-            this.$el.append(this.songListView.render().el);
+            this.$el.append(this.$div);
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
+            this.$div = $('<div></div>');
             this.uploadFrame = new UploadFrame();
             this.searchFrame = new SearchView();
             this.songListView = new SongListView();
-            
-            //require(['id3v2.js'], function(){            });
+            this.$div.append(this.searchFrame.render().el);
+            this.$div.append(this.uploadFrame.render().el);
+            this.$div.append(this.songListView.render().el);
+            require(['id3v2.js'], function(){            });
         },
         events: {
             "submit form": "submit"
@@ -202,74 +316,47 @@
         className: 'player',
         element: 'div',
         render: function() {
-            this.$el.html('<span class="loading"></span><span class="songInfo"></span><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span>'); //<button class="next">skip</button>
+            this.$el.html('<meter min="0.0" max="100.0" value="0"></meter><span class="loading"></span><span class="songInfo"></span><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span>'); //<button class="next">skip</button>
             if(this.song) {
-                this.$el.find('.songInfo').html(this.song.get('artist')+' - '+this.song.get('title'));
+                //this.$el.find('.songInfo').html(this.song.get('artist')+' - '+this.song.get('title'));
             }
+            
+            this.$el.append(this.$canvas);
+            this.$el.append(this.$viz);
+            
             this.setElement(this.$el);
             return this;
         },
         renderDuration: function() {
-            var t = this.duration - this.currentTime;
-            if(t) {
-                this.$el.find('.progress').html('-'+Math.floor(t/60) +':'+ pad(Math.floor(t%60)));
+            var p = 0;
+            if(this.player.duration) {
+                var d = this.player.duration / 1000;
+                var t = this.player.currentTime / 1000;
+                p = (t / d) * 100;
+                console.log(p);
+                t = d - t;
+                this.$el.find('meter').val(p);
+                this.$el.find('.progress').html(' - '+Math.floor(t/60) +':'+ pad(Math.floor(t%60)));
+            } else {
+                var t = this.player.currentTime / 1000;
+                this.$el.find('.progress').html(Math.floor(t/60) +':'+ pad(Math.floor(t%60)));
             }
+        },
+        renderSongInfo: function() {
+            var str = '';
+            
+            str += this.metadata.title ? this.metadata.title + ' - ' : '';
+            str += this.metadata.artist ? this.metadata.artist : '';
+            str += this.metadata.album ? ' on '+this.metadata.album : '';
+            str += this.metadata.year ? ' '+this.metadata.year : '';
+            console.log(str);
+            this.$el.find('.songInfo').html(str);
         },
         initialize: function() {
             var self = this;
+            this.$canvas = $('<canvas id="waveform" />');
+            this.$viz = $('<div id="vizual"></div>');
             window.mediaPlayer = this;
-            this.dancers = [];
-            require(['dancer.js'], function() {
-                Dancer.addPlugin( 'waveform', function( canvasEl, options ) {
-                  options = options || {};
-                  var
-                    ctx     = canvasEl.getContext( '2d' ),
-                    h       = canvasEl.height,
-                    w       = canvasEl.width,
-                    width   = options.width || ( Dancer.isSupported() === 'flash' ? 2 : 1 ),
-                    spacing = options.spacing || 0,
-                    count   = options.count || 1024;
-                
-                  ctx.lineWidth   = options.strokeWidth || 1;
-                  ctx.strokeStyle = options.strokeStyle || "white";
-                
-                  this.bind( 'update', function() {
-                    var waveform = this.getWaveform();
-                    ctx.clearRect( 0, 0, w, h );
-                    ctx.beginPath();
-                    ctx.moveTo( 0, h / 2 );
-                    for ( var i = 0, l = waveform.length; i < l && i < count; i++ ) {
-                      ctx.lineTo( i * ( spacing + width ), ( h / 2 ) + waveform[ i ] * ( h / 2 ));
-                    }
-                    ctx.stroke();
-                    ctx.closePath();
-                  });
-                
-                  return this;
-                });
-                Dancer.addPlugin( 'fft', function( canvasEl, options ) {
-                  options = options || {};
-                  var
-                    ctx     = canvasEl.getContext( '2d' ),
-                    h       = canvasEl.height,
-                    w       = canvasEl.width,
-                    width   = options.width || 1,
-                    spacing = options.spacing || 0,
-                    count   = options.count || 512;
-                
-                  ctx.fillStyle = options.fillStyle || "white";
-                
-                  this.bind( 'update', function() {
-                    var spectrum = this.getSpectrum();
-                    ctx.clearRect( 0, 0, w, h );
-                    for ( var i = 0, l = spectrum.length; i < l && i < count; i++ ) {
-                      ctx.fillRect( i * ( spacing + width ), h, width, -spectrum[ i ] * h );
-                    }
-                  });
-                
-                  return this;
-                });
-            });
         },
         events: {
             "click button.playPause": "playPause"
@@ -277,47 +364,82 @@
         },
         loadSong: function(fileName, song) {
             var self = this;
+            var player;
+            
+            self.$el.find('.loading').html('Loading...');
+            
+            if(typeof fileName == 'string') {
+                player = Player.fromURL(fileName);
+            } else {
+                player = Player.fromFile(fileName);
+                fileName = fileName.fileName;
+            }
+            this.player = player;
             if(fileName == this.currentFileName) return;
             this.currentFileName = fileName;
             
-            var self = this;
-            //fileName = '/api/files/15.%20Marcus%20Collins%20-%20Seven%20Nation%20Army.mp3';
             if(song) {
                 this.song = song;
                 this.render();
             }
             console.log(fileName)
-            self.$el.find('.loading').html('Loading...');
             
-            var dancer = new Dancer(fileName);
-            dancer.bind('loaded', function(){
-                if(self.dancer) self.dancer.stop();
-                delete self.dancer;
-                self.dancer = dancer;
-                console.log('loaded');
+            player.on('error', function(err){
+                console.log(err);
+            });
+            console.log(player)
+            player.on('buffer', function(percent){
+            });
+            player.on('ready', function(){
                 self.$el.find('.loading').html('');
-                
-                if(self.dancers.length > 1) {
-                    var prevDancer = self.dancers.shift();
-                    prevDancer.stop();
-                }
-                
-                dancer.play();
-                self.duration = dancer.audioAdapter.buffer.duration;
-                var interval = setInterval(function(){
-                    self.currentTime = dancer.getTime();
-                    if(self.currentTime > self.duration) {
-                        clearTimeout(interval);
-                    }
-                    self.renderDuration();
-                }, 1000);
+                player.play();
+            });
+            player.on('progress', function(msecs){
+                console.log(self.player.duration);
+                console.log(self.player.currentTime);
+                console.log(msecs);
+                console.log('song played '+msecs);
                 self.renderDuration();
             });
-            var beat = dancer.createBeat({
+            player.on('format', function(format){
+                /*
+                bitrate: 320000
+                channelsPerFrame: 2
+                formatID: "mp3"
+                sampleRate: 44100
+                */
+            });
+            player.on('metadata', function(metadata){
+                self.metadata = metadata;
+                self.renderSongInfo();
+                /*album: "Haven"
+                albumArtist: "Dark Tranquillity"
+                artist: "Dark Tranquillity"
+                comments: Object
+                genre: "Metal"
+                title: "Haven"
+                trackNumber: "6"
+                year: "2000"*/
+            });
+            player.on('duration', function(msecs){
+                console.log(arguments);
+            });
+            
+            this.visualizePlayer(player);
+            
+            player.preload();
+        },
+        visualizePlayer: function() {
+            
+            return;
+             var
+              dancer = new Dancer( player ),
+              beat = dancer.createBeat({
                 onBeat: function ( mag ) {
-                  particle(mag); //pass in mag
+                  console.log('Beat!');
                 },
                 offBeat: function ( mag ) {
+                  console.log('no beat :(');
                 }
               });
             
@@ -331,67 +453,23 @@
             }).after( 60, function() {
               // After 60s, let's get this real and map a frequency to an object's y position
               // Note that the instance of dancer is bound to "this"
-              //object.y = this.getFrequency( 400 );
+              object.y = this.getFrequency( 400 );
             }).onceAt( 120, function() {
               // After 120s, we'll turn the beat off as another object's y position is still being mapped from the previous "after" method
               beat.off();
             });
-            
-            window.dancer = dancer;
-            $('.player').append('<canvas id="waveform" />');
-            $('.player').append('<div id="vizual"></div>');
-            var w = 960,
-                h = 500,
-               z = d3.scale.category20c(),
-               i = 1;
-
-            var svg = d3.select("#vizual").append("svg:svg")
-               .attr("width", '100%')
-               .attr("height", h)
-			 
-               // .style(particle)
-               //.on("mousemove", particle);
-            
-            function particle() {
-             //var m = d3.svg.mouse(this);
-            
-             svg.append("svg:circle")
-                 .attr("cx", Math.random()*w)
-                 .attr("cy", Math.random()*h)
-                 .attr("r", Math.random()) //radius
-				 // .attr("t", Math.random())
-                 .style("stroke", z(++i))
-                 .style("stroke-opacity", 5)
-               .transition()
-                 .duration(2000)
-                 .ease(Math.sqrt)
-                 .attr("r", 100)
-                 .style("stroke-opacity", 1e-6)
-                 .remove();
-            }
-            
-            // Waveform test
-            var canvas = document.getElementById('waveform');
-            dancer.waveform( canvas, { strokeStyle: '#ff0077' });
-            
-            self.$el.find('.playPause').html('Loading');
         },
         next: function() {
-            this.loadSong('/api/files/02%20Dashboard.mp3');
         },
         playPause: function() {
-            if(this.dancer.isPlaying()) {
-                this.dancer.stop();
-            } else {
-                this.dancer.play();
-            }
+            this.player.togglePlayback();
         },
-        stop: function() {
-            this.dancer.stop();
+        pause: function() {
+            this.player.pause();
             this.$el.find('.playPause').html('Play');
         },
         play: function() {
-            this.dancer.play();
+            this.player.play();
             this.$el.find('.playPause').html('Pause');
         }
     });
@@ -531,22 +609,21 @@
     jukebox.init = function($el, callback) {
         var self = this;
         this.initAuth(function(){
-            require(['houseChat.js'], function(houseChat) {
-                if($el) {
-                    var $app = $('<div id="app"></div>');
-                    $el.append($app);
-                    self.view = new AppView({el: $app});
-                    self.view.render();
-                    
-                    // chat
-                    var $appChat = $('<div id="chat"></div>');
-                    $el.append($appChat);
-                    self.chatView = new houseChat.AppView({el: $appChat});
-                    self.chatView.render();
-                }
-                
-                if(callback) callback();
-            });
+            if($el) {
+                var $app = $('<div id="app"></div>');
+                $el.append($app);
+                require(['aurora.js'], function() {
+                    require(['mp3.js'], function() {
+                        require(['dancer.js'], function() {
+                        self.view = new AppView({el: $app});
+                        
+                        self.view.render();
+                        
+                        if(callback) callback();
+                        });
+                    });
+                });
+            }
         });
     }
     

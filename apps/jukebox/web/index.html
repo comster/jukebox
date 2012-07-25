@@ -4,82 +4,35 @@
     <meta charset="utf-8">
     <title>jukebox.js</title>
     <meta name="description" content="Music Player">
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le styles -->
-    <link href="assets/css/bootstrap.css" rel="stylesheet">
-    <link href="assets/css/styles.css" rel="stylesheet">    
-
+    
     <script type="text/javascript" src="http://mbostock.github.com/d3/d3.v2.min.js"></script>
     <link rel="stylesheet" href="http://mbostock.github.com/d3/ex/colorbrewer.css">
 
-    <!-- Le fav and touch icons -->
     <link rel="shortcut icon" type="image/x-icon" href="jukebox.png">
+    
+    <meta name="viewport" content="initial-scale = 1.0, user-scalable = no">
   </head>
 
   <body>
-
-    <!-- Topbar
-    ================================================== <img id="forkme" src="assets/img/forkme.png" /> -->
-  
-    <div class="topbar">
-      <div class="topbar-inner">
-               
-        <div class="container">
-          <a class="brand bold em" href="#">JUKEBOX</a>
-
-          <ul class="nav">
-            <li class="bold em"><a href="#library"><img src="assets/img/icons/library.png" /> Library</a></li>
-            <li class="bold em"><a href="#history"><img src="assets/img/icons/history.png" /> History</a></li>
-            <li class="bold em"><a href="#chat"><img src="assets/img/icons/chat.png" /> Chat</a></li>
-            <li class="active bold em"><a href="#uploads"><img src="assets/img/icons/upload.png" /> Uploads</a></li>            
-            <li class="bold em"><a href="#queue"><img src="assets/img/icons/queue.png" /> DJ Queue</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-	<div id="jukebox">
-		<!--<img src="assets/img/jukebox-ui-bubbles.png" /> -->
-	</div>
-    
-    <div class="visual">
-    
-    <div id="chart">
-    </div>
-    
-    </div>
-    </div>
-    
+    <div id="jukebox"></div>
     <script src="require.js"></script>
-        <script>
-        require(['jquery.js'], function(){
-            require(['index.js'], function(webApp){
-                webApp.init(function(jukeboxApp){
-                    var $c = $('#jukebox');
-                    jukeboxApp.init($c, function(){
-                        var headID = document.getElementsByTagName('head')[0];
-                        var cssEl = document.createElement('link');
-                        cssEl.type = 'text/css';
-                        cssEl.rel = 'stylesheet';
-                        cssEl.href = 'index.css';
-                        cssEl.media = 'screen';
-                        headID.appendChild(cssEl);
-                    });
+    <script>
+    require(['jquery.js'], function(){
+        require(['index.js'], function(webApp){
+            webApp.init(function(jukeboxApp){
+                var $c = $('#jukebox');
+                jukeboxApp.init($c, function(){
+                    var headID = document.getElementsByTagName('head')[0];
+                    var cssEl = document.createElement('link');
+                    cssEl.type = 'text/css';
+                    cssEl.rel = 'stylesheet';
+                    cssEl.href = 'index.css';
+                    cssEl.media = 'screen';
+                    headID.appendChild(cssEl);
                 });
             });
         });
-        </script>
-
-    <footer class="footer">
-      <div class="container">
-<p class="pull-right"><img src="assets/img/logo-drums.png" alt="jukebox logo" />&copy; JukeBox.js</p>
-      </div>
-    </footer>
-
+    });
+    </script>
   </body>
 </html>

@@ -1,8 +1,67 @@
+
+body {
+    margin: 0 0;
+    background: black;
+    color: white;
+}
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0px;
+    width: 100%;
+    height: 60px;
+    background: #222;
+    z-index: 100;
+    box-shadow: 0 3px 3px #111;
+    -moz-box-shadow: 0 3px 3px rgb(17, 17, 17);
+    -webkit-box-shadow: 0px 3px 3px #111;
+    padding: 6px 0px;
+}
+header center {
+    font-weight: bold;
+    font-size: 140%;
+}
+header .openNav {
+    background: #CCC;
+    display: block;
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    border-radius: 50%;
+    border: 1px solid white;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+header .openNav img {
+    height: 50px;
+    width: 50px;
+}
+
+.nav img {
+   vertical-align: middle;
+}
+.nav > div {
+    padding: 20px;
+}
+.nav div[selected] {
+    background: grey;
+}
+#frames {
+    margin-top: 80px;
+}
+ul {
+    margin: 0 0;
+    padding: 0 0;
+}
+
 #waveform {
     width: 100%;
     height: 40px;
 }
-#jukebox { margin-top:120px; }
+#jukebox {
+}
 .songList ul {
     list-style:none;
 }
@@ -13,20 +72,17 @@
     background: green;
 }
 #app {
-    width: 100%;
-    float: left;
-    background: #222;
-    color: #ccc;
-    }
-#chat {
-    width: 33%;
-    text-align: right;
-    position:absolute;
-    right: 0px;
-    height: 100%;
-    overflow-y: scroll;
+    
 }
-
+#chat {
+    
+}
+#mediaPlayer meter {
+    width: 100%;
+}
+#mediaPlayer .progress {
+    text-align: right;
+}
 button.play {
     padding: 5px;
     display: inline;
@@ -68,12 +124,18 @@ ul.rooms li:hover {
 .messageForm input {
     padding: 0 0;
     margin: 0 0;
+    border: 0px;
+    border-radius: 4px;
 }
 .messageForm input[type="text"] {
     width: 80%;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 .messageForm input[type="submit"] {
     width: 20%;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
 }
 .roomsOpen .roomList, .roomsFindOrCreate {
     float: right;
@@ -110,9 +172,6 @@ ul.messages li .at, ul.messages li .user {
 }
 
 .uploadFrame {
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
 }
 .uploadFrame iframe {
     border: 0px;
@@ -143,9 +202,10 @@ ul.messages li .at, ul.messages li .user {
 .lightbox .scroll { overflow-y: scroll; padding: 0 1em; }
 
 #me {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
+    z-index: 100;
 }
 
 .clearfix:after{
@@ -160,4 +220,99 @@ ul.messages li .at, ul.messages li .user {
 circle {
     fill: none;
     stroke-width: 8px;
+}
+#frames > div {
+    display: block;
+}
+#frames > div:not([selected]) {
+    display: none;
+}
+@media only screen and (min-width: 767px) {
+    #frames > div:not([selected]) {
+        display: block;
+    }
+    #frames > div[selected] {
+        width: 100%;
+        height: 100%;
+    }
+    #frames > div.nav[selected] {
+        height: auto;
+        width: auto;
+    }
+    #frames:not([data-sel="Jukebox"]) > div[selected] > div {
+        margin-top: 80px;
+    }
+    #frames:not([data-sel="Jukebox"]) > div:not([selected]) {
+        display: none;
+    }
+    #frames[data-sel] > div.nav {
+        display: block;
+    }
+    header .openNav:hover {
+        background: white;
+        border: 1px solid black;
+    }
+    .nav > div:hover {
+        background: #CCC;
+        color: black;
+        cursor: pointer;
+    }
+    #jukeHead center {
+        visibility: hidden;
+    }
+    #frames .nav {
+        z-index: 200;
+        position: fixed;
+        top: 0;
+        left: 100px;
+    }
+    #frames .nav > div {
+        float: left;
+    }
+    #chat, #queue {
+        border-left: 2px inset #CCC;
+    }
+    #queue {
+        position: fixed;
+        overflow-y: scroll;
+        top: 0px;
+        right: 0px;
+        height: 40%;
+        width:30%;
+    }
+    #queue > div {
+        margin-top: 80px;
+    }
+    #chat {
+        position: fixed;
+        overflow-y: scroll;
+        bottom: 0px;
+        right: 0px;
+        height: 60%;
+        width:30%;
+    }
+    #library {
+        width: 70%;
+        position: fixed;
+        overflow-y: scroll;
+        bottom: 0px;
+        left: 0px;
+        height: 40%;
+    }
+    #mediaPlayer > div {
+        margin-top: 80px;
+    }
+    #mediaPlayer {
+        width: 70%;
+        position: fixed;
+        overflow: auto;
+        top: 0px;
+        left: 0px;
+        height: 60%;
+        margin-top: 80px;
+    }
+}
+
+@media only screen and (max-width: 766px) {
+    
 }

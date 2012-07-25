@@ -4,7 +4,7 @@
 //
 //
 //
-require(['moment.min.js'], function(){});
+
 (function(){
     var chat = this;
     
@@ -325,7 +325,6 @@ require(['moment.min.js'], function(){});
         initialize: function() {
             var self = this;
             var docs, users;
-            console.log(this.model.attributes);
             
             if(this.model.has('messages')) {
                 console.log(this.model.get('messages'));
@@ -370,13 +369,19 @@ require(['moment.min.js'], function(){});
         render: function() {
             this.$el.html('');
             
-            this.$el.append(this.roomsOpenView.render().el);
+            if(this.roomsOpenView) {
+                this.$el.append(this.roomsOpenView.render().el);
+            }
             
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
-            this.roomsOpenView = new chat.RoomsOpenView();
+            var self = this;
+            require(['moment.min.js'], function(){
+                self.roomsOpenView = new chat.RoomsOpenView();
+                self.render();
+            });
         },
         events: {
         }
@@ -430,22 +435,20 @@ require(['moment.min.js'], function(){});
             require(['/socket.io/socket.io.js'], function() {
                 var socket = self.io = io.connect('http://jeffshouse.com:8888/socket.io/chat');
                 socket.on('connect', function(data) {
-                    console.log(data);
                 });
                 socket.on('message', function (data) {
-                    console.log(data);
                     self.rooms[data.room_id].messageCollection.add(data);
                 });
                 
                 socket.on('entered', function (data) {
-                    console.log(data);
                     self.rooms[data.room_id].userCollection.add(data.user);
                     //self.rooms[data.room_id].messageCollection.add(data);
                 });
                 socket.on('exited', function (data) {
                     console.log(data);
                     if(data.user) {
-                        self.rooms[data.room_id].userCollection.get(data.user.id).trigger('remove');
+                        var u = self.rooms[data.room_id].userCollection.get(data.user.id);
+                        if(u) u.trigger('remove');
                         self.rooms[data.room_id].userCollection.remove(data.user.id);
                     }
                     
@@ -461,8 +464,8 @@ require(['moment.min.js'], function(){});
                     socket.emit('song', {roomId: filename, song: song});
                 }
                 socket.on('song', function (filename) {
+                    console.log('socket song '+filename)
                     window.mediaPlayer.loadSong(filename)
-                    console.log(filename)
                 });
                 
                 self.initialized = true;

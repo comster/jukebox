@@ -2,7 +2,11 @@
 ==========
 Create amazing music experiences with node.js
 
-[Play a song in Jukebox](http://jeffshouse.com:8888/jukebox/)
+[Play a song in Jukebox](http://jukeboxjs.com/jukebox/)
+
+#Requirements
+
+Mongodb is required and can be configured via config/config.js
 
 #Installation
 
