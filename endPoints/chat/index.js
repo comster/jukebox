@@ -15,6 +15,7 @@ var ObjectID = mongo.ObjectID;
     
     var io = house.io.of('/socket.io/chat');
     io.authorization(function (data, accept) {
+        console.log('socket auth');
         accept(null, true);
     });
     io.on('connection', function (socket) {

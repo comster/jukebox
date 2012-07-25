@@ -40,6 +40,7 @@
     var HeaderNavView = Backbone.View.extend({
         addView: function(viewName, view) {
             this.views[viewName] = view;
+            window[viewName+"View"] = view;
             this.options.$frames.append(view.render().$el);
         },
         render: function() {
@@ -156,7 +157,7 @@
         tagName: "span",
         className: "uploadFrame",
         //htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>',
-        htmlTemplate: '<table class="uploadFiles"></table><input type="file" webkitdirectory directory multiple mozdirectory onchange="fileChangeListener(this.files)">',
+        htmlTemplate: '<input type="file" webkitdirectory directory multiple mozdirectory onchange="fileChangeListener(this.files)"><div class="uploadFiles"></div>',
         template: function(doc) {
             return $(_.template(this.htmlTemplate, doc));
         },
@@ -169,6 +170,7 @@
         initialize: function() {
             window.fileChangeListener = this.inputChange;
             this.$up = $(this.template({}));
+            console.log(this.options);
         },
         events: {
             //"change input": "inputChange"
@@ -190,7 +192,50 @@
               var a = document.createElement('audio');
               return !!(a.canPlayType && a.canPlayType(type).replace(/no/, ''));
             }
+            function uploadFile(blobOrFile, $row) {
+                
+                var formData = new FormData();
+                var xhr = new XMLHttpRequest();
+                             
+                var onReady = function(e) {
+                 // ready state
+                };
+                
+                var onError = function(err) {
+                  // something went wrong with upload
+                };
+                
+                formData.append('files', blobOrFile);
+                xhr.open('POST', '/api/files', true);
+                xhr.addEventListener('error', onError, false);
+                //xhr.addEventListener('progress', onProgress, false);
+                xhr.addEventListener('readystatechange', onReady, false);
+                
+              xhr.onload = function(e) {
+                  console.log('upload complete');
+                  console.log(e);
+                  console.log(e.target.response);
+                  var data = JSON.parse(e.target.response);
+                  
+                  if(data.hasOwnProperty('song')) {
+                    LibraryView.songListView.collection.add(new SongModel(data.song));
+                  }
+                  
+                  $row.remove();
+              };
             
+              // Listen to the upload progress.
+              var progressBar = $row.find('progress');
+              xhr.upload.onprogress = function(e) {
+                if (e.lengthComputable) {
+                  progressBar.val((e.loaded / e.total) * 100);
+                  //progressBar.textContent = progressBar.value; // Fallback for unsupported browsers.
+                  console.log('upload '+progressBar.val());
+                }
+              };
+            
+                xhr.send(formData);
+            }
               var queue = [];
               var mp3 = true;//canPlay('audio/mpeg;'), ogg = canPlay('audio/ogg; codecs="vorbis"');
               for(var i = 0; i < files.length; i++){
@@ -209,66 +254,77 @@
                   queue.push(file);
               }
                                       
+                                      //<progress min="0" max="100" value="0">0% complete</progress>
               var process = function(){
                 if(queue.length){
                   console.log(queue);
                   var f = queue.shift();
                   parseFile(f,function(tags){
                       console.log(tags);
-                    var tr = document.createElement('tr');
-                    var t2 = guessSong(f.webkitRelativePath || f.mozFullPath || f.name); 
-                    //it should be innerText/contentText but its annoying.
-                    var td = document.createElement('td');
-                    td.innerHTML = tags.Title || t2.Title;
-                    tr.appendChild(td);
-                    
-                    var td = document.createElement('td');
-                    td.innerHTML = tags.Artist || t2.Artist;
-                    tr.appendChild(td);
-                    
-                    var td = document.createElement('td');
-                    td.innerHTML = tags.Album || t2.Album;
-                    tr.appendChild(td);
-                    
-                    var td = document.createElement('td');
-                    td.innerHTML = tags.Genre || "";
-                    tr.appendChild(td);
-                    tr.onclick = function(){
-                      var pl = document.createElement('tr');
-                      var st = document.createElement('td');
-                      st.innerHTML = tags.Title || t2.Title;
-                      pl.appendChild(st);
-                      $('table').append(pl);
-                      pl.file = f;
-                      pl.className = 'visible';
-                      pl.onclick = function(e){
-                        if(e && e.button == 1){
-                          pl.parentNode.removeChild(pl);
-                        }else{
-                          var url;
-                          if(window.createObjectURL){
-                            url = window.createObjectURL(f)
-                          }else if(window.createBlobURL){
-                            url = window.createBlobURL(f)
-                          }else if(window.URL && window.URL.createObjectURL){
-                            url = window.URL.createObjectURL(f)
-                          }else if(window.webkitURL && window.webkitURL.createObjectURL){
-                            url = window.webkitURL.createObjectURL(f)
-                          }
-                          
-                         
-                         mediaPlayer.loadSong(f);
-                         
-                          for(var i = document.querySelectorAll('.playing'), l = i.length; l--;){
-                            i[l].className = '';
-                          }
-                          pl.className += ' playing';
-                          currentSong = pl;
-                        }
+                      
+                      var $localFile = $('<div class="localFile"></div>');
+                      var $actions = $('<div class="actions"></div>');
+                      var $title = $('<div class="title"></div>');
+                      var $artist = $('<div class="artist"></div>');
+                      var $album = $('<div class="album"></div>');
+                      var $year = $('<div class="year"></div>');
+                      var $genre = $('<div class="genre"></div>');
+                      
+                      var t2 = guessSong(f.webkitRelativePath || f.mozFullPath || f.name); 
+                      console.log(t2);
+                      $actions.html('');
+                      
+                      var title = tags.Title || t2.Title;
+                      $title.html(title);
+                      
+                      var artist = tags.Artist || t2.Artist;
+                      $artist.html(artist);
+                      
+                      var album = tags.Album || t2.Album;
+                      $album.html(album);
+                      
+                      var year = tags.Year || t2.Year;
+                      $year.html(year);
+                      
+                      var genre = tags.Genre || "";
+                      $genre.html(genre);
+                      
+                      $localFile.append($actions);
+                      $localFile.append($title);
+                      $localFile.append($artist);
+                      $localFile.append($album);
+                      $localFile.append($year);
+                      $localFile.append($genre);
+                      
+                      $localFile.append('<progress min="0" max="100" value="0" style="display:none;">0% complete</progress>');
+                      
+                      var url;
+                      if(window.createObjectURL){
+                        url = window.createObjectURL(f)
+                      }else if(window.createBlobURL){
+                        url = window.createBlobURL(f)
+                      }else if(window.URL && window.URL.createObjectURL){
+                        url = window.URL.createObjectURL(f)
+                      }else if(window.webkitURL && window.webkitURL.createObjectURL){
+                        url = window.webkitURL.createObjectURL(f)
                       }
-                      if($('table').children().length == 1) pl.onclick();
-                    }
-                    $('table').append(tr);
+                      
+                      var $playMedia = $('<button>play</button>').click(function(){
+                          mediaPlayer.loadSong(f);
+                          return false;
+                      });
+                      
+                      var $uploadMedia = $('<button>upload</button>').click(function(){
+                          var $localFile = $(this).parents('.localFile');
+                          $localFile.find('progress').show();
+                          uploadFile(f, $localFile);
+                          $uploadMedia.remove();
+                          return false;
+                      });
+                      
+                      $actions.append($playMedia);
+                      $actions.append($uploadMedia);
+                        $('.uploadFiles').append($localFile);
                     process();
                   })
                   var lq = queue.length;
@@ -296,9 +352,9 @@
         },
         initialize: function() {
             this.$div = $('<div></div>');
-            this.uploadFrame = new UploadFrame();
-            this.searchFrame = new SearchView();
-            this.songListView = new SongListView();
+            this.uploadFrame = new UploadFrame({library:this});
+            this.searchFrame = new SearchView({library:this});
+            this.songListView = new SongListView({library:this});
             this.$div.append(this.searchFrame.render().el);
             this.$div.append(this.uploadFrame.render().el);
             this.$div.append(this.songListView.render().el);
@@ -363,6 +419,8 @@
             , "click button.next": "next"
         },
         loadSong: function(fileName, song) {
+            if(fileName == this.currentFileName) return;
+            this.currentFileName = fileName;
             var self = this;
             var player;
             
@@ -374,9 +432,13 @@
                 player = Player.fromFile(fileName);
                 fileName = fileName.fileName;
             }
+            
+            if(this.hasOwnProperty('player')) {
+                this.player.stop();
+                delete this.player;
+            }
+            
             this.player = player;
-            if(fileName == this.currentFileName) return;
-            this.currentFileName = fileName;
             
             if(song) {
                 this.song = song;
@@ -501,7 +563,6 @@
             return this;
         },
         initialize: function() {
-            this.uploadFrame = new UploadFrame();
         },
         events: {
         }
@@ -560,7 +621,7 @@
                 var view = doc.getView();
                 $li.append(view.render().el);
                 $li.attr('data-id', doc.get('id'));
-                self.$ul.append($li);
+                self.$ul.prepend($li);
                 
                 doc.on('remove', function(){
                     $li.remove();

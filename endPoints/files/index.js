@@ -72,7 +72,6 @@ var ObjectID = mongo.ObjectID;
                 console.log(filename);
                 console.log('mongo.GridStore.exist');
                 mongo.GridStore.exist(ds.db, filename, filesRoot, function(err, result) {
-                    console.log('tests');
                     if(result) {
                         
                         getReadableGridStore(filename).open(function(err, gs){
@@ -157,7 +156,6 @@ var ObjectID = mongo.ObjectID;
                             
                             var gridStoreReadChunk = function(gs) {
                                 var readAndSend = function(chunk) {
-                                    console.log(lengthRemaining);
                                   gs.read(chunk, function(err, data) {
                                 	if(err) {
                                 	  house.log.err('file read err: '+filename);
@@ -224,7 +222,6 @@ var ObjectID = mongo.ObjectID;
                 if(req.files) {
                     for(var i in req.files) {
                         var file = req.files[i];
-                        console.log(file)
                         importFileToGrid(file, {}, function(err, data){
                             if(err) {
                                 console.log('file upload err');
@@ -245,19 +242,23 @@ var ObjectID = mongo.ObjectID;
                                       console.log(result);
                                       if(result) {
                                           var newSong = {
-                                              filename: data.filename
+                                              filename: data.filename,
+                                              ss: ''
                                           }
                                           if(result.title) {
                                               newSong.title = result.title;
+                                              newSong.ss += result.title;
                                           }
                                           if(result.album) {
                                               newSong.album = result.album;
+                                              newSong.ss += ' '+result.album;
                                           }
                                           if(result.artist) {
                                               if(_.isArray(result.artist)) {
                                                   result.artist = _.first(result.artist);
                                               }
                                               newSong.artist = result.artist;
+                                              newSong.ss += ' '+result.artist;
                                           }
                                           if(result.year) {
                                               newSong.year = result.year;
@@ -268,9 +269,9 @@ var ObjectID = mongo.ObjectID;
                                           // picture
                                           // track
                                           
-                                          ds.insert('songs', newSong, function(err, data) {
+                                          ds.insert('songs', newSong, function(err, songData) {
                                               console.log('new song!');
-                                              res.data(data);
+                                              res.data({song: songData, file: data});
                                           });
                                       }
                                     });

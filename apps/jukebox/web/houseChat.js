@@ -433,7 +433,7 @@
             });
             
             require(['/socket.io/socket.io.js'], function() {
-                var socket = self.io = io.connect('http://jeffshouse.com:8888/socket.io/chat');
+                var socket = self.io = io.connect('http://jeffshouse.com:8080/socket.io/chat');
                 socket.on('connect', function(data) {
                 });
                 socket.on('message', function (data) {
