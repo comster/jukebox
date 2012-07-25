@@ -19,7 +19,8 @@ var OAuth = require('oauth').OAuth;
     }
     
     var handleReq = function(req, res, next) {
-        var path = req.url;
+        var path = req.hasOwnProperty('urlRouted') ? req.urlRouted : req.url;
+        house.log.debug('auth req url: '+path);
         
         var findUser = function(query) {
             ds.find(col, query, function(err, data){

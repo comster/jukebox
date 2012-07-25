@@ -58,7 +58,7 @@ var ObjectID = mongo.ObjectID;
     });
     
     var handleReq = function(req, res, next) {
-        var path = req.url;
+        var path = req.hasOwnProperty('urlRouted') ? req.urlRouted : req.url;
         var docId;
         var postfix;
         

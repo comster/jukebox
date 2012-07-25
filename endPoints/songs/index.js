@@ -9,7 +9,7 @@ var ObjectID = mongo.ObjectID;
     var col = options.collection;
     
     var handleReq = function(req, res, next) {
-        var path = req.url;
+        var path = req.hasOwnProperty('urlRouted') ? req.urlRouted : req.url;
         
         var findQuery = function(query) {
             ds.find(col, query, function(err, data){

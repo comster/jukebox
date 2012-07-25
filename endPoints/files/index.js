@@ -46,7 +46,7 @@ var ObjectID = mongo.ObjectID;
     }
     
     var handleReq = function(req, res, next) {
-        var path = req.url;
+        var path = req.hasOwnProperty('urlRouted') ? req.urlRouted : req.url;
         console.log(req.headers)
         console.log(req.method)
         var findQuery = function(query, callback) {
@@ -79,15 +79,17 @@ var ObjectID = mongo.ObjectID;
                             var resCode = 200;
                             var offset = 0;
                             var etag = '"'+gs.length+'-'+gs.uploadDate+'"';
+                            var contentType = gs.contentType;
                             var headerFields = {
-                                'Content-Type': gs.contentType
+                                'Content-Type': contentType
                                 , 'Date': gs.uploadDate
-                            	, 'ETag': etag
+                            	//, 'ETag': etag
                             };
                             
                             if(req.method == 'HEAD') {
                                 console.log('HEAD');
                                 headerFields["Content-Length"] = gs.length;
+                                headerFields["Accept-Ranges"] = 'bytes';
                                 gs.close(function(){
                                     house.log.debug('gridstore closed');
                                     res.writeHead(200, headerFields);
@@ -108,7 +110,7 @@ var ObjectID = mongo.ObjectID;
                             
                             var contentLen = gs.length;
                             var bytStr = 'bytes=';
-                            var chunkSize = 1024
+                            var chunkSize = 4096
                             , lengthRemaining = gs.length;
                             console.log('req.headers.range.substr(0,bytStr.length)');
                             if(req.headers.range && req.headers.range.substr(0,bytStr.length) == bytStr) {
@@ -121,17 +123,13 @@ var ObjectID = mongo.ObjectID;
                             	resCode = 206;
                             	if(bytPreDash == '0') {
                             		if(bytEndDash) {
-                            			contentLen = parseInt(bytEndDash)+1;
-                                        rangeString = bytPreDash + '-' + bytEndDash;
-                                        console.log('range string---------------------');
-                                        console.log(contentLen);
-                                        console.log('range string---------------------');
+                            			contentLen = parseInt(bytEndDash);
+                                        rangeString = bytPreDash + '-' + bytEndDash+1;
                             		} else {
                             		    rangeString = '0-' + (gs.length-1).toString();
                             		}
                             	} else if(bytEndDash != '' && bytPreDash != '') {
-                                    console.log('testtttttt');
-                            		contentLen = parseInt(bytEndDash) - parseInt(bytPreDash) + 1;
+                            		contentLen = parseInt(bytEndDash) - parseInt(bytPreDash);
                             		offset = parseInt(bytPreDash);
                             		rangeString = bytPreDash + '-' + bytEndDash;
                                     console.log(offset);
@@ -142,6 +140,7 @@ var ObjectID = mongo.ObjectID;
                             		rangeString = bytPreDash + '-' + (gs.length - 1).toString();
                             	}
                             	headerFields["Content-Range"] = 'bytes ' + rangeString+'/'+gs.length; // needs to always be the full content length? // req.headers.range; //bytSelection; // should include bytes= ???
+                                headerFields["Vary"] = "Accept-Encoding";
                             	lengthRemaining = contentLen;
                             }
                             
@@ -158,6 +157,7 @@ var ObjectID = mongo.ObjectID;
                             
                             var gridStoreReadChunk = function(gs) {
                                 var readAndSend = function(chunk) {
+                                    console.log(lengthRemaining);
                                   gs.read(chunk, function(err, data) {
                                 	if(err) {
                                 	  house.log.err('file read err: '+filename);
@@ -167,7 +167,7 @@ var ObjectID = mongo.ObjectID;
                                           res.end();
                                       });
                                       return;
-                                	} else {
+                                	}
                                 		
                                       res.write(data, 'binary');
                                       lengthRemaining = lengthRemaining - chunk;
@@ -175,16 +175,16 @@ var ObjectID = mongo.ObjectID;
                                       if(lengthRemaining < chunkSize) {
                                         chunkSize = lengthRemaining;
                                       }
-                                    }
                                     
-                                    if(lengthRemaining === 0) {
+                                    
+                                    if(lengthRemaining > 0) {
+                                      readAndSend(chunkSize);
+                                    } else {
                                       // close the gridstore
                                       gs.close(function(){
                                           house.log.debug('gridstore closed');
                                           res.end();
                                       });
-                                    } else {
-                                      readAndSend(chunkSize);
                                     }
                                   }); // read
                                 }
@@ -193,6 +193,7 @@ var ObjectID = mongo.ObjectID;
                                 }
                             }
                             if(offset != 0) {
+                                house.log.debug('gridstore seek '+offset);
                                  gs.seek(offset, function(err, gs) {
                                  	if(err) {
                                  		house.log.err('err');

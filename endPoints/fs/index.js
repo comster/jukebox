@@ -7,7 +7,7 @@
     var basePath = options.path;
     
     var handleReq = function(req, res, next) {
-        var path = req.url;
+        var path = req.hasOwnProperty('urlRouted') ? req.urlRouted : req.url;
         if(req.method == 'GET') {
             ds.find(basePath, path, function(err, data){
                 if(err) {
