@@ -14,7 +14,7 @@
             this.$el.append(this.$appHeader);
             this.$el.append(this.$appFrames);
             
-            this.headerNavView.go('Player');
+            this.headerNavView.go('Jukebox');
             
             this.setElement(this.$el);
             return this;
@@ -26,11 +26,12 @@
             
             this.headerNavView = new HeaderNavView({el:this.$appHeader, "$frames": this.$appFrames});
             self.headerNavView.render();
-            this.headerNavView.addView('Queue', new QueueView({el: $('<div id="queue"></div>')}));
             this.headerNavView.addView('Player', new MediaPlayerView({el: $('<div id="mediaPlayer"></div>')}));
             this.headerNavView.addView('Library', new LibraryView({el: $('<div id="library"></div>')}));
             require(['houseChat.js'], function(houseChat) {
-                self.headerNavView.addView('Chat', new houseChat.AppView({el: $('<div id="chat"></div>')}));
+                var chatApp = new houseChat.AppView({el: $('<div id="chat"></div>')});
+                self.headerNavView.addView('Chat', chatApp);
+                self.headerNavView.addView('Queue', new QueueView({el: $('<div id="queue"></div>'), chat: chatApp}));
             });
         },
         events: {
@@ -40,7 +41,7 @@
     var HeaderNavView = Backbone.View.extend({
         addView: function(viewName, view) {
             this.views[viewName] = view;
-            window[viewName+"View"] = view;
+            window["JukeBox"+viewName] = view;
             this.options.$frames.append(view.render().$el);
         },
         render: function() {
@@ -134,9 +135,38 @@
             this.setElement(this.$el);
             return this;
         },
-        initialize: function() {
+        initialize: function(options) {
             var self = this;
-            this.$div = $('<div>Queue</div>');
+            this.$div = $('<div></div>');
+            this.$played = $('<ul class="played"></ul>');
+            this.$playing = $('<ul class="playing"></ul>');
+            this.$queue = $('<ul class="queue"></ul>');
+            this.$div.append(this.$played);
+            this.$div.append(this.$playing);
+            this.$div.append(this.$queue);
+            
+            options.chat.roomsOpenView.roomsOpenListView.on('select', function(room){
+                console.log('update queue with room '+room.get('id'));
+                self.songsQueueList = new SongqListView({el: self.$queue, roomId: room.get('id')});
+                
+                chatSocket.emit('info', room.get('id'), function(roomInfo){
+                    console.log(roomInfo);
+                    
+                    console.log(JukeBoxPlayer);
+                    
+                    // start playing song and scrub to live based on diff of pAt and new Date()
+                    console.log(roomInfo.song)
+                    console.log(new Date())
+                    var d = new Date();
+                    var pd = new Date(roomInfo.song.pAt);
+                    var diff = d.getTime() - pd.getTime();
+                    console.log(diff);
+                    
+                    JukeBoxPlayer.loadSong('/api/files/'+roomInfo.song.filename, roomInfo.song,diff);
+                });
+                
+                self.songsQueueList.render();
+            });
             
         },
         events: {
@@ -170,7 +200,6 @@
         initialize: function() {
             window.fileChangeListener = this.inputChange;
             this.$up = $(this.template({}));
-            console.log(this.options);
         },
         events: {
             //"change input": "inputChange"
@@ -213,12 +242,10 @@
                 
               xhr.onload = function(e) {
                   console.log('upload complete');
-                  console.log(e);
-                  console.log(e.target.response);
                   var data = JSON.parse(e.target.response);
                   
                   if(data.hasOwnProperty('song')) {
-                    window.LibraryView.songListView.collection.add(new SongModel(data.song));
+                    window.JukeBoxLibrary.songListView.collection.add(new SongModel(data.song));
                   }
                   
                   $row.remove();
@@ -230,7 +257,6 @@
                 if (e.lengthComputable) {
                   progressBar.val((e.loaded / e.total) * 100);
                   //progressBar.textContent = progressBar.value; // Fallback for unsupported browsers.
-                  console.log('upload '+progressBar.val());
                 }
               };
             
@@ -389,7 +415,6 @@
                 var d = this.player.duration / 1000;
                 var t = this.player.currentTime / 1000;
                 p = (t / d) * 100;
-                console.log(p);
                 t = d - t;
                 this.$el.find('meter').val(p);
                 this.$el.find('.progress').html(' - '+Math.floor(t/60) +':'+ pad(Math.floor(t%60)));
@@ -405,7 +430,6 @@
             str += this.metadata.artist ? this.metadata.artist : '';
             str += this.metadata.album ? ' on '+this.metadata.album : '';
             str += this.metadata.year ? ' '+this.metadata.year : '';
-            console.log(str);
             this.$el.find('.songInfo').html(str);
         },
         initialize: function() {
@@ -419,7 +443,7 @@
             , "click button.next": "next"
             , "click button.seek": "seek"
         },
-        loadSong: function(fileName, song) {
+        loadSong: function(fileName, song, diff) {
             if(fileName == this.currentFileName) return;
             this.currentFileName = fileName;
             var self = this;
@@ -445,7 +469,7 @@
                 this.song = song;
                 this.render();
             }
-            console.log(fileName)
+            console.log('loadSong: '+fileName);
             
             player.on('error', function(err){
                 console.log(err);
@@ -456,12 +480,16 @@
             player.on('ready', function(){
                 self.$el.find('.loading').html('');
                 player.play();
+                
+                if(diff) {
+                    player.device.seek(diff);
+                }
             });
             player.on('progress', function(msecs){
-                console.log(self.player.duration);
-                console.log(self.player.currentTime);
-                console.log(msecs);
-                console.log('song played '+msecs);
+                //console.log(self.player.duration);
+                //console.log(self.player.currentTime);
+                //console.log(msecs);
+                //console.log('song played '+msecs);
                 self.renderDuration();
             });
             player.on('format', function(format){
@@ -581,6 +609,7 @@
             var self = this;
         },
         getView: function(options) {
+            var self = this;
             var viewType = 'SongRow';
             if(options && options.hasOwnProperty('viewType')) {
                 viewType = options.viewType;
@@ -589,6 +618,24 @@
                 if(!options) options = {};
                 options.model = this;
                 this[viewType] = new SongRow(options);
+                this[viewType].on('queue', function(songModel, roomId){
+                    console.log(arguments);
+                    var songqCollection = JukeBoxQueue.songsQueueList.collection;
+                    var songq = new SongqModel({}, {collection: songqCollection});
+                    songq.on("change", function(songq, options){
+                        var s = songq.save(null, {silent: true, wait: true})
+                            .done(function(s, typeStr, respStr) {
+                                self.trigger('saved', songq);
+                                songqCollection.add(songq);
+                            });
+                    });
+                    var newSongq = {
+                        song: songModel.attributes,
+                        room_id: roomId
+                    };
+                    console.log(newSongq);
+                    songq.set(newSongq, {wait: true});
+                });
             }
             return this[viewType];
         }
@@ -648,6 +695,220 @@
         }
     });
     
+    SongqModel = Backbone.Model.extend({
+        initialize: function() {
+            var self = this;
+        },
+        getView: function(options) {
+            var viewType = 'SongqRow';
+            if(options && options.hasOwnProperty('viewType')) {
+                viewType = options.viewType;
+            }
+            if(!this.hasOwnProperty(viewType)) {
+                if(!options) options = {};
+                options.model = this;
+                this[viewType] = new SongqRow(options);
+            }
+            return this[viewType];
+        }
+    });
+    
+    SongqCollection = Backbone.Collection.extend({
+        model: SongqModel,
+        url: '/api/songq',
+        initialize: function(docs, options) {
+            var self = this;
+            this.fitler = {};
+        }, load: function(callback) {
+            var self = this;
+            this.reset();
+            
+            var options = {data: this.filter};
+            options.add = true;
+            
+            if(callback) options.success = callback;
+            this.fetch(options);
+        }, comparator: function(a,b) {
+            return a.get('at') < b.get('at');
+        },
+        filter: function(obj) {
+            this.filter = obj;
+        }
+    });
+    
+    SongqListView = Backbone.View.extend({
+        tag: 'div',
+        className: 'songsQueueList',
+        render: function() {
+            this.$el.html('');
+            this.$el.append(this.$ul);
+            this.$el.append(this.$skip);
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function(options) {
+            this.$ul = $('<ul class="songs"></ul>');
+            this.$skip = $('<button class="skip">skip</button>');
+            var self = this;
+            if(!this.collection) {
+                this.collection = new SongqCollection();
+            }
+            this.room_id = options.roomId;
+            this.collection.on('add', function(doc, col) {
+                var $li = $('<li></li>');
+                var view = doc.getView();
+                $li.append(view.render().el);
+                $li.attr('data-id', doc.get('id'));
+                self.$ul.prepend($li);
+                
+                doc.on('remove', function(){
+                    $li.remove();
+                    return false;
+                });
+            });
+            this.collection.filter({room_id: options.roomId});
+            this.collection.load();
+        },
+        events: {
+            "click li": "selectLi",
+            "click .skip": "skip"
+        },
+        selectLi: function(el) {
+            //var room = this.collection.get($(el.target).attr('data-id'));
+            //this.trigger('select', room);
+            $(el.target).parent('li').attr('selected', true);
+            $(el.target).parent('li').siblings().removeAttr('selected');
+        },
+        skip: function() {
+            chatSocket.emit('skip', {room_id: this.room_id});
+        }
+    });
+    
+    SongqRow = Backbone.View.extend({
+        tag: 'span',
+        className: 'songq',
+        render: function() {
+            if(this.model.get('song')) {
+                this.$el.html('<span class="artist">'+this.model.get('song').artist+'</span><span class="title">'+this.model.get('song').title+'</span><button class="remove">x</button>');
+            }
+            this.$el.attr('data-id', this.model.get('id'));
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            var self = this;
+        },
+        events: {
+            "click .remove": "unqueueSong"
+            //, "click .play": "playSong"
+        },
+        unqueueSong: function() {
+            this.model.destroy();
+        }
+    });
+    
+    
+    SongpModel = Backbone.Model.extend({
+        initialize: function() {
+            var self = this;
+        },
+        getView: function(options) {
+            var viewType = 'SongpRow';
+            if(options && options.hasOwnProperty('viewType')) {
+                viewType = options.viewType;
+            }
+            if(!this.hasOwnProperty(viewType)) {
+                if(!options) options = {};
+                options.model = this;
+                this[viewType] = new SongqRow(options);
+            }
+            return this[viewType];
+        }
+    });
+    
+    SongpCollection = Backbone.Collection.extend({
+        model: SongpModel,
+        url: '/api/songp',
+        initialize: function(docs, options) {
+            var self = this;
+            this.fitler = {};
+        }, load: function(callback) {
+            var self = this;
+            this.reset();
+            
+            var options = {data: this.filter};
+            options.add = true;
+            
+            if(callback) options.success = callback;
+            this.fetch(options);
+        }, comparator: function(a,b) {
+            return a.get('at') < b.get('at');
+        },
+        filter: function(obj) {
+            this.filter = obj;
+        }
+    });
+    
+    SongpListView = Backbone.View.extend({
+        tag: 'div',
+        className: 'songsPlayedList',
+        render: function() {
+            this.$el.append(this.$ul);
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function(options) {
+            this.$ul = $('<ul class="songs"></ul>');
+            var self = this;
+            if(!this.collection) {
+                this.collection = new SongqCollection();
+            }
+            this.room_id = options.roomId;
+            this.collection.on('add', function(doc, col) {
+                var $li = $('<li></li>');
+                var view = doc.getView();
+                $li.append(view.render().el);
+                $li.attr('data-id', doc.get('id'));
+                self.$ul.prepend($li);
+                
+                doc.on('remove', function(){
+                    $li.remove();
+                    return false;
+                });
+            });
+            this.collection.filter({room_id: options.roomId});
+            this.collection.load();
+        },
+        events: {
+            "click li": "selectLi"
+        },
+        selectLi: function(el) {
+            //var room = this.collection.get($(el.target).attr('data-id'));
+            //this.trigger('select', room);
+            $(el.target).parent('li').attr('selected', true);
+            $(el.target).parent('li').siblings().removeAttr('selected');
+        }
+    });
+    
+    SongpRow = Backbone.View.extend({
+        tag: 'span',
+        className: 'songp',
+        render: function() {
+            if(this.model.get('song')) {
+                this.$el.html('<span class="artist">'+this.model.get('song').artist+'</span><span class="title">'+this.model.get('song').title+'</span>');
+            }
+            this.$el.attr('data-id', this.model.get('id'));
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            var self = this;
+        },
+        events: {
+        }
+    });
+    
+    
     SongRow = Backbone.View.extend({
         tag: 'span',
         className: 'song',
@@ -671,6 +932,8 @@
         queueSong: function() {
             this.$el.attr('data-queue', true);
             this.$el.siblings().removeAttr('data-queue');
+            console.log('queue to room id '+$('.chatroom[selected]').attr('data-id'))
+            this.trigger('queue', this.model, $('.chatroom[selected]').attr('data-id'));
         }
     });
     
@@ -681,15 +944,17 @@
                 var $app = $('<div id="app"></div>');
                 $el.append($app);
                 require(['aurora.js'], function() {
-                    require(['mp3.js'], function() {
+                    require(['mp3.js'], function() { require(['flac.js'], function() { require(['alac.js'], function() { require(['aac.js'], function() {
                         require(['dancer.js'], function() {
-                        self.view = new AppView({el: $app});
-                        
-                        self.view.render();
-                        
-                        if(callback) callback();
+                            require(['moment.min.js'], function(){
+                                self.view = new AppView({el: $app});
+                                
+                                self.view.render();
+                                
+                                if(callback) callback();
+                            });
                         });
-                    });
+                    }); }); }); });
                 });
             }
         });

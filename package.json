@@ -1,6 +1,6 @@
 {
   "name": "jukebox",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "dependencies": {
     "house": "*",
     "oauth": "*"
@@ -8,5 +8,12 @@
   "engines": {
     "node": "0.8.x",
     "npm":  "1.1.x"
+  },
+  "author": "Jeff Pelton <j@jeffpelton.com> (jeffpelton.com)",
+  "description": "Your music player in the cloud",
+  "homepage": "https://github.com/comster/jukebox",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/comster/jukebox.git"
   }
 }

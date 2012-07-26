@@ -5,13 +5,14 @@
 var ObjectID = mongo.ObjectID;
 
 (exports = module.exports = function(house, options){
-    
     // This endpoint requires a data source
     var ds = options.ds;
     var colRooms = options.roomsCollection;
     var colMsgs = options.messagesCollection;
     
     var roomUsers = {};
+    var timeouts = {};
+    var songplaying = {};
     
     var io = house.io.of('/socket.io/chat');
     io.authorization(function (data, accept) {
@@ -21,6 +22,26 @@ var ObjectID = mongo.ObjectID;
     io.on('connection', function (socket) {
         house.log.debug('user connected to io chat');
         
+        // Ask for the room status!
+        socket.on('info', function(room_id, callback) {
+            console.log('socket.on info');
+            console.log(typeof room_id);
+            console.log(room_id);
+            var roomInfo = {
+            };
+            if(roomUsers.hasOwnProperty(room_id)) {
+                roomInfo.users = roomUsers[room_id];
+            }
+            house.log.debug(songplaying);
+            if(songplaying.hasOwnProperty(room_id)) {
+                roomInfo.song = songplaying[room_id];
+            }
+            console.log('roomInfo');
+            console.log(roomInfo);
+            callback(roomInfo);
+        });
+        
+        // Ask everyone to play this song!
         socket.on('song', function(data) {
             console.log('song via socket!!!!!!!!!!');
             console.log(socket.handshake.session)
@@ -29,6 +50,112 @@ var ObjectID = mongo.ObjectID;
                 var song = data.song;
                 var roomId = data.roomId;
                 io.in(roomId).emit('song', song);
+            }
+        });
+        
+        var getCurrentlyPlaying = function(roomId, callback) {
+            ds.find('songq', {room_id:roomId, pAt: {$exists: true}}, function(err, data) {
+                callback(data);
+            });
+        }
+        
+        // get the next songq
+        var getTopofQueue = function(roomId, callback) {
+            ds.find('songq', {room_id:roomId, pAt: {$exists: false}}, function(err, data) {
+                console.log(arguments);
+                if(callback) callback(data);
+            });
+        }
+        
+        // set the songq as playing
+        var putPlaying = function(songq, callback) {
+            console.log('putPlaying')
+            console.log(songq)
+            ds.update('songq', {"_id":songq.id}, {"$set": {pAt: new Date()}}, function(err, data){
+                console.log(arguments);
+                console.log('playing song----------');
+                songplaying[songq.room_id.toString()] = songq.song;
+                songplaying[songq.room_id.toString()].pAt = new Date();
+                house.log.debug(songplaying);
+                if(callback) callback(data);
+            });
+        }
+        
+        var pushSongqToP = function(songq, callback) {
+            songq.qAt = songq.at;
+            songq.at = new Date();
+            delete songq.id;
+            console.log(songq);
+            ds.insert('songp', songq, function(data){
+                if(callback) callback(data);
+            });
+        }
+        
+        var removeSongq = function(songqId, callback) {
+            console.log('remove songq')
+            console.log(songqId);
+            ds.remove('songq', {"_id": songqId}, function(){
+                console.log('removed songq');
+                if(callback) callback();
+            });
+        }
+        
+        var advanceRoomSongQ = function(roomId) {
+            // grab oldest "at" with room_id from q
+            getCurrentlyPlaying(roomId, function(playingSongq){
+                console.log('getCurrentlyPlaying');
+                console.log(playingSongq);
+                if(playingSongq.length > 0) {
+                    playingSongq = _.first(playingSongq);
+                    console.log(playingSongq);
+                    // remove from songq
+                    removeSongq(playingSongq.id);
+                    // add to songp
+                    pushSongqToP(playingSongq);
+                } else {
+                    
+                }
+                
+                // get top of songq
+                getTopofQueue(roomId, function(songq){
+                    if(songq.length > 0) {
+                        songq = _.first(songq);
+                        // set it to playing
+                        putPlaying(songq);
+                        
+                        // set timeout to advance to next song automattically
+                        if(songq.song.duration) {
+                            console.log('song q duration '+songq.song.duration);
+                            timeouts[roomId] = setTimeout(function(){
+                                console.log('advance song q!!!!!!!!!!!!');
+                                advanceRoomSongQ(roomId);
+                            },songq.song.duration * 1000);
+                        }
+                        
+                        console.log('~~~~~~~~~~emit play song')
+                        console.log(songq.song.filename);
+                        // emit to room to play song
+                        io.in(roomId).emit('song', '/api/files/'+songq.song.filename);
+                    }
+                });
+            });
+        }
+        
+        
+        
+        // Skip current song in room
+        socket.on('skip', function(data) {
+            console.log('skip song !!!!!!!!!!');
+            console.log(socket.handshake.session)
+            if(socket.handshake.session.hasOwnProperty('user')) {
+                var roomId = data.room_id;
+                roomId = new ObjectID(roomId)
+                
+                if(timeouts.hasOwnProperty(roomId)) {
+                    clearTimeout(timeouts[roomId]); 
+                }
+                
+                advanceRoomSongQ(roomId)
             }
         });
         

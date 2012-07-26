@@ -11,6 +11,6 @@ pids
 logs
 results
 config
-
+tmp
 node_modules
 npm-debug.log

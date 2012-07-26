@@ -1,4 +1,6 @@
-
+button {
+    border-radius: 50%;
+}
 body {
     margin: 0 0;
     background: black;
@@ -38,7 +40,10 @@ header .openNav img {
     height: 50px;
     width: 50px;
 }
-
+#library input[type="file"] {
+    position: absolute;
+    top: 0; right: 0;
+}
 .nav img {
    vertical-align: middle;
 }
@@ -143,16 +148,15 @@ ul.rooms li:hover {
 
 ul.messages {
     list-style: none;
+    color: grey;
+    font-size: 80%;
 }
 ul.messages li {
-    padding: 20px;
-    font-size: 1.4em;
+    padding: 0px 0px 20px 4px;
+    font-size: 1.2em;
 }
 ul.messages li .user {
-    width: 30%;
-    display: block;
-    float: left;
-    overflow: hidden;
+    font-weight: bolder;
 }
 ul.messages li .at {
     width: 30%;
@@ -161,7 +165,8 @@ ul.messages li .at {
 }
 
 ul.messages li .at, ul.messages li .user {
-    font-size: 60%;
+    color: white;
+    cursor: pointer;
 }
 
 .dropZone {

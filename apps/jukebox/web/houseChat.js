@@ -102,7 +102,7 @@
         }, load: function(callback) {
             var self = this;
             this.reset();
-            this.fetch({add:true});
+            this.fetch({add:true, success:callback});
         }, comparator: function(a,b) {
             return a.get('at') > b.get('at');
         }
@@ -194,6 +194,7 @@
             "submit": "submit"
         },
         submit: function(el) {
+            console.log(this.model)
             this.model.set({name: this.$el.find('input[name="name"]').val()}, {wait: true});
             
             return false;
@@ -224,6 +225,12 @@
         submit: function(el) {
             var self = this;
             
+            if (window.webkitNotifications) {
+                if (window.webkitNotifications.checkPermission() == 0) { // 0 is PERMISSION_ALLOWED
+                } else {
+                    window.webkitNotifications.requestPermission();
+                }
+            }
             var m = new chat.MessageModel({}, {collection: this.collection});
             m.set({msg: this.$msg.val()});
             var s = m.save(null, {silent: true, wait: true})
@@ -341,7 +348,11 @@
             this.userCollection = new chat.UserCollection(users, {roomId: this.model.get('id')});
             this.userListView = new chat.UserListView({collection: this.userCollection});
             this.userCollection.load();
-            this.messageCollection.load();
+            this.messageCollection.load(function(){
+                self.messageCollection.on('add', function(doc){
+                    chat.notify({title: doc.get('user').name, msg: doc.get('msg'), img: ''});
+                });
+            });
         },
         events: {
         }
@@ -352,8 +363,8 @@
         className: 'msg',
         render: function() {
             this.$el.html(this.model.get('msg'));
-            this.$el.prepend('<span data-id="'+this.model.get('user').id+'" class="user">'+this.model.get('user').name+'</span>');
-            this.$el.append('<span class="at" title="'+this.model.get('at')+'">'+moment(this.model.get('at')).fromNow()+'</span>');
+            this.$el.prepend('<span data-id="'+this.model.get('user').id+'" class="user">'+this.model.get('user').name+'</span> ');
+            //this.$el.append('<span class="at" title="'+this.model.get('at')+'">'+moment(this.model.get('at')).fromNow()+'</span>');
             this.$el.attr('data-id', this.model.get('id'));
             this.setElement(this.$el);
             return this;
@@ -367,25 +378,30 @@
     
     chat.AppView = Backbone.View.extend({
         render: function() {
-            this.$el.html('');
-            
-            if(this.roomsOpenView) {
-                this.$el.append(this.roomsOpenView.render().el);
-            }
-            
+            //this.$el.html('');
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
             var self = this;
-            require(['moment.min.js'], function(){
-                self.roomsOpenView = new chat.RoomsOpenView();
-                self.render();
-            });
+            self.roomsOpenView = new chat.RoomsOpenView();
+            this.$el.append(this.roomsOpenView.render().el);
         },
         events: {
         }
     });
+    
+    chat.notify = function(options) {
+        if (window.webkitNotifications) {
+            var notification = window.webkitNotifications.createNotification(options.img, options.title, options.msg);
+            //return window.webkitNotifications.createHTMLNotification('http://someurl.com');
+            notification.show();
+            setTimeout(function(){
+                notification.cancel();
+            }, 5500);
+            return notification;
+        }
+    }
     
     chat.RoomsOpenView = Backbone.View.extend({
         tag: 'div',
@@ -409,15 +425,16 @@
         initialize: function() {
             this.initialized = false;
             var self = this;
+            
             self.rooms = {};
             this.$chatFrame = $('<div id="chats"></div>');
             self.openFrames = {};
             
             this.collection = new chat.RoomCollection();
             
-            this.roomsOpenListView = new chat.RoomListView({collection: this.collection});
-            
-            this.roomsOpenListView.on('select', function(room) {
+            this.roomsOpenListView = new chat.RoomListView({collection: this.collection})
+            .on('select', function(room) {
+                self.selectedRoom = room.get('id');
                 var $r;
                 if(self.openFrames.hasOwnProperty(room.get('id'))) {
                     $r = self.openFrames[room.get('id')];
@@ -442,7 +459,6 @@
                 
                 socket.on('entered', function (data) {
                     self.rooms[data.room_id].userCollection.add(data.user);
-                    //self.rooms[data.room_id].messageCollection.add(data);
                 });
                 socket.on('exited', function (data) {
                     console.log(data);
@@ -451,8 +467,6 @@
                         if(u) u.trigger('remove');
                         self.rooms[data.room_id].userCollection.remove(data.user.id);
                     }
-                    
-                    //self.rooms[data.room_id].messageCollection.add(data);
                 });
                 self.roomsFindOrCreateView = new chat.RoomsFindOrCreateView();
                 self.roomsFindOrCreateView.on('room', function(room){
@@ -463,6 +477,8 @@
                 window.socketSong = function(filename, song) {
                     socket.emit('song', {roomId: filename, song: song});
                 }
+                window.chatSocket = socket;
+                
                 socket.on('song', function (filename) {
                     console.log('socket song '+filename)
                     window.mediaPlayer.loadSong(filename)
