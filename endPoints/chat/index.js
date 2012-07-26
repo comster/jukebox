@@ -42,6 +42,7 @@ var ObjectID = mongo.ObjectID;
         });
         
         // Ask everyone to play this song!
+        /*
         socket.on('song', function(data) {
             console.log('song via socket!!!!!!!!!!');
             console.log(socket.handshake.session)
@@ -51,7 +52,7 @@ var ObjectID = mongo.ObjectID;
                 var roomId = data.roomId;
                 io.in(roomId).emit('song', song);
             }
-        });
+        });*/
         
         var getCurrentlyPlaying = function(roomId, callback) {
             ds.find('songq', {room_id:roomId, pAt: {$exists: true}}, function(err, data) {

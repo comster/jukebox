@@ -36,6 +36,16 @@ header .openNav {
     top: 0;
     left: 0;
 }
+.localFile {
+    position: relative;
+}
+.localFile progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 header .openNav img {
     height: 50px;
     width: 50px;
@@ -71,10 +81,43 @@ ul {
     list-style:none;
 }
 .songList li {
-    padding: 10px;
+    padding: 5px 0px 5px 4px;
 }
 .song[data-queue="true"] {
     background: green;
+}
+.played {
+    height: 30px;
+    overflow: hidden;
+}
+ul.queue {
+    
+}
+ul.queue li {
+    height: 1.5em;
+    line-height: 1.5em;
+    overflow: hidden;
+}
+ul.queue li .artist {
+    padding-right: 4px;
+}
+ul.queue li div {
+    width: 100%;
+    position: relative;
+}
+ul.queue li button {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    visibility: hidden;
+}
+ul.queue li:hover button {
+    visibility: visible;
+}
+button.skip {
+    position: absolute;
+    right: 0px;
+    top: 104px;
 }
 #app {
     
@@ -89,7 +132,6 @@ ul {
     text-align: right;
 }
 button.play {
-    padding: 5px;
     display: inline;
 }
 .songs li[selected="selected"] {
@@ -232,7 +274,28 @@ circle {
 #frames > div:not([selected]) {
     display: none;
 }
+.songList ul li {
+    font-size: 1.3em;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.songList ul li button {
+    display: none;
+    float: right;
+}
 @media only screen and (min-width: 767px) {
+    .songList ul li:hover {
+        border-top: 1px dashed yellow;
+        border-bottom: 1px dashed yellow;
+    }
+    .songList ul li:hover button {
+        display: block;
+    }
+    button:hover {
+        background: yellow;
+        color: black;
+        cursor: pointer;
+    }
     #frames > div:not([selected]) {
         display: block;
     }
@@ -302,7 +365,7 @@ circle {
         overflow-y: scroll;
         bottom: 0px;
         left: 0px;
-        height: 40%;
+        height: 70%;
     }
     #mediaPlayer > div {
         margin-top: 80px;
@@ -313,7 +376,7 @@ circle {
         overflow: auto;
         top: 0px;
         left: 0px;
-        height: 60%;
+        height: 30%;
         margin-top: 80px;
     }
 }

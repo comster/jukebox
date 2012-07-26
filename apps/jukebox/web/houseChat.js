@@ -505,7 +505,7 @@
         tag: 'div',
         className: 'roomsFindOrCreate',
         render: function() {
-            this.$el.html('<button class="open">Chat rooms</button>');
+            this.$el.html('<button class="open">⚛</button>');
             this.setElement(this.$el);
             return this;
         },

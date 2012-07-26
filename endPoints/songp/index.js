@@ -39,7 +39,9 @@ var ObjectID = mongo.ObjectID;
             } else {
                 if(req.query) {
                     query = req.query;
-                    
+                    if(query.hasOwnProperty('room_id')) {
+                        query.room_id = new ObjectID(query.room_id);
+                    }
                     // query mongo id's
                     if(query.hasOwnProperty('id')) {
                         query._id = new ObjectID(query.id);

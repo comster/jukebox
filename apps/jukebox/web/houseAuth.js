@@ -174,7 +174,7 @@
         className: "profile",
         htmlTemplate: '<span class="user">\
                        <%= name %>\
-                       <button class="logout">logout</button>\
+                       <button class="logout" title="Log out">✌</button>\
                         </span>',
         template: function(doc) {
             return $(_.template(this.htmlTemplate, doc));

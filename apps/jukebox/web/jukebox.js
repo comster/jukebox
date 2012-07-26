@@ -139,15 +139,17 @@
             var self = this;
             this.$div = $('<div></div>');
             this.$played = $('<ul class="played"></ul>');
-            this.$playing = $('<ul class="playing"></ul>');
             this.$queue = $('<ul class="queue"></ul>');
             this.$div.append(this.$played);
-            this.$div.append(this.$playing);
             this.$div.append(this.$queue);
+            
+            self.queues = {};
+            self.plays = {};
             
             options.chat.roomsOpenView.roomsOpenListView.on('select', function(room){
                 console.log('update queue with room '+room.get('id'));
-                self.songsQueueList = new SongqListView({el: self.$queue, roomId: room.get('id')});
+                
+                self.queues[room.get('id')] = new SongqListView({el: self.$queue, roomId: room.get('id')});
                 
                 chatSocket.emit('info', room.get('id'), function(roomInfo){
                     console.log(roomInfo);
@@ -160,12 +162,14 @@
                     var d = new Date();
                     var pd = new Date(roomInfo.song.pAt);
                     var diff = d.getTime() - pd.getTime();
-                    console.log(diff);
                     
                     JukeBoxPlayer.loadSong('/api/files/'+roomInfo.song.filename, roomInfo.song,diff);
                 });
                 
-                self.songsQueueList.render();
+                self.plays[room.get('id')] = new SongpListView({el: self.$played, roomId: room.get('id')});
+                
+                self.queues[room.get('id')].render();
+                self.plays[room.get('id')].render();
             });
             
         },
@@ -335,12 +339,12 @@
                         url = window.webkitURL.createObjectURL(f)
                       }
                       
-                      var $playMedia = $('<button>play</button>').click(function(){
+                      var $playMedia = $('<button>▸</button>').click(function(){
                           mediaPlayer.loadSong(f);
                           return false;
                       });
                       
-                      var $uploadMedia = $('<button>upload</button>').click(function(){
+                      var $uploadMedia = $('<button>☁</button>').click(function(){
                           var $localFile = $(this).parents('.localFile');
                           $localFile.find('progress').show();
                           uploadFile(f, $localFile);
@@ -748,7 +752,7 @@
         },
         initialize: function(options) {
             this.$ul = $('<ul class="songs"></ul>');
-            this.$skip = $('<button class="skip">skip</button>');
+            this.$skip = $('<button class="skip">☣</button>');
             var self = this;
             if(!this.collection) {
                 this.collection = new SongqCollection();
@@ -790,6 +794,7 @@
         render: function() {
             if(this.model.get('song')) {
                 this.$el.html('<span class="artist">'+this.model.get('song').artist+'</span><span class="title">'+this.model.get('song').title+'</span><button class="remove">x</button>');
+                this.$el.attr('title', this.model.get('song').ss);
             }
             this.$el.attr('data-id', this.model.get('id'));
             this.setElement(this.$el);
@@ -820,7 +825,7 @@
             if(!this.hasOwnProperty(viewType)) {
                 if(!options) options = {};
                 options.model = this;
-                this[viewType] = new SongqRow(options);
+                this[viewType] = new SongpRow(options);
             }
             return this[viewType];
         }
@@ -861,7 +866,7 @@
             this.$ul = $('<ul class="songs"></ul>');
             var self = this;
             if(!this.collection) {
-                this.collection = new SongqCollection();
+                this.collection = new SongpCollection();
             }
             this.room_id = options.roomId;
             this.collection.on('add', function(doc, col) {
@@ -913,7 +918,7 @@
         tag: 'span',
         className: 'song',
         render: function() {
-            this.$el.html('<button class="queue">Q</button><button class="play">Play</button><span class="artist">'+this.model.get('artist')+'</span><span class="title">'+this.model.get('title')+'</span>');
+            this.$el.html('<button class="queue" title="Queue Song">❥</button><button class="play" title="Preview Song">▸</button><span class="artist">'+this.model.get('artist')+'</span><span class="title">'+this.model.get('title')+'</span>');
             this.$el.attr('data-id', this.model.get('id'));
             this.setElement(this.$el);
             return this;
