@@ -145,25 +145,28 @@
             
             self.queues = {};
             self.plays = {};
+            self.songsQueueList;
             
             options.chat.roomsOpenView.roomsOpenListView.on('select', function(room){
                 console.log('update queue with room '+room.get('id'));
                 
                 self.queues[room.get('id')] = new SongqListView({el: self.$queue, roomId: room.get('id')});
+                self.songsQueueList = self.queues[room.get('id')];
                 
                 chatSocket.emit('info', room.get('id'), function(roomInfo){
                     console.log(roomInfo);
                     
-                    console.log(JukeBoxPlayer);
+                    if(roomInfo.song) {
                     
-                    // start playing song and scrub to live based on diff of pAt and new Date()
-                    console.log(roomInfo.song)
-                    console.log(new Date())
-                    var d = new Date();
-                    var pd = new Date(roomInfo.song.pAt);
-                    var diff = d.getTime() - pd.getTime();
-                    
-                    JukeBoxPlayer.loadSong('/api/files/'+roomInfo.song.filename, roomInfo.song,diff);
+                        // start playing song and scrub to live based on diff of pAt and new Date()
+                        console.log(roomInfo.song)
+                        console.log(new Date())
+                        var d = new Date();
+                        var pd = new Date(roomInfo.song.pAt);
+                        var diff = d.getTime() - pd.getTime();
+                        
+                        JukeBoxPlayer.loadSong('/api/files/'+roomInfo.song.filename, roomInfo.song,diff);
+                    }
                 });
                 
                 self.plays[room.get('id')] = new SongpListView({el: self.$played, roomId: room.get('id')});

@@ -87,7 +87,7 @@ ul {
     background: green;
 }
 .played {
-    height: 30px;
+    height: 20px;
     overflow: hidden;
 }
 ul.queue {

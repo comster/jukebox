@@ -434,6 +434,7 @@
             
             this.roomsOpenListView = new chat.RoomListView({collection: this.collection})
             .on('select', function(room) {
+                if(!room) return;
                 self.selectedRoom = room.get('id');
                 var $r;
                 if(self.openFrames.hasOwnProperty(room.get('id'))) {
