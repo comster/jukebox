@@ -211,7 +211,7 @@
         tag: 'div',
         className: 'messageForm',
         render: function() {
-            this.$el.html('<form data-room-id="'+this.options.roomId+'"><input type="text" name="msg" placeholder="enter a message" /><input type="submit" value="Send" /></form>');
+            this.$el.html('<form data-room-id="'+this.options.roomId+'"><input type="text" name="msg" placeholder="enter a message" autocomplete="off" /><input type="submit" value="Send" /></form>');
             this.$msg = this.$el.find('input[name="msg"]');
             this.setElement(this.$el);
             return this;
@@ -224,6 +224,14 @@
         },
         submit: function(el) {
             var self = this;
+            var m = new chat.MessageModel({}, {collection: this.collection});
+            m.set({msg: this.$msg.val()});
+            var s = m.save(null, {silent: true, wait: true})
+                .done(function(){
+                    self.trigger('saved', m);
+                    self.collection.add(m);
+                });
+            self.clear(); // clear as soon as we save, not waiting for the response
             
             if (window.webkitNotifications) {
                 if (window.webkitNotifications.checkPermission() == 0) { // 0 is PERMISSION_ALLOWED
@@ -231,14 +239,6 @@
                     window.webkitNotifications.requestPermission();
                 }
             }
-            var m = new chat.MessageModel({}, {collection: this.collection});
-            m.set({msg: this.$msg.val()});
-            var s = m.save(null, {silent: true, wait: true})
-                .done(function(){
-                    self.trigger('saved', m);
-                    self.collection.add(m);
-                    self.clear();
-                });
             
             return false;
         },
@@ -451,7 +451,7 @@
             });
             
             require(['/socket.io/socket.io.js'], function() {
-                var socket = self.io = io.connect('http://jeffshouse.com:8080/socket.io/chat');
+                var socket = self.io = io.connect(window.location.origin+'/socket.io/chat');
                 socket.on('connect', function(data) {
                 });
                 socket.on('message', function (data) {
