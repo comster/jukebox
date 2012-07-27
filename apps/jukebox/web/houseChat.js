@@ -451,7 +451,7 @@
             });
             
             require(['/socket.io/socket.io.js'], function() {
-                var socket = self.io = io.connect(window.location.origin+'/socket.io/chat');
+                var socket = self.io = io.connect(window.location.protocol+'//'+window.location.host+'/socket.io/chat');
                 socket.on('connect', function(data) {
                 });
                 socket.on('message', function (data) {
@@ -475,14 +475,15 @@
                     self.roomsOpenListView.trigger('select', room);
                 });
                 
-                window.socketSong = function(filename, song) {
-                    socket.emit('song', {roomId: filename, song: song});
-                }
                 window.chatSocket = socket;
                 
                 socket.on('song', function (filename) {
                     console.log('socket song '+filename)
                     window.mediaPlayer.loadSong(filename)
+                });
+                socket.on('loadSong', function (song) {
+                    console.log('socket song '+song.filename)
+                    window.mediaPlayer.preloadSong(song)
                 });
                 
                 self.initialized = true;

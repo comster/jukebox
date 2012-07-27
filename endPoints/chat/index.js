@@ -88,6 +88,12 @@ var ObjectID = mongo.ObjectID;
             delete songq.id;
             console.log(songq);
             ds.insert('songp', songq, function(data){
+                
+                // increment the song playCount
+                console.log(songq.song);
+                ds.update('songs', {_id:songq.song.id}, {"$inc":{"playCount": 1}}, function(err, data){
+                });
+                
                 if(callback) callback(data);
             });
         }
@@ -127,10 +133,25 @@ var ObjectID = mongo.ObjectID;
                         // set timeout to advance to next song automattically
                         if(songq.song.duration) {
                             console.log('song q duration '+songq.song.duration);
+                            
+                            var preloadTime = 10 * 1000;
+                            var loadNextSongIn = (songq.song.duration * 1000) - preloadTime;
+                            
                             timeouts[roomId] = setTimeout(function(){
-                                console.log('advance song q!!!!!!!!!!!!');
-                                advanceRoomSongQ(roomId);
-                            },songq.song.duration * 1000);
+                                getTopofQueue(roomId, function(songq){
+                                    if(songq.length > 0) {
+                                        songq = _.first(songq);
+                                    
+                                        //io.in(roomId).emit('loadSong', songq.song); // no advantage here?
+                                        console.log('preload song q!!!!!!!!!!!!');
+                                    
+                                        timeouts[roomId] = setTimeout(function(){
+                                            console.log('advance song q!!!!!!!!!!!!');
+                                            advanceRoomSongQ(roomId);
+                                        }, preloadTime);
+                                    }
+                                });
+                            }, loadNextSongIn);
                         }
                         
                         console.log('~~~~~~~~~~emit play song')
@@ -141,8 +162,6 @@ var ObjectID = mongo.ObjectID;
                 });
             });
         }
-        
-        
         
         // Skip current song in room
         socket.on('skip', function(data) {
@@ -247,7 +266,7 @@ var ObjectID = mongo.ObjectID;
                 
             } else {
                 
-                if(req.fields.msg) {
+                if(req.fields && req.fields.msg) {
                     // New Message to Room
                     ds.insert(colMsgs, {room_id: docId, msg: req.fields.msg, user: getAuthorDocFromSession(), at: new Date()}, function(err, data) {
                         res.data(data);

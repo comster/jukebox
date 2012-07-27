@@ -165,7 +165,7 @@
                         var pd = new Date(roomInfo.song.pAt);
                         var diff = d.getTime() - pd.getTime();
                         
-                        JukeBoxPlayer.loadSong('/api/files/'+roomInfo.song.filename, roomInfo.song,diff);
+                        JukeBoxPlayer.loadSong('/api/files/'+roomInfo.song.filename, roomInfo.song, diff);
                     }
                 });
                 
@@ -194,14 +194,13 @@
         tagName: "span",
         className: "uploadFrame",
         //htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>',
-        htmlTemplate: '<input type="file" webkitdirectory directory multiple mozdirectory onchange="fileChangeListener(this.files)"><div class="uploadFiles"></div>',
+        htmlTemplate: '<input type="file" webkitdirectory directory multiple mozdirectory onchange="fileChangeListener(this.files)"><div class="uploadFiles"><button class="upload_all" title="Upload All">☁☁☁</button></div>',
         template: function(doc) {
             return $(_.template(this.htmlTemplate, doc));
         },
         render: function() {
             this.$el.append(this.$up);
             this.setElement(this.$el);
-            this.$t = this.$el.find('table');
             return this;
         },
         initialize: function() {
@@ -209,20 +208,31 @@
             this.$up = $(this.template({}));
         },
         events: {
-            //"change input": "inputChange"
+            "click .upload_all": "uploadAll"
+        },
+        uploadAll: function() {
+            var self = this;
+            var i = 0;
+            var filesToUpload = $('.uploadFiles button.upload');
+            var uploadIt = function() {
+                if(filesToUpload.hasOwnProperty(i)) {
+                    filesToUpload[i].click();
+                    if(i+1 == filesToUpload.length) {
+                        return;
+                    } else {
+                        i++;
+                        
+                        // TODO get callback when upload progress finishes
+                        setTimeout(function(){
+                            uploadIt(filesToUpload[i]);
+                        }, 2200);
+                    }
+                }
+            }
+            uploadIt();
         },
         inputChange: function(files) {
             var self = this;
-            function runSearch(query){
-              var regex = new RegExp(query.trim().replace(/\s+/g, '.*'), 'ig');
-              for(var i = this.$t.find('tr'), l = i.length; l--;){
-                if(regex.test(i[l].innerHTML)){
-                  i[l].className = 'visible'
-                }else{
-                  i[l].className = 'hidden';
-                }
-              }
-            }
             
             function canPlay(type){
               var a = document.createElement('audio');
@@ -295,6 +305,8 @@
                   parseFile(f,function(tags){
                       console.log(tags);
                       
+                      // TODO make this a backbone view
+                      
                       var $localFile = $('<div class="localFile"></div>');
                       var $actions = $('<span class="actions"></span> ');
                       var $title = $('<span class="title"></span> ');
@@ -342,19 +354,24 @@
                         url = window.webkitURL.createObjectURL(f)
                       }
                       
+                      var $remove = $('<button>x</button>').click(function(){
+                          $localFile.remove();
+                          return false;
+                      });
+                      
                       var $playMedia = $('<button>▸</button>').click(function(){
                           mediaPlayer.loadSong(f);
                           return false;
                       });
                       
-                      var $uploadMedia = $('<button>☁</button>').click(function(){
+                      var $uploadMedia = $('<button class="upload" title="upload">☁</button>').click(function(){
                           var $localFile = $(this).parents('.localFile');
                           $localFile.find('progress').show();
                           uploadFile(f, $localFile);
                           $uploadMedia.remove();
                           return false;
                       });
-                      
+                      $actions.append($remove);
                       $actions.append($playMedia);
                       $actions.append($uploadMedia);
                         $('.uploadFiles').append($localFile);
@@ -386,8 +403,8 @@
         initialize: function() {
             this.$div = $('<div></div>');
             this.uploadFrame = new UploadFrame({library:this});
-            this.searchFrame = new SearchView({library:this});
             this.songListView = new SongListView({library:this});
+            this.searchFrame = new SearchView({library:this});
             this.$div.append(this.searchFrame.render().el);
             this.$div.append(this.uploadFrame.render().el);
             this.$div.append(this.songListView.render().el);
@@ -405,9 +422,12 @@
         className: 'player',
         element: 'div',
         render: function() {
-            this.$el.html('<button class="seek">seek</button><button class="playPause">play</button><button class="next">skip</button><meter min="0.0" max="100.0" value="0"></meter><span class="loading"></span><span class="songInfo"></span><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span>'); //
-            if(this.song) {
-                //this.$el.find('.songInfo').html(this.song.get('artist')+' - '+this.song.get('title'));
+            this.$el.html('');
+            this.$el.append(this.$player); //
+            if(this.song && this.song.title) {
+                var str = this.song.title+' - '+this.song.artist+' on '+this.song.album;
+                this.$el.find('.songInfo').html(str);
+                window.document.title = str;
             }
             
             this.$el.append(this.$canvas);
@@ -432,23 +452,44 @@
         },
         renderSongInfo: function() {
             var str = '';
+            console.log(this.metadata);
             
-            str += this.metadata.title ? this.metadata.title + ' - ' : '';
-            str += this.metadata.artist ? this.metadata.artist : '';
-            str += this.metadata.album ? ' on '+this.metadata.album : '';
+            var title = this.metadata.title || this.metadata.Title || '';
+            var artist = this.metadata.artist || this.metadata.Artist || this.metadata["Album Artist"] || '';
+            var album = this.metadata.album || this.metadata.Album || '';
+            
+            str += title ? title + ' - ' : '';
+            str += artist ? artist : '';
+            str += album ? ' on '+album : '';
             str += this.metadata.year ? ' '+this.metadata.year : '';
-            this.$el.find('.songInfo').html(str);
+            if(str) {
+                this.$el.find('.songInfo').html(str);
+                window.document.title = str;
+                
+                if(this.metadata.coverArt) {
+                    //var $im = new Image();
+                    //$im.src = this.metadata.coverArt.data.data;
+                    //$('body').append($im);
+                }
+            }
         },
         initialize: function() {
             var self = this;
+            this.$player = '<meter min="0.0" max="100.0" value="0"></meter><button class="playPause">play</button><span class="loading"></span><span class="songInfo"></span><span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span>';
             this.$canvas = $('<canvas id="waveform" />');
             this.$viz = $('<div id="vizual"></div>');
             window.mediaPlayer = this;
+            this.preloads = {};
         },
         events: {
             "click button.playPause": "playPause"
             , "click button.next": "next"
             , "click button.seek": "seek"
+        },
+        preloadSong: function(song) {
+           this.preloads[song.filename] = Player.fromURL('/api/files/'+song.filename);
+           this.preloads[song.filename].preload();
+           console.log('preloading');
         },
         loadSong: function(fileName, song, diff) {
             if(fileName == this.currentFileName) return;
@@ -459,8 +500,15 @@
             self.$el.find('.loading').html('Loading...');
             
             if(typeof fileName == 'string') {
-                player = Player.fromURL(fileName);
+                
+                if(this.preloads.hasOwnProperty(fileName)) {
+                    player = this.preloads.player;
+                } else {
+                    player = Player.fromURL(fileName);
+                }
             } else {
+                
+                // preview local file
                 player = Player.fromFile(fileName);
                 fileName = fileName.fileName;
             }
@@ -509,7 +557,9 @@
             });
             player.on('metadata', function(metadata){
                 self.metadata = metadata;
-                self.renderSongInfo();
+                if(metadata) {
+                    self.renderSongInfo();
+                }
                 /*album: "Haven"
                 albumArtist: "Dark Tranquillity"
                 artist: "Dark Tranquillity"
@@ -525,7 +575,11 @@
             
             this.visualizePlayer(player);
             
-            player.preload();
+            if(this.preloads.hasOwnProperty(fileName)) {
+                player.play();
+            } else {
+                player.preload();
+            }
         },
         visualizePlayer: function() {
             
@@ -589,10 +643,21 @@
             this.setElement(this.$el);
             return this;
         },
-        initialize: function() {
-            this.$search = $('<input type="text" name="query" placeholder="search for tunes" />');
+        initialize: function(options) {
+            this.$search = $('<input class="search" type="text" name="query" placeholder="search for tunes" autocomplete="off" />');
+            this.$songList = options.library.songListView.$el;
         },
         events: {
+            "keyup input": "search"
+        }, search: function(e){
+            var regex = new RegExp(this.$search.val().trim().replace(/\s+/g, '.*'), 'ig');
+            for(var i = $('.songList .song'), l = i.length; l--;){
+              if(regex.test(i[l].dataset.ss)){
+                  $(i[l]).parent().removeClass('hidden');
+              }else{
+                  $(i[l]).parent().addClass('hidden');
+              }
+            }
         }
     });
     
@@ -766,7 +831,7 @@
                 var view = doc.getView();
                 $li.append(view.render().el);
                 $li.attr('data-id', doc.get('id'));
-                self.$ul.prepend($li);
+                self.$ul.append($li);
                 
                 doc.on('remove', function(){
                     $li.remove();
@@ -850,7 +915,7 @@
             if(callback) options.success = callback;
             this.fetch(options);
         }, comparator: function(a,b) {
-            return a.get('at') < b.get('at');
+            return a.get('at') > b.get('at');
         },
         filter: function(obj) {
             this.filter = obj;
@@ -877,7 +942,7 @@
                 var view = doc.getView();
                 $li.append(view.render().el);
                 $li.attr('data-id', doc.get('id'));
-                self.$ul.prepend($li);
+                self.$ul.append($li);
                 
                 doc.on('remove', function(){
                     $li.remove();
@@ -923,6 +988,7 @@
         render: function() {
             this.$el.html('<button class="queue" title="Queue Song">❥</button><button class="play" title="Preview Song">▸</button><span class="artist">'+this.model.get('artist')+'</span><span class="title">'+this.model.get('title')+'</span>');
             this.$el.attr('data-id', this.model.get('id'));
+            this.$el.attr('data-ss', this.model.get('ss'));
             this.setElement(this.$el);
             return this;
         },
@@ -934,8 +1000,8 @@
             , "click .play": "playSong"
         },
         playSong: function() {
+            // play song
             mediaPlayer.loadSong('/api/files/'+encodeURIComponent(this.model.get('filename')), this.model);
-            window.socketSong($('.chatroom[selected]').attr('data-id'), '/api/files/'+encodeURIComponent(this.model.get('filename')));
         },
         queueSong: function() {
             this.$el.attr('data-queue', true);
