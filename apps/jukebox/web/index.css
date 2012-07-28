@@ -96,6 +96,9 @@ input.search {
 .song[data-queue="true"] {
     background: green;
 }
+.song .album, .song .artist {
+    float: right;
+}
 .played {
     height: 20px;
     overflow: hidden;
@@ -145,10 +148,22 @@ button.play {
     display: inline;
 }
 .songs li[selected="selected"] {
-    background: #CCC;
+    background: #333;
 }
 .song .artist, .localFile .artist, .localFile .year {
-    padding: 5px;
+    padding: 0px 5px;
+}
+.song .duration {
+    font-size: 72%;
+    color: #CCC;
+}
+.song .album {
+    font-size: 72%;
+    color: #CCC;
+}
+.song .artist {
+    font-size: 78%;
+    color: #CCC;
 }
 .topbar-inner .container {
     height: 120px;
@@ -288,6 +303,7 @@ circle {
     font-size: 1.3em;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
+    overflow: auto;
 }
 .songList ul li button {
     display: none;
@@ -358,7 +374,7 @@ circle {
         height: 40%;
         width:30%;
     }
-    #queue > div {
+    #queue > div, #mediaPlayer > div {
         margin-top: 80px;
     }
     #chat {
@@ -377,9 +393,6 @@ circle {
         left: 0px;
         height: 70%;
     }
-    #mediaPlayer > div {
-        margin-top: 80px;
-    }
     #mediaPlayer {
         width: 70%;
         position: fixed;
@@ -387,7 +400,6 @@ circle {
         top: 0px;
         left: 0px;
         height: 30%;
-        margin-top: 80px;
     }
 }
 

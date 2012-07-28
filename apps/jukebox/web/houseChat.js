@@ -224,6 +224,7 @@
         },
         submit: function(el) {
             var self = this;
+            console.log(this.$msg.val())
             var m = new chat.MessageModel({}, {collection: this.collection});
             m.set({msg: this.$msg.val()});
             var s = m.save(null, {silent: true, wait: true})

@@ -15,11 +15,11 @@ var getValue = function(object, prop) {
 // TODO sync with offline storage
 
 Backbone.sync = function(method, model, options) {
-    //console.log('backbone.sync');
+    console.log('backbone.sync');
     //if(navigator && navigator.hasOwnProperty('onLine') && !navigator.onLine) {
     //    return;
     //}
-    //console.log(arguments)
+    console.log(arguments)
   var type = methodMap[method];
   
   // Default options, unless specified.

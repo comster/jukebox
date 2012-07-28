@@ -430,8 +430,8 @@
                 window.document.title = str;
             }
             
-            this.$el.append(this.$canvas);
-            this.$el.append(this.$viz);
+            this.$player.append(this.$viz);
+            this.$player.append(this.$canvas);
             
             this.setElement(this.$el);
             return this;
@@ -462,20 +462,22 @@
             str += artist ? artist : '';
             str += album ? ' on '+album : '';
             str += this.metadata.year ? ' '+this.metadata.year : '';
+            console.log(str);
             if(str) {
                 this.$el.find('.songInfo').html(str);
                 window.document.title = str;
-                
-                if(this.metadata.coverArt) {
-                    //var $im = new Image();
-                    //$im.src = this.metadata.coverArt.data.data;
-                    //$('body').append($im);
+                var cover = this.metadata.coverArt || this.metadata["Cover Art"] || '';
+                console.log(cover)
+                if(cover) {
+                    if(!cover.toBlob) cover = cover.data
+                    var src = window.webkitURL.createObjectURL(cover.toBlob());
+                    $('#vizual').html('<img src="' + src + '" />');
                 }
             }
         },
         initialize: function() {
             var self = this;
-            this.$player = '<meter min="0.0" max="100.0" value="0"></meter><button class="playPause">play</button><span class="loading"></span><span class="songInfo"></span><span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span>';
+            this.$player = $('<div><meter min="0.0" max="100.0" value="0"></meter><button class="mute">mute</button><span class="loading"></span><span class="songInfo"></span><span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span></div>');
             this.$canvas = $('<canvas id="waveform" />');
             this.$viz = $('<div id="vizual"></div>');
             window.mediaPlayer = this;
@@ -483,8 +485,15 @@
         },
         events: {
             "click button.playPause": "playPause"
-            , "click button.next": "next"
+            , "click button.mute": "mute"
             , "click button.seek": "seek"
+        },
+        mute: function() {
+            if(this.player.volume == 0) {
+                this.player.volume = 100;
+            } else {
+                this.player.volume = 0;
+            }
         },
         preloadSong: function(song) {
            this.preloads[song.filename] = Player.fromURL('/api/files/'+song.filename);
@@ -570,7 +579,7 @@
                 year: "2000"*/
             });
             player.on('duration', function(msecs){
-                console.log(arguments);
+                //console.log(arguments);
             });
             
             this.visualizePlayer(player);
@@ -722,8 +731,8 @@
             var self = this;
             this.reset();
             this.fetch({add:true});
-        //}, comparator: function(a,b) {
-            //return a.get('name') > b.get('name');
+        }, comparator: function(a,b) {
+            return a.get('at') > b.get('at');
         }
     });
     
@@ -981,12 +990,27 @@
         }
     });
     
+    var formatSeconds = function(seconds) {
+        var str = '';
+        str = Math.floor(seconds/60) +':'+ pad(Math.floor(seconds%60));
+        return str;
+    }
     
     SongRow = Backbone.View.extend({
         tag: 'span',
         className: 'song',
         render: function() {
-            this.$el.html('<button class="queue" title="Queue Song">❥</button><button class="play" title="Preview Song">▸</button><span class="artist">'+this.model.get('artist')+'</span><span class="title">'+this.model.get('title')+'</span>');
+            var str = '<span class="title">'+this.model.get('title')+'</span> ';
+            if(this.model.has('duration')) {
+                str = '<span class="duration">'+formatSeconds(this.model.get('duration'))+'</span> '+str;
+            }
+            if(this.model.get('album')) {
+                str += '<span class="album">'+this.model.get('album')+'</span>';
+            }
+            if(this.model.get('artist')) {
+                str += '<span class="artist">'+this.model.get('artist')+'</span>';
+            }
+            this.$el.html('<button class="queue" title="Queue Song">❥</button><button class="play" title="Preview Song">▸</button>'+str);
             this.$el.attr('data-id', this.model.get('id'));
             this.$el.attr('data-ss', this.model.get('ss'));
             this.setElement(this.$el);
