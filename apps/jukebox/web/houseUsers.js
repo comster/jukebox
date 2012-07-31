@@ -32,7 +32,7 @@
     });
     
     users.Collection = Backbone.Collection.extend({
-        model: rest.Model,
+        model: users.Model,
         url: houseApi+"/",
         initialize: function() {
             var self = this;
@@ -54,62 +54,6 @@
         }
     });
 
-    rest.SearchInput = Backbone.View.extend({
-        render: function() {
-            this.$el.append(this.$input);
-            this.$el.append(this.$open);
-            this.$el.append(this.$put);
-            this.$el.append(this.$post);
-            this.$el.append(this.$del);
-            this.setElement(this.$el);
-            return this;
-        },
-        initialize: function() {
-            var self = this;
-            this.$input = $('<input type="text" name="query" value="/" />');
-            this.$open = $('<button class="get" title="get">GET</button>');
-            this.$put = $('<button class="put" title="put">PUT</button>');
-            this.$post = $('<button class="post" title="post">POST</button>');
-            this.$del = $('<button class="delete" title="delete">DELETE</button>');
-        },
-        events: {
-            "click .get": "open",
-            "click .put": "put",
-            "click .post": "post",
-            "click .delete": "delete"
-        },
-        open: function() {
-            var url = this.$input.val();
-            var newwindow=window.open(url,'resource','');
-        },
-        getCollection: function() {
-            var url = this.$input.val();
-            var b = this.options.explorer.collection.baseUrl;
-            url = url.substr(url.indexOf(b)+b.length);
-            var c;
-            
-            c = this.options.explorer.getCollection(url);
-            
-            return c;
-        },
-        put: function() {
-            var url = this.$input.val();
-            this.trigger('put', url);
-        },
-        post: function() {
-            var url = this.$input.val();
-            this.trigger('post', url);
-        },
-        "delete": function() {
-            if(confirm("Are you sure that you want to delete this resource?")) {
-                var url = this.$input.val();
-                $.ajax({url: url, type: "DELETE"}).done(function(){
-                    alert('deleted');
-                });
-            }
-        }
-    });
-    
     users.LoginForm = Backbone.View.extend({
         tagName: "span",
         className: "login",
@@ -131,7 +75,7 @@
         }
     });
         
-    rest.View = Backbone.View.extend({
+    users.View = Backbone.View.extend({
         tagName: "li",
         className: "userView",
         htmlTemplate: '<span class="classy">\

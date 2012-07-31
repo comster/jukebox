@@ -36,6 +36,24 @@ header .openNav {
     top: 0;
     left: 0;
 }
+header .openNav img {
+    height: 50px;
+    width: 50px;
+}
+header .openNav:hover {
+    padding: 0px;
+    height: 70px;
+    width: 70px;
+}
+header .openNav:hover img {
+    height: 70px;
+    width: 70px;
+}
+.avatar img {
+    max-height: 50px;
+    max-width: 50px;
+    border-radius: 50%;
+}
 .upload_all {
     top: 0; right: 0;
     position: absolute;
@@ -49,10 +67,6 @@ header .openNav {
     left: 0;
     width: 100%;
     height: 100%;
-}
-header .openNav img {
-    height: 50px;
-    width: 50px;
 }
 #library input[type="file"] {
     position: absolute;
@@ -103,6 +117,15 @@ input.search {
     height: 20px;
     overflow: hidden;
 }
+.played .songs li {
+    display: none;
+}
+.played .songs li:last-child {
+    display: block;
+}
+.played .songs li:last-child .pAt {
+    visibility: hidden;
+}
 ul.queue {
     
 }
@@ -110,6 +133,39 @@ ul.queue li {
     height: 1.5em;
     line-height: 1.5em;
     overflow: hidden;
+    position: relative;
+    padding: 4px 0px;
+}
+.queue li:first-child {
+    background: grey;
+    border: 1px solid #DDD;
+}
+
+@-webkit-keyframes spin {
+0% { -webkit-transform: rotate(0deg);}
+100% { -webkit-transform: rotate(360deg);}
+}
+@-moz-keyframes spin {
+0% { -moz-transform: rotate(0deg);}
+100% { -moz-transform: rotate(360deg);}
+}
+@-o-keyframes spin {
+0% { -o-transform: rotate(0deg);}
+100% { -o-transform: rotate(360deg);}
+}
+@-ms-keyframes spin {
+0% { -ms-transform: rotate(0deg);}
+100% { -ms-transform: rotate(360deg);}
+}
+
+.queue li:first-child img {
+    -webkit-animation: spin 5s infinite linear;
+    -moz-animation: spin 5s infinite linear;
+    -o-animation: spin 5s infinite linear;
+    -ms-animation: spin 5s infinite linear;
+}
+.queue li:first-child button {
+     visibility: hidden;
 }
 ul.queue li .artist {
     padding-right: 4px;
@@ -132,11 +188,20 @@ button.skip {
     right: 0px;
     top: 104px;
 }
+#vizual img {
+    max-height: 100%;
+}
 #app {
     
 }
 #chat {
     
+}
+#chat .user img, .dj .user img {
+    max-width: 20px;
+    max-height: 20px;
+    border-radius: 50%;
+    vertical-align: middle;
 }
 #mediaPlayer meter {
     width: 100%;
@@ -215,7 +280,7 @@ ul.rooms li:hover {
 
 ul.messages {
     list-style: none;
-    color: grey;
+    color: white;
     font-size: 80%;
 }
 ul.messages li {
@@ -391,7 +456,7 @@ circle {
         overflow-y: scroll;
         bottom: 0px;
         left: 0px;
-        height: 70%;
+        height: 50%;
     }
     #mediaPlayer {
         width: 70%;
@@ -399,7 +464,7 @@ circle {
         overflow: auto;
         top: 0px;
         left: 0px;
-        height: 30%;
+        height: 50%;
     }
 }
 

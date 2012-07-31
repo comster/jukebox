@@ -20,12 +20,16 @@ var ObjectID = mongo.ObjectID;
                     for(var i in data) {
                         delete data[i].pass;
                         
-                        if(req.session.data.user && data[i].id.toString() == req.session.data.user.toString()) {
+                        if(req.session.data.user && data[i].id.toString() == req.session.data.user.toString()
+                         || (req.session.data.groups && req.session.data.groups.indexOf('admin') !== -1)) {
                             //console.log('your own record')
                         } else {
                             data[i] = {
                                 id: data[i].id,
                                 name: data[i].name
+                            }
+                            if(data[i].avatar) {
+                                data[i].avatar = data[i].avatar;
                             }
                         }
                     }
@@ -44,6 +48,11 @@ var ObjectID = mongo.ObjectID;
         }
         
         if(req.method == 'GET') {
+            
+            if(!req.session.data.user) {
+                res.data([]);
+            }
+            
             var query = {};
             
             if(docId) {
@@ -73,8 +82,18 @@ var ObjectID = mongo.ObjectID;
                 
                 // you can only update your own document
                 query._id = req.session.data.user;
+                
+                delete req.fields.groups; // and not your groups
+                
+                // TODO hash password
+                delete req.fields.pass;
+                
+                // TODO handle changing name
+                delete req.fields.name;
+                
+                delete req.fields.id;
             
-                ds.update(col, query, req.fields, function(err, data){
+                ds.update(col, query, {"$set": req.fields}, function(err, data){
                     if(err) {
                         house.log.err(err);
                         res.end('error');

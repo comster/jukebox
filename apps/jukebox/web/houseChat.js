@@ -122,7 +122,7 @@
             var self = this;
             this.collection.on('add', function(doc, col) {
                 var $li = $('<li></li>');
-                var view = doc.getView();
+                var view = doc.getView({viewType:'UserAvatar'});
                 $li.append(view.render().el);
                 $li.attr('data-id', doc.get('id'));
                 self.$ul.append($li);
@@ -306,6 +306,38 @@
         render: function() {
             this.$el.html(this.model.get('name'));
             this.$el.attr('data-id', this.model.get('id'));
+            this.$el.addClass(this.model.get('name'));
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            var self = this;
+        },
+        events: {
+        }
+    });
+    
+    chat.colors = [
+        '#B971E3', '#FFF7C2', '#A5C3FB', '#70C586'
+    ];
+    
+    chat.UserAvatar = Backbone.View.extend({
+        tag: 'span',
+        className: 'user',
+        render: function() {
+            var userColor = chat.colors.shift();
+            chat.colors.push(userColor); // reuse our colors
+            var sty = '<style>.'+this.model.get('name')+' { color: '+userColor+'; }</style>';
+            this.$el.html(sty + this.model.get('name'));
+            console.log(this.model.attributes);
+            console.log(this.model.get('avatar'));
+            var $avatar = $('<img src="/jukebox/assets/img/icons/library.png" />');
+            if(this.model.has('avatar')) {
+                $avatar.attr('src', '/api/files/'+this.model.get('avatar'));
+            }
+            this.$el.prepend($avatar);
+            this.$el.addClass(this.model.get('name'));
+            this.$el.attr('data-id', this.model.get('id'));
             this.setElement(this.$el);
             return this;
         },
@@ -351,7 +383,15 @@
             this.userCollection.load();
             this.messageCollection.load(function(){
                 self.messageCollection.on('add', function(doc){
-                    chat.notify({title: doc.get('user').name, msg: doc.get('msg'), img: ''});
+                    var notifyOpt = {title: doc.get('user').name, msg: doc.get('msg'), img: ''};
+                    if(doc.get('user').avatar) {
+                        notifyOpt.img = '/api/files/'+doc.get('user').avatar;
+                    }
+                    var userDoc = window.usersCollection.get(doc.get('user').id);
+                    if(userDoc) {
+                        notifyOpt.img = '/api/files/'+userDoc.get('avatar');
+                    }
+                    chat.notify(notifyOpt);
                 });
             });
         },
@@ -364,7 +404,7 @@
         className: 'msg',
         render: function() {
             this.$el.html(this.model.get('msg'));
-            this.$el.prepend('<span data-id="'+this.model.get('user').id+'" class="user">'+this.model.get('user').name+'</span> ');
+            this.$el.prepend('<span data-id="'+this.model.get('user').id+'" class="'+this.model.get('user').name+'">'+this.model.get('user').name+'</span> ');
             //this.$el.append('<span class="at" title="'+this.model.get('at')+'">'+moment(this.model.get('at')).fromNow()+'</span>');
             this.$el.attr('data-id', this.model.get('id'));
             this.setElement(this.$el);
@@ -452,7 +492,11 @@
             });
             
             require(['/socket.io/socket.io.js'], function() {
-                var socket = self.io = io.connect(window.location.protocol+'//'+window.location.host+'/socket.io/chat');
+                var socketOpts = {};
+                if(false && window.location.protocol.indexOf('https') !== -1) {
+                    socketOpts.secure = true;
+                }
+                var socket = self.io = io.connect('http://'+window.location.host+':8080/socket.io/chat', socketOpts);
                 socket.on('connect', function(data) {
                 });
                 socket.on('message', function (data) {
@@ -485,6 +529,23 @@
                 socket.on('loadSong', function (song) {
                     console.log('socket song '+song.filename)
                     window.mediaPlayer.preloadSong(song)
+                });
+                
+                socket.on('songqPlay', function (songq) {
+                    // check the currently playing song in the Queue and slide it into the played pile
+                    
+                    
+                    console.log('socket song '+songq.song.filename)
+                    window.mediaPlayer.loadSong('/api/files/'+songq.song.filename, songq.song)
+                    
+                    // insert chat msg that song is playing
+                    var djUser = {name:'~',id:''};
+                    if(songq.dj) {
+                        djUser = {name:songq.dj.name, id:songq.dj.id}
+                    }
+                    self.rooms[songq.room_id].messageCollection.add({user:djUser,room_id:songq.room_id,at:new Date(), msg:' playing '+songq.song.ss});
+                    
+                    // Look for it in the Queue and select it as playing
                 });
                 
                 self.initialized = true;

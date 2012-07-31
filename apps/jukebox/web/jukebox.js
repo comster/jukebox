@@ -29,7 +29,7 @@
             this.headerNavView.addView('Player', new MediaPlayerView({el: $('<div id="mediaPlayer"></div>')}));
             this.headerNavView.addView('Library', new LibraryView({el: $('<div id="library"></div>')}));
             require(['houseChat.js'], function(houseChat) {
-                var chatApp = new houseChat.AppView({el: $('<div id="chat"></div>')});
+                var chatApp = window.chat = new houseChat.AppView({el: $('<div id="chat"></div>')});
                 self.headerNavView.addView('Chat', chatApp);
                 self.headerNavView.addView('Queue', new QueueView({el: $('<div id="queue"></div>'), chat: chatApp}));
             });
@@ -153,6 +153,7 @@
                 self.queues[room.get('id')] = new SongqListView({el: self.$queue, roomId: room.get('id')});
                 self.songsQueueList = self.queues[room.get('id')];
                 
+                // request the room information
                 chatSocket.emit('info', room.get('id'), function(roomInfo){
                     console.log(roomInfo);
                     
@@ -169,7 +170,7 @@
                     }
                 });
                 
-                self.plays[room.get('id')] = new SongpListView({el: self.$played, roomId: room.get('id')});
+                self.plays[room.get('id')] = self.songsPlayedList = new SongpListView({el: self.$played, roomId: room.get('id')});
                 
                 self.queues[room.get('id')].render();
                 self.plays[room.get('id')].render();
@@ -193,8 +194,9 @@
     var UploadFrame = Backbone.View.extend({
         tagName: "span",
         className: "uploadFrame",
-        //htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>',
-        htmlTemplate: '<input type="file" webkitdirectory directory multiple mozdirectory onchange="fileChangeListener(this.files)"><div class="uploadFiles"><button class="upload_all" title="Upload All">☁☁☁</button></div>',
+        //htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>', haha, the old way of doing things.
+        // mozdirectory webkitdirectory directory aren't really useful?
+        htmlTemplate: '<input type="file" multiple onchange="fileChangeListener(this.files)"><div class="uploadFiles"><button class="upload_all" title="Upload All">☁☁☁</button></div>',
         template: function(doc) {
             return $(_.template(this.htmlTemplate, doc));
         },
@@ -477,7 +479,7 @@
         },
         initialize: function() {
             var self = this;
-            this.$player = $('<div><meter min="0.0" max="100.0" value="0"></meter><button class="mute">mute</button><span class="loading"></span><span class="songInfo"></span><span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span></div>');
+            this.$player = $('<div><meter min="0.0" max="100.0" value="0"></meter><button class="mute" title="Mute">♫</button><span class="loading"></span><span class="songInfo"></span><span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span></div>');
             this.$canvas = $('<canvas id="waveform" />');
             this.$viz = $('<div id="vizual"></div>');
             window.mediaPlayer = this;
@@ -501,9 +503,30 @@
            console.log('preloading');
         },
         loadSong: function(fileName, song, diff) {
-            if(fileName == this.currentFileName) return;
-            this.currentFileName = fileName;
             var self = this;
+            
+            if(this.currentSong) {
+                if(fileName == this.currentSong.filename) return;
+                
+                // only client side, move it into the songp collection from the songq
+                
+                JukeBoxQueue.songsQueueList.collection.each(function(songq){
+                    console.log(songq);
+                    if(self.currentSong && songq.get('song').id == self.currentSong.id) {
+                        console.log('found playing song in songq');
+                        
+                        var songpJson = songq.attributes;
+                        songpJson.qAt = songpJson.at;
+                        
+                        JukeBoxQueue.songsPlayedList.collection.add(new SongpModel(songq));
+                        JukeBoxQueue.songsQueueList.collection.remove(songq.id);
+                    }
+                });
+            }
+            
+            if(song) {
+                this.currentSong = song;
+            }
             var player;
             
             self.$el.find('.loading').html('Loading...');
@@ -804,13 +827,15 @@
             var self = this;
             this.reset();
             
+            this.filter.sort = 'rank';
+            
             var options = {data: this.filter};
             options.add = true;
             
             if(callback) options.success = callback;
             this.fetch(options);
         }, comparator: function(a,b) {
-            return a.get('at') < b.get('at');
+            return a.get('rank') < b.get('rank');
         },
         filter: function(obj) {
             this.filter = obj;
@@ -865,20 +890,43 @@
         }
     });
     
-    SongqRow = Backbone.View.extend({
-        tag: 'span',
-        className: 'songq',
+    var UserAvatar = Backbone.View.extend({
+        tagName: 'span',
+        className: 'user',
         render: function() {
-            if(this.model.get('song')) {
-                this.$el.html('<span class="artist">'+this.model.get('song').artist+'</span><span class="title">'+this.model.get('song').title+'</span><button class="remove">x</button>');
-                this.$el.attr('title', this.model.get('song').ss);
+            this.$el.html('');
+            var $avatar = $('<img src="/jukebox/assets/img/icons/library.png" />');
+            if(this.model.has('avatar')) {
+                $avatar.attr('src', '/api/files/'+this.model.get('avatar'));
             }
+            this.$el.prepend($avatar);
+            this.$el.addClass(this.model.get('name'));
             this.$el.attr('data-id', this.model.get('id'));
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
             var self = this;
+        },
+        events: {
+        }
+    });
+    
+    var SongqRow = Backbone.View.extend({
+        tagName: 'span',
+        className: 'songq',
+        render: function() {
+            this.$el.html('<span class="dj" title="'+this.model.get('dj').name+'"></span><span class="title">'+this.model.get('song').title+'</span> <span class="artist">'+this.model.get('song').artist+'</span><button class="remove" title="Remove from queue spot '+this.model.get('rank')+'">x</button>');
+            this.$el.attr('title', this.model.get('song').ss);
+            this.$el.attr('data-id', this.model.get('id'));
+            this.$el.find('.dj').append(this.userAvatar.render().el);
+            this.setElement(this.$el);
+            return this;
+        },
+        initialize: function() {
+            var self = this;
+            this.user = window.usersCollection.get(this.model.get('dj').id);
+            this.userAvatar = new UserAvatar({model: this.user});
         },
         events: {
             "click .remove": "unqueueSong"
@@ -917,14 +965,15 @@
         }, load: function(callback) {
             var self = this;
             this.reset();
-            
+            this.filter.limit = 15;
+            this.filter.sort = 'pAt-';
             var options = {data: this.filter};
             options.add = true;
             
             if(callback) options.success = callback;
             this.fetch(options);
         }, comparator: function(a,b) {
-            return a.get('at') > b.get('at');
+            return a.get('pAt') > b.get('pAt');
         },
         filter: function(obj) {
             this.filter = obj;
@@ -977,7 +1026,10 @@
         className: 'songp',
         render: function() {
             if(this.model.get('song')) {
-                this.$el.html('<span class="artist">'+this.model.get('song').artist+'</span><span class="title">'+this.model.get('song').title+'</span>');
+                this.$el.html('<span class="title">'+this.model.get('song').title+'</span> <span class="artist">'+this.model.get('song').artist+'</span>');
+            }
+            if(this.model.has('pAt')) {
+                this.$el.append('<span class="pAt">'+this.model.get('pAt')+'</span>');
             }
             this.$el.attr('data-id', this.model.get('id'));
             this.setElement(this.$el);
@@ -1037,8 +1089,10 @@
     
     jukebox.init = function($el, callback) {
         var self = this;
-        this.initAuth(function(){
-            if($el) {
+        this.initAuth(function(loginStatus){
+            console.log(loginStatus)
+            
+            if($el && loginStatus && loginStatus.has('groups') && loginStatus.get('groups').indexOf('friend') !== -1) {
                 var $app = $('<div id="app"></div>');
                 $el.append($app);
                 require(['aurora.js'], function() {
@@ -1054,6 +1108,8 @@
                         });
                     }); }); }); });
                 });
+            } else {
+                alert('401');
             }
         });
     }
@@ -1067,8 +1123,10 @@
                     
                 } else if(loginStatus) {
                     if(loginStatus && loginStatus.has('user')) {
+                        jukebox.user = loginStatus.user;
                         var profileView = loginStatus.getView();
                         $profile.html(profileView.render().el);
+                        callback(loginStatus);
                     } else {
                         if(!jukebox.hasOwnProperty('$loginPrompt')) {
                             var $auth = $('<div></div>');
@@ -1092,11 +1150,12 @@
                                 jukebox.$loginPrompt.hide();
                                 var profileView = loginStatus.getView();
                                 $profile.html(profileView.render().el);
+                                
+                                callback(loginStatus);
                             });
                         }
                     }
                 }
-                callback();
             });
         });
     }

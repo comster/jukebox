@@ -1,5 +1,5 @@
 //
-// # Posts Collection API Endpoint
+// # Song Q Collection API Endpoint
 //
 var ObjectID = mongo.ObjectID;
 (exports = module.exports = function(house, options){
@@ -7,6 +7,23 @@ var ObjectID = mongo.ObjectID;
     // This endpoint requires a data source
     var ds = options.ds;
     var col = options.collection;
+    
+    var getRoomIdMaxRank = function(roomId) {
+        ds.find(col, {room_id: roomId, limit: 1, sort: 'rank-'}, function(err, data){
+            if(err) {
+                return 1;
+            } else if(data) {
+                console.log('getMaxRank')
+                console.log(data)
+                if(_.isArray(data)) {
+                    data = data[0];
+                }
+                return data.rank;
+            } else {
+                return 1;
+            }
+        });
+    }
     
     var handleReq = function(req, res, next) {
         var path = req.hasOwnProperty('urlRouted') ? req.urlRouted : req.url;
@@ -56,7 +73,7 @@ var ObjectID = mongo.ObjectID;
             house.log.debug('post');
             console.log(path)
             console.log(req.fields)
-            if(path == '') {
+            if(path == '' && req.session.data.user) {
                 var newSongQ = req.fields;
                 newSongQ.at = new Date();
                 
@@ -70,6 +87,16 @@ var ObjectID = mongo.ObjectID;
                     if(typeof req.fields.room_id == 'string') {
                         req.fields.room_id = new ObjectID(req.fields.room_id);
                     }
+                }
+                
+                newSongQ.dj = {
+                    id: req.session.data.user,
+                    name: req.session.data.name
+                }
+                newSongQ.rank = getRoomIdMaxRank(req.fields.room_id)+1;
+                
+                if(!newSongQ.rank) {
+                    newSongQ.rank = 1;
                 }
                 
                 ds.insert(col, newSongQ, function(err, data){

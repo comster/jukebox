@@ -91,8 +91,12 @@ var ObjectID = mongo.ObjectID;
                 
                 // increment the song playCount
                 console.log(songq.song);
-                ds.update('songs', {_id:songq.song.id}, {"$inc":{"playCount": 1}}, function(err, data){
+                ds.update('songs', {_id:songq.song.id}, {"$inc":{"playCount": 1}, "$set": {"lastPlayedAt": new Date()}}, function(err, data){
                 });
+                
+                // TODO increment the song plays for the dj
+                
+                // TODO increment the song listens for the members of the room
                 
                 if(callback) callback(data);
             });
@@ -134,6 +138,7 @@ var ObjectID = mongo.ObjectID;
                         if(songq.song.duration) {
                             console.log('song q duration '+songq.song.duration);
                             
+                            var gapTime = 2 * 1000;
                             var preloadTime = 10 * 1000;
                             var loadNextSongIn = (songq.song.duration * 1000) - preloadTime;
                             
@@ -148,7 +153,7 @@ var ObjectID = mongo.ObjectID;
                                         timeouts[roomId] = setTimeout(function(){
                                             console.log('advance song q!!!!!!!!!!!!');
                                             advanceRoomSongQ(roomId);
-                                        }, preloadTime);
+                                        }, preloadTime+gapTime);
                                     }
                                 });
                             }, loadNextSongIn);
@@ -157,7 +162,8 @@ var ObjectID = mongo.ObjectID;
                         console.log('~~~~~~~~~~emit play song')
                         console.log(songq.song.filename);
                         // emit to room to play song
-                        io.in(roomId).emit('song', '/api/files/'+songq.song.filename);
+                        //io.in(roomId).emit('song', '/api/files/'+songq.song.filename);
+                        io.in(roomId).emit('songqPlay', songq);
                     }
                 });
             });

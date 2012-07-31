@@ -163,7 +163,7 @@ var OAuth = require('oauth').OAuth;
             if(path == '') {
                 
                 if(req.fields.hasOwnProperty('name') && req.fields.hasOwnProperty('pass')) {
-                    var name = req.fields.name;
+                    var name = req.fields.name.toLowerCase();
                     var pass = hashPass(req.fields.pass);
                     
                     ds.find(col, {name: name, pass: pass}, function(err, data) {
