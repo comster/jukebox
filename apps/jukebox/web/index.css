@@ -198,13 +198,14 @@ ul.queue li div {
     width: 100%;
     position: relative;
 }
-ul.queue li button {
+ul.queue li .actions {
     position: absolute;
     right: 0px;
     top: 0px;
     visibility: hidden;
+    text-align: right;
 }
-ul.queue li:hover button {
+ul.queue li:hover .actions {
     visibility: visible;
 }
 button.skip {

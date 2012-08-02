@@ -80,6 +80,7 @@ var ObjectID = mongo.ObjectID;
             console.log(path)
             console.log(req.fields)
             if(path == '' && req.session.data.user) {
+                var roomStr = '';
                 var newSongQ = req.fields;
                 newSongQ.at = new Date();
                 
@@ -91,6 +92,7 @@ var ObjectID = mongo.ObjectID;
                 
                 if(req.fields.hasOwnProperty('room_id')) {
                     if(typeof req.fields.room_id == 'string') {
+                        roomStr = req.fields.room_id;
                         req.fields.room_id = new ObjectID(req.fields.room_id);
                     }
                 }
@@ -108,6 +110,7 @@ var ObjectID = mongo.ObjectID;
                             res.end('error');
                         } else {
                             res.data(data);
+                            house.ioChat.in(roomStr).emit(col, data);
                         }
                     });
                 });
@@ -124,6 +127,16 @@ var ObjectID = mongo.ObjectID;
                     } else {
                         house.log.debug(data);
                         res.data({});
+                        ds.find(col, query, function(err, data){
+                            if(err) {
+                                house.log.err(err);
+                            } else if(data) {
+                                var roomStr = data[0].room_id;
+                                house.ioChat.in(roomStr).emit(col, data);
+                            } else {
+                                house.log.err(new Error('no data from mongo'));
+                            }
+                        });
                     }
                 });
             }
@@ -131,15 +144,27 @@ var ObjectID = mongo.ObjectID;
             var query = {};
             if(docId) {
                 query._id = docId;
-                ds.remove(col, query, function(err, data){
+                
+                ds.find(col, query, function(err, data){
                     if(err) {
                         house.log.err(err);
-                        res.end('error');
+                    } else if(data) {
+                        
+                        ds.remove(col, query, function(err, removedata){
+                            if(err) {
+                                house.log.err(err);
+                                res.end('error');
+                            } else {
+                                res.data(data);
+                                var roomStr = data[0].room_id;
+                                console.log(roomStr);
+                                house.ioChat.in(roomStr).emit(col, {deleted_id:data[0].id});
+                            }
+                        });
                     } else {
-                        res.data(data);
+                        house.log.err(new Error('no data from mongo'));
                     }
                 });
-                
             }
         } else if(req.method == 'OPTIONS') {
             

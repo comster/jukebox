@@ -894,18 +894,18 @@
             var self = this;
             this.reset();
             
-            this.filter.sort = 'rank';
+            this.dataFilter.sort = 'rank';
             
-            var options = {data: this.filter};
+            var options = {data: this.dataFilter};
             options.add = true;
             
             if(callback) options.success = callback;
             this.fetch(options);
-        }, comparator: function(a,b) {
-            return a.get('rank') < b.get('rank');
+        }, comparator: function(a) {
+            return a.get('rank');
         },
-        filter: function(obj) {
-            this.filter = obj;
+        addFilter: function(obj) {
+            this.dataFilter = obj;
         }
     });
     
@@ -919,23 +919,45 @@
             this.setElement(this.$el);
             return this;
         },
+        sort: function() {
+            var self = this;
+            var prevRank = 0;
+            var lis = this.$el.find('li');
+            lis.each(function(i,e){
+                var $e = $(e);
+                var r = parseInt($e.attr('data-rank'), 10);
+                if(i == 0) {
+                    prevRank = r;
+                } else {
+                    if(r < prevRank) {
+                        $(lis[i-1]).before(e);
+                        self.sort();
+                    }
+                    prevRank = r;
+                }
+            });
+            this.collection.each(function(m,i,c){
+                m.getView().render();
+            });
+        },
         initialize: function(options) {
             this.$ul = $('<ul class="songs"></ul>');
             this.$skip = $('<button class="skip">☣</button>');
             var self = this;
             if(!this.collection) {
                 this.collection = new SongqCollection();
+                this.collection.list = this;
             }
             this.room_id = options.roomId;
             this.collection.on('reset', function() {
                 self.$ul.html('');
+                self.render();
             });
             this.collection.on('add', function(doc, col) {
                 var $li = $('<li></li>');
+                $li.attr('data-rank', doc.get('rank'));
                 var view = doc.getView();
                 $li.append(view.render().el);
-                $li.attr('data-id', doc.get('id'));
-                $li.attr('data-rank', doc.get('rank'));
                 
                 if(self.$ul.children().length === 0) {
                     self.$ul.append($li);
@@ -957,8 +979,34 @@
                     return false;
                 });
             });
-            this.collection.filter({room_id: options.roomId});
+            this.collection.addFilter({room_id: options.roomId});
             this.collection.load();
+            
+            var insertOrUpdateSongQ = function(songq) {
+                var model = self.collection.get(songq.id);
+                if(!model) {
+                    var model = new SongqModel(songq);
+                    self.collection.add(model);
+                } else {
+                    var view = model.getView();
+                    model.set(songq, {silent:true});
+                    view.render();
+                    self.sort();
+                }
+            }
+            chatSocket.on('songq', function(songq) {
+                if(_.isArray(songq)) {
+                    for(var i in songq) {
+                        insertOrUpdateSongQ(songq[i]);
+                    }
+                } else {
+                    if(songq.hasOwnProperty('deleted_id')) {
+                        self.collection.remove(songq.deleted_id);
+                    } else {
+                        insertOrUpdateSongQ(songq);
+                    }
+                }
+            });
         },
         events: {
             "click li": "selectLi",
@@ -1001,11 +1049,20 @@
         tagName: 'span',
         className: 'songq',
         render: function() {
-            this.$el.html('<span class="dj" title="'+this.model.get('dj').name+'"></span><span class="title">'+this.model.get('song').title+'</span> - <span class="artist">'+this.model.get('song').artist+'</span><button class="remove" title="Remove from queue spot '+this.model.get('rank')+'">x</button>');
+            this.$el.html('<span class="dj" title="'+this.model.get('dj').name+'"></span><span class="title">'+this.model.get('song').title+'</span> - <span class="artist">'+this.model.get('song').artist+'</span>');
+            this.$actions = $('<div class="actions"></div>');
+            this.$actions.append('<button class="upAll" title="Move to top">▲</button>');
+            this.$actions.append('<button class="upOne" title="Move up one spot">△</button>');
+            this.$actions.append('<button class="downOne" title="Move down one spot">▽</button>');
+            this.$actions.append('<button class="downAll" title="Move to bottom">▼</button>');
+            this.$actions.append('<button class="remove" title="Remove from queue spot '+this.model.get('rank')+'">x</button>');
+            this.$el.append(this.$actions);
             this.$el.attr('title', this.model.get('song').ss);
             this.$el.attr('data-id', this.model.get('id'));
             this.$el.find('.dj').append(this.userAvatar.render().el);
             this.setElement(this.$el);
+            this.$el.attr('data-rank', this.model.get('rank'));
+            this.$el.parent().attr('data-rank', this.model.get('rank'));
             return this;
         },
         initialize: function() {
@@ -1015,7 +1072,77 @@
         },
         events: {
             "click .remove": "unqueueSong"
-            //, "click .play": "playSong"
+            , "click .upAll": "queueToTop"
+            , "click .downAll": "queueToBottom"
+            , "click .upOne": "queueUpOne"
+            , "click .downOne": "queueDownOne"
+        },
+        queueToTop: function() {
+            var self = this;
+            self.model.collection.sort({silent: true});
+            var topRank = parseInt(self.model.collection.at(0).get('rank'),10);
+            var topModel = self.model.collection.at(0);
+            topModel.save({rank: topRank-1}, {wait: true})
+                .done(function(s, typeStr, respStr) {
+                });
+            
+            var s = self.model.save({rank: topRank}, {wait: true})
+                .done(function(s, typeStr, respStr) {
+                    self.render();
+                    self.model.collection.list.sort();
+                });
+        },
+        queueToBottom: function() {
+            var self = this;
+            self.model.collection.sort({silent: true});
+            var bottomRank = this.model.collection.last().get('rank') + 1;
+            var s = this.model.save({rank: bottomRank}, {wait: true})
+                .done(function(s, typeStr, respStr) {
+                    self.render();
+                    self.model.collection.list.sort();
+                });
+        },
+        queueUpOne: function() {
+            var self = this;
+            self.model.collection.sort({silent: true});
+            var r = self.model.get('rank');
+            var higherRank = r - 1;
+            var sibId = this.$el.parents('li').prev().find('.songq').attr('data-id');
+            var swapModel = self.model.collection.get(sibId);
+            console.log(swapModel);
+            var sm = swapModel.save({rank:r}, {wait: true})
+                .done(function(s, typeStr, respStr) {
+                    self.render();
+                    self.model.collection.list.sort();
+                });
+            var s = self.model.save({rank: higherRank}, {wait: true})
+                .done(function(s, typeStr, respStr) {
+                    self.render();
+                    self.model.collection.list.sort();
+                });
+        },
+        queueDownOne: function() {
+            var self = this;
+            self.model.collection.sort({silent: true});
+            var r = self.model.get('rank');
+            var lowerRank = r + 1;
+            console.log(self.model.collection)
+            console.log({rank: lowerRank})
+            var sibId = this.$el.parents('li').next().find('.songq').attr('data-id');
+            console.log(this.$el.parents('li'))
+            console.log(this.$el.parents('li').next())
+            var swapModel = self.model.collection.get(sibId);
+            console.log(swapModel);
+            var sm = swapModel.save({rank:r}, {wait: true})
+                .done(function(s, typeStr, respStr) {
+                    self.render();
+                    self.model.collection.list.sort();
+                });
+            var s = self.model.save({rank: lowerRank}, {wait: true})
+                .done(function(s, typeStr, respStr) {
+                    self.render();
+                    self.model.collection.list.sort();
+                });
         },
         unqueueSong: function() {
             this.model.destroy();
@@ -1050,9 +1177,9 @@
         }, load: function(callback) {
             var self = this;
             this.reset();
-            this.filter.limit = 15;
-            this.filter.sort = 'pAt-';
-            var options = {data: this.filter};
+            this.dataFilter.limit = 15;
+            this.dataFilter.sort = 'pAt-';
+            var options = {data: this.dataFilter};
             options.add = true;
             
             if(callback) options.success = callback;
@@ -1060,8 +1187,8 @@
         }, comparator: function(a,b) {
             return a.get('pAt') < b.get('pAt');
         },
-        filter: function(obj) {
-            this.filter = obj;
+        addFilter: function(obj) {
+            this.dataFilter = obj;
         }
     });
     
@@ -1107,7 +1234,7 @@
                     return false;
                 });
             });
-            this.collection.filter({room_id: options.roomId});
+            this.collection.addFilter({room_id: options.roomId});
             this.collection.load();
         },
         events: {
@@ -1298,16 +1425,16 @@
             var self = this;
         }, load: function(callback) {
             var self = this;
-            this.filter.sort = 'at-';
-            var options = {data: this.filter, add: true};
+            this.dataFilter.sort = 'at-';
+            var options = {data: this.dataFilter, add: true};
             if(callback) options.success = callback;
             this.reset();
             this.fetch(options);
         }, comparator: function(a,b) {
             return a.get('at') > b.get('at');
         },
-        filter: function(obj) {
-            this.filter = obj;
+        addFilter: function(obj) {
+            this.dataFilter = obj;
         }
     });
     
@@ -1327,7 +1454,7 @@
             if(!this.collection) {
                 this.collection = new SongRatingCollection();
                 if(options.song_id) {
-                    this.collection.filter({song_id:options.song_id});
+                    this.collection.addFilter({song_id:options.song_id});
                 }
             }
             this.collection.on('add', function(doc, col) {

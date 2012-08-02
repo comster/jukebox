@@ -194,7 +194,6 @@
             "submit": "submit"
         },
         submit: function(el) {
-            console.log(this.model)
             this.model.set({name: this.$el.find('input[name="name"]').val()}, {wait: true});
             
             return false;
@@ -275,7 +274,6 @@
             "click li": "selectLi"
         },
         selectLi: function(el) {
-            console.log(el);
             var room = this.collection.get($(el.target).attr('data-id'));
             $(el.target).parent().attr('selected', true);
             $(el.target).parent().siblings().removeAttr('selected');
@@ -328,8 +326,6 @@
             chat.colors.push(userColor); // reuse our colors
             var sty = '<style>.'+this.model.get('name')+' { color: '+userColor+'; }</style>';
             this.$el.html(sty + this.model.get('name'));
-            console.log(this.model.attributes);
-            console.log(this.model.get('avatar'));
             var $avatar = $('<img src="/jukebox/assets/img/icons/library.png" />');
             if(this.model.has('avatar')) {
                 $avatar.attr('src', '/api/files/'+this.model.get('avatar'));
@@ -366,11 +362,9 @@
             var docs, users;
             
             if(this.model.has('messages')) {
-                console.log(this.model.get('messages'));
                 docs = this.model.get('messages');
             }
             if(this.model.has('users')) {
-                console.log(this.model.get('users'));
                 users = this.model.get('users');
             }
             this.messageCollection = new chat.MessageCollection(docs, {roomId: this.model.get('id')});
@@ -521,16 +515,13 @@
                 window.chatSocket = socket;
                 
                 socket.on('song', function (filename) {
-                    //console.log('socket song '+filename)
                     window.mediaPlayer.loadSong(filename)
                 });
                 socket.on('loadSong', function (song) {
-                    //console.log('socket song '+song.filename)
                     window.mediaPlayer.preloadSong(song)
                 });
                 
                 socket.on('songqPlay', function (songq) {
-                    //console.log('socket song '+songq.song.filename)
                     window.mediaPlayer.loadSong('/api/files/'+songq.song.filename, songq.song)
                     
                     // insert chat msg that song is playing
@@ -573,7 +564,6 @@
             this.roomsFindListView = new chat.RoomListView({collection: this.collection});
             this.roomNewFormView = new chat.RoomNewFormView({collection: this.collection});
             this.collection.load(function(){
-                console.log(self.collection.first());
                 self.trigger('room', self.collection.first());
             });
             this.roomsFindListView.on('select', function(room){

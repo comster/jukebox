@@ -94,6 +94,7 @@ var ObjectID = mongo.ObjectID;
         } else if(req.method == 'PUT') {
             var query = {};
             if(docId) {
+                var roomStr = '';
                 query._id = docId;
             
                 ds.update(col, query, req.fields, function(err, data){
@@ -108,6 +109,7 @@ var ObjectID = mongo.ObjectID;
                             if(err) {
                                 house.log.err(err);
                             } else if(data) {
+                                var roomStr = data[0].room_id;
                                 house.ioChat.in(roomStr).emit('songr', data);
                             } else {
                                 house.log.err(new Error('no data from mongo'));
