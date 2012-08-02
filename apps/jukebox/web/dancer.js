@@ -5,4 +5,978 @@
  *
  * v0.2.1
  */
-function FourierTransform(a,b){this.bufferSize=a,this.sampleRate=b,this.bandwidth=2/a*b/2,this.spectrum=new Float32Array(a/2),this.real=new Float32Array(a),this.imag=new Float32Array(a),this.peakBand=0,this.peak=0,this.getBandFrequency=function(a){return this.bandwidth*a+this.bandwidth/2},this.calculateSpectrum=function(){var b=this.spectrum,c=this.real,d=this.imag,e=2/this.bufferSize,f=Math.sqrt,g,h,i;for(var j=0,k=a/2;j<k;j++)g=c[j],h=d[j],i=e*f(g*g+h*h),i>this.peak&&(this.peakBand=j,this.peak=i),b[j]=i}}function FFT(a,b){FourierTransform.call(this,a,b),this.reverseTable=new Uint32Array(a);var c=1,d=a>>1,e;while(c<a){for(e=0;e<c;e++)this.reverseTable[e+c]=this.reverseTable[e]+d;c<<=1,d>>=1}this.sinTable=new Float32Array(a),this.cosTable=new Float32Array(a);for(e=0;e<a;e++)this.sinTable[e]=Math.sin(-Math.PI/e),this.cosTable[e]=Math.cos(-Math.PI/e)}(function(){function b(){for(var a in this.sections)this.sections[a].condition()&&this.sections[a].callback.call(this)}var a=function(c,d){this.audioAdapter=a._getAdapter(this),this.events={},this.sections=[],this.bind("update",b),this.source=a._makeSupportedPath(c,d),this.audioAdapter.load(this.source)};a.adapters={},a.prototype={play:function(){return this.audioAdapter.play(),this},stop:function(){return this.audioAdapter.stop(),this},createBeat:function(b,c,d,e,f){return new a.Beat(this,b,c,d,e,f)},bind:function(a,b){return this.events[a]||(this.events[a]=[]),this.events[a].push(b),this},unbind:function(a){return this.events[a]&&delete this.events[a],this},trigger:function(a){var b=this;return this.events[a]&&this.events[a].forEach(function(a){a.call(b)}),this},getTime:function(){return this.audioAdapter.getTime()},getFrequency:function(a,b){var c=0;if(b!==undefined){for(var d=a;d<=b;d++)c+=this.getSpectrum()[d];return c/(b-a+1)}return this.getSpectrum()[a]},getWaveform:function(){return this.audioAdapter.getWaveform()},getSpectrum:function(){return this.audioAdapter.getSpectrum()},isLoaded:function(){return this.audioAdapter.isLoaded},isPlaying:function(){return this.audioAdapter.isPlaying},after:function(a,b){var c=this;return this.sections.push({condition:function(){return c.getTime()>a},callback:b}),this},before:function(a,b){var c=this;return this.sections.push({condition:function(){return c.getTime()<a},callback:b}),this},between:function(a,b,c){var d=this;return this.sections.push({condition:function(){return d.getTime()>a&&d.getTime()<b},callback:c}),this},onceAt:function(a,b){var c=this,d=null;return this.sections.push({condition:function(){return c.getTime()>a&&!this.called},callback:function(){b.call(this),d.called=!0},called:!1}),d=this.sections[this.sections.length-1],this}},window.Dancer=a})(),function(a){var b={mp3:"audio/mpeg;",ogg:'audio/ogg; codecs="vorbis"',wav:'audio/wav; codecs="1"',aac:'audio/mp4; codecs="mp4a.40.2"'},c=document.createElement("audio");a.options={},a.setOptions=function(b){for(var c in b)b.hasOwnProperty(c)&&(a.options[c]=b[c])},a.isSupported=function(){return!window.Float32Array||!window.Uint32Array?null:window.AudioContext||window.webkitAudioContext?"webaudio":window.Audio&&(new window.Audio).mozSetup?"audiodata":FlashDetect.versionAtLeast(9)?"flash":""},a.canPlay=function(d){var e=c.canPlayType;return a.isSupported()==="flash"?d.toLowerCase()==="mp3":!!c.canPlayType&&!!c.canPlayType(b[d.toLowerCase()]).replace(/no/,"")},a.addPlugin=function(b,c){a.prototype[b]===undefined&&(a.prototype[b]=c)},a._makeSupportedPath=function(b,c){if(!c)return b;for(var d=0;d<c.length;d++)if(a.canPlay(c[d]))return b+"."+c[d];return b},a._getAdapter=function(b){switch(a.isSupported()){case"webaudio":return new a.adapters.webkit(b);case"audiodata":return new a.adapters.moz(b);case"flash":return new a.adapters.flash(b);default:return null}}}(window.Dancer),function(){var a=function(a,b){b=b||{},this.dancer=a,this.frequency=b.frequency||[0,10],this.threshold=b.threshold||.3,this.decay=b.decay||.02,this.onBeat=b.onBeat,this.offBeat=b.offBeat,this.isOn=!1,this.currentThreshold=this.threshold;var c=this;this.dancer.bind("update",function(){c.onUpdate()})};a.prototype={on:function(){return this.isOn=!0,this},off:function(){return this.isOn=!1,this},onUpdate:function(){if(!this.isOn)return;var a=this.maxAmplitude(this.frequency);a>=this.currentThreshold&&a>=this.threshold?(this.currentThreshold=a,this.onBeat&&this.onBeat.call(this.dancer,a)):(this.offBeat&&this.offBeat.call(this.dancer,a),this.currentThreshold-=this.decay)},maxAmplitude:function(a){var b=0,c=this.dancer.getSpectrum();if(!a.length)return a<c.length?c[~~a]:null;for(var d=a[0],e=a[1];d<=e;d++)c[d]>b&&(b=c[d]);return b}},window.Dancer.Beat=a}(),function(){function d(){this.source=this.context.createBufferSource(),this.source.buffer=this.buffer,this.source.connect(this.context.destination),this.source.connect(this.proc),this.source.connect(this.context.destination)}var a=2048,b=44100,c=function(a){this.dancer=a,this.context=window.AudioContext?new window.AudioContext:new window.webkitAudioContext,this.isLoaded=!1,this.isPlaying=!1,this.isDisconnected=!1};c.prototype={load:function(c){var e=new XMLHttpRequest,f=this;e.open("GET",c,!0),e.responseType="arraybuffer",e.onload=function(){f.context.decodeAudioData?f.context.decodeAudioData(e.response,function(a){f.buffer=a,d.call(f),f.isLoaded=!0,f.dancer.trigger("loaded")},function(a){console.log(a)}):(f.buffer=f.context.createBuffer(e.response,!1),d.call(f),f.isLoaded=!0,f.dancer.trigger("loaded"))},e.send(),this.proc=this.context.createJavaScriptNode(a/2,1,1),this.proc.onaudioprocess=function(a){f.update.call(f,a)},this.proc.connect(this.context.destination),this.fft=new FFT(a/2,b),this.signal=new Float32Array(a/2)},play:function(){function b(){a.isDisconnected&&d.call(a),a.source.noteOn(0),a.startTime=a.context.currentTime,a.isPlaying=!0}var a=this;this.isLoaded?b():this.dancer.bind("loaded",b)},stop:function(){this.isPlaying&&(this.source.noteOff(0),this.isDisconnected=!0,this.endTime=this.getTime()),this.isPlaying=!1},getWaveform:function(){return this.signal},getSpectrum:function(){return this.fft.spectrum},getTime:function(){return this.isPlaying?this.context.currentTime-(this.startTime||0):this.endTime||0},update:function(b){if(!this.isPlaying)return;var c=[],d=b.inputBuffer.numberOfChannels,e=a/d,f;for(f=d;f--;)c.push(b.inputBuffer.getChannelData(f));for(f=0;f<e;f++)this.signal[f]=d>1?c.reduce(function(a,b){return a[f]+b[f]})/d:c[0][f];this.fft.forward(this.signal),this.dancer.trigger("update")}},Dancer.adapters.webkit=c}(),function(){var a=function(a){this.dancer=a,this.audio=new Audio,this.isLoaded=this.isPlaying=!1};a.prototype={load:function(a){var b=this;this.audio.src=a,this.audio.addEventListener("loadedmetadata",function(a){b.fbLength=b.audio.mozFrameBufferLength,b.channels=b.audio.mozChannels,b.rate=b.audio.mozSampleRate,b.fft=new FFT(b.fbLength/b.channels,b.rate),b.signal=new Float32Array(b.fbLength/b.channels),b.isLoaded=!0,b.dancer.trigger("loaded")},!1),this.audio.addEventListener("MozAudioAvailable",function(a){b.update(a)},!1)},play:function(){this.audio.play(),this.isPlaying=!0},stop:function(){this.audio.pause(),this.isPlaying=!1},getWaveform:function(){return this.signal},getSpectrum:function(){return this.fft.spectrum},getTime:function(){return this.audio.currentTime},update:function(a){if(!this.isLoaded)return;for(var b=0,c=this.fbLength/2;b<c;b++)this.signal[b]=(a.frameBuffer[2*b]+a.frameBuffer[2*b+1])/2;this.fft.forward(this.signal),this.dancer.trigger("update")}},Dancer.adapters.moz=a}(),function(){function g(){var a=this;d=!0,h(Dancer.options.flashJS,function(){soundManager=new SoundManager,soundManager.flashVersion=9,soundManager.flash9Options.useWaveformData=!0,soundManager.useWaveformData=!0,soundManager.useHighPerformance=!0,soundManager.useFastPolling=!0,soundManager.multiShot=!1,soundManager.debugMode=!1,soundManager.debugFlash=!1,soundManager.url=Dancer.options.flashSWF,soundManager.onready(function(){c=!0,a.load()}),soundManager.ontimeout(function(){console.error("Error loading SoundManager2.swf")}),soundManager.beginDelayedInit()})}function h(a,b){var c=document.createElement("script"),d=document.getElementsByTagName("script")[0];c.type="text/javascript",c.src=a,c.onload=b,d.parentNode.insertBefore(c,d)}var a=1024,b=44100,c=!1,d=!1,e=.93,f=function(a){this.dancer=a,this.isLoaded=this.isPlaying=!1,this.wave_L=[],this.wave_R=[],this.spectrum=[],window.SM2_DEFER=!0};f.prototype={load:function(c){var e=this;this.path=c||this.path,!window.soundManager&&!d&&g.call(this),window.soundManager&&(this.audio=soundManager.createSound({id:"dancer"+Math.random()+"",url:this.path,stream:!0,autoPlay:!1,autoLoad:!0,whileplaying:function(){e.update()},onload:function(){e.fft=new FFT(a,b),e.signal=new Float32Array(a),e.waveform=new Float32Array(a),e.isLoaded=!0,e.dancer.trigger("loaded")}}))},play:function(){!this.isPlaying&&this.isLoaded&&(this.audio.play(),this.isPlaying=!0)},stop:function(){this.audio.stop(),this.isPlaying=!1},getWaveform:function(){return this.waveform},getSpectrum:function(){return this.fft.spectrum},getTime:function(){return this.audio.position/1e3},update:function(){if(!this.isLoaded)return;this.wave_L=this.audio.waveformData.left,this.wave_R=this.audio.waveformData.right;var a;for(var b=0,c=this.wave_L.length;b<c;b++)a=parseFloat(this.wave_L[b])+parseFloat(this.wave_R[b]),this.waveform[2*b]=a/2,this.waveform[b*2+1]=a/2,this.signal[2*b]=a*e,this.signal[b*2+1]=a*e;this.fft.forward(this.signal),this.dancer.trigger("update")}},Dancer.adapters.flash=f}(),FFT.prototype.forward=function(a){var b=this.bufferSize,c=this.cosTable,d=this.sinTable,e=this.reverseTable,f=this.real,g=this.imag,h=this.spectrum,i=Math.floor(Math.log(b)/Math.LN2);if(Math.pow(2,i)!==b)throw"Invalid buffer size, must be a power of 2.";if(b!==a.length)throw"Supplied buffer is not the same size as defined FFT. FFT Size: "+b+" Buffer Size: "+a.length;var j=1,k,l,m,n,o,p,q,r,s;for(s=0;s<b;s++)f[s]=a[e[s]],g[s]=0;while(j<b){k=c[j],l=d[j],m=1,n=0;for(var t=0;t<j;t++){s=t;while(s<b)o=s+j,p=m*f[o]-n*g[o],q=m*g[o]+n*f[o],f[o]=f[s]-p,g[o]=g[s]-q,f[s]+=p,g[s]+=q,s+=j<<1;r=m,m=r*k-n*l,n=r*l+n*k}j<<=1}return this.calculateSpectrum()};var FlashDetect=new function(){var a=this;a.installed=!1,a.raw="",a.major=-1,a.minor=-1,a.revision=-1,a.revisionStr="";var b=[{name:"ShockwaveFlash.ShockwaveFlash.7",version:function(a){return c(a)}},{name:"ShockwaveFlash.ShockwaveFlash.6",version:function(a){var b="6,0,21";try{a.AllowScriptAccess="always",b=c(a)}catch(d){}return b}},{name:"ShockwaveFlash.ShockwaveFlash",version:function(a){return c(a)}}],c=function(a){var b=-1;try{b=a.GetVariable("$version")}catch(c){}return b},d=function(a){var b=-1;try{b=new ActiveXObject(a)}catch(c){b={activeXError:!0}}return b},e=function(a){var b=a.split(",");return{raw:a,major:parseInt(b[0].split(" ")[1],10),minor:parseInt(b[1],10),revision:parseInt(b[2],10),revisionStr:b[2]}},f=function(a){var b=a.split(/ +/),c=b[2].split(/\./),d=b[3];return{raw:a,major:parseInt(c[0],10),minor:parseInt(c[1],10),revisionStr:d,revision:g(d)}},g=function(b){return parseInt(b.replace(/[a-zA-Z]/g,""),10)||a.revision};a.majorAtLeast=function(b){return a.major>=b},a.minorAtLeast=function(b){return a.minor>=b},a.revisionAtLeast=function(b){return a.revision>=b},a.versionAtLeast=function(b){var c=[a.major,a.minor,a.revision],d=Math.min(c.length,arguments.length);for(i=0;i<d;i++){if(c[i]>=arguments[i]){if(i+1<d&&c[i]==arguments[i])continue;return!0}return!1}},a.FlashDetect=function(){if(navigator.plugins&&navigator.plugins.length>0){var c="application/x-shockwave-flash",g=navigator.mimeTypes;if(g&&g[c]&&g[c].enabledPlugin&&g[c].enabledPlugin.description){var h=g[c].enabledPlugin.description,i=f(h);a.raw=i.raw,a.major=i.major,a.minor=i.minor,a.revisionStr=i.revisionStr,a.revision=i.revision,a.installed=!0}}else if(navigator.appVersion.indexOf("Mac")==-1&&window.execScript){var h=-1;for(var j=0;j<b.length&&h==-1;j++){var k=d(b[j].name);if(!k.activeXError){a.installed=!0,h=b[j].version(k);if(h!=-1){var i=e(h);a.raw=i.raw,a.major=i.major,a.minor=i.minor,a.revision=i.revision,a.revisionStr=i.revisionStr}}}}}()};FlashDetect.JS_RELEASE="1.0.4"
+
+(function() {
+
+  var Dancer = function () {
+    this.audioAdapter = Dancer._getAdapter( this );
+    this.events = {};
+    this.sections = [];
+
+    this.bind( 'update', update );
+  };
+
+  Dancer.adapters = {};
+
+  Dancer.prototype = {
+
+    load : function ( source, codecs ) {
+      this.source = codecs ?
+        Dancer._makeSupportedPath( source, codecs ) :
+        source;
+      this.audioAdapter.load( this.source );
+      return this;
+    },
+
+    /* Controls */
+
+    play : function () {
+      this.audioAdapter.play();
+      return this;
+    },
+
+    stop : function () {
+      this.audioAdapter.stop();
+      return this;
+    },
+
+
+    /* Actions */
+
+    createBeat : function ( options ) {
+      return new Dancer.Beat( this, options );
+    },
+
+    bind : function ( name, callback ) {
+      if ( !this.events[ name ] ) {
+        this.events[ name ] = [];
+      }
+      this.events[ name ].push( callback );
+      return this;
+    },
+
+    unbind : function ( name ) {
+      if ( this.events[ name ] ) {
+        delete this.events[ name ];
+      }
+      return this;
+    },
+
+    trigger : function ( name ) {
+      var _this = this;
+      if ( this.events[ name ] ) {
+        this.events[ name ].forEach(function( callback ) {
+          callback.call( _this );
+        });
+      }
+      return this;
+    },
+
+
+    /* Getters */
+
+    getTime : function () {
+      return this.audioAdapter.getTime();
+    },
+
+    // Returns the magnitude of a frequency or average over a range of frequencies
+    getFrequency : function ( freq, endFreq ) {
+      var sum = 0;
+      if ( endFreq !== undefined ) {
+        for ( var i = freq; i <= endFreq; i++ ) {
+          sum += this.getSpectrum()[ i ];
+        }
+        return sum / ( endFreq - freq + 1 );
+      } else {
+        return this.getSpectrum()[ freq ];
+      }
+    },
+
+    getWaveform : function () {
+      return this.audioAdapter.getWaveform();
+    },
+
+    getSpectrum : function () {
+      return this.audioAdapter.getSpectrum();
+    },
+
+    isLoaded : function () {
+      return this.audioAdapter.isLoaded;
+    },
+    
+    isPlaying : function () {
+      return this.audioAdapter.isPlaying;
+    },
+
+
+    /* Sections */
+
+    after : function ( time, callback ) {
+      var _this = this;
+      this.sections.push({
+        condition : function () {
+          return _this.getTime() > time;
+        },
+        callback : callback
+      });
+      return this;
+    },
+
+    before : function ( time, callback ) {
+      var _this = this;
+      this.sections.push({
+        condition : function () {
+          return _this.getTime() < time;
+        },
+        callback : callback
+      });
+      return this;
+    },
+
+    between : function ( startTime, endTime, callback ) {
+      var _this = this;
+      this.sections.push({
+        condition : function () {
+          return _this.getTime() > startTime && _this.getTime() < endTime;
+        },
+        callback : callback
+      });
+      return this;
+    },
+
+    onceAt : function ( time, callback ) {
+      var
+        _this = this,
+        thisSection = null;
+      this.sections.push({
+        condition : function () {
+          return _this.getTime() > time && !this.called;
+        },
+        callback : function () {
+          callback.call( this );
+          thisSection.called = true;
+        },
+        called : false
+      });
+      // Baking the section in the closure due to callback's this being the dancer instance
+      thisSection = this.sections[ this.sections.length - 1 ];
+      return this;
+    }
+  };
+
+  function update () {
+    for ( var i in this.sections ) {
+      if ( this.sections[ i ].condition() )
+        this.sections[ i ].callback.call( this );
+    }
+  }
+
+  window.Dancer = Dancer;
+})();
+
+(function ( Dancer ) {
+
+  var CODECS = {
+    'mp3' : 'audio/mpeg;',
+    'ogg' : 'audio/ogg; codecs="vorbis"',
+    'wav' : 'audio/wav; codecs="1"',
+    'aac' : 'audio/mp4; codecs="mp4a.40.2"'
+  },
+  audioEl = document.createElement( 'audio' );
+
+  Dancer.options = {};
+
+  Dancer.setOptions = function ( o ) {
+    for ( var option in o ) {
+      if ( o.hasOwnProperty( option ) ) {
+        Dancer.options[ option ] = o[ option ];
+      }
+    }
+  };
+
+  Dancer.isSupported = function () {
+    if ( !window.Float32Array || !window.Uint32Array ) {
+      return null;
+    } else if ( window.AudioContext || window.webkitAudioContext ) {
+      return 'webaudio';
+    } else if ( audioEl && audioEl.mozSetup ) {
+      return 'audiodata';
+    } else if ( FlashDetect.versionAtLeast( 9 ) ) {
+      return 'flash';
+    } else {
+      return '';
+    }
+  };
+
+  Dancer.canPlay = function ( type ) {
+    var canPlay = audioEl.canPlayType;
+    return !!(
+      Dancer.isSupported() === 'flash' ?
+        type.toLowerCase() === 'mp3' :
+        audioEl.canPlayType &&
+        audioEl.canPlayType( CODECS[ type.toLowerCase() ] ).replace( /no/, ''));
+  };
+
+  Dancer.addPlugin = function ( name, fn ) {
+    if ( Dancer.prototype[ name ] === undefined ) {
+      Dancer.prototype[ name ] = fn;
+    }
+  };
+
+  Dancer._makeSupportedPath = function ( source, codecs ) {
+    if ( !codecs ) { return source; }
+
+    for ( var i = 0; i < codecs.length; i++ ) {
+      if ( Dancer.canPlay( codecs[ i ] ) ) {
+        return source + '.' + codecs[ i ];
+      }
+    }
+    return source;
+  };
+
+  Dancer._getAdapter = function ( instance ) {
+    switch ( Dancer.isSupported() ) {
+      case 'webaudio':
+        return new Dancer.adapters.webkit( instance );
+      case 'audiodata':
+        return new Dancer.adapters.moz( instance );
+      case 'flash':
+        return new Dancer.adapters.flash( instance );
+      default:
+        return null;
+    }
+  };
+
+})( window.Dancer );
+
+(function() {
+  var Beat = function ( dancer, options ) {
+    options = options || {};
+    this.dancer    = dancer;
+    this.frequency = options.frequency || [ 0, 10 ];
+    this.threshold = options.threshold || 0.3;
+    this.decay     = options.decay     || 0.02;
+    this.onBeat    = options.onBeat;
+    this.offBeat   = options.offBeat;
+    this.isOn      = false;
+    this.currentThreshold = this.threshold;
+
+    var _this = this;
+    this.dancer.bind( 'update', function () {
+      _this.onUpdate();
+    });
+  };
+
+  Beat.prototype = {
+    on  : function () { 
+      this.isOn = true;
+      return this;
+    },
+    off : function () {
+      this.isOn = false;
+      return this;
+    },
+    onUpdate : function () {
+      if ( !this.isOn ) { return; }
+      var magnitude = this.maxAmplitude( this.frequency );
+      if ( magnitude >= this.currentThreshold &&
+          magnitude >= this.threshold ) {
+        this.currentThreshold = magnitude;
+        this.onBeat && this.onBeat.call( this.dancer, magnitude );
+      } else {
+        this.offBeat && this.offBeat.call( this.dancer, magnitude );
+        this.currentThreshold -= this.decay;
+      }
+    },
+    maxAmplitude : function ( frequency ) {
+      var
+        max = 0,
+        fft = this.dancer.getSpectrum();
+
+      // Sloppy array check
+      if ( !frequency.length ) {
+        return frequency < fft.length ?
+          fft[ ~~frequency ] :
+          null;
+      }
+
+      for ( var i = frequency[ 0 ], l = frequency[ 1 ]; i <= l; i++ ) {
+        if ( fft[ i ] > max ) { max = fft[ i ]; }
+      }
+      return max;
+    }
+  };
+
+  window.Dancer.Beat = Beat;
+})();
+
+(function() {
+  var
+    SAMPLE_SIZE = 2048,
+    SAMPLE_RATE = 44100;
+
+  var adapter = function ( dancer ) {
+    this.dancer = dancer;
+    this.context = window.AudioContext ?
+      new window.AudioContext() :
+      new window.webkitAudioContext();
+    this.audio = new Audio();
+    this.isLoaded = this.isPlaying = this.isDisconnected = false;
+  };
+
+  function connectContext () {
+    this.source = this.context.createBufferSource( this.audio );
+    this.source.connect( this.proc );
+    this.source.connect( this.context.destination );
+    this.proc.connect( this.context.destination );
+  }
+
+  adapter.prototype = {
+
+    load : function ( _source ) {
+      var _this = this;
+      this.proc = _source;
+      
+      var _procOnAudioProc = this.proc.onaudioprocess;
+      this.proc.onaudioprocess = function ( e ) {
+        _procOnAudioProc.apply(this, arguments);
+        _this.update.call( _this, e.outputBuffer);
+      };
+
+      this.fft = new FFT( SAMPLE_SIZE / 2, SAMPLE_RATE );
+      this.signal = new Float32Array( SAMPLE_SIZE / 2 );
+      _this.isLoaded = true;
+      this.dancer.trigger( 'loaded' );
+    },
+
+    play : function () {
+      var _this = this;
+
+      this.isLoaded = true;
+
+        _this.startTime = _this.context.currentTime;
+        _this.isPlaying = true;
+    },
+
+    stop : function () {
+      if ( this.isPlaying ) {
+        this.isDisconnected = true;
+        this.endTime = this.getTime();
+      }
+      this.isPlaying = false;
+    },
+
+    getWaveform : function () {
+      return this.signal;
+    },
+
+    getSpectrum : function () {
+      return this.fft.spectrum;
+    },
+
+    getTime : function () {
+      return this.isPlaying ?
+        this.context.currentTime - ( this.startTime || 0 ) :
+        this.endTime || 0;
+    },
+
+    update : function ( buffer ) {
+      var
+        buffers = [],
+        channels = buffer.numberOfChannels,
+        resolution = SAMPLE_SIZE / channels,
+        i;
+
+      for ( i = channels; i--; ) {
+        buffers.push( buffer.getChannelData( i ) );
+      }
+      for ( i = 0; i < resolution; i++ ) {
+        this.signal[ i ] = channels > 1 ?
+          buffers.reduce(function ( prev, curr ) {
+            return prev[ i ] + curr[ i ];
+          }) / channels :
+          buffers[ 0 ][ i ];
+      }
+      this.fft.forward( this.signal );
+      this.dancer.trigger( 'update' );
+    }
+  };
+
+  Dancer.adapters.webkit = adapter;
+
+})();
+
+(function() {
+  var adapter = function ( dancer ) {
+    this.dancer = dancer;
+    this.audio = new Audio();
+    this.isLoaded = this.isPlaying = false;
+  };
+
+  adapter.prototype = {
+
+    load : function ( _source ) {
+      var _this = this;
+      // Check if source is a path or an audio element
+      if ( _source instanceof HTMLElement ) {
+        this.audio = _source;
+      } else {
+        this.audio.src = _source;
+      }
+
+      if ( this.audio.readyState < 3 ) {
+        this.audio.addEventListener( 'loadedmetadata', function () {
+          getMetadata.call( _this );
+        }, false);
+      } else {
+        getMetadata.call( _this );
+      }
+
+      this.audio.addEventListener( 'MozAudioAvailable', function( e ) {
+        _this.update( e );
+      }, false);
+    },
+
+    play : function () {
+      this.audio.play();
+      this.isPlaying = true;
+    },
+
+    stop : function () {
+      this.audio.pause();
+      this.isPlaying = false;
+    },
+
+    getWaveform : function () {
+      return this.signal;
+    },
+
+    getSpectrum : function () {
+      return this.fft.spectrum;
+    },
+
+    getTime : function () {
+      return this.audio.currentTime;
+    },
+
+    update : function ( e ) {
+      if ( !this.isLoaded ) return;
+
+      for ( var i = 0, j = this.fbLength / 2; i < j; i++ ) {
+        this.signal[ i ] = ( e.frameBuffer[ 2 * i ] + e.frameBuffer[ 2 * i + 1 ] ) / 2;
+      }
+
+      this.fft.forward( this.signal );
+      this.dancer.trigger( 'update' );
+    }
+  };
+
+  function getMetadata () {
+    this.fbLength = this.audio.mozFrameBufferLength;
+    this.channels = this.audio.mozChannels;
+    this.rate     = this.audio.mozSampleRate;
+    this.fft      = new FFT( this.fbLength / this.channels, this.rate );
+    this.signal   = new Float32Array( this.fbLength / this.channels );
+    this.isLoaded = true;
+    this.dancer.trigger( 'loaded' );
+  }
+
+  Dancer.adapters.moz = adapter;
+
+})();
+
+(function() {
+  var
+    SAMPLE_SIZE  = 1024,
+    SAMPLE_RATE  = 44100,
+    smLoaded     = false,
+    smLoading    = false,
+    CONVERSION_COEFFICIENT = 0.93;
+
+  var adapter = function ( dancer ) {
+    this.dancer = dancer;
+    this.isLoaded = this.isPlaying = false;
+    this.wave_L = [];
+    this.wave_R = [];
+    this.spectrum = [];
+    window.SM2_DEFER = true;
+  };
+
+  adapter.prototype = {
+    load : function ( path ) {
+      var _this = this;
+      this.path = path || this.path;
+
+      !window.soundManager && !smLoading && loadSM.call( this );
+
+      if ( window.soundManager ) {
+        this.audio = soundManager.createSound({
+          id       : 'dancer' + Math.random() + '',
+          url      : this.path,
+          stream   : true,
+          autoPlay : false,
+          autoLoad : true,
+          whileplaying : function () {
+            _this.update();
+          },
+          onload   : function () {
+            _this.fft = new FFT( SAMPLE_SIZE, SAMPLE_RATE );
+            _this.signal = new Float32Array( SAMPLE_SIZE );
+            _this.waveform = new Float32Array( SAMPLE_SIZE );
+            _this.isLoaded = true;
+            _this.dancer.trigger( 'loaded' );
+          }
+        });
+      }
+    },
+
+    play : function () {
+      if ( !this.isPlaying && this.isLoaded ) {
+        this.audio.play();
+        this.isPlaying = true;
+      }
+    },
+
+    stop : function () {
+      this.audio.stop();
+      this.isPlaying = false;
+    },
+
+    getWaveform : function () {
+      return this.waveform;
+    },
+
+    getSpectrum : function () {
+      return this.fft.spectrum;
+    },
+
+    getTime : function () {
+      return this.audio.position / 1000;
+    },
+
+    update : function () {
+      if ( !this.isLoaded ) return;
+      this.wave_L = this.audio.waveformData.left;
+      this.wave_R = this.audio.waveformData.right;
+      var avg;
+      for ( var i = 0, j = this.wave_L.length; i < j; i++ ) {
+        avg = parseFloat(this.wave_L[ i ]) + parseFloat(this.wave_R[ i ]);
+        this.waveform[ 2 * i ]     = avg / 2;
+        this.waveform[ i * 2 + 1 ] = avg / 2;
+        this.signal[ 2 * i ]       = avg * CONVERSION_COEFFICIENT;
+        this.signal[ i * 2 + 1 ]   = avg * CONVERSION_COEFFICIENT;
+      }
+
+      this.fft.forward( this.signal );
+      this.dancer.trigger( 'update' );
+    }
+  };
+
+  function loadSM () {
+    var adapter = this;
+    smLoading = true;
+    loadScript( Dancer.options.flashJS, function () {
+      soundManager = new SoundManager();
+      soundManager.flashVersion = 9;
+      soundManager.flash9Options.useWaveformData = true;
+      soundManager.useWaveformData = true;
+      soundManager.useHighPerformance = true;
+      soundManager.useFastPolling = true;
+      soundManager.multiShot = false;
+      soundManager.debugMode = false;
+      soundManager.debugFlash = false;
+      soundManager.url = Dancer.options.flashSWF;
+      soundManager.onready(function () {
+        smLoaded = true;
+        adapter.load();
+      });
+      soundManager.ontimeout(function(){
+        console.error( 'Error loading SoundManager2.swf' );
+      });
+      soundManager.beginDelayedInit();
+    });
+  }
+
+  function loadScript ( url, callback ) {
+    var
+      script   = document.createElement( 'script' ),
+      appender = document.getElementsByTagName( 'script' )[0];
+    script.type = 'text/javascript';
+    script.src = url;
+    script.onload = callback;
+    appender.parentNode.insertBefore( script, appender );
+  }
+
+  Dancer.adapters.flash = adapter;
+
+})();
+
+/* 
+ *  DSP.js - a comprehensive digital signal processing  library for javascript
+ * 
+ *  Created by Corban Brook <corbanbrook@gmail.com> on 2010-01-01.
+ *  Copyright 2010 Corban Brook. All rights reserved.
+ *
+ */
+
+// Fourier Transform Module used by DFT, FFT, RFFT
+function FourierTransform(bufferSize, sampleRate) {
+  this.bufferSize = bufferSize;
+  this.sampleRate = sampleRate;
+  this.bandwidth  = 2 / bufferSize * sampleRate / 2;
+
+  this.spectrum   = new Float32Array(bufferSize/2);
+  this.real       = new Float32Array(bufferSize);
+  this.imag       = new Float32Array(bufferSize);
+
+  this.peakBand   = 0;
+  this.peak       = 0;
+
+  /**
+   * Calculates the *middle* frequency of an FFT band.
+   *
+   * @param {Number} index The index of the FFT band.
+   *
+   * @returns The middle frequency in Hz.
+   */
+  this.getBandFrequency = function(index) {
+    return this.bandwidth * index + this.bandwidth / 2;
+  };
+
+  this.calculateSpectrum = function() {
+    var spectrum  = this.spectrum,
+        real      = this.real,
+        imag      = this.imag,
+        bSi       = 2 / this.bufferSize,
+        sqrt      = Math.sqrt,
+        rval, 
+        ival,
+        mag;
+
+    for (var i = 0, N = bufferSize/2; i < N; i++) {
+      rval = real[i];
+      ival = imag[i];
+      mag = bSi * sqrt(rval * rval + ival * ival);
+
+      if (mag > this.peak) {
+        this.peakBand = i;
+        this.peak = mag;
+      }
+
+      spectrum[i] = mag;
+    }
+  };
+}
+
+/**
+ * FFT is a class for calculating the Discrete Fourier Transform of a signal
+ * with the Fast Fourier Transform algorithm.
+ *
+ * @param {Number} bufferSize The size of the sample buffer to be computed. Must be power of 2
+ * @param {Number} sampleRate The sampleRate of the buffer (eg. 44100)
+ *
+ * @constructor
+ */
+function FFT(bufferSize, sampleRate) {
+  FourierTransform.call(this, bufferSize, sampleRate);
+   
+  this.reverseTable = new Uint32Array(bufferSize);
+
+  var limit = 1;
+  var bit = bufferSize >> 1;
+
+  var i;
+
+  while (limit < bufferSize) {
+    for (i = 0; i < limit; i++) {
+      this.reverseTable[i + limit] = this.reverseTable[i] + bit;
+    }
+
+    limit = limit << 1;
+    bit = bit >> 1;
+  }
+
+  this.sinTable = new Float32Array(bufferSize);
+  this.cosTable = new Float32Array(bufferSize);
+
+  for (i = 0; i < bufferSize; i++) {
+    this.sinTable[i] = Math.sin(-Math.PI/i);
+    this.cosTable[i] = Math.cos(-Math.PI/i);
+  }
+}
+
+/**
+ * Performs a forward transform on the sample buffer.
+ * Converts a time domain signal to frequency domain spectra.
+ *
+ * @param {Array} buffer The sample buffer. Buffer Length must be power of 2
+ *
+ * @returns The frequency spectrum array
+ */
+FFT.prototype.forward = function(buffer) {
+  // Locally scope variables for speed up
+  var bufferSize      = this.bufferSize,
+      cosTable        = this.cosTable,
+      sinTable        = this.sinTable,
+      reverseTable    = this.reverseTable,
+      real            = this.real,
+      imag            = this.imag,
+      spectrum        = this.spectrum;
+
+  var k = Math.floor(Math.log(bufferSize) / Math.LN2);
+
+  if (Math.pow(2, k) !== bufferSize) { throw "Invalid buffer size, must be a power of 2."; }
+  if (bufferSize !== buffer.length)  { throw "Supplied buffer is not the same size as defined FFT. FFT Size: " + bufferSize + " Buffer Size: " + buffer.length; }
+
+  var halfSize = 1,
+      phaseShiftStepReal,
+      phaseShiftStepImag,
+      currentPhaseShiftReal,
+      currentPhaseShiftImag,
+      off,
+      tr,
+      ti,
+      tmpReal,
+      i;
+
+  for (i = 0; i < bufferSize; i++) {
+    real[i] = buffer[reverseTable[i]];
+    imag[i] = 0;
+  }
+
+  while (halfSize < bufferSize) {
+    //phaseShiftStepReal = Math.cos(-Math.PI/halfSize);
+    //phaseShiftStepImag = Math.sin(-Math.PI/halfSize);
+    phaseShiftStepReal = cosTable[halfSize];
+    phaseShiftStepImag = sinTable[halfSize];
+    
+    currentPhaseShiftReal = 1;
+    currentPhaseShiftImag = 0;
+
+    for (var fftStep = 0; fftStep < halfSize; fftStep++) {
+      i = fftStep;
+
+      while (i < bufferSize) {
+        off = i + halfSize;
+        tr = (currentPhaseShiftReal * real[off]) - (currentPhaseShiftImag * imag[off]);
+        ti = (currentPhaseShiftReal * imag[off]) + (currentPhaseShiftImag * real[off]);
+
+        real[off] = real[i] - tr;
+        imag[off] = imag[i] - ti;
+        real[i] += tr;
+        imag[i] += ti;
+
+        i += halfSize << 1;
+      }
+
+      tmpReal = currentPhaseShiftReal;
+      currentPhaseShiftReal = (tmpReal * phaseShiftStepReal) - (currentPhaseShiftImag * phaseShiftStepImag);
+      currentPhaseShiftImag = (tmpReal * phaseShiftStepImag) + (currentPhaseShiftImag * phaseShiftStepReal);
+    }
+
+    halfSize = halfSize << 1;
+  }
+
+  return this.calculateSpectrum();
+};
+
+/*
+Copyright (c) Copyright (c) 2007, Carl S. Yestrau All rights reserved.
+Code licensed under the BSD License: http://www.featureblend.com/license.txt
+Version: 1.0.4
+*/
+var FlashDetect = new function(){
+    var self = this;
+    self.installed = false;
+    self.raw = "";
+    self.major = -1;
+    self.minor = -1;
+    self.revision = -1;
+    self.revisionStr = "";
+    var activeXDetectRules = [
+        {
+            "name":"ShockwaveFlash.ShockwaveFlash.7",
+            "version":function(obj){
+                return getActiveXVersion(obj);
+            }
+        },
+        {
+            "name":"ShockwaveFlash.ShockwaveFlash.6",
+            "version":function(obj){
+                var version = "6,0,21";
+                try{
+                    obj.AllowScriptAccess = "always";
+                    version = getActiveXVersion(obj);
+                }catch(err){}
+                return version;
+            }
+        },
+        {
+            "name":"ShockwaveFlash.ShockwaveFlash",
+            "version":function(obj){
+                return getActiveXVersion(obj);
+            }
+        }
+    ];
+    /**
+     * Extract the ActiveX version of the plugin.
+     * 
+     * @param {Object} The flash ActiveX object.
+     * @type String
+     */
+    var getActiveXVersion = function(activeXObj){
+        var version = -1;
+        try{
+            version = activeXObj.GetVariable("$version");
+        }catch(err){}
+        return version;
+    };
+    /**
+     * Try and retrieve an ActiveX object having a specified name.
+     * 
+     * @param {String} name The ActiveX object name lookup.
+     * @return One of ActiveX object or a simple object having an attribute of activeXError with a value of true.
+     * @type Object
+     */
+    var getActiveXObject = function(name){
+        var obj = -1;
+        try{
+            obj = new ActiveXObject(name);
+        }catch(err){
+            obj = {activeXError:true};
+        }
+        return obj;
+    };
+    /**
+     * Parse an ActiveX $version string into an object.
+     * 
+     * @param {String} str The ActiveX Object GetVariable($version) return value. 
+     * @return An object having raw, major, minor, revision and revisionStr attributes.
+     * @type Object
+     */
+    var parseActiveXVersion = function(str){
+        var versionArray = str.split(",");//replace with regex
+        return {
+            "raw":str,
+            "major":parseInt(versionArray[0].split(" ")[1], 10),
+            "minor":parseInt(versionArray[1], 10),
+            "revision":parseInt(versionArray[2], 10),
+            "revisionStr":versionArray[2]
+        };
+    };
+    /**
+     * Parse a standard enabledPlugin.description into an object.
+     * 
+     * @param {String} str The enabledPlugin.description value.
+     * @return An object having raw, major, minor, revision and revisionStr attributes.
+     * @type Object
+     */
+    var parseStandardVersion = function(str){
+        var descParts = str.split(/ +/);
+        var majorMinor = descParts[2].split(/\./);
+        var revisionStr = descParts[3];
+        return {
+            "raw":str,
+            "major":parseInt(majorMinor[0], 10),
+            "minor":parseInt(majorMinor[1], 10), 
+            "revisionStr":revisionStr,
+            "revision":parseRevisionStrToInt(revisionStr)
+        };
+    };
+    /**
+     * Parse the plugin revision string into an integer.
+     * 
+     * @param {String} The revision in string format.
+     * @type Number
+     */
+    var parseRevisionStrToInt = function(str){
+        return parseInt(str.replace(/[a-zA-Z]/g, ""), 10) || self.revision;
+    };
+    /**
+     * Is the major version greater than or equal to a specified version.
+     * 
+     * @param {Number} version The minimum required major version.
+     * @type Boolean
+     */
+    self.majorAtLeast = function(version){
+        return self.major >= version;
+    };
+    /**
+     * Is the minor version greater than or equal to a specified version.
+     * 
+     * @param {Number} version The minimum required minor version.
+     * @type Boolean
+     */
+    self.minorAtLeast = function(version){
+        return self.minor >= version;
+    };
+    /**
+     * Is the revision version greater than or equal to a specified version.
+     * 
+     * @param {Number} version The minimum required revision version.
+     * @type Boolean
+     */
+    self.revisionAtLeast = function(version){
+        return self.revision >= version;
+    };
+    /**
+     * Is the version greater than or equal to a specified major, minor and revision.
+     * 
+     * @param {Number} major The minimum required major version.
+     * @param {Number} (Optional) minor The minimum required minor version.
+     * @param {Number} (Optional) revision The minimum required revision version.
+     * @type Boolean
+     */
+    self.versionAtLeast = function(major){
+        var properties = [self.major, self.minor, self.revision];
+        var len = Math.min(properties.length, arguments.length);
+        for(i=0; i<len; i++){
+            if(properties[i]>=arguments[i]){
+                if(i+1<len && properties[i]==arguments[i]){
+                    continue;
+                }else{
+                    return true;
+                }
+            }else{
+                return false;
+            }
+        }
+    };
+    /**
+     * Constructor, sets raw, major, minor, revisionStr, revision and installed public properties.
+     */
+    self.FlashDetect = function(){
+        if(navigator.plugins && navigator.plugins.length>0){
+            var type = 'application/x-shockwave-flash';
+            var mimeTypes = navigator.mimeTypes;
+            if(mimeTypes && mimeTypes[type] && mimeTypes[type].enabledPlugin && mimeTypes[type].enabledPlugin.description){
+                var version = mimeTypes[type].enabledPlugin.description;
+                var versionObj = parseStandardVersion(version);
+                self.raw = versionObj.raw;
+                self.major = versionObj.major;
+                self.minor = versionObj.minor; 
+                self.revisionStr = versionObj.revisionStr;
+                self.revision = versionObj.revision;
+                self.installed = true;
+            }
+        }else if(navigator.appVersion.indexOf("Mac")==-1 && window.execScript){
+            var version = -1;
+            for(var i=0; i<activeXDetectRules.length && version==-1; i++){
+                var obj = getActiveXObject(activeXDetectRules[i].name);
+                if(!obj.activeXError){
+                    self.installed = true;
+                    version = activeXDetectRules[i].version(obj);
+                    if(version!=-1){
+                        var versionObj = parseActiveXVersion(version);
+                        self.raw = versionObj.raw;
+                        self.major = versionObj.major;
+                        self.minor = versionObj.minor; 
+                        self.revision = versionObj.revision;
+                        self.revisionStr = versionObj.revisionStr;
+                    }
+                }
+            }
+        }
+    }();
+};
+FlashDetect.JS_RELEASE = "1.0.4";
