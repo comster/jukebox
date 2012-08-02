@@ -617,7 +617,7 @@ parseFile: function(file, onComplete){
 
 function fileSlice(file, start, length){
   if(file.mozSlice) return file.mozSlice(start, start + length);
-  if(file.webkitSlice) return file.webkitSlice(start, start + length);
+  if(file.slice) return file.slice(start, start + length);
   if(file.slice) return file.slice(start, length);
 }
 

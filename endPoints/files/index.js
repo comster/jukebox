@@ -309,10 +309,15 @@ var spawn = require('child_process').spawn;
                                         }
                                         // picture
                                         // track
+                                        // lyrics
                                         
                                         ds.insert('songs', newSong, function(err, songData) {
                                             console.log('new song!');
                                             res.data({song: songData, file: data});
+                                            
+                                            fs.unlink(file.path, function(){
+                                                console.log('file unlinked from tmp');
+                                            });
                                         });
                                     });
                                     

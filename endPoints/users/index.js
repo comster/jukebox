@@ -24,12 +24,18 @@ var ObjectID = mongo.ObjectID;
                          || (req.session.data.groups && req.session.data.groups.indexOf('admin') !== -1)) {
                             //console.log('your own record')
                         } else {
+                            var userData = data[i];
+                            var avatar = null;
+                            
+                            if(userData.avatar) {
+                                avatar = userData.avatar;
+                            }
                             data[i] = {
                                 id: data[i].id,
                                 name: data[i].name
                             }
-                            if(data[i].avatar) {
-                                data[i].avatar = data[i].avatar;
+                            if(avatar) {
+                                data[i].avatar = avatar;
                             }
                         }
                     }

@@ -1,0 +1,28 @@
+CACHE MANIFEST
+# ver 0.5
+
+CACHE:
+index.css
+index.js
+jquery.js
+require.js
+underscore.js
+backbone.js
+backbone-house.js
+jukebox.js
+houseAuth.js
+houseChat.js
+aurora.js
+mp3.js
+alac.js
+flac.js
+aac.js
+moment.min.js
+dancer.js
+id3v2.js
+
+NETWORK:
+/
+*
+//jukeboxjs.com
+//j.jukeboxjs.com

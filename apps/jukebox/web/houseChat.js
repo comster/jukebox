@@ -224,7 +224,6 @@
         },
         submit: function(el) {
             var self = this;
-            console.log(this.$msg.val())
             var m = new chat.MessageModel({}, {collection: this.collection});
             m.set({msg: this.$msg.val()});
             var s = m.save(null, {silent: true, wait: true})
@@ -403,7 +402,7 @@
         tag: 'span',
         className: 'msg',
         render: function() {
-            this.$el.html(this.model.get('msg'));
+            this.$el.html('<span class="msg">'+this.model.get('msg')+'</span>');
             this.$el.prepend('<span data-id="'+this.model.get('user').id+'" class="'+this.model.get('user').name+'">'+this.model.get('user').name+'</span> ');
             //this.$el.append('<span class="at" title="'+this.model.get('at')+'">'+moment(this.model.get('at')).fromNow()+'</span>');
             this.$el.attr('data-id', this.model.get('id'));
@@ -507,7 +506,6 @@
                     self.rooms[data.room_id].userCollection.add(data.user);
                 });
                 socket.on('exited', function (data) {
-                    console.log(data);
                     if(data.user) {
                         var u = self.rooms[data.room_id].userCollection.get(data.user.id);
                         if(u) u.trigger('remove');
@@ -523,29 +521,25 @@
                 window.chatSocket = socket;
                 
                 socket.on('song', function (filename) {
-                    console.log('socket song '+filename)
+                    //console.log('socket song '+filename)
                     window.mediaPlayer.loadSong(filename)
                 });
                 socket.on('loadSong', function (song) {
-                    console.log('socket song '+song.filename)
+                    //console.log('socket song '+song.filename)
                     window.mediaPlayer.preloadSong(song)
                 });
                 
                 socket.on('songqPlay', function (songq) {
-                    // check the currently playing song in the Queue and slide it into the played pile
-                    
-                    
-                    console.log('socket song '+songq.song.filename)
+                    //console.log('socket song '+songq.song.filename)
                     window.mediaPlayer.loadSong('/api/files/'+songq.song.filename, songq.song)
                     
                     // insert chat msg that song is playing
-                    var djUser = {name:'~',id:''};
+                    /*var djUser = {name:'~',id:''};
                     if(songq.dj) {
                         djUser = {name:songq.dj.name, id:songq.dj.id}
                     }
-                    self.rooms[songq.room_id].messageCollection.add({user:djUser,room_id:songq.room_id,at:new Date(), msg:' playing '+songq.song.ss});
+                    self.rooms[songq.room_id].messageCollection.add({user:djUser,room_id:songq.room_id,at:new Date(), msg:' playing '+songq.song.ss});*/
                     
-                    // Look for it in the Queue and select it as playing
                 });
                 
                 self.initialized = true;

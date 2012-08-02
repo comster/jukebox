@@ -1,35 +1,12 @@
 //
-// # Song Q Collection API Endpoint
+// # Song Rating Collection API Endpoint
 //
 var ObjectID = mongo.ObjectID;
 (exports = module.exports = function(house, options){
     
     // This endpoint requires a data source
     var ds = options.ds;
-    var col = options.collection;
-    
-    var getRoomIdMaxRank = function(roomId, callback) {
-        ds.find(col, {room_id: roomId, limit: 1, sort: 'rank-'}, function(err, data){
-            if(err) {
-                callback(1);
-            } else if(data) {
-                console.log('getMaxRank')
-                console.log(data)
-                if(_.isArray(data)) {
-                    data = data[0];
-                    if(data && data.rank) {
-                        callback(data.rank);
-                    } else {
-                        callback(1);
-                    }
-                } else {
-                    callback(1);
-                }
-            } else {
-                callback(1);
-            }
-        });
-    }
+    var col = options.collection || 'songr';
     
     var handleReq = function(req, res, next) {
         var path = req.hasOwnProperty('urlRouted') ? req.urlRouted : req.url;
@@ -63,8 +40,8 @@ var ObjectID = mongo.ObjectID;
             } else {
                 if(req.query) {
                     query = req.query;
-                    if(query.hasOwnProperty('room_id')) {
-                        query.room_id = new ObjectID(query.room_id);
+                    if(query.hasOwnProperty('song_id')) {
+                        query.song_id = new ObjectID(query.song_id);
                     }
                     // query mongo id's
                     if(query.hasOwnProperty('id')) {
@@ -80,36 +57,38 @@ var ObjectID = mongo.ObjectID;
             console.log(path)
             console.log(req.fields)
             if(path == '' && req.session.data.user) {
-                var newSongQ = req.fields;
-                newSongQ.at = new Date();
+                var roomStr = '';
+                var newSongR = req.fields;
+                newSongR.at = new Date();
                 
-                if(req.fields.hasOwnProperty('song')) {
-                    if(req.fields.song.id && typeof req.fields.song.id == 'string') {
-                        req.fields.song.id = new ObjectID(req.fields.song.id);
+                if(req.fields.hasOwnProperty('song_id')) {
+                    if(req.fields.song_id && typeof req.fields.song_id == 'string') {
+                        newSongR.song_id = new ObjectID(req.fields.song_id);
                     }
                 }
                 
                 if(req.fields.hasOwnProperty('room_id')) {
                     if(typeof req.fields.room_id == 'string') {
-                        req.fields.room_id = new ObjectID(req.fields.room_id);
+                        roomStr = req.fields.room_id;
+                        newSongR.room_id = new ObjectID(req.fields.room_id);
                     }
                 }
                 
-                newSongQ.dj = {
+                newSongR.user = {
                     id: req.session.data.user,
                     name: req.session.data.name
                 }
-                newSongQ.rank = getRoomIdMaxRank(req.fields.room_id, function(maxRank){
-                    newSongQ.rank = maxRank+1;
+                
+                newSongR.score = parseInt(req.fields.score, 10);
                     
-                    ds.insert(col, newSongQ, function(err, data){
-                        if(err) {
-                            house.log.err(err);
-                            res.end('error');
-                        } else {
-                            res.data(data);
-                        }
-                    });
+                ds.insert(col, newSongR, function(err, data){
+                    if(err) {
+                        house.log.err(err);
+                        res.end('error');
+                    } else {
+                        res.data(data);
+                        house.ioChat.in(roomStr).emit('songr', data);
+                    }
                 });
             }
         } else if(req.method == 'PUT') {
@@ -124,6 +103,16 @@ var ObjectID = mongo.ObjectID;
                     } else {
                         house.log.debug(data);
                         res.data({});
+                        
+                        ds.find(col, query, function(err, data){
+                            if(err) {
+                                house.log.err(err);
+                            } else if(data) {
+                                house.ioChat.in(roomStr).emit('songr', data);
+                            } else {
+                                house.log.err(new Error('no data from mongo'));
+                            }
+                        });
                     }
                 });
             }

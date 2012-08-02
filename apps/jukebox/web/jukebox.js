@@ -24,7 +24,7 @@
             this.$appHeader = $('<header id="jukeHead"><center>Loading..</center></header>');
             this.$appFrames = $('<div id="frames"></div>');
             
-            this.headerNavView = new HeaderNavView({el:this.$appHeader, "$frames": this.$appFrames});
+            this.headerNavView = window.jukeboxNav = new HeaderNavView({el:this.$appHeader, "$frames": this.$appFrames});
             self.headerNavView.render();
             this.headerNavView.addView('Player', new MediaPlayerView({el: $('<div id="mediaPlayer"></div>')}));
             this.headerNavView.addView('Library', new LibraryView({el: $('<div id="library"></div>')}));
@@ -71,7 +71,6 @@
             //this.views[viewName].$el.show();
             this.views[viewName].$el.attr('selected', true);
             
-            console.log(viewName);
             this.options.$frames.attr('data-sel', viewName);
             
             this.render();
@@ -148,20 +147,18 @@
             self.songsQueueList;
             
             options.chat.roomsOpenView.roomsOpenListView.on('select', function(room){
-                console.log('update queue with room '+room.get('id'));
+                //console.log('update queue with room '+room.get('id'));
                 
                 self.queues[room.get('id')] = new SongqListView({el: self.$queue, roomId: room.get('id')});
                 self.songsQueueList = self.queues[room.get('id')];
                 
                 // request the room information
                 chatSocket.emit('info', room.get('id'), function(roomInfo){
-                    console.log(roomInfo);
+                    //console.log(roomInfo);
                     
                     if(roomInfo.song) {
                     
                         // start playing song and scrub to live based on diff of pAt and new Date()
-                        console.log(roomInfo.song)
-                        console.log(new Date())
                         var d = new Date();
                         var pd = new Date(roomInfo.song.pAt);
                         var diff = d.getTime() - pd.getTime();
@@ -184,11 +181,20 @@
     //
     
     function parseFile(file, callback){
-        console.log(file);
-      ID3v2.parseFile(file,function(tags){
-        console.log(tags);
+        //console.log(file);
+        var parsed = false;
+        setTimeout(function(){
+            if(parsed) {
+                
+            } else {
+                callback({});
+            }
+        }, 1000);
+      ID3v2.parseFile(file, function(tags){
+          parsed = true;
+        //console.log(tags);
         callback(tags);
-      })
+      });
     }
     
     var UploadFrame = Backbone.View.extend({
@@ -260,7 +266,7 @@
                 xhr.addEventListener('readystatechange', onReady, false);
                 
               xhr.onload = function(e) {
-                  console.log('upload complete');
+                  //console.log('upload complete');
                   var data = JSON.parse(e.target.response);
                   
                   if(data.hasOwnProperty('song')) {
@@ -302,10 +308,10 @@
                                       //<progress min="0" max="100" value="0">0% complete</progress>
               var process = function(){
                 if(queue.length){
-                  console.log(queue);
+                  //console.log(queue);
                   var f = queue.shift();
                   parseFile(f,function(tags){
-                      console.log(tags);
+                      //console.log(tags);
                       
                       // TODO make this a backbone view
                       
@@ -318,7 +324,7 @@
                       var $genre = $('<span class="genre"></span> ');
                       
                       var t2 = guessSong(f.webkitRelativePath || f.mozFullPath || f.name); 
-                      console.log(t2);
+                      //console.log(t2);
                       $actions.html('');
                       
                       var title = tags.Title || t2.Title;
@@ -419,7 +425,10 @@
             return false;
         }
     });
-    
+    var formatMsTime = function(ms) {
+        var t = ms/1000;
+        return Math.floor(t/60) +':'+ pad(Math.floor(t%60));
+    }
     var MediaPlayerView = Backbone.View.extend({
         className: 'player',
         element: 'div',
@@ -427,11 +436,18 @@
             this.$el.html('');
             this.$el.append(this.$player); //
             if(this.song && this.song.title) {
-                var str = this.song.title+' - '+this.song.artist+' on '+this.song.album;
+                var str = this.song.title+' - '+this.song.artist; //+' on '+this.song.album;
                 this.$el.find('.songInfo').html(str);
                 window.document.title = str;
+                var d = formatMsTime(this.song.duration*1000);
+                this.$el.find('.albumName').html(this.song.album);
+                this.$el.find('.duration').html(d);
+                this.$el.find('.duration').attr('data-duration', this.song.duration);
+                this.$el.find('.progress').attr('title', d);
             }
-            
+            if(this.songRatingListView) {
+                this.$player.find('.ratings').html(this.songRatingListView.render().el);
+            }
             this.$player.append(this.$viz);
             this.$player.append(this.$canvas);
             
@@ -440,8 +456,10 @@
         },
         renderDuration: function() {
             var p = 0;
-            if(this.player.duration) {
-                var d = this.player.duration / 1000;
+            var duration = this.player.duration || (this.song.duration * 1000);
+            this.$el.find('.currentTime').html(formatMsTime(this.player.currentTime));
+            if(duration) {
+                var d = duration / 1000;
                 var t = this.player.currentTime / 1000;
                 p = (t / d) * 100;
                 t = d - t;
@@ -454,22 +472,22 @@
         },
         renderSongInfo: function() {
             var str = '';
-            console.log(this.metadata);
+            //console.log(this.metadata);
             
             var title = this.metadata.title || this.metadata.Title || '';
             var artist = this.metadata.artist || this.metadata.Artist || this.metadata["Album Artist"] || '';
             var album = this.metadata.album || this.metadata.Album || '';
             
+            this.$el.find('.albumName').html(album);
+            
             str += title ? title + ' - ' : '';
             str += artist ? artist : '';
-            str += album ? ' on '+album : '';
+            //str += album ? ' on '+album : '';
             str += this.metadata.year ? ' '+this.metadata.year : '';
-            console.log(str);
             if(str) {
                 this.$el.find('.songInfo').html(str);
                 window.document.title = str;
                 var cover = this.metadata.coverArt || this.metadata["Cover Art"] || '';
-                console.log(cover)
                 if(cover) {
                     if(!cover.toBlob) cover = cover.data
                     var src = window.webkitURL.createObjectURL(cover.toBlob());
@@ -479,16 +497,63 @@
         },
         initialize: function() {
             var self = this;
-            this.$player = $('<div><meter min="0.0" max="100.0" value="0"></meter><button class="mute" title="Mute">♫</button><span class="loading"></span><span class="songInfo"></span><span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span></div>');
+            this.$player = $('<div><meter min="0.0" max="100.0" value="0.1"></meter>\
+<span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span>\
+<button class="mute" title="Mute">♫</button>\
+<input class="rating" type="range"  min="0" max="100" title="Rating" value="0" />\
+<div class="playerInfo"><span class="loading"></span><span class="songInfo"></span>\
+<span class="albumInfo"><span class="albumName"></span></span><span class="ratings"></span></div>\
+</div>');
             this.$canvas = $('<canvas id="waveform" />');
             this.$viz = $('<div id="vizual"></div>');
             window.mediaPlayer = this;
             this.preloads = {};
+            this.songRatings = {};
         },
         events: {
             "click button.playPause": "playPause"
             , "click button.mute": "mute"
             , "click button.seek": "seek"
+            , "mouseup input.rating": "rating"
+        },
+        rating: function() {
+            var self = this;
+            //console.log(this.$el.find('.rating').val());
+            
+            if(!this.songRatings.hasOwnProperty(this.song.id)) {
+                this.songRatings[this.song.id] = new SongRatingModel({}, {collection: this.songRatingListView.collection});
+                this.songRatings[this.song.id].on("change", function(songr, options){
+                    console.log(options);
+                    var isnoo = songr.isNew();
+                    var s = songr.save(null, {silent: true, wait: true})
+                        .done(function(s, typeStr, respStr) {
+                            delete songr.changed.at;
+                            delete songr.changed.id;
+                            delete songr.changed.score;
+                            delete songr.changed.user;
+                            self.trigger('saved', songr);
+                            self.songRatingListView.collection.add(songr);
+                            self.songRatings[self.song.id].getView().render();
+                            if(isnoo) {
+                                self.songRatings[self.song.id].getView().showMsgForm();
+                            } else {
+                                self.songRatings[self.song.id].getView().hideMsgForm();
+                            }
+                        });
+                });
+                var newSongr = {
+                    song_id: this.song.id,
+                    score: this.$el.find('.rating').val()
+                };
+                var ts = Math.floor(this.player.currentTime / 1000);
+                if(ts) {
+                    newSongr.ts = ts;
+                }
+                this.songRatings[this.song.id].set(newSongr, {wait: true});
+            } else {
+                this.songRatings[this.song.id].set({score: this.$el.find('.rating').val()}, {wait: true});
+                this.songRatings[this.song.id].getView().render();
+            }
         },
         mute: function() {
             if(this.player.volume == 0) {
@@ -500,28 +565,31 @@
         preloadSong: function(song) {
            this.preloads[song.filename] = Player.fromURL('/api/files/'+song.filename);
            this.preloads[song.filename].preload();
-           console.log('preloading');
+           //console.log('preloading');
         },
         loadSong: function(fileName, song, diff) {
             var self = this;
-            
+            var volume = 100;
             if(this.currentSong) {
+                volume = this.player.volume || volume;
                 if(fileName == this.currentSong.filename) return;
                 
-                // only client side, move it into the songp collection from the songq
+                var loadAndUpdatePrevSongId = function(prevSongId) {
                 
-                JukeBoxQueue.songsQueueList.collection.each(function(songq){
-                    console.log(songq);
-                    if(self.currentSong && songq.get('song').id == self.currentSong.id) {
-                        console.log('found playing song in songq');
-                        
-                        var songpJson = songq.attributes;
-                        songpJson.qAt = songpJson.at;
-                        
-                        JukeBoxQueue.songsPlayedList.collection.add(new SongpModel(songq));
-                        JukeBoxQueue.songsQueueList.collection.remove(songq.id);
-                    }
-                });
+                    JukeBoxQueue.songsQueueList.collection.each(function(songq){
+                        if(prevSongId && songq.get('song').id == prevSongId) {
+                            var songpJson = songq.attributes;
+                            songpJson.qAt = songpJson.at;
+                            
+                            JukeBoxQueue.songsPlayedList.collection.add(new SongpModel(songpJson));
+                            JukeBoxQueue.songsQueueList.collection.remove(songq.id);
+                        }
+                    });
+                    JukeBoxQueue.songsQueueList.collection.reset();
+                    JukeBoxQueue.songsQueueList.collection.load(function(){
+                    });
+                }
+                loadAndUpdatePrevSongId(self.currentSong.id);
             }
             
             if(song) {
@@ -551,17 +619,18 @@
             }
             
             this.player = player;
-            
+            this.player.volume = volume;
             if(song) {
                 this.song = song;
+                this.songRatingListView = new SongRatingListView({song_id:this.song.id});
                 this.render();
             }
-            console.log('loadSong: '+fileName);
+            //console.log('loadSong: '+fileName);
             
             player.on('error', function(err){
                 console.log(err);
             });
-            console.log(player)
+            //console.log(player)
             player.on('buffer', function(percent){
             });
             player.on('ready', function(){
@@ -620,10 +689,10 @@
               dancer = new Dancer( player ),
               beat = dancer.createBeat({
                 onBeat: function ( mag ) {
-                  console.log('Beat!');
+                  //console.log('Beat!');
                 },
                 offBeat: function ( mag ) {
-                  console.log('no beat :(');
+                  //console.log('no beat :(');
                 }
               });
             
@@ -723,7 +792,6 @@
                 options.model = this;
                 this[viewType] = new SongRow(options);
                 this[viewType].on('queue', function(songModel, roomId){
-                    console.log(arguments);
                     var songqCollection = JukeBoxQueue.songsQueueList.collection;
                     var songq = new SongqModel({}, {collection: songqCollection});
                     songq.on("change", function(songq, options){
@@ -737,7 +805,6 @@
                         song: songModel.attributes,
                         room_id: roomId
                     };
-                    console.log(newSongq);
                     songq.set(newSongq, {wait: true});
                 });
             }
@@ -860,12 +927,30 @@
                 this.collection = new SongqCollection();
             }
             this.room_id = options.roomId;
+            this.collection.on('reset', function() {
+                self.$ul.html('');
+            });
             this.collection.on('add', function(doc, col) {
                 var $li = $('<li></li>');
                 var view = doc.getView();
                 $li.append(view.render().el);
                 $li.attr('data-id', doc.get('id'));
-                self.$ul.append($li);
+                $li.attr('data-rank', doc.get('rank'));
+                
+                if(self.$ul.children().length === 0) {
+                    self.$ul.append($li);
+                } else {
+                    var inserted = false;
+                    self.$ul.find('li').each(function(i,e){
+                        if(!inserted && $(e).attr('data-rank') > doc.get('rank')) {
+                            $(e).before($li);
+                            inserted = true;
+                        }
+                    });
+                    if(!inserted) {
+                        self.$ul.append($li);
+                    }
+                }
                 
                 doc.on('remove', function(){
                     $li.remove();
@@ -896,7 +981,7 @@
         render: function() {
             this.$el.html('');
             var $avatar = $('<img src="/jukebox/assets/img/icons/library.png" />');
-            if(this.model.has('avatar')) {
+            if(this.model && this.model.has('avatar')) {
                 $avatar.attr('src', '/api/files/'+this.model.get('avatar'));
             }
             this.$el.prepend($avatar);
@@ -916,7 +1001,7 @@
         tagName: 'span',
         className: 'songq',
         render: function() {
-            this.$el.html('<span class="dj" title="'+this.model.get('dj').name+'"></span><span class="title">'+this.model.get('song').title+'</span> <span class="artist">'+this.model.get('song').artist+'</span><button class="remove" title="Remove from queue spot '+this.model.get('rank')+'">x</button>');
+            this.$el.html('<span class="dj" title="'+this.model.get('dj').name+'"></span><span class="title">'+this.model.get('song').title+'</span> - <span class="artist">'+this.model.get('song').artist+'</span><button class="remove" title="Remove from queue spot '+this.model.get('rank')+'">x</button>');
             this.$el.attr('title', this.model.get('song').ss);
             this.$el.attr('data-id', this.model.get('id'));
             this.$el.find('.dj').append(this.userAvatar.render().el);
@@ -973,7 +1058,7 @@
             if(callback) options.success = callback;
             this.fetch(options);
         }, comparator: function(a,b) {
-            return a.get('pAt') > b.get('pAt');
+            return a.get('pAt') < b.get('pAt');
         },
         filter: function(obj) {
             this.filter = obj;
@@ -1000,7 +1085,22 @@
                 var view = doc.getView();
                 $li.append(view.render().el);
                 $li.attr('data-id', doc.get('id'));
-                self.$ul.append($li);
+                $li.attr('data-pAt', doc.get('pAt'));
+                
+                if(self.$ul.children().length === 0) {
+                    self.$ul.append($li);
+                } else {
+                    var inserted = false;
+                    self.$ul.find('li').each(function(i,e){
+                        if(!inserted && $(e).attr('data-pAt') > doc.get('pAt')) {
+                            $(e).before($li);
+                            inserted = true;
+                        }
+                    });
+                    if(!inserted) {
+                        self.$ul.append($li);
+                    }
+                }
                 
                 doc.on('remove', function(){
                     $li.remove();
@@ -1018,6 +1118,8 @@
             //this.trigger('select', room);
             $(el.target).parent('li').attr('selected', true);
             $(el.target).parent('li').siblings().removeAttr('selected');
+            
+            jukeboxNav.go('Queue');
         }
     });
     
@@ -1026,17 +1128,20 @@
         className: 'songp',
         render: function() {
             if(this.model.get('song')) {
-                this.$el.html('<span class="title">'+this.model.get('song').title+'</span> <span class="artist">'+this.model.get('song').artist+'</span>');
+                this.$el.html('<span class="dj" title="'+this.model.get('dj').name+'"></span><span class="title">'+this.model.get('song').title+'</span> - <span class="artist">'+this.model.get('song').artist+'</span>');
             }
             if(this.model.has('pAt')) {
-                this.$el.append('<span class="pAt">'+this.model.get('pAt')+'</span>');
+                this.$el.append('<span class="pAt" title="'+this.model.get('pAt')+'">'+moment(this.model.get('pAt')).fromNow()+'</span>');
             }
             this.$el.attr('data-id', this.model.get('id'));
+            this.$el.find('.dj').append(this.userAvatar.render().el);
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
             var self = this;
+            this.user = window.usersCollection.get(this.model.get('dj').id);
+            this.userAvatar = new UserAvatar({model: this.user});
         },
         events: {
         }
@@ -1048,7 +1153,7 @@
         return str;
     }
     
-    SongRow = Backbone.View.extend({
+    var SongRow = Backbone.View.extend({
         tag: 'span',
         className: 'song',
         render: function() {
@@ -1062,7 +1167,13 @@
             if(this.model.get('artist')) {
                 str += '<span class="artist">'+this.model.get('artist')+'</span>';
             }
-            this.$el.html('<button class="queue" title="Queue Song">❥</button><button class="play" title="Preview Song">▸</button>'+str);
+            if(this.model.has('playCount')) {
+                str += '<span class="playCount" title="last played '+moment(this.model.get('lastPlayedAt')).fromNow()+'">'+this.model.get('playCount')+' plays</span>';
+            }
+            if(this.model.has('lastPlayedAt')) {
+                str += '<span class="lastPlayedAt" style="display:none;" title="'+this.model.get('lastPlayedAt')+'">'+moment(this.model.get('lastPlayedAt')).fromNow()+'</span>';
+            }
+            this.$el.html('<button class="queue" title="Queue Song">❥</button><button class="play" title="Preview Song">▸</button><button class="edit" title="Edit Song">/</button><button class="delete" title="Delete Song">x</button>'+str);
             this.$el.attr('data-id', this.model.get('id'));
             this.$el.attr('data-ss', this.model.get('ss'));
             this.setElement(this.$el);
@@ -1074,6 +1185,16 @@
         events: {
             "click .queue": "queueSong"
             , "click .play": "playSong"
+            , "click .edit": "editSong"
+            , "click .delete": "deleteSong"
+        },
+        editSong: function() {
+            //formInPlace
+        },
+        deleteSong: function() {
+            if(confirm("Are you sure that you want to delete this song?")) {
+                this.model.destroy();
+            }
         },
         playSong: function() {
             // play song
@@ -1082,15 +1203,179 @@
         queueSong: function() {
             this.$el.attr('data-queue', true);
             this.$el.siblings().removeAttr('data-queue');
-            console.log('queue to room id '+$('.chatroom[selected]').attr('data-id'))
+            //console.log('queue to room id '+$('.chatroom[selected]').attr('data-id'))
             this.trigger('queue', this.model, $('.chatroom[selected]').attr('data-id'));
+        }
+    });
+    
+    var SongRatingModel = Backbone.Model.extend({
+        initialize: function() {
+            var self = this;
+        },
+        getView: function(options) {
+            var self = this;
+            var viewType = 'SongRatingRow';
+            if(options && options.hasOwnProperty('viewType')) {
+                viewType = options.viewType;
+            }
+            if(!this.hasOwnProperty(viewType)) {
+                if(!options) options = {};
+                options.model = this;
+                this[viewType] = new SongRatingRow(options);
+            }
+            return this[viewType];
+        }
+    });
+    
+    var SongRatingCollection = Backbone.Collection.extend({
+        model: SongRatingModel,
+        url: '/api/songr',
+        initialize: function(docs, options) {
+            var self = this;
+        }, load: function(callback) {
+            var self = this;
+            this.filter.sort = 'at-';
+            var options = {data: this.filter, add: true};
+            if(callback) options.success = callback;
+            this.reset();
+            this.fetch(options);
+        }, comparator: function(a,b) {
+            return a.get('at') > b.get('at');
+        },
+        filter: function(obj) {
+            this.filter = obj;
+        }
+    });
+    
+    var SongRatingListView = Backbone.View.extend({
+        tag: 'div',
+        className: 'songRatingList',
+        render: function() {
+            this.$el.html('');
+            this.$el.append(this.$ul);
+            this.setElement(this.$el);
+            
+            return this;
+        },
+        initialize: function(options) {
+            this.$ul = $('<ul class="songs"></ul>');
+            var self = this;
+            if(!this.collection) {
+                this.collection = new SongRatingCollection();
+                if(options.song_id) {
+                    this.collection.filter({song_id:options.song_id});
+                }
+            }
+            this.collection.on('add', function(doc, col) {
+                var $li = $('<li></li>');
+                var view = doc.getView();
+                $li.append(view.render().el);
+                $li.attr('data-id', doc.get('id'));
+                self.$ul.prepend($li);
+                
+                doc.on('remove', function(){
+                    $li.remove();
+                    return false;
+                });
+            });
+            this.collection.load();
+            var insertOrUpdateSongRating = function(songr) {
+                var r = self.collection.get(songr.id);
+                if(!r) {
+                    var songRating = new SongRatingModel(songr);
+                    self.collection.add(songRating);
+                } else {
+                    r.set(songr, {silent:true});
+                    r.getView().render();
+                }
+            }
+            chatSocket.on('songr', function(songr) {
+                if(_.isArray(songr)) {
+                    for(var i in songr) {
+                        insertOrUpdateSongRating(songr[i]);
+                    }
+                } else {
+                    insertOrUpdateSongRating(songr);
+                }
+            });
+        },
+        events: {
+            "click li": "selectLi"
+        },
+        selectLi: function(el) {
+            $(el.target).parent('li').attr('selected', true);
+            $(el.target).parent('li').siblings().removeAttr('selected');
+        }
+    });
+    
+    var SongRatingRow = Backbone.View.extend({
+        tag: 'span',
+        className: 'songRating',
+        render: function() {
+            
+            if(!this.user && this.model.has('user')) {
+                this.user = window.usersCollection.get(this.model.get('user').id);
+                this.userAvatar = new UserAvatar({model: this.user});
+            }
+            var ts = '';
+            if(this.model.has('ts')) {
+               ts = ' @ '+formatMsTime(this.model.get('ts') * 1000);
+            }
+            this.$el.html('<span class="user"></span> rating '+this.model.get('score')+'%'+ts);
+            if(this.model.has('msg')) {
+                this.$el.append('<span class="msg">'+this.model.get('msg')+'</span>');
+            }
+            this.$el.prepend(this.$f);
+            this.$el.attr('data-id', this.model.get('id'));
+            if(this.userAvatar) {
+                this.$el.find('.user').append(this.userAvatar.render().el);
+            }
+            this.setElement(this.$el);
+            if(this.editing) {
+                this.showMsgForm();
+            }
+            return this;
+        },
+        initialize: function() {
+            var self = this;
+            var formStyle = this.editing ? '' : 'display:none';
+            this.$f = $('<form style="'+formStyle+'"><input type="text" placeholder="add a comment" name="msg" autocomplete="off" /><input type="submit" value="comment" /></form>');
+            this.$msg = this.$f.find('input[name="msg"]');
+        },
+        events: {
+            "submit": "submit"
+        },
+        submit: function(el) {
+            var self = this;
+            
+            this.model.set({msg: this.$msg.val()}, {wait: true});
+            this.render();
+            // TODO Chat msg
+            
+            return false;
+        },
+        clear: function() {
+            this.$msg.val('');
+            this.render();
+            this.focus();
+        },
+        focus: function() {
+            this.$msg.focus();
+        },
+        showMsgForm: function() {
+            this.$f.show();
+            this.focus();
+            this.editing = true;
+        },
+        hideMsgForm: function() {
+            this.$f.hide();
+            this.editing = false;
         }
     });
     
     jukebox.init = function($el, callback) {
         var self = this;
         this.initAuth(function(loginStatus){
-            console.log(loginStatus)
             
             if($el && loginStatus && loginStatus.has('groups') && loginStatus.get('groups').indexOf('friend') !== -1) {
                 var $app = $('<div id="app"></div>');

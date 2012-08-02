@@ -79,6 +79,7 @@
     endpoints.push({"songs": require('./songs')(house, {ds: mongoDs, collection: "songs"})});
     endpoints.push({"songq": require('./songq')(house, {ds: mongoDs, collection: "songq"})});
     endpoints.push({"songp": require('./songp')(house, {ds: mongoDs, collection: "songp"})});
+    endpoints.push({"songr": require('./songr')(house, {ds: mongoDs, collection: "songr"})});
     endpoints.push({"artists": require('./songs')(house, {ds: mongoDs, collection: "artists"})});
     endpoints.push({"albums": require('./songs')(house, {ds: mongoDs, collection: "albums"})});
     

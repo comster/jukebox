@@ -63,12 +63,13 @@
     var users = {};
     
     users.AvatarView = Backbone.View.extend({
+        tagName: 'span',
         render: function() {
             var self = this;
             if(this.model.has('avatar')) {
                 this.$el.html('<img src="/api/files/'+this.model.get('avatar')+'" />');
             } else {
-                this.$el.html('<img src="/jukebox/assets/img/icons/chat.png" />');
+                this.$el.html('<img src="/jukebox/assets/img/stylistica-icons-set/png/64x64/user.png" />');
             }
             this.setElement(this.$el);
             return this;
@@ -355,9 +356,9 @@
         tagName: "span",
         className: "profile",
         htmlTemplate: '<span class="user">\
-                        <span class="avatar"></span>\
                         <span class="name"><%= name %></span>\
                        <button class="logout" title="Log off">✌</button>\
+                        <span class="avatar"></span>\
                         </span>',
         template: function(doc) {
             return $(_.template(this.htmlTemplate, doc));

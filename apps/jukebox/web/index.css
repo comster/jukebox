@@ -1,3 +1,4 @@
+
 button {
     border-radius: 50%;
 }
@@ -50,9 +51,10 @@ header .openNav:hover img {
     width: 70px;
 }
 .avatar img {
-    max-height: 50px;
-    max-width: 50px;
+    height: 70px;
+    width: 70px;
     border-radius: 50%;
+    vertical-align: middle;
 }
 .upload_all {
     top: 0; right: 0;
@@ -76,7 +78,7 @@ header .openNav:hover img {
    vertical-align: middle;
 }
 .nav > div {
-    padding: 20px;
+    padding: 16px 20px;
 }
 .nav div[selected] {
     background: grey;
@@ -113,15 +115,29 @@ input.search {
 .song .album, .song .artist {
     float: right;
 }
+.playCount {
+    font-family: san-serif;
+    font-size: 80%;
+    padding: 2px 4px;
+    color: grey;
+}
 .played {
-    height: 20px;
+    height: 33px;
     overflow: hidden;
+}
+#queue[selected="selected"] .played {
+    height: auto;
+    overflow: auto;
+}
+#queue[selected="selected"] .played .songs li {
+    display: block;
 }
 .played .songs li {
     display: none;
 }
 .played .songs li:last-child {
     display: block;
+    cursor: pointer;
 }
 .played .songs li:last-child .pAt {
     visibility: hidden;
@@ -129,7 +145,10 @@ input.search {
 ul.queue {
     
 }
-ul.queue li {
+#chats {
+    clear: both;
+}
+ul.queue li, ul.played li {
     height: 1.5em;
     line-height: 1.5em;
     overflow: hidden;
@@ -138,7 +157,12 @@ ul.queue li {
 }
 .queue li:first-child {
     background: grey;
-    border: 1px solid #DDD;
+    border-top: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+}
+ul.played li .pAt {
+   float: right;
+   display: block;
 }
 
 @-webkit-keyframes spin {
@@ -186,10 +210,77 @@ ul.queue li:hover button {
 button.skip {
     position: absolute;
     right: 0px;
-    top: 104px;
+    top: 36px;
+}
+.playerInfo {
+    text-align: center;
+    width: 100%;
+    display: block;
+    min-height: 40px;
+}
+.albumInfo {
+    display: block;
+}
+.mute {
+    position: absolute;
+    top:20px;
+    left: 0px;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  border: 1px solid #aaaaaa;
+  border-radius: 8.5px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#dddddd));
+  background: -webkit-linear-gradient(top, #ffffff, #dddddd);
+  -webkit-background-clip: content-box;
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5),
+                      inset 0 0 3px rgba(0,0,0,0.1);
+}
+input[type=range]:hover::-webkit-slider-thumb {
+  background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#d4d4d4));
+  background: -webkit-linear-gradient(top, #f8f8f8, #d8d8d8);
+}
+input[type=range]:disabled {
+  background: #eeeeee;
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  opacity: 0.6;
+  cursor: default;
+}
+input[type=range]:disabled::-webkit-slider-thumb {
+  background: #eeeeee;
+  -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+.rating {
+    background: grey;
+    position: absolute;
+    top: 20px;
+    right: 0px;
+    -webkit-appearance: none;
+    border: 1px solid white;
+    border-radius: 10px;
+    -webkit-slider-thumb: red;
+}
+.ratings {
+    position: absolute;
+    top: 64px;
+    right: 0px;
+    text-align: right;
+}
+.ratings ul {
+    list-style: none;
+}
+.ratings ul li {
+    padding: 4px 2px;
+}
+.songRating .msg {
+    display: block;
+    font-size: 130%;
 }
 #vizual img {
-    max-height: 100%;
+    max-height: 60%;
+    max-width: 60%;
 }
 #app {
     
@@ -197,11 +288,26 @@ button.skip {
 #chat {
     
 }
-#chat .user img, .dj .user img {
+#chat .user img, .dj .user img, .songRatingList .user img {
     max-width: 20px;
     max-height: 20px;
     border-radius: 50%;
     vertical-align: middle;
+}
+#mediaPlayer .time {
+    width: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    z-index: 222;
+    color: black;
+}
+#mediaPlayer .time .duration {
+    display: none;
+}
+#mediaPlayer .time .progress {
+    float:right;
+    margin-right: 2px;
 }
 #mediaPlayer meter {
     width: 100%;
@@ -258,21 +364,23 @@ ul.rooms li:hover {
     overflow: auto;
     text-align: right;
 }
-.messageForm input {
+.messageForm input, .songRating input {
     padding: 0 0;
     margin: 0 0;
     border: 0px;
     border-radius: 4px;
 }
-.messageForm input[type="text"] {
-    width: 80%;
+.messageForm input[type="text"], .songRating input[type="text"] {
+    width: 72%;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
+    font-size: 18px;
 }
-.messageForm input[type="submit"] {
-    width: 20%;
+.messageForm input[type="submit"], .songRating input[type="submit"] {
+    width: 28%;
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
+    font-size: 18px;
 }
 .roomsOpen .roomList, .roomsFindOrCreate {
     float: right;
@@ -284,11 +392,23 @@ ul.messages {
     font-size: 80%;
 }
 ul.messages li {
-    padding: 0px 0px 20px 4px;
+    padding: 0px 0px 12px 6px;
     font-size: 1.2em;
 }
-ul.messages li .user {
+ul.messages .msg {
+    overflow: auto;
+}
+ul.messages .msg > span {
     font-weight: bolder;
+    width: 28%;
+    display: block;
+    float: left;
+}
+ul.messages .msg .msg {
+    font-weight: normal;
+    width: 72%;
+    display: block;
+    float: right;
 }
 ul.messages li .at {
     width: 30%;
@@ -366,8 +486,8 @@ circle {
 }
 .songList ul li {
     font-size: 1.3em;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
+    border-top: 1px dashed black;
+    border-bottom: 1px dashed black;
     overflow: auto;
 }
 .songList ul li button {
@@ -441,6 +561,7 @@ circle {
     }
     #queue > div, #mediaPlayer > div {
         margin-top: 80px;
+        position: relative;
     }
     #chat {
         position: fixed;

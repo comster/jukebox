@@ -15,11 +15,9 @@ var getValue = function(object, prop) {
 // TODO sync with offline storage
 
 Backbone.sync = function(method, model, options) {
-    console.log('backbone.sync');
     //if(navigator && navigator.hasOwnProperty('onLine') && !navigator.onLine) {
     //    return;
     //}
-    console.log(arguments)
   var type = methodMap[method];
   
   // Default options, unless specified.
@@ -29,7 +27,6 @@ Backbone.sync = function(method, model, options) {
   var params = {type: type, dataType: 'json'};
 
   // Ensure that we have a URL.
-  //console.log(options);
   if (!options.url) {
     params.url = getValue(model, 'url') || urlError();
   }
@@ -61,8 +58,6 @@ Backbone.sync = function(method, model, options) {
   params.xhrFields = {
      withCredentials: true
   }
-  //console.log(params)
-  //console.log(options)
   // Make the request, allowing the user to override any Ajax options.
   return $.ajax(_.extend(params, options));
 };
