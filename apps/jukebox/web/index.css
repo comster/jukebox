@@ -489,17 +489,22 @@ circle {
     border-top: 1px dashed black;
     border-bottom: 1px dashed black;
     overflow: auto;
+    position: relative;
+}
+.songList ul li .actions {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
 }
 .songList ul li button {
-    display: none;
-    float: right;
 }
 @media only screen and (min-width: 767px) {
     .songList ul li:hover {
         border-top: 1px dashed yellow;
         border-bottom: 1px dashed yellow;
     }
-    .songList ul li:hover button {
+    .songList ul li:hover .actions {
         display: block;
     }
     button:hover {

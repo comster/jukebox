@@ -1173,11 +1173,48 @@
             if(this.model.has('lastPlayedAt')) {
                 str += '<span class="lastPlayedAt" style="display:none;" title="'+this.model.get('lastPlayedAt')+'">'+moment(this.model.get('lastPlayedAt')).fromNow()+'</span>';
             }
-            this.$el.html('<button class="queue" title="Queue Song">❥</button><button class="play" title="Preview Song">▸</button><button class="edit" title="Edit Song">/</button><button class="delete" title="Delete Song">x</button>'+str);
+            this.$actions = $('<div class="actions"></div>');
+            this.$actions.html('<button class="delete" title="Delete Song">x</button><button class="edit" title="Edit Song">/</button><button class="play" title="Preview Song">▸</button><button class="queue" title="Queue Song">❥</button>');
+            this.$el.html(str);
+            this.$el.append(this.$actions);
             this.$el.attr('data-id', this.model.get('id'));
             this.$el.attr('data-ss', this.model.get('ss'));
             this.setElement(this.$el);
             return this;
+        },
+        renderForm: function() {
+            this.$el.children().hide();
+            this.$f = $('<form></form>');
+            var $duration = $('<input type="text" placeholder="duration" name="duration" />');
+            var $title = $('<input type="text" placeholder="title" name="title" />');
+            var $artist = $('<input type="text" placeholder="artist" name="artist" />');
+            var $album = $('<input type="text" placeholder="album" name="album" />');
+            
+            $title.val(this.model.get('title'));
+            
+            if(this.model.has('duration')) {
+                $duration.val(this.model.get('duration'));
+            }
+            if(this.model.has('artist')) {
+                $artist.val(this.model.get('artist'));
+            }
+            if(this.model.has('album')) {
+                $album.val(this.model.get('album'));
+            }
+            
+            this.$f.append($duration);
+            this.$f.append($title);
+            this.$f.append($artist);
+            this.$f.append($album);
+            this.$f.append('<input type="submit" value="save" /><button class="cancel">cancel</button>');
+            
+            this.$el.append(this.$f);
+            
+            $title.focus();
+        },
+        removeForm: function() {
+            this.$f.remove();
+            this.$el.children(':not(button)').show();
         },
         initialize: function() {
             var self = this;
@@ -1187,9 +1224,36 @@
             , "click .play": "playSong"
             , "click .edit": "editSong"
             , "click .delete": "deleteSong"
+            , "submit": "submit"
+            , "click .cancel": "cancel"
+        },
+        cancel: function() {
+            this.removeForm();
+            return false;
+        },
+        submit: function() {
+            var self = this;
+            var newObj = {};
+            var sa = this.$f.serializeArray();
+            for(var i in sa) {
+                var field = sa[i].name;
+                newObj[field] = sa[i].value;
+            }
+            var s = self.model.save(newObj, {silent: true, wait: true})
+                .done(function(s, typeStr, respStr) {
+                    delete self.model.changed.at;
+                    delete self.model.changed.id;
+                    delete self.model.changed.user;
+                    self.trigger('saved', self.model);
+                    self.render();
+                });
+            self.removeForm();
+            
+            return false;
         },
         editSong: function() {
             //formInPlace
+            this.renderForm();
         },
         deleteSong: function() {
             if(confirm("Are you sure that you want to delete this song?")) {
@@ -1285,8 +1349,11 @@
                     var songRating = new SongRatingModel(songr);
                     self.collection.add(songRating);
                 } else {
-                    r.set(songr, {silent:true});
-                    r.getView().render();
+                    var view = r.getView();
+                    if(!view.editing) {
+                        r.set(songr, {silent:true});
+                        view.render();
+                    }
                 }
             }
             chatSocket.on('songr', function(songr) {
@@ -1349,6 +1416,7 @@
             var self = this;
             
             this.model.set({msg: this.$msg.val()}, {wait: true});
+            this.hideMsgForm();
             this.render();
             // TODO Chat msg
             
@@ -1361,6 +1429,13 @@
         },
         focus: function() {
             this.$msg.focus();
+        },
+        toggleForm: function() {
+            if(this.editing) {
+                this.hideMsgForm();
+            } else {
+                this.showMsgForm();
+            }
         },
         showMsgForm: function() {
             this.$f.show();
