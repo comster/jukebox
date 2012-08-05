@@ -516,15 +516,20 @@
                 
                 window.chatSocket = socket;
                 
-                //socket.on('song', function (filename) {
-                    //window.mediaPlayer.loadSong(filename)
-                //});
-                socket.on('loadSong', function (song) {
-                    JukeBoxPlayer.preloadSong(song)
+                socket.on('songqLoad', function (songq) { //loadSong
+                    if(songq.room_id == self.selectedRoom) {
+                        JukeBoxPlayer.preloadSong(songq.song)
+                    } else {
+                        
+                    }
                 });
                 
                 socket.on('songqPlay', function (songq) {
-                    JukeBoxPlayer.loadSong('/api/files/'+songq.song.filename, songq.song)
+                    if(songq.room_id == self.selectedRoom) {
+                        JukeBoxPlayer.loadSong('/api/files/'+songq.song.filename, songq.song)
+                    } else {
+                        
+                    }
                     
                     // insert chat msg that song is playing
                     /*var djUser = {name:'~',id:''};
@@ -546,6 +551,15 @@
                 
                 if(this.io) {
                     this.io.emit('join', room.get('id'));
+                } 
+            }
+        },
+        leaveRoom: function(room) {
+            if(room) {
+                this.collection.remove(room.get('id'));
+                
+                if(this.io) {
+                    this.io.emit('leave', room.get('id'));
                 } 
             }
         }

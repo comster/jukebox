@@ -13,7 +13,7 @@ var ObjectID = mongo.ObjectID;
     var roomUsers = {};
     var timeouts = {};
     var songplaying = {};
-    var advancingQueue = false;
+    var advancingQueue = {};
     
     var io = house.ioChat = house.io.of('/socket.io/chat');
     io.authorization(function (data, accept) {
@@ -80,9 +80,9 @@ var ObjectID = mongo.ObjectID;
     
     var advanceRoomSongQ = function(roomId, userSkip) {
         
-        if(advancingQueue) return;
+        if(advancingQueue[roomId]) return;
         
-        advancingQueue = true;
+        advancingQueue[roomId] = true;
         
         // grab oldest "at" with room_id from q
         getCurrentlyPlaying(roomId, function(playingSongq){
@@ -99,7 +99,7 @@ var ObjectID = mongo.ObjectID;
                 
             }
             
-            var gapTime = 2 * 1000;
+            var gapTime = 5 * 1000;
             var preloadTime = 10 * 1000; // too long?
             // get top of songq
             getTopofQueue(roomId, function(songq){
@@ -121,7 +121,7 @@ var ObjectID = mongo.ObjectID;
                             getTopofQueue(roomId, function(songq){
                                 if(songq.length > 0) {
                                     songq = _.first(songq);
-                                    io.in(roomId).emit('loadSong', songq.song);
+                                    io.in(roomId).emit('songqLoad', songq);
                                     console.log('preload song q!!!!!!!!!!!!');
                                 }
                             });
@@ -140,16 +140,16 @@ var ObjectID = mongo.ObjectID;
                     
                     if(userSkip) {
                         console.log('preload song q skip!!!!!!!!!!!!');
-                        io.in(roomId).emit('loadSong', songq.song);
+                        io.in(roomId).emit('songqLoad', songq);
                         
                         setTimeout(function(){
                             console.log('advance song q after waiting for preloading');
                             io.in(roomId).emit('songqPlay', songq);
-                            advancingQueue = false;
+                            advancingQueue[roomId] = false;
                         }, preloadTime);
                     } else {
                         io.in(roomId).emit('songqPlay', songq);
-                        advancingQueue = false;
+                        advancingQueue[roomId] = false;
                     }
                 }
             });
@@ -185,7 +185,7 @@ var ObjectID = mongo.ObjectID;
             if(socket.handshake.session.hasOwnProperty('user')) {
                 var roomId = data.room_id;
                 roomId = new ObjectID(roomId);
-                
+                console.log(roomId)
                 if(timeouts.hasOwnProperty(roomId)) {
                     clearTimeout(timeouts[roomId]['play']);
                     clearTimeout(timeouts[roomId]['load']);
@@ -259,6 +259,7 @@ var ObjectID = mongo.ObjectID;
                 } else if(query) {
                     console.log('chat query')
                     console.log(query)
+                    query.room_id = docId;
                     ds.find(colMsgs, query, function(err, data) {
                         res.data(data);
                     });

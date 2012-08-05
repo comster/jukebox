@@ -133,6 +133,7 @@
     
     var QueueView = Backbone.View.extend({
         render: function() {
+            this.$el.html('');
             this.$el.append(this.$div);
             this.setElement(this.$el);
             return this;
@@ -140,20 +141,23 @@
         initialize: function(options) {
             var self = this;
             this.$div = $('<div></div>');
-            this.$played = $('<ul class="played"></ul>');
-            this.$queue = $('<ul class="queue"></ul>');
-            this.$div.append(this.$played);
-            this.$div.append(this.$queue);
             
             self.queues = {};
             self.plays = {};
             self.songsQueueList;
             
             options.chat.roomsOpenView.roomsOpenListView.on('select', function(room){
+                console.log('options.chat.roomsOpenView.roomsOpenListView.on');
+                if(self.songsQueueList) self.songsQueueList.remove();
+                if(self.songsPlayedList) self.songsPlayedList.remove();
+                self.$played = $('<ul class="played"></ul>');
+                self.$queue = $('<ul class="queue"></ul>');
+                self.$div.append(self.$played);
+                self.$div.append(self.$queue);
                 //console.log('update queue with room '+room.get('id'));
-                
-                self.queues[room.get('id')] = new SongqListView({el: self.$queue, roomId: room.get('id')});
-                self.songsQueueList = self.queues[room.get('id')];
+                //self.$queue.html('');
+                self.songsQueueList = new SongqListView({el: self.$queue, roomId: room.get('id')});
+                //self.songsQueueList = self.queues[room.get('id')];
                 
                 // request the room information
                 chatSocket.emit('info', room.get('id'), function(roomInfo){
@@ -167,13 +171,14 @@
                         var diff = d.getTime() - pd.getTime();
                         
                         JukeBoxPlayer.loadSong('/api/files/'+roomInfo.song.filename, roomInfo.song, diff);
+                        JukeBoxPlayer.player.play();
                     }
                 });
+                //self.$played.html('');
+                self.songsPlayedList = new SongpListView({el: self.$played, roomId: room.get('id')}); // self.plays[room.get('id')] = 
                 
-                self.plays[room.get('id')] = self.songsPlayedList = new SongpListView({el: self.$played, roomId: room.get('id')});
-                
-                self.queues[room.get('id')].render();
-                self.plays[room.get('id')].render();
+                self.songsQueueList.render();
+                self.songsPlayedList.render();
             });
             
         },
@@ -1175,7 +1180,10 @@
             $(el.target).parent('li').siblings().removeAttr('selected');
         },
         skip: function() {
-            chatSocket.emit('skip', {room_id: this.room_id});
+            console.log('skip song in room '+this.room_id);
+            if(confirm("Are you sure that you want to skip the song in the room? "+this.room_id)) {
+                chatSocket.emit('skip', {room_id: this.room_id});
+            }
         }
     });
     
@@ -1356,6 +1364,7 @@
         tag: 'div',
         className: 'songsPlayedList',
         render: function() {
+            this.$el.html('');
             this.$el.append(this.$ul);
             this.setElement(this.$el);
             return this;
