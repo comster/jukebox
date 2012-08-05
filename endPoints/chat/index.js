@@ -80,7 +80,10 @@ var ObjectID = mongo.ObjectID;
     
     var advanceRoomSongQ = function(roomId, userSkip) {
         
-        if(advancingQueue[roomId]) return;
+        if(advancingQueue[roomId]) {
+            console.log('already advancing');
+            return;
+        }
         
         advancingQueue[roomId] = true;
         
@@ -151,6 +154,8 @@ var ObjectID = mongo.ObjectID;
                         io.in(roomId).emit('songqPlay', songq);
                         advancingQueue[roomId] = false;
                     }
+                } else {
+                    advancingQueue[roomId] = false;
                 }
             });
         });

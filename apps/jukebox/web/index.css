@@ -70,9 +70,27 @@ header .openNav:hover img {
     width: 100%;
     height: 100%;
 }
+#library .uploadFrame {
+    display: block;
+    width: 100%;
+}
+.showUploadFrame {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.drg {
+    position: absolute;
+    top: 0;
+    right: 170px;
+    width: 132px;
+    text-align: right;
+}
 #library input[type="file"] {
     position: absolute;
-    top: 0; right: 0;
+    top: 0;
+    right: 70px;
+    width: 92px;
 }
 .nav img {
    vertical-align: middle;

@@ -147,7 +147,6 @@
             self.songsQueueList;
             
             options.chat.roomsOpenView.roomsOpenListView.on('select', function(room){
-                console.log('options.chat.roomsOpenView.roomsOpenListView.on');
                 if(self.songsQueueList) self.songsQueueList.remove();
                 if(self.songsPlayedList) self.songsPlayedList.remove();
                 self.$played = $('<ul class="played"></ul>');
@@ -210,26 +209,53 @@
         className: "uploadFrame",
         //htmlTemplate: 'Upload Files <iframe src="upload.html"></iframe>', haha, the old way of doing things.
         // mozdirectory webkitdirectory directory aren't really useful?
-        htmlTemplate: '<input type="file" multiple onchange="fileChangeListener(this.files)"><div class="uploadFiles"><button class="upload_all" title="Upload All">☁☁☁</button></div>',
+        htmlTemplate: '<span class="drg">Drag files here or </span><input type="file" multiple onchange="fileChangeListener(this.files)"><div class="uploadFiles"><button class="upload_all" title="Upload All">☁☁☁</button></div>',
         template: function(doc) {
             return $(_.template(this.htmlTemplate, doc));
         },
         render: function() {
+            this.$el.html('');
             this.$el.append(this.$up);
+            
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
+            // TODO NEED HELP!
             window.fileChangeListener = this.inputChange;
+            window.UploadFrame = this;
             this.$up = $(this.template({}));
         },
         events: {
-            "click .upload_all": "uploadAll"
+            "click .upload_all": "uploadAll",
+            "dragover": "handleDragOver",
+            "drop": "handleFileSelect"
+        },
+        handleFileSelect: function(e) {
+            e.originalEvent.stopPropagation();
+            e.originalEvent.preventDefault();
+            console.log('eeee');
+            var files = e.originalEvent.dataTransfer.files;
+            
+            for(var i = 0, f; f = files[i]; i++) {
+                this.appendFile(f);
+            }
+            return false;
+        },
+        handleDragOver: function(e) {
+            e.originalEvent.stopPropagation();
+            e.originalEvent.preventDefault();
+            this.$el.addClass('dragover')
+            e.originalEvent.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+            return false;
         },
         uploadAll: function() {
-            var self = this;
+            var self = window.UploadFrame;
             var i = 0;
             var filesToUpload = $('.uploadFiles button.upload');
+            this.on('uploaded', function(){
+                uploadIt(filesToUpload[i]);
+            });
             var uploadIt = function() {
                 if(filesToUpload.hasOwnProperty(i)) {
                     filesToUpload[i].click();
@@ -237,66 +263,154 @@
                         return;
                     } else {
                         i++;
-                        
-                        // TODO get callback when upload progress finishes
-                        setTimeout(function(){
-                            uploadIt(filesToUpload[i]);
-                        }, 2200);
+                        // using global callback to loop on upload completion
                     }
                 }
             }
             uploadIt();
         },
-        inputChange: function(files) {
-            var self = this;
+        uploadFile: function(blobOrFile, $row, callback) {
             
-            function canPlay(type){
-              var a = document.createElement('audio');
-              return !!(a.canPlayType && a.canPlayType(type).replace(/no/, ''));
+            var formData = new FormData();
+            var xhr = new XMLHttpRequest();
+                         
+            var onReady = function(e) {
+             // ready state
+            };
+            
+            var onError = function(err) {
+              // something went wrong with upload
+            };
+            
+            formData.append('files', blobOrFile);
+            xhr.open('POST', '/api/files', true);
+            xhr.addEventListener('error', onError, false);
+            //xhr.addEventListener('progress', onProgress, false);
+            xhr.addEventListener('readystatechange', onReady, false);
+            
+          xhr.onload = function(e) {
+              //console.log('upload complete');
+              var data = JSON.parse(e.target.response);
+              
+              if(data.hasOwnProperty('song')) {
+                window.JukeBoxLibrary.songListView.collection.add(new SongModel(data.song));
+              }
+              
+              if(callback) callback();
+          };
+        
+          // Listen to the upload progress.
+          var progressBar = $row.find('progress');
+          xhr.upload.onprogress = function(e) {
+            if (e.lengthComputable) {
+              progressBar.val((e.loaded / e.total) * 100);
+              //progressBar.textContent = progressBar.value; // Fallback for unsupported browsers.
             }
-            function uploadFile(blobOrFile, $row) {
+          };
+        
+            xhr.send(formData);
+        },
+        appendFile: function(f, callback) {
+            var self = window.UploadFrame;
+            parseFile(f,function(tags){
+                //console.log(tags);
                 
-                var formData = new FormData();
-                var xhr = new XMLHttpRequest();
-                             
-                var onReady = function(e) {
-                 // ready state
-                };
+                // TODO make this a backbone view
                 
-                var onError = function(err) {
-                  // something went wrong with upload
-                };
+                var $localFile = $('<div class="localFile"></div>');
+                var $actions = $('<span class="actions"></span> ');
+                var $title = $('<span class="title"></span> ');
+                var $artist = $('<span class="artist"></span> ');
+                var $album = $('<span class="album"></span> ');
+                var $year = $('<span class="year"></span> ');
+                var $genre = $('<span class="genre"></span> ');
                 
-                formData.append('files', blobOrFile);
-                xhr.open('POST', '/api/files', true);
-                xhr.addEventListener('error', onError, false);
-                //xhr.addEventListener('progress', onProgress, false);
-                xhr.addEventListener('readystatechange', onReady, false);
+                var t2 = guessSong(f.webkitRelativePath || f.mozFullPath || f.name); 
+                //console.log(t2);
+                $actions.html('');
                 
-              xhr.onload = function(e) {
-                  //console.log('upload complete');
-                  var data = JSON.parse(e.target.response);
-                  
-                  if(data.hasOwnProperty('song')) {
-                    window.JukeBoxLibrary.songListView.collection.add(new SongModel(data.song));
-                  }
-                  
-                  $row.remove();
-              };
-            
-              // Listen to the upload progress.
-              var progressBar = $row.find('progress');
-              xhr.upload.onprogress = function(e) {
-                if (e.lengthComputable) {
-                  progressBar.val((e.loaded / e.total) * 100);
-                  //progressBar.textContent = progressBar.value; // Fallback for unsupported browsers.
+                var title = tags.Title || t2.Title;
+                $title.html(title);
+                
+                var artist = tags.Artist || t2.Artist;
+                $artist.html(artist);
+                
+                var album = tags.Album || t2.Album;
+                $album.html(album);
+                
+                var year = tags.Year || t2.Year;
+                $year.html(year);
+                
+                var genre = tags.Genre || "";
+                $genre.html(genre);
+                
+                $localFile.append($actions);
+                $localFile.append($title);
+                $localFile.append($artist);
+                $localFile.append($album);
+                $localFile.append($year);
+                $localFile.append($genre);
+                
+                $localFile.append('<progress min="0" max="100" value="0" style="display:none;">0% complete</progress>');
+                
+                var url;
+                if(window.createObjectURL){
+                  url = window.createObjectURL(f)
+                }else if(window.createBlobURL){
+                  url = window.createBlobURL(f)
+                }else if(window.URL && window.URL.createObjectURL){
+                  url = window.URL.createObjectURL(f)
+                }else if(window.webkitURL && window.webkitURL.createObjectURL){
+                  url = window.webkitURL.createObjectURL(f)
                 }
-              };
+                
+                var $remove = $('<button>x</button>').click(function(){
+                    $localFile.remove();
+                    return false;
+                });
+                
+                var $playMedia = $('<button>▸</button>').click(function(){
+                    if(!self.previewing) {
+                        JukeBoxPreviewer.loadSong(f);
+                        self.previewing = true;
+                        JukeBoxPreviewer.$el.show();
+                        JukeBoxPlayer.$el.hide();
+                        JukeBoxPlayer.player.volume = 0;
+                        JukeBoxPlayer.playerVolume = 0;
+                        $(this).html('=');
+                    } else {
+                        self.previewing = false;
+                        JukeBoxPreviewer.player.stop();
+                        JukeBoxPreviewer.$el.hide();
+                        JukeBoxPlayer.$el.show();
+                        JukeBoxPlayer.player.volume = 100;
+                        JukeBoxPlayer.playerVolume = 100;
+                        $(this).html('▸');
+                    }
+                    return false;
+                });
+                
+                var $uploadMedia = $('<button class="upload" title="upload">☁</button>').click(function(){
+                    var $localFile = $(this).parents('.localFile');
+                    $localFile.find('progress').show();
+                    self.uploadFile(f, $localFile, function(){
+                        window.UploadFrame.trigger('uploaded');
+                        $localFile.remove();
+                    });
+                    $uploadMedia.remove();
+                    return false;
+                });
+                $actions.append($remove);
+                $actions.append($playMedia);
+                $actions.append($uploadMedia);
+                $('.uploadFiles').append($localFile);
+                if(callback) callback();
+            });
+        },
+        inputChange: function(files) {
+            var self = window.UploadFrame;
             
-                xhr.send(formData);
-            }
               var queue = [];
-              var mp3 = true;//canPlay('audio/mpeg;'), ogg = canPlay('audio/ogg; codecs="vorbis"');
               for(var i = 0; i < files.length; i++){
                 var file = files[i];
                 var path = file.webkitRelativePath || file.mozFullPath || file.name;
@@ -313,102 +427,15 @@
                   queue.push(file);
               }
                                       
-                                      //<progress min="0" max="100" value="0">0% complete</progress>
               var process = function(){
                 if(queue.length){
                   //console.log(queue);
                   var f = queue.shift();
-                  parseFile(f,function(tags){
-                      //console.log(tags);
-                      
-                      // TODO make this a backbone view
-                      
-                      var $localFile = $('<div class="localFile"></div>');
-                      var $actions = $('<span class="actions"></span> ');
-                      var $title = $('<span class="title"></span> ');
-                      var $artist = $('<span class="artist"></span> ');
-                      var $album = $('<span class="album"></span> ');
-                      var $year = $('<span class="year"></span> ');
-                      var $genre = $('<span class="genre"></span> ');
-                      
-                      var t2 = guessSong(f.webkitRelativePath || f.mozFullPath || f.name); 
-                      //console.log(t2);
-                      $actions.html('');
-                      
-                      var title = tags.Title || t2.Title;
-                      $title.html(title);
-                      
-                      var artist = tags.Artist || t2.Artist;
-                      $artist.html(artist);
-                      
-                      var album = tags.Album || t2.Album;
-                      $album.html(album);
-                      
-                      var year = tags.Year || t2.Year;
-                      $year.html(year);
-                      
-                      var genre = tags.Genre || "";
-                      $genre.html(genre);
-                      
-                      $localFile.append($actions);
-                      $localFile.append($title);
-                      $localFile.append($artist);
-                      $localFile.append($album);
-                      $localFile.append($year);
-                      $localFile.append($genre);
-                      
-                      $localFile.append('<progress min="0" max="100" value="0" style="display:none;">0% complete</progress>');
-                      
-                      var url;
-                      if(window.createObjectURL){
-                        url = window.createObjectURL(f)
-                      }else if(window.createBlobURL){
-                        url = window.createBlobURL(f)
-                      }else if(window.URL && window.URL.createObjectURL){
-                        url = window.URL.createObjectURL(f)
-                      }else if(window.webkitURL && window.webkitURL.createObjectURL){
-                        url = window.webkitURL.createObjectURL(f)
-                      }
-                      
-                      var $remove = $('<button>x</button>').click(function(){
-                          $localFile.remove();
-                          return false;
-                      });
-                      
-                      var $playMedia = $('<button>▸</button>').click(function(){
-                          if(!self.previewing) {
-                              JukeBoxPreviewer.loadSong(f);
-                              self.previewing = true;
-                              JukeBoxPreviewer.$el.show();
-                              JukeBoxPlayer.$el.hide();
-                              JukeBoxPlayer.player.volume = 0;
-                              JukeBoxPlayer.playerVolume = 0;
-                              $(this).html('=');
-                          } else {
-                              self.previewing = false;
-                              JukeBoxPreviewer.player.stop();
-                              JukeBoxPreviewer.$el.hide();
-                              JukeBoxPlayer.$el.show();
-                              JukeBoxPlayer.player.volume = 100;
-                              JukeBoxPlayer.playerVolume = 100;
-                              $(this).html('▸');
-                          }
-                          return false;
-                      });
-                      
-                      var $uploadMedia = $('<button class="upload" title="upload">☁</button>').click(function(){
-                          var $localFile = $(this).parents('.localFile');
-                          $localFile.find('progress').show();
-                          uploadFile(f, $localFile);
-                          $uploadMedia.remove();
-                          return false;
-                      });
-                      $actions.append($remove);
-                      $actions.append($playMedia);
-                      $actions.append($uploadMedia);
-                        $('.uploadFiles').append($localFile);
-                    process();
-                  })
+                  
+                  self.appendFile(f, function(){
+                      process();
+                  });
+                  
                   var lq = queue.length;
                   setTimeout(function(){
                     if(queue.length == lq){
@@ -429,6 +456,7 @@
         element: 'div',
         render: function() {
             this.$el.append(this.$div);
+            this.$upload.hide();
             this.setElement(this.$el);
             return this;
         },
@@ -437,16 +465,23 @@
             this.uploadFrame = new UploadFrame({library:this});
             this.songListView = new SongListView({library:this});
             this.searchFrame = new SearchView({library:this});
+            this.$upload = this.uploadFrame.render().$el;
+            this.$uploadBtn = $('<button class="showUploadFrame">☁</button>');
             this.$div.append(this.searchFrame.render().el);
-            this.$div.append(this.uploadFrame.render().el);
+            this.$div.append(this.$uploadBtn);
+            this.$div.append(this.$upload);
             this.$div.append(this.songListView.render().el);
             require(['id3v2.js'], function(){            });
         },
         events: {
-            "submit form": "submit"
+            "submit form": "submit",
+            "click .showUploadFrame": "showUploadFrame"
         }, submit: function() {
             
             return false;
+        }, showUploadFrame: function() {
+            this.$upload.show();
+            this.$uploadBtn.remove();
         }
     });
     var formatMsTime = function(ms) {
