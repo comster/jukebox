@@ -102,9 +102,9 @@
         }, load: function(callback) {
             var self = this;
             this.reset();
-            this.fetch({add:true, success:callback});
-        }, comparator: function(a,b) {
-            return a.get('at') > b.get('at');
+            this.fetch({add:true, data:{limit:100, sort: '_id-'}, success:callback});
+        }, comparator: function(a) {
+            return new Date(a.get('at')).getTime();
         }
     });
     
@@ -484,12 +484,14 @@
                 $r.attr('selected', true);
             });
             
-            require(['/socket.io/socket.io.js'], function() {
+            require(['https://'+window.location.host+':843/socket.io/socket.io.js'], function() {
                 var socketOpts = {};
-                if(false && window.location.protocol.indexOf('https') !== -1) {
+                if(window.location.protocol.indexOf('https') !== -1) {
                     socketOpts.secure = true;
+                } else {
+                    socketOpts.secure = false;
                 }
-                var socket = self.io = io.connect('http://'+window.location.host+':8080/socket.io/chat', socketOpts);
+                var socket = self.io = io.connect('https://'+window.location.host+':843/socket.io/chat', socketOpts);
                 socket.on('connect', function(data) {
                 });
                 socket.on('message', function (data) {
@@ -514,15 +516,15 @@
                 
                 window.chatSocket = socket;
                 
-                socket.on('song', function (filename) {
-                    window.mediaPlayer.loadSong(filename)
-                });
+                //socket.on('song', function (filename) {
+                    //window.mediaPlayer.loadSong(filename)
+                //});
                 socket.on('loadSong', function (song) {
-                    window.mediaPlayer.preloadSong(song)
+                    JukeBoxPlayer.preloadSong(song)
                 });
                 
                 socket.on('songqPlay', function (songq) {
-                    window.mediaPlayer.loadSong('/api/files/'+songq.song.filename, songq.song)
+                    JukeBoxPlayer.loadSong('/api/files/'+songq.song.filename, songq.song)
                     
                     // insert chat msg that song is playing
                     /*var djUser = {name:'~',id:''};
@@ -530,7 +532,6 @@
                         djUser = {name:songq.dj.name, id:songq.dj.id}
                     }
                     self.rooms[songq.room_id].messageCollection.add({user:djUser,room_id:songq.room_id,at:new Date(), msg:' playing '+songq.song.ss});*/
-                    
                 });
                 
                 self.initialized = true;

@@ -25,7 +25,7 @@ var spawn = require('child_process').spawn;
        });
     
        exif.on('close', function (code) {
-         console.log('exiftool process exited with code ' + code);
+         //console.log('exiftool process exited with code ' + code);
          if(code == 0){ // good
            var exifObject = {};
            exifOut = exifOut.split('\n');
@@ -33,7 +33,7 @@ var spawn = require('child_process').spawn;
              var tmp = e.split(': ');
              exifObject[tmp[0].trim()] = tmp[1];
            });
-           console.log(exifObject);
+           //console.log(exifObject);
            if(self.hasOwnProperty('resultCb')) {
                self.resultCb(exifObject);
            }
@@ -72,8 +72,8 @@ var spawn = require('child_process').spawn;
             root: filesRoot
         });
         uploadFileGridStore.writeFile(file.path, function(err, gridFile){
-            console.log('uploadFileGridStore.writeFile');
-            console.log(gridFile);
+            //console.log('uploadFileGridStore.writeFile');
+            //console.log(gridFile);
             callback(err, gridFile);
         });
     }
@@ -85,8 +85,8 @@ var spawn = require('child_process').spawn;
     
     var handleReq = function(req, res, next) {
         var path = req.hasOwnProperty('urlRouted') ? req.urlRouted : req.url;
-        console.log(req.headers)
-        console.log(req.method)
+        //console.log(req.headers)
+        //console.log(req.method)
         var findQuery = function(query, callback) {
             ds.find(col, query, function(err, data){
                 if(err) {
@@ -102,13 +102,13 @@ var spawn = require('child_process').spawn;
         if(req.method == 'GET' || req.method == 'HEAD') {
             var query = {};
             
-            console.log(path);
+            //console.log(path);
             if(path === '' || path === '/') {
                 findQuery(query);
             } else {
                 var filename = decodeURIComponent(path.substr(1));
-                console.log(filename);
-                console.log('mongo.GridStore.exist');
+                //console.log(filename);
+                //console.log('mongo.GridStore.exist');
                 mongo.GridStore.exist(ds.db, filename, filesRoot, function(err, result) {
                     if(result) {
                         
@@ -124,11 +124,11 @@ var spawn = require('child_process').spawn;
                             };
                             
                             if(req.method == 'HEAD') {
-                                console.log('HEAD');
+                                //console.log('HEAD');
                                 headerFields["Content-Length"] = gs.length;
                                 headerFields["Accept-Ranges"] = 'bytes';
                                 gs.close(function(){
-                                    house.log.debug('gridstore closed');
+                                    //house.log.debug('gridstore closed');
                                     res.writeHead(200, headerFields);
                                     res.end('');
                                 });
@@ -149,9 +149,9 @@ var spawn = require('child_process').spawn;
                             var bytStr = 'bytes=';
                             var chunkSize = 4096
                             , lengthRemaining = gs.length;
-                            console.log('req.headers.range.substr(0,bytStr.length)');
+                            //console.log('req.headers.range.substr(0,bytStr.length)');
                             if(req.headers.range && req.headers.range.substr(0,bytStr.length) == bytStr) {
-                                console.log('range '+req.headers.range);
+                                //console.log('range '+req.headers.range);
                             	var rangeString = '';
                                 var bytSelection = req.headers.range.substr(bytStr.length);
                             	var bytDashPos = bytSelection.indexOf('-');
@@ -169,7 +169,7 @@ var spawn = require('child_process').spawn;
                             		contentLen = parseInt(bytEndDash) - parseInt(bytPreDash);
                             		offset = parseInt(bytPreDash);
                             		rangeString = bytPreDash + '-' + bytEndDash;
-                                    console.log(offset);
+                                    //console.log(offset);
                             	} else if(bytEndDash == '' && bytPreDash != '') {
                                     // ex, 1234-
                             		contentLen = contentLen - parseInt(bytPreDash);
@@ -185,7 +185,7 @@ var spawn = require('child_process').spawn;
                             headerFields["Content-Length"] = contentLen;
                             //headerFields["Accept-Ranges"] = 'bytes'; // enables scrubbing in chrome
                             
-                        	house.log.debug(headerFields);
+                        	//house.log.debug(headerFields);
                             res.writeHead(resCode, headerFields);
                             
                             if(lengthRemaining < chunkSize) {
@@ -199,7 +199,7 @@ var spawn = require('child_process').spawn;
                                 	  house.log.err('file read err: '+filename);
                                 	  house.log.err(err);
                                       gs.close(function(){
-                                          house.log.debug('gridstore closed');
+                                          //house.log.debug('gridstore closed');
                                           res.end();
                                       });
                                       return;
@@ -218,7 +218,7 @@ var spawn = require('child_process').spawn;
                                     } else {
                                       // close the gridstore
                                       gs.close(function(){
-                                          house.log.debug('gridstore closed');
+                                          //house.log.debug('gridstore closed');
                                           res.end();
                                       });
                                     }
@@ -229,7 +229,7 @@ var spawn = require('child_process').spawn;
                                 }
                             }
                             if(offset != 0) {
-                                house.log.debug('gridstore seek '+offset);
+                                //house.log.debug('gridstore seek '+offset);
                                  gs.seek(offset, function(err, gs) {
                                  	if(err) {
                                  		house.log.err('err');
@@ -246,7 +246,7 @@ var spawn = require('child_process').spawn;
                            house.log.err(err);
                            res.end('error');
                        } else {
-                           console.log(filename)
+                           //console.log(filename)
                            findQuery({_id:docId = new ObjectID(filename)});
                            //res.end('file does not exist');
                        }
@@ -266,7 +266,7 @@ var spawn = require('child_process').spawn;
                                 console.log(err);
                             } else {
                                 if(data.contentType.indexOf('audio') === 0) {
-                                    console.log('proces file upload');
+                                    console.log('proces audio upload');
                                     
                                     getExifDataFromPath(file.path).result(function(exif){
                                         console.log('metadata');
@@ -312,7 +312,7 @@ var spawn = require('child_process').spawn;
                                         // lyrics
                                         
                                         ds.insert('songs', newSong, function(err, songData) {
-                                            console.log('new song!');
+                                            //console.log('new song!');
                                             res.data({song: songData, file: data});
                                             
                                             fs.unlink(file.path, function(){
@@ -323,7 +323,7 @@ var spawn = require('child_process').spawn;
                                     
                                 } else {
                                     console.log('done upload');
-                                    res.data(data);
+                                    res.data({file:data});
                                 }
                             }
                         });
@@ -360,16 +360,16 @@ var spawn = require('child_process').spawn;
                 
             }
         } else if(req.method == 'HEAD') {
-            console.log(req.headers)
-            console.log('HEAD');
+            //console.log(req.headers)
+            //console.log('HEAD');
             res.data({});
         } else if(req.method == 'OPTIONS') {
-            console.log('OPTIONS');
+            //console.log('OPTIONS');
         } else {
             if(req.method) {
-                console.log('bad method '+req.method);
+                //console.log('bad method '+req.method);
             } else {
-                console.log('NO method!');
+                //console.log('NO method!');
             }
         }
     }

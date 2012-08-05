@@ -23,16 +23,19 @@
             var self = this;
             this.$appHeader = $('<header id="jukeHead"><center>Loading..</center></header>');
             this.$appFrames = $('<div id="frames"></div>');
+            this.$mediaPreviewer = $('<div id="mediaPreviewer"></div>');
             
             this.headerNavView = window.jukeboxNav = new HeaderNavView({el:this.$appHeader, "$frames": this.$appFrames});
             self.headerNavView.render();
             this.headerNavView.addView('Player', new MediaPlayerView({el: $('<div id="mediaPlayer"></div>')}));
+            this.headerNavView.addView('Previewer', new MediaPlayerView({el: this.$mediaPreviewer}));
             this.headerNavView.addView('Library', new LibraryView({el: $('<div id="library"></div>')}));
             require(['houseChat.js'], function(houseChat) {
                 var chatApp = window.chat = new houseChat.AppView({el: $('<div id="chat"></div>')});
                 self.headerNavView.addView('Chat', chatApp);
                 self.headerNavView.addView('Queue', new QueueView({el: $('<div id="queue"></div>'), chat: chatApp}));
             });
+            this.$mediaPreviewer.hide();
         },
         events: {
         }
@@ -368,7 +371,23 @@
                       });
                       
                       var $playMedia = $('<button>▸</button>').click(function(){
-                          mediaPlayer.loadSong(f);
+                          if(!self.previewing) {
+                              JukeBoxPreviewer.loadSong(f);
+                              self.previewing = true;
+                              JukeBoxPreviewer.$el.show();
+                              JukeBoxPlayer.$el.hide();
+                              JukeBoxPlayer.player.volume = 0;
+                              JukeBoxPlayer.playerVolume = 0;
+                              $(this).html('=');
+                          } else {
+                              self.previewing = false;
+                              JukeBoxPreviewer.player.stop();
+                              JukeBoxPreviewer.$el.hide();
+                              JukeBoxPlayer.$el.show();
+                              JukeBoxPlayer.player.volume = 100;
+                              JukeBoxPlayer.playerVolume = 100;
+                              $(this).html('▸');
+                          }
                           return false;
                       });
                       
@@ -435,8 +454,14 @@
         render: function() {
             this.$el.html('');
             this.$el.append(this.$player); //
-            if(this.song && this.song.title) {
-                var str = this.song.title+' - '+this.song.artist; //+' on '+this.song.album;
+            if(this.song) {
+                var str = '';
+                if(this.song.title) {
+                    str += this.song.title;
+                }
+                if(this.song.artist) {
+                    str += ' - '+this.song.artist; //+' on '+this.song.album;
+                }
                 this.$el.find('.songInfo').html(str);
                 window.document.title = str;
                 var d = formatMsTime(this.song.duration*1000);
@@ -448,15 +473,19 @@
             if(this.songRatingListView) {
                 this.$player.find('.ratings').html(this.songRatingListView.render().el);
             }
-            this.$player.append(this.$viz);
-            this.$player.append(this.$canvas);
+            this.renderSongInfo();
             
             this.setElement(this.$el);
             return this;
         },
         renderDuration: function() {
             var p = 0;
-            var duration = this.player.duration || (this.song.duration * 1000);
+            var duration;
+            if(this.player.duration) {
+                duration = this.player.duration;
+            } else if(this.song) {
+                duration = (this.song.duration * 1000);
+            }
             this.$el.find('.currentTime').html(formatMsTime(this.player.currentTime));
             if(duration) {
                 var d = duration / 1000;
@@ -471,42 +500,96 @@
             }
         },
         renderSongInfo: function() {
+            var self = this;
             var str = '';
             //console.log(this.metadata);
-            
-            var title = this.metadata.title || this.metadata.Title || '';
-            var artist = this.metadata.artist || this.metadata.Artist || this.metadata["Album Artist"] || '';
-            var album = this.metadata.album || this.metadata.Album || '';
-            
-            this.$el.find('.albumName').html(album);
-            
-            str += title ? title + ' - ' : '';
-            str += artist ? artist : '';
-            //str += album ? ' on '+album : '';
-            str += this.metadata.year ? ' '+this.metadata.year : '';
-            if(str) {
-                this.$el.find('.songInfo').html(str);
-                window.document.title = str;
-                var cover = this.metadata.coverArt || this.metadata["Cover Art"] || '';
-                if(cover) {
-                    if(!cover.toBlob) cover = cover.data
-                    var src = window.webkitURL.createObjectURL(cover.toBlob());
-                    $('#vizual').html('<img src="' + src + '" />');
+            this.$el.find('.coverArt').html('');
+            var title, artist, album;
+            if(this.metadata) {
+                title = this.metadata.title || this.metadata.Title || '';
+                artist = this.metadata.artist || this.metadata.Artist || this.metadata["Album Artist"] || '';
+                album = this.metadata.album || this.metadata.Album || '';
+                
+                this.$el.find('.albumName').html(album);
+                
+                str += title ? title + ' - ' : '';
+                str += artist ? artist : '';
+                //str += album ? ' on '+album : '';
+                str += this.metadata.year ? ' '+this.metadata.year : '';
+                if(str) {
+                    this.$el.find('.songInfo').html(str);
+                    window.document.title = str;
+                    var cover = this.metadata.coverArt || this.metadata["Cover Art"] || '';
+                    if(cover) {
+                        if(!cover.toBlob) cover = cover.data
+                        window.URL = window.URL || window.webkitURL;
+                        var src = window.URL.createObjectURL(cover.toBlob());
+                        this.$el.find('.coverArt').append('<img src="' + src + '" />');
+                    } else {
+                        
+                    }
                 }
             }
+            if(!this.hasOwnProperty('lastfminfo')) {
+                self.lastfminfo = {};
+                if(this.song && this.song.title) {
+                    title = this.song.title || title;
+                    artist = this.song.artist || artist;
+                    album = this.song.album || album;
+                }
+                
+                var showLastFmImg = function(im) {
+                    var largest = im.pop();
+                    
+                    if(largest.hasOwnProperty('#text')) {
+                        var url = largest['#text'];
+                        
+                        if(self.$el.find('.coverArt img[src="'+url+'"]').length === 0) {
+                            self.$el.find('.coverArt').append('<img src="'+url+'" />');
+                        }
+                    }
+                }
+                window.currentSongLastFmResults = function(lastfm) {
+                    if(lastfm && lastfm.track && lastfm.track.album && lastfm.track.album.image) {
+                        self.lastfminfo.track = lastfm.track;
+                        showLastFmImg(lastfm.track.album.image);
+                    }
+                }
+                window.currentSongLastFmAlbumResults = function(lastfm) {
+                    if(lastfm && lastfm.album && lastfm.album.image) {
+                        self.lastfminfo.album = lastfm.album;
+                        showLastFmImg(lastfm.album.image);
+                    }
+                }
+                this.currentSongLastFmUpdate(title, artist, 'currentSongLastFmResults');
+                this.currentSongLastFmAlbum(album, artist, 'currentSongLastFmAlbumResults');
+            }
+        },
+        currentSongLastFmUpdate: function(track, artist, cb) {
+          if(!track || !artist) return false;
+          if(!cb) cb = 'currentSongLastFmResults'
+          var fm = document.createElement('script');
+          fm.type = 'text/javascript'; fm.async = true;
+          fm.src = 'http://ws.audioscrobbler.com/2.0/?format=json&method=track.getInfo&track='+track+'&artist='+artist+'&api_key=b2bf291c680b404f01f4562305b9aeef&callback='+cb;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fm);
+        },
+        currentSongLastFmAlbum: function(album, artist, cb) {
+          if(!album || !artist) return false;
+          if(!cb) cb = 'currentSongLastFmAlbumResults'
+          var fm = document.createElement('script');
+          fm.type = 'text/javascript'; fm.async = true;
+          fm.src = 'http://ws.audioscrobbler.com/2.0/?format=json&method=album.getInfo&album='+album+'&artist='+artist+'&api_key=b2bf291c680b404f01f4562305b9aeef&callback='+cb;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(fm);
         },
         initialize: function() {
             var self = this;
-            this.$player = $('<div><meter min="0.0" max="100.0" value="0.1"></meter>\
+            this.$player = $('<div class="mediaPlayer"><meter min="0.0" max="100.0" value="0.1"></meter>\
 <span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span>\
 <button class="mute" title="Mute">♫</button>\
-<input class="rating" type="range"  min="0" max="100" title="Rating" value="0" />\
-<div class="playerInfo"><span class="loading"></span><span class="songInfo"></span>\
-<span class="albumInfo"><span class="albumName"></span></span><span class="ratings"></span></div>\
+<div class="playerInfo"><span class="loading"></span><span class="songInfo"></span><span class="albumInfo"><span class="albumName"></span></span><span class="ratings"></span></div>\
+<input class="rating" type="range" min="0" max="100" title="Rating" value="0" />\
+<span class="coverArt"></span>\
 </div>');
-            this.$canvas = $('<canvas id="waveform" />');
-            this.$viz = $('<div id="vizual"></div>');
-            window.mediaPlayer = this;
             this.preloads = {};
             this.songRatings = {};
         },
@@ -523,7 +606,6 @@
             if(!this.songRatings.hasOwnProperty(this.song.id)) {
                 this.songRatings[this.song.id] = new SongRatingModel({}, {collection: this.songRatingListView.collection});
                 this.songRatings[this.song.id].on("change", function(songr, options){
-                    console.log(options);
                     var isnoo = songr.isNew();
                     var s = songr.save(null, {silent: true, wait: true})
                         .done(function(s, typeStr, respStr) {
@@ -533,11 +615,11 @@
                             delete songr.changed.user;
                             self.trigger('saved', songr);
                             self.songRatingListView.collection.add(songr);
+                            self.songRatings[self.song.id].getView().showMsgForm();
                             self.songRatings[self.song.id].getView().render();
                             if(isnoo) {
-                                self.songRatings[self.song.id].getView().showMsgForm();
                             } else {
-                                self.songRatings[self.song.id].getView().hideMsgForm();
+                                //self.songRatings[self.song.id].getView().hideMsgForm();
                             }
                         });
                 });
@@ -561,15 +643,79 @@
             } else {
                 this.player.volume = 0;
             }
+            // persist volume between songs
+            this.playerVolume = this.player.volume;
+        },
+        listenToPlayer: function(player) {
+            var self = this;
+            
+            player.on('error', function(err){
+                console.log(err);
+            });
+            //player.on('buffer', function(percent){});
+            player.on('progress', function(msecs){
+                //console.log(self.player.duration);
+                //console.log(self.player.currentTime);
+                //console.log(msecs);
+                //console.log('song played '+msecs);
+                self.renderDuration();
+            });
+            player.on('format', function(format){
+                /*
+                bitrate: 320000
+                channelsPerFrame: 2
+                formatID: "mp3"
+                sampleRate: 44100
+                */
+            });
+            /*player.on('metadata', function(metadata){
+                self.metadata = metadata;
+                if(metadata) {
+                    self.renderSongInfo();
+                }
+                album: "Haven"
+                albumArtist: "Dark Tranquillity"
+                artist: "Dark Tranquillity"
+                comments: Object
+                genre: "Metal"
+                title: "Haven"
+                trackNumber: "6"
+                year: "2000"
+            });*/
+            //player.on('duration', function(msecs){        console.log(arguments);          });
+            
+            return player;
         },
         preloadSong: function(song) {
-           this.preloads[song.filename] = Player.fromURL('/api/files/'+song.filename);
-           this.preloads[song.filename].preload();
-           //console.log('preloading');
+            var self = this;
+           console.log('preloading');
+           console.log(song);
+           var path = '/api/files/'+song.filename;
+           this.preloads = {}; // delete old refs
+           this.preloads[path] = Player.fromURL(path);
+           this.preloads[path].on('error', function(err){
+               console.log(err);
+           });
+           this.preloads[path].on('progress', function(msecs){
+               //console.log(self.player.duration);
+               //console.log(self.player.currentTime);
+               //console.log(msecs);
+               //console.log('song played '+msecs);
+               self.renderDuration();
+           });
+           
+           // show loading in queue
+           JukeBoxQueue.songsQueueList.$el.find('li:nth(1)').addClass('loading');
+           
+           this.preloads[path].on('buffer', function(percent){
+               JukeBoxQueue.songsQueueList.$el.find('li:nth(1) meter').val(percent);
+           });
+           this.preloads[path].preload();
         },
         loadSong: function(fileName, song, diff) {
             var self = this;
             var volume = 100;
+            diff = diff || 0;
             if(this.currentSong) {
                 volume = this.player.volume || volume;
                 if(fileName == this.currentSong.filename) return;
@@ -598,18 +744,63 @@
             var player;
             
             self.$el.find('.loading').html('Loading...');
-            
+            //console.log(fileName)
+            //console.log(this.preloads)
             if(typeof fileName == 'string') {
                 
                 if(this.preloads.hasOwnProperty(fileName)) {
-                    player = this.preloads.player;
+                    player = this.preloads[fileName];
+                    player.on('ready', function(){
+                        console.log('preloaded song');
+                    });
                 } else {
                     player = Player.fromURL(fileName);
+                    player.on('ready', function(){
+                        self.$el.find('.loading').html('');
+                        player.play();
+                        
+                        if(diff) {
+                            player.device.seek(diff);
+                        }
+                    });
+                    player.on('error', function(err){
+                        console.log(err);
+                    });
+                    //player.on('buffer', function(percent){});
+                    player.on('progress', function(msecs){
+                        self.renderDuration();
+                    });
                 }
             } else {
                 
                 // preview local file
                 player = Player.fromFile(fileName);
+                player.on('ready', function(){
+                    self.$el.find('.loading').html('');
+                    player.play();
+                    
+                    if(diff) {
+                        player.device.seek(diff);
+                    }
+                });
+                player.on('error', function(err){
+                    console.log(err);
+                });
+                //player.on('buffer', function(percent){});
+                player.on('progress', function(msecs){
+                    //console.log(self.player.duration);
+                    //console.log(self.player.currentTime);
+                    //console.log(msecs);
+                    //console.log('song played '+msecs);
+                    self.renderDuration();
+                });
+                player.on('metadata', function(metadata){
+                    self.metadata = metadata;
+                    if(metadata) {
+                        self.renderSongInfo();
+                    }
+                });
+                //self.listenToPlayer(player);
                 fileName = fileName.fileName;
             }
             
@@ -619,7 +810,7 @@
             }
             
             this.player = player;
-            this.player.volume = volume;
+            this.player.volume = (this.playerVolume || this.playerVolume === 0) ? this.playerVolume : 100;
             if(song) {
                 this.song = song;
                 this.songRatingListView = new SongRatingListView({song_id:this.song.id});
@@ -627,56 +818,18 @@
             }
             //console.log('loadSong: '+fileName);
             
-            player.on('error', function(err){
-                console.log(err);
-            });
-            //console.log(player)
-            player.on('buffer', function(percent){
-            });
-            player.on('ready', function(){
-                self.$el.find('.loading').html('');
-                player.play();
-                
-                if(diff) {
-                    player.device.seek(diff);
-                }
-            });
-            player.on('progress', function(msecs){
-                //console.log(self.player.duration);
-                //console.log(self.player.currentTime);
-                //console.log(msecs);
-                //console.log('song played '+msecs);
-                self.renderDuration();
-            });
-            player.on('format', function(format){
-                /*
-                bitrate: 320000
-                channelsPerFrame: 2
-                formatID: "mp3"
-                sampleRate: 44100
-                */
-            });
-            player.on('metadata', function(metadata){
-                self.metadata = metadata;
-                if(metadata) {
-                    self.renderSongInfo();
-                }
-                /*album: "Haven"
-                albumArtist: "Dark Tranquillity"
-                artist: "Dark Tranquillity"
-                comments: Object
-                genre: "Metal"
-                title: "Haven"
-                trackNumber: "6"
-                year: "2000"*/
-            });
-            player.on('duration', function(msecs){
-                //console.log(arguments);
-            });
-            
-            this.visualizePlayer(player);
+            //this.visualizePlayer(player);
             
             if(this.preloads.hasOwnProperty(fileName)) {
+                player.on('ready', function(){ // in case its not loaded yet
+                    self.$el.find('.loading').html('');
+                    player.play();
+                    
+                    if(diff) {
+                        player.device.seek(diff);
+                    }
+                });
+                self.$el.find('.loading').html('');
                 player.play();
             } else {
                 player.preload();
@@ -751,6 +904,7 @@
         events: {
             "keyup input": "search"
         }, search: function(e){
+            // TODO web worker this or something not to disrupt playback
             var regex = new RegExp(this.$search.val().trim().replace(/\s+/g, '.*'), 'ig');
             for(var i = $('.songList .song'), l = i.length; l--;){
               if(regex.test(i[l].dataset.ss)){
@@ -777,7 +931,7 @@
     });
     
     
-    SongModel = Backbone.Model.extend({
+    var SongModel = Backbone.Model.extend({
         initialize: function() {
             var self = this;
         },
@@ -812,7 +966,7 @@
         }
     });
     
-    SongCollection = Backbone.Collection.extend({
+    var SongCollection = Backbone.Collection.extend({
         model: SongModel,
         url: '/api/songs',
         initialize: function(docs, options) {
@@ -820,13 +974,14 @@
         }, load: function(callback) {
             var self = this;
             this.reset();
-            this.fetch({add:true});
+            
+            this.fetch({add:true, data: {sort: 'playCount'}});
         }, comparator: function(a,b) {
-            return a.get('at') > b.get('at');
+            return a.get('playCount') < b.get('playCount');
         }
     });
     
-    SongListView = Backbone.View.extend({
+    var SongListView = Backbone.View.extend({
         tag: 'div',
         className: 'songList',
         render: function() {
@@ -846,7 +1001,8 @@
                 var view = doc.getView();
                 $li.append(view.render().el);
                 $li.attr('data-id', doc.get('id'));
-                self.$ul.prepend($li);
+                
+                self.$ul.append($li);
                 
                 doc.on('remove', function(){
                     $li.remove();
@@ -866,7 +1022,7 @@
         }
     });
     
-    SongqModel = Backbone.Model.extend({
+    var SongqModel = Backbone.Model.extend({
         initialize: function() {
             var self = this;
         },
@@ -884,7 +1040,7 @@
         }
     });
     
-    SongqCollection = Backbone.Collection.extend({
+    var SongqCollection = Backbone.Collection.extend({
         model: SongqModel,
         url: '/api/songq',
         initialize: function(docs, options) {
@@ -1049,7 +1205,14 @@
         tagName: 'span',
         className: 'songq',
         render: function() {
+            var hoverTitle = this.model.get('song').ss;
+            
             this.$el.html('<span class="dj" title="'+this.model.get('dj').name+'"></span><span class="title">'+this.model.get('song').title+'</span> - <span class="artist">'+this.model.get('song').artist+'</span>');
+            if(this.model.get('song').duration) {
+                var strDur = formatSeconds(this.model.get('song').duration);
+                this.$el.append('<span class="duration">'+strDur+'</span> ');
+                hoverTitle += ' '+strDur;
+            }
             this.$actions = $('<div class="actions"></div>');
             this.$actions.append('<button class="upAll" title="Move to top">▲</button>');
             this.$actions.append('<button class="upOne" title="Move up one spot">△</button>');
@@ -1057,12 +1220,15 @@
             this.$actions.append('<button class="downAll" title="Move to bottom">▼</button>');
             this.$actions.append('<button class="remove" title="Remove from queue spot '+this.model.get('rank')+'">x</button>');
             this.$el.append(this.$actions);
-            this.$el.attr('title', this.model.get('song').ss);
+            this.$el.attr('title', hoverTitle);
             this.$el.attr('data-id', this.model.get('id'));
             this.$el.find('.dj').append(this.userAvatar.render().el);
             this.setElement(this.$el);
             this.$el.attr('data-rank', this.model.get('rank'));
             this.$el.parent().attr('data-rank', this.model.get('rank'));
+            
+            this.$el.append('<meter min="0.0" max="100.0" value="0.1"></meter>');
+            
             return this;
         },
         initialize: function() {
@@ -1109,7 +1275,6 @@
             var higherRank = r - 1;
             var sibId = this.$el.parents('li').prev().find('.songq').attr('data-id');
             var swapModel = self.model.collection.get(sibId);
-            console.log(swapModel);
             var sm = swapModel.save({rank:r}, {wait: true})
                 .done(function(s, typeStr, respStr) {
                     self.render();
@@ -1126,13 +1291,8 @@
             self.model.collection.sort({silent: true});
             var r = self.model.get('rank');
             var lowerRank = r + 1;
-            console.log(self.model.collection)
-            console.log({rank: lowerRank})
             var sibId = this.$el.parents('li').next().find('.songq').attr('data-id');
-            console.log(this.$el.parents('li'))
-            console.log(this.$el.parents('li').next())
             var swapModel = self.model.collection.get(sibId);
-            console.log(swapModel);
             var sm = swapModel.save({rank:r}, {wait: true})
                 .done(function(s, typeStr, respStr) {
                     self.render();
@@ -1389,7 +1549,23 @@
         },
         playSong: function() {
             // play song
-            mediaPlayer.loadSong('/api/files/'+encodeURIComponent(this.model.get('filename')), this.model);
+            if(!this.previewing) {
+                this.previewing = true;
+                JukeBoxPreviewer.loadSong('/api/files/'+encodeURIComponent(this.model.get('filename')), this.model.attributes);
+                JukeBoxPreviewer.$el.show();
+                JukeBoxPlayer.$el.hide();
+                JukeBoxPlayer.player.volume = 0;
+                JukeBoxPlayer.playerVolume = 0;
+                this.$el.find('.play').html('=');
+            } else {
+                this.previewing = false;
+                JukeBoxPreviewer.player.stop();
+                JukeBoxPreviewer.$el.hide();
+                JukeBoxPlayer.$el.show();
+                JukeBoxPlayer.player.volume = 100;
+                JukeBoxPlayer.playerVolume = 100;
+                this.$el.find('.play').html('▸');
+            }
         },
         queueSong: function() {
             this.$el.attr('data-queue', true);
@@ -1405,16 +1581,12 @@
         },
         getView: function(options) {
             var self = this;
-            var viewType = 'SongRatingRow';
-            if(options && options.hasOwnProperty('viewType')) {
-                viewType = options.viewType;
-            }
-            if(!this.hasOwnProperty(viewType)) {
+            if(!this.hasOwnProperty('view')) {
                 if(!options) options = {};
                 options.model = this;
-                this[viewType] = new SongRatingRow(options);
+                this.view = new SongRatingRow(options);
             }
-            return this[viewType];
+            return this.view;
         }
     });
     
@@ -1471,6 +1643,9 @@
             });
             this.collection.load();
             var insertOrUpdateSongRating = function(songr) {
+                
+                if(songr.song_id !== options.song_id) return;
+                
                 var r = self.collection.get(songr.id);
                 if(!r) {
                     var songRating = new SongRatingModel(songr);
@@ -1489,7 +1664,9 @@
                         insertOrUpdateSongRating(songr[i]);
                     }
                 } else {
-                    insertOrUpdateSongRating(songr);
+                    setTimeout(function(){
+                        insertOrUpdateSongRating(songr);
+                    },1000);
                 }
             });
         },
@@ -1532,8 +1709,8 @@
         },
         initialize: function() {
             var self = this;
-            var formStyle = this.editing ? '' : 'display:none';
-            this.$f = $('<form style="'+formStyle+'"><input type="text" placeholder="add a comment" name="msg" autocomplete="off" /><input type="submit" value="comment" /></form>');
+            var formStyle = 'display:none';
+            this.$f = $('<form data-id="'+this.model.get('id')+'" style="'+formStyle+'"><input type="text" placeholder="add a comment" name="msg" autocomplete="off" /><input type="submit" value="comment" /></form>');
             this.$msg = this.$f.find('input[name="msg"]');
         },
         events: {
@@ -1542,10 +1719,9 @@
         submit: function(el) {
             var self = this;
             
-            this.model.set({msg: this.$msg.val()}, {wait: true});
             this.hideMsgForm();
+            this.model.set({msg: this.$msg.val()}, {wait: true});
             this.render();
-            // TODO Chat msg
             
             return false;
         },
@@ -1566,6 +1742,7 @@
         },
         showMsgForm: function() {
             this.$f.show();
+            this.$f.removeAttr('style');
             this.focus();
             this.editing = true;
         },
