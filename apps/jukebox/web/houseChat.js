@@ -493,6 +493,7 @@
                 }
                 var socket = self.io = io.connect('https://'+window.location.host+':843/socket.io/chat', socketOpts);
                 socket.on('connect', function(data) {
+                    self.systemMsg('connected');
                 });
                 socket.on('message', function (data) {
                     self.rooms[data.room_id].messageCollection.add(data);
@@ -542,6 +543,14 @@
                 self.initialized = true;
                 self.trigger('initialized');
             });
+        },
+        systemMsg: function(msg) {
+            var djUser = {name:'[jukebox]',id:''};
+            this.rooms[this.selectedRoom].messageCollection.add({user:djUser,room_id:this.selectedRoom,at:new Date(), msg: msg});
+        },
+        systemErr: function(msg) {
+            var djUser = {name:'[error]',id:''};
+            this.rooms[this.selectedRoom].messageCollection.add({user:djUser,room_id:this.selectedRoom,at:new Date(), msg: msg});
         },
         events: {
         },

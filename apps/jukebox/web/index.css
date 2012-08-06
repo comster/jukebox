@@ -84,7 +84,12 @@ header .openNav:hover img {
     top: 0;
     right: 170px;
     width: 132px;
+    padding: 4px;
     text-align: right;
+    border: 1px dashed black;
+}
+.dragover .drg {
+    border: 1px dashed white;
 }
 #library input[type="file"] {
     position: absolute;

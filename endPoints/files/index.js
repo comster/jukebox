@@ -247,7 +247,11 @@ var spawn = require('child_process').spawn;
                            res.end('error');
                        } else {
                            //console.log(filename)
-                           findQuery({_id:docId = new ObjectID(filename)});
+                           try {
+                              findQuery({_id: new ObjectID(filename)});
+                           } catch(e) {
+                               res.end('file does not exist');
+                           }
                            //res.end('file does not exist');
                        }
                     }
@@ -332,6 +336,8 @@ var spawn = require('child_process').spawn;
             }
         } else if(req.method == 'PUT') {
             var query = {};
+            var docId = new ObjectID(path.substr(1));
+            return;
             if(docId) {
                 query._id = docId;
             
@@ -347,6 +353,7 @@ var spawn = require('child_process').spawn;
             }
         } else if(req.method == 'DELETE') {
             var query = {};
+            var docId = new ObjectID(path.substr(1));
             if(docId) {
                 query._id = docId;
                 ds.remove(col, query, function(err, data){
@@ -354,6 +361,7 @@ var spawn = require('child_process').spawn;
                         house.log.err(err);
                         res.end('error');
                     } else {
+                        console.log('deleted file');
                         res.data(data);
                     }
                 });

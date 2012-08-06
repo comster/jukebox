@@ -570,7 +570,7 @@
                     }
                 }
             }
-            if(!this.hasOwnProperty('lastfminfo')) {
+            if(true) {
                 self.lastfminfo = {};
                 if(this.song && this.song.title) {
                     title = this.song.title || title;
@@ -735,6 +735,7 @@
            this.preloads[path] = Player.fromURL(path);
            this.preloads[path].on('error', function(err){
                console.log(err);
+               chat.roomsOpenView.systemErr(err);
            });
            this.preloads[path].on('progress', function(msecs){
                //console.log(self.player.duration);
@@ -805,6 +806,7 @@
                     });
                     player.on('error', function(err){
                         console.log(err);
+                        chat.roomsOpenView.systemErr(err);
                     });
                     //player.on('buffer', function(percent){});
                     player.on('progress', function(msecs){
@@ -825,6 +827,7 @@
                 });
                 player.on('error', function(err){
                     console.log(err);
+                    chat.roomsOpenView.systemErr(err);
                 });
                 //player.on('buffer', function(percent){});
                 player.on('progress', function(msecs){
@@ -1505,7 +1508,7 @@
                 str += '<span class="lastPlayedAt" style="display:none;" title="'+this.model.get('lastPlayedAt')+'">'+moment(this.model.get('lastPlayedAt')).fromNow()+'</span>';
             }
             this.$actions = $('<div class="actions"></div>');
-            this.$actions.html('<button class="delete" title="Delete Song">x</button><button class="edit" title="Edit Song">/</button><button class="play" title="Preview Song">▸</button><button class="queue" title="Queue Song">❥</button>');
+            this.$actions.html('<button class="delete" title="Delete Song">✘</button><button class="edit" title="Edit Song">✎</button><button class="download" title="Download '+this.model.get('filename')+'">▼</button><button class="play" title="Preview Song">▸</button><button class="queue" title="Queue Song">❥</button>');
             this.$el.html(str);
             this.$el.append(this.$actions);
             this.$el.attr('data-id', this.model.get('id'));
@@ -1555,8 +1558,12 @@
             , "click .play": "playSong"
             , "click .edit": "editSong"
             , "click .delete": "deleteSong"
+            , "click .download": "download"
             , "submit": "submit"
             , "click .cancel": "cancel"
+        },
+        download: function() {
+            window.open('/api/files/'+this.model.get('filename'));
         },
         cancel: function() {
             this.removeForm();
@@ -1588,6 +1595,12 @@
         },
         deleteSong: function() {
             if(confirm("Are you sure that you want to delete this song?")) {
+                
+                // delete the file as well
+                var url = '/api/files/'+this.model.get('file_id');
+                $.ajax({url: url, type: "DELETE"}).done(function(){
+                });
+                
                 this.model.destroy();
             }
         },
