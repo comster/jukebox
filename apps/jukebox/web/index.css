@@ -1,4 +1,6 @@
-
+.hidden {
+    visibility: hidden;
+}
 button {
     border-radius: 50%;
 }
@@ -295,26 +297,67 @@ input[type=range]:disabled::-webkit-slider-thumb {
   -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 .rating {
-    background: grey;
-    position: absolute;
-    top: 20px;
-    right: 0px;
+    background: #ff3236; /* Old browsers */
+    background: -moz-linear-gradient(left, #ff3236 0%, #701515 45%, #192384 55%, #7db9e8 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff3236), color-stop(45%,#701515), color-stop(55%,#192384), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #ff3236 0%,#701515 45%,#192384 55%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #ff3236 0%,#701515 45%,#192384 55%,#7db9e8 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #ff3236 0%,#701515 45%,#192384 55%,#7db9e8 100%); /* IE10+ */
+    background: linear-gradient(to right, #ff3236 0%,#701515 45%,#192384 55%,#7db9e8 100%); /* W3C */
+    width: 50%;
     -webkit-appearance: none;
-    border: 1px solid white;
+    border: 1px solid gray;
     border-radius: 10px;
-    -webkit-slider-thumb: red;
+    float: right;
+}
+.songRatingList ul li {
+    width: 100%;
+}
+li .bar.good {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+li .bar.bad {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+li .bar.good {
+    background: -moz-linear-gradient(left, #192384 0%, #7db9e8 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#192384), color-stop(100%,#7db9e8)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #192384 0%,#7db9e8 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #192384 0%,#7db9e8 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #192384 0%,#7db9e8 100%); /* IE10+ */
+    background: linear-gradient(to right,#192384 0%,#7db9e8 100%); /* W3C */
+    text-align: right;
+    width: 50%;
+    margin-left: 50%;
+    display: block;
+}
+li .bar.bad {
+    background: -moz-linear-gradient(left, #ff3236 0%,#701515 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff3236), color-stop(100%,#701515)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #ff3236 0%,#701515 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #ff3236 0%,#701515 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #ff3236 0%,#701515 100%); /* IE10+ */
+    background: linear-gradient(to right,#ff3236 0%,#701515 100%); /* W3C */
+    text-align: left;
+    width: 50%;
+    display: block;
+    float: right;
+    margin-right: 50%;
 }
 .ratings {
-    position: absolute;
-    top: 64px;
-    right: 0px;
+    float: right;
     text-align: right;
+    clear: right;
+    width: 50%;
 }
 .ratings ul {
     list-style: none;
 }
 .ratings ul li {
     padding: 4px 2px;
+    overflow: auto;
 }
 .songRating .msg {
     display: block;
@@ -402,8 +445,12 @@ button.play {
 .topbar-inner .container {
     height: 120px;
 }
+.coverArt {
+    display: block;
+    width: 50%;
+}
 .coverArt img {
-    max-width: 50%;
+    max-width: 100%;
     max-height: 100%;
 }
 ul.users, .roomsOpen ul.rooms {
@@ -591,6 +638,7 @@ circle {
     }
     #frames:not([data-sel="Jukebox"]) > div[selected] > div {
         margin-top: 80px;
+        position: relative;
     }
     #frames:not([data-sel="Jukebox"]) > div:not([selected]) {
         display: none;

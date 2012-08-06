@@ -35,7 +35,7 @@
                 self.headerNavView.addView('Chat', chatApp);
                 self.headerNavView.addView('Queue', new QueueView({el: $('<div id="queue"></div>'), chat: chatApp}));
             });
-            this.$mediaPreviewer.hide();
+            this.$mediaPreviewer.addClass('hidden');
         },
         events: {
         }
@@ -373,16 +373,16 @@
                     if(!self.previewing) {
                         JukeBoxPreviewer.loadSong(f);
                         self.previewing = true;
-                        JukeBoxPreviewer.$el.show();
-                        JukeBoxPlayer.$el.hide();
+                        JukeBoxPreviewer.$el.removeClass('hidden');
+                        JukeBoxPlayer.$el.addClass('hidden');
                         JukeBoxPlayer.player.volume = 0;
                         JukeBoxPlayer.playerVolume = 0;
                         $(this).html('=');
                     } else {
                         self.previewing = false;
                         JukeBoxPreviewer.player.stop();
-                        JukeBoxPreviewer.$el.hide();
-                        JukeBoxPlayer.$el.show();
+                        JukeBoxPreviewer.$el.addClass('hidden');
+                        JukeBoxPlayer.$el.removeClass('hidden');
                         JukeBoxPlayer.player.volume = 100;
                         JukeBoxPlayer.playerVolume = 100;
                         $(this).html('▸');
@@ -543,6 +543,7 @@
             var self = this;
             var str = '';
             //console.log(this.metadata);
+            this.$el.find('input[type="range"]').val(50);
             this.$el.find('.coverArt').html('');
             var title, artist, album;
             if(this.metadata) {
@@ -626,8 +627,9 @@
             this.$player = $('<div class="mediaPlayer"><meter min="0.0" max="100.0" value="0.1"></meter>\
 <span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span>\
 <button class="mute" title="Mute">♫</button>\
-<div class="playerInfo"><span class="loading"></span><span class="songInfo"></span><span class="albumInfo"><span class="albumName"></span></span><span class="ratings"></span></div>\
-<input class="rating" type="range" min="0" max="100" title="Rating" value="0" />\
+<div class="playerInfo"><span class="loading"></span><span class="songInfo"></span><span class="albumInfo"><span class="albumName"></span></span>\
+<input class="rating" type="range" min="0" max="100" title="Rating" value="0" /><span class="ratings"></span>\
+</div>\
 <span class="coverArt"></span>\
 </div>');
             this.preloads = {};
@@ -1609,16 +1611,16 @@
             if(!this.previewing) {
                 this.previewing = true;
                 JukeBoxPreviewer.loadSong('/api/files/'+encodeURIComponent(this.model.get('filename')), this.model.attributes);
-                JukeBoxPreviewer.$el.show();
-                JukeBoxPlayer.$el.hide();
+                JukeBoxPreviewer.$el.removeClass('hidden');
+                JukeBoxPlayer.$el.addClass('hidden');
                 JukeBoxPlayer.player.volume = 0;
                 JukeBoxPlayer.playerVolume = 0;
                 this.$el.find('.play').html('=');
             } else {
                 this.previewing = false;
                 JukeBoxPreviewer.player.stop();
-                JukeBoxPreviewer.$el.hide();
-                JukeBoxPlayer.$el.show();
+                JukeBoxPreviewer.$el.addClass('hidden');
+                JukeBoxPlayer.$el.removeClass('hidden');
                 JukeBoxPlayer.player.volume = 100;
                 JukeBoxPlayer.playerVolume = 100;
                 this.$el.find('.play').html('▸');
@@ -1749,7 +1751,11 @@
             if(this.model.has('ts')) {
                ts = ' @ '+formatMsTime(this.model.get('ts') * 1000);
             }
-            this.$el.html('<span class="user"></span> rating '+this.model.get('score')+'%'+ts);
+            
+            var score = this.model.get('score');
+            var goodBad = (score < 50) ? 'bad' : 'good';
+            var w = Math.abs(score - 50);
+            this.$el.html('<span class="bar '+goodBad+'" style="width:'+w+'%"><span class="user"></span></span>');
             if(this.model.has('msg')) {
                 this.$el.append('<span class="msg">'+this.model.get('msg')+'</span>');
             }
