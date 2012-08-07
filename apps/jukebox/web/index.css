@@ -3,6 +3,10 @@
 }
 button {
     border-radius: 50%;
+    background-color: gray;
+    font-weight: bolder;
+    color: #EEE;
+    font-size: 
 }
 body {
     margin: 0 0;
@@ -42,15 +46,6 @@ header .openNav {
 header .openNav img {
     height: 50px;
     width: 50px;
-}
-header .openNav:hover {
-    padding: 0px;
-    height: 70px;
-    width: 70px;
-}
-header .openNav:hover img {
-    height: 70px;
-    width: 70px;
 }
 .avatar img {
     height: 70px;
@@ -173,6 +168,9 @@ ul.queue {
 #chats {
     clear: both;
 }
+.stopPreview {
+    text-align: right;
+}
 ul.queue li, ul.played li {
     height: 1.5em;
     font-size: 80%;
@@ -241,16 +239,7 @@ ul.queue li div {
     width: 100%;
     position: relative;
 }
-ul.queue li .actions {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    visibility: hidden;
-    text-align: right;
-}
-ul.queue li:hover .actions {
-    visibility: visible;
-}
+
 button.skip {
     position: absolute;
     right: 0px;
@@ -282,10 +271,6 @@ input[type=range]::-webkit-slider-thumb {
   -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5),
                       inset 0 0 3px rgba(0,0,0,0.1);
 }
-input[type=range]:hover::-webkit-slider-thumb {
-  background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#d4d4d4));
-  background: -webkit-linear-gradient(top, #f8f8f8, #d8d8d8);
-}
 input[type=range]:disabled {
   background: #eeeeee;
   -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
@@ -309,6 +294,7 @@ input[type=range]:disabled::-webkit-slider-thumb {
     border: 1px solid gray;
     border-radius: 10px;
     float: right;
+    cursor: move;
 }
 .songRatingList ul li {
     width: 100%;
@@ -356,7 +342,6 @@ li .bar.bad {
     list-style: none;
 }
 .ratings ul li {
-    padding: 4px 2px;
     overflow: auto;
 }
 .songRating .msg {
@@ -385,7 +370,7 @@ li .bar.bad {
     position: absolute;
     top: 0;
     z-index: 222;
-    color: black;
+    color: gray;
 }
 .mediaPlayer .time .duration {
     display: none;
@@ -463,10 +448,6 @@ ul.users li, .roomsOpen ul.rooms li {
     padding-right: 20px;
 }
 .roomsOpen ul.rooms li {
-}
-ul.rooms li:hover {
-    cursor: pointer;
-    color: yellow;
 }
 .roomsOpen ul.rooms li[selected] {
     color: yellow;
@@ -604,15 +585,48 @@ circle {
     overflow: auto;
     position: relative;
 }
-.songList ul li .actions {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: none;
-}
+
 .songList ul li button {
 }
+.mediaPlayer {
+    position: relative;
+}
+ul.queue li .actions {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    text-align: right;
+}
 @media only screen and (min-width: 767px) {
+    input[type=range]:hover::-webkit-slider-thumb {
+      background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#d4d4d4));
+      background: -webkit-linear-gradient(top, #f8f8f8, #d8d8d8);
+    }
+    ul.rooms li:hover {
+        cursor: pointer;
+        color: yellow;
+    }
+    header .openNav:hover {
+        padding: 0px;
+        height: 70px;
+        width: 70px;
+    }
+    header .openNav:hover img {
+        height: 70px;
+        width: 70px;
+    }
+    ul.queue li .actions {
+        visibility: hidden;
+    }
+    ul.queue li:hover .actions {
+        visibility: visible;
+    }
+    .songList ul li .actions {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: none;
+    }
     .songList ul li:hover {
         border-top: 1px dashed yellow;
         border-bottom: 1px dashed yellow;

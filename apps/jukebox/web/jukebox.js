@@ -17,6 +17,7 @@
             this.headerNavView.go('Jukebox');
             
             this.setElement(this.$el);
+            
             return this;
         },
         initialize: function() {
@@ -28,7 +29,7 @@
             this.headerNavView = window.jukeboxNav = new HeaderNavView({el:this.$appHeader, "$frames": this.$appFrames});
             self.headerNavView.render();
             this.headerNavView.addView('Player', new MediaPlayerView({el: $('<div id="mediaPlayer"></div>')}));
-            this.headerNavView.addView('Previewer', new MediaPlayerView({el: this.$mediaPreviewer}));
+            this.headerNavView.addView('Previewer', new MediaPlayerView({el: this.$mediaPreviewer, previewer: true}));
             this.headerNavView.addView('Library', new LibraryView({el: $('<div id="library"></div>')}));
             require(['houseChat.js'], function(houseChat) {
                 var chatApp = window.chat = new houseChat.AppView({el: $('<div id="chat"></div>')});
@@ -472,6 +473,10 @@
             this.$div.append(this.$upload);
             this.$div.append(this.songListView.render().el);
             require(['id3v2.js'], function(){            });
+            var self = this;
+            setTimeout(function(){
+                self.songListView.collection.load();
+            }, 1000);
         },
         events: {
             "submit form": "submit",
@@ -493,6 +498,12 @@
         element: 'div',
         render: function() {
             this.$el.html('');
+            
+            if(this.options.previewer) {
+                var $stopPreview = $('<div class="stopPreview" title="go back to the currently playing song in the room"><button>Stop Preview</button></div>');
+                this.$player.find('.actions').html($stopPreview);
+            }
+            
             this.$el.append(this.$player); //
             if(this.song) {
                 var str = '';
@@ -627,6 +638,7 @@
             this.$player = $('<div class="mediaPlayer"><meter min="0.0" max="100.0" value="0.1"></meter>\
 <span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span>\
 <button class="mute" title="Mute">♫</button>\
+<span class="actions"></span>\
 <div class="playerInfo"><span class="loading"></span><span class="songInfo"></span><span class="albumInfo"><span class="albumName"></span></span>\
 <input class="rating" type="range" min="0" max="100" title="Rating" value="0" /><span class="ratings"></span>\
 </div>\
@@ -640,6 +652,14 @@
             , "click button.mute": "mute"
             , "click button.seek": "seek"
             , "mouseup input.rating": "rating"
+            , "click .stopPreview": "stopPreview"
+        },
+        stopPreview: function() {
+           JukeBoxPreviewer.player.stop();
+           JukeBoxPreviewer.$el.addClass('hidden');
+           JukeBoxPlayer.$el.removeClass('hidden');
+           JukeBoxPlayer.player.volume = 100;
+           JukeBoxPlayer.playerVolume = 100;
         },
         rating: function() {
             var self = this;
@@ -1019,10 +1039,23 @@
         }, load: function(callback) {
             var self = this;
             this.reset();
-            
-            this.fetch({add:true, data: {sort: 'playCount'}});
+            var limit = 500;
+            var skip = 0;
+            var loadMore = function(limit) {
+                skip = skip + limit;
+                self.fetch({add:true, data: {sort: 'playCount-', limit: limit, skip: skip}, complete: fetchComplete});
+            }
+            var fetchComplete = function(xresp){ return;
+                if(xresp.responseText && xresp.responseText.length > 0 && xresp.responseText !== '[]') {
+                    setTimeout(function(){
+                        //limit = limit + 500;
+                        loadMore(limit);
+                    }, 10000);
+                }
+            }
+            this.fetch({add:true, data: {sort: 'playCount-', limit: limit}, complete: fetchComplete});
         }, comparator: function(a,b) {
-            return a.get('playCount') < b.get('playCount');
+            return a.get('playCount') > b.get('playCount');
         }
     });
     
@@ -1046,15 +1079,31 @@
                 var view = doc.getView();
                 $li.append(view.render().el);
                 $li.attr('data-id', doc.get('id'));
+                $li.attr('data-rank', doc.get('playCount'));
+                //self.$ul.prepend($li);
                 
-                self.$ul.append($li);
+                if(self.$ul.children().length === 0) {
+                    self.$ul.append($li);
+                } else {
+                    var inserted = false;
+                    self.$ul.find('li').each(function(i,e){
+                        if(!inserted && $(e).attr('data-rank') < doc.get('playCount')) {
+                            $(e).before($li);
+                            inserted = true;
+                        }
+                    });
+                    if(!inserted) {
+                        self.$ul.append($li);
+                    }
+                }
+                
                 
                 doc.on('remove', function(){
                     $li.remove();
                     return false;
                 });
             });
-            this.collection.load();
+            //this.collection.load();
         },
         events: {
             "click li": "selectLi"

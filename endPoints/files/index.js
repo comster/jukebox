@@ -306,10 +306,13 @@ var spawn = require('child_process').spawn;
                                                 newSong.duration = newSong.duration.substr(0,iof);
                                             }
                                             var dArr = newSong.duration.split(':');
-                                            var mins = parseInt(dArr[0], 10);
-                                            var secs = parseInt(dArr[1], 10);
+                                            var secs = parseInt(dArr.pop(), 10);
+                                            var mins = parseInt(dArr.pop(), 10);
                                             
                                             newSong.duration = (mins * 60) + secs;
+                                        }
+                                        if(exif.Lyrics) {
+                                            newSong.lyrics = exif.Lyrics;
                                         }
                                         // picture
                                         // track

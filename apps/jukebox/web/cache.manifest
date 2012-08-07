@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# ver 0.5
+# ver 0.6
 
 CACHE:
 index.css
@@ -20,6 +20,11 @@ aac.js
 moment.min.js
 dancer.js
 id3v2.js
+assets/img/icons/library.png
+assets/img/icons/upload.png
+assets/img/icons/queue.png
+assets/img/icons/chat.png
+assets/img/logo-drums.png
 
 NETWORK:
 /
