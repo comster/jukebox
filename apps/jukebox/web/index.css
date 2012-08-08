@@ -343,6 +343,14 @@ li .bar.bad {
 }
 .ratings ul li {
     overflow: auto;
+    opacity: 0.4;
+}
+.ratings ul li {
+    -webkit-transition: opacity 1s linear;
+    transition: opacity 1s linear;
+}
+.ratings ul li.highlight {
+    opacity: 1.0;
 }
 .songRating .msg {
     display: block;
@@ -597,7 +605,21 @@ ul.queue li .actions {
     top: 0px;
     text-align: right;
 }
+
+.wrapper {  width: 250px;  height: 250px;  margin: 40px auto;  position: relative;  background: black; box-sizing: border-box; }
+.pie {  width: 50%;  height: 100%;  -webkit-transform-origin: 100% 50%;  position: absolute;  background: #0088cc;  border: 5px solid #232323; box-sizing: border-box;}
+.spinner {  border-radius: 100% 0 0 100%/50% 0 0 50%;  z-index: 200;  border-right: none;  -webkit-animation: rota 10s linear infinite; box-sizing: border-box;}
+.spinner:after {  position: absolute;  width: 10px;  height: 10px;  background: #fff;  border: 1px solid rgba(0, 0, 0, 0.5);  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);  border-radius: 50%;  top: 10px;  right: 10px;  content: "";  display: none;}
+.filler {  border-radius: 0 100% 100% 0/0 50% 50% 0;  left: 50%;  opacity: 0;  z-index: 100;  -webkit-animation: fill 10s steps(1, end) infinite;  border-left: none; box-sizing: border-box;}
+.mask {  width: 50%;  height: 100%;  position: absolute;  background: inherit;  opacity: 1;  z-index: 300;  -webkit-animation: mask 10s steps(1, end) infinite; box-sizing: border-box;}
+@-webkit-keyframes rota {  0% {    -webkit-transform: rotate(0deg);  }  100% {    -webkit-transform: rotate(360deg);  }}
+@-webkit-keyframes mask {  0% {    opacity: 1;  }  50%, 100% {    opacity: 0;  }}
+@-webkit-keyframes fill {  0% {    opacity: 0;  }  50%, 100% {    opacity: 1;  }}
+
 @media only screen and (min-width: 767px) {
+    .ratings ul li:hover {
+        opacity: 1.0;
+    }
     input[type=range]:hover::-webkit-slider-thumb {
       background: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#d4d4d4));
       background: -webkit-linear-gradient(top, #f8f8f8, #d8d8d8);

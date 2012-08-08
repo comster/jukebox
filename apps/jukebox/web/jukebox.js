@@ -50,6 +50,7 @@
         },
         render: function() {
             var txt = this.currentView || 'Loading ...';
+            //<div class="wrapper"><div class="spinner pie"></div><div class="filler pie"></div><div class="mask"></div></div> // circle spinner
             this.$el.html('<a class="openNav" title="Menu" href="#"><img src="assets/img/logo-drums.png" /></a><center>'+txt+'</center>');
             this.setElement(this.$el);
             return this;
@@ -549,6 +550,9 @@
                 var t = this.player.currentTime / 1000;
                 this.$el.find('.progress').html(Math.floor(t/60) +':'+ pad(Math.floor(t%60)));
             }
+            
+            // pass this along to the ratings for hightlight this.song.duration
+            this.songRatingListView.trigger('currentTime', this.player.currentTime);
         },
         renderSongInfo: function() {
             var self = this;
@@ -760,10 +764,6 @@
                chat.roomsOpenView.systemErr(err);
            });
            this.preloads[path].on('progress', function(msecs){
-               //console.log(self.player.duration);
-               //console.log(self.player.currentTime);
-               //console.log(msecs);
-               //console.log('song played '+msecs);
                self.renderDuration();
            });
            
@@ -772,6 +772,7 @@
            
            this.preloads[path].on('buffer', function(percent){
                JukeBoxQueue.songsQueueList.$el.find('li:nth(1) meter').val(percent);
+               JukeBoxQueue.songsQueueList.$el.find('li:nth(1) meter').html(Math.floor(percent)+'%');
            });
            this.preloads[path].preload();
         },
@@ -831,7 +832,16 @@
                         console.log(err);
                         chat.roomsOpenView.systemErr(err);
                     });
-                    //player.on('buffer', function(percent){});
+                    player.on('buffer', function(percent){
+                        JukeBoxQueue.songsQueueList.$el.find('li:nth(0) meter').val(percent);
+                        JukeBoxQueue.songsQueueList.$el.find('li:nth(0) meter').html(percent+'%');
+                        var p = Math.floor(percent);
+                        if(p > 99) {
+                            self.$el.find('.loading').html('');
+                        } else {
+                            self.$el.find('.loading').html('Loading... '+p+'% ');
+                        }
+                    });
                     player.on('progress', function(msecs){
                         self.renderDuration();
                     });
@@ -843,10 +853,6 @@
                 player.on('ready', function(){
                     self.$el.find('.loading').html('');
                     player.play();
-                    
-                    if(diff) {
-                        player.device.seek(diff);
-                    }
                 });
                 player.on('error', function(err){
                     console.log(err);
@@ -1756,7 +1762,23 @@
                 var view = doc.getView();
                 $li.append(view.render().el);
                 $li.attr('data-id', doc.get('id'));
-                self.$ul.prepend($li);
+                $li.attr('data-ts', doc.get('ts'));
+                //self.$ul.prepend($li);
+                
+                if(self.$ul.children().length === 0) {
+                    self.$ul.append($li);
+                } else {
+                    var inserted = false;
+                    self.$ul.find('li').each(function(i,e){
+                        if(!inserted && $(e).attr('data-ts') > doc.get('ts')) {
+                            $(e).before($li);
+                            inserted = true;
+                        }
+                    });
+                    if(!inserted) {
+                        self.$ul.append($li);
+                    }
+                }
                 
                 doc.on('remove', function(){
                     $li.remove();
@@ -1791,6 +1813,16 @@
                     },1000);
                 }
             });
+            
+            self.on('currentTime', function(t) {
+                var ts = Math.floor(t/1000);
+                
+                self.$ul.find('li:not(.highlight)').each(function(i,e){
+                    if(parseInt($(e).attr('data-ts'),10) < ts) {
+                        $(e).addClass('highlight');
+                    }
+                });
+            });
         },
         events: {
             "click li": "selectLi"
@@ -1824,6 +1856,7 @@
             }
             this.$el.prepend(this.$f);
             this.$el.attr('data-id', this.model.get('id'));
+            this.$el.attr('data-ts', this.model.get('ts'));
             if(this.userAvatar) {
                 this.$el.find('.user').append(this.userAvatar.render().el);
             }
