@@ -475,8 +475,8 @@
             require(['id3v2.js'], function(){            });
             var self = this;
             setTimeout(function(){
-                self.songListView.collection.load();
-            }, 1000);
+            self.songListView.collection.load();
+            }, 2200);
         },
         events: {
             "submit form": "submit",
@@ -823,7 +823,8 @@
                         player.play();
                         
                         if(diff) {
-                            player.device.seek(diff);
+                            // todo this later when it works
+                            //player.device.seek(diff);
                         }
                     });
                     player.on('error', function(err){
@@ -970,7 +971,9 @@
             "keyup input": "search"
         }, search: function(e){
             // TODO web worker this or something not to disrupt playback
-            var regex = new RegExp(this.$search.val().trim().replace(/\s+/g, '.*'), 'ig');
+            var searchStr = this.$search.val().trim();
+            
+            var regex = new RegExp(searchStr.replace(/\s+/g, '.*'), 'ig');
             for(var i = $('.songList .song'), l = i.length; l--;){
               if(regex.test(i[l].dataset.ss)){
                   $(i[l]).parent().removeClass('hidden');
@@ -978,6 +981,10 @@
                   $(i[l]).parent().addClass('hidden');
               }
             }
+            
+            // also search the server
+            
+            this.options.library.songListView.collection.search(searchStr);
         }
     });
     
@@ -1039,13 +1046,13 @@
         }, load: function(callback) {
             var self = this;
             this.reset();
-            var limit = 500;
+            var limit = 4000;
             var skip = 0;
             var loadMore = function(limit) {
                 skip = skip + limit;
                 self.fetch({add:true, data: {sort: 'playCount-', limit: limit, skip: skip}, complete: fetchComplete});
             }
-            var fetchComplete = function(xresp){ return;
+            var fetchComplete = function(xresp){ 
                 if(xresp.responseText && xresp.responseText.length > 0 && xresp.responseText !== '[]') {
                     setTimeout(function(){
                         //limit = limit + 500;
@@ -1053,7 +1060,14 @@
                     }, 10000);
                 }
             }
-            this.fetch({add:true, data: {sort: 'playCount-', limit: limit}, complete: fetchComplete});
+            this.fetch({add:true, data: {sort: 'playCount-', limit: 100}});
+        }, search: function(term) {
+            var self = this;
+            if(this.searching) return;
+            this.searching = true;
+            this.fetch({add:true, data: {ss: term, sort: 'playCount-', limit: 100}, complete: function(){
+                self.searching = false;
+            }});
         }, comparator: function(a,b) {
             return a.get('playCount') > b.get('playCount');
         }
@@ -1662,7 +1676,7 @@
                 JukeBoxPreviewer.loadSong('/api/files/'+encodeURIComponent(this.model.get('filename')), this.model.attributes);
                 JukeBoxPreviewer.$el.removeClass('hidden');
                 JukeBoxPlayer.$el.addClass('hidden');
-                JukeBoxPlayer.player.volume = 0;
+                if(JukeBoxPlayer.player) JukeBoxPlayer.player.volume = 0;
                 JukeBoxPlayer.playerVolume = 0;
                 this.$el.find('.play').html('=');
             } else {

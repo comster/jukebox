@@ -45,6 +45,11 @@ var ObjectID = mongo.ObjectID;
                         query._id = new ObjectID(query.id);
                         delete query.id;
                     }
+                    
+                    if(query.hasOwnProperty('ss')) {
+                        var re = query.ss;
+                        query.ss = {$regex: re, $options: 'gi'}; // var regex = new RegExp(re, "i");
+                    }
                 }
                 findQuery(query);
             }

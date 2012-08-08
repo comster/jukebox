@@ -120,7 +120,7 @@ var spawn = require('child_process').spawn;
                             var headerFields = {
                                 'Content-Type': contentType
                                 , 'Date': gs.uploadDate
-                            	//, 'ETag': etag
+                            	, 'ETag': etag
                             };
                             
                             if(req.method == 'HEAD') {
@@ -158,6 +158,7 @@ var spawn = require('child_process').spawn;
                             	var bytPreDash = bytSelection.substr(0, bytDashPos);
                             	var bytEndDash = bytSelection.substr(bytDashPos+1);
                             	resCode = 206;
+                                delete headerFields['ETag'];
                             	if(bytPreDash == '0') {
                             		if(bytEndDash) {
                             			contentLen = parseInt(bytEndDash);
