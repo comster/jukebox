@@ -73,8 +73,10 @@
                 this.views[i].$el.removeAttr('selected');
             }
             this.views[viewName].render();
-            //this.views[viewName].$el.show();
             this.views[viewName].$el.attr('selected', true);
+            if(viewName == 'Player') {
+                this.views['Previewer'].$el.attr('selected', true);
+            }
             
             this.options.$frames.attr('data-sel', viewName);
             
@@ -1056,7 +1058,7 @@
             var skip = 0;
             var loadMore = function(limit) {
                 skip = skip + limit;
-                self.fetch({add:true, data: {sort: 'playCount-', limit: limit, skip: skip}, complete: fetchComplete});
+                self.fetch({add:true, data: {sort: 'playCount', limit: limit, skip: skip}, complete: fetchComplete});
             }
             var fetchComplete = function(xresp){ 
                 if(xresp.responseText && xresp.responseText.length > 0 && xresp.responseText !== '[]') {
@@ -1066,7 +1068,7 @@
                     }, 10000);
                 }
             }
-            this.fetch({add:true, data: {sort: 'playCount-', limit: 100}});
+            this.fetch({add:true, data: {sort: 'playCount', limit: 100}});
         }, search: function(term) {
             var self = this;
             if(this.searching) return;
@@ -1107,7 +1109,7 @@
                 } else {
                     var inserted = false;
                     self.$ul.find('li').each(function(i,e){
-                        if(!inserted && $(e).attr('data-rank') < doc.get('playCount')) {
+                        if(!inserted && $(e).attr('data-rank') > doc.get('playCount')) {
                             $(e).before($li);
                             inserted = true;
                         }

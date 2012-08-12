@@ -47,17 +47,17 @@
     endpoints.push({"apps": require('./apps')(house)});
     
     // File system 
-    endpoints.push({"fs": require('./fs')(house, {
+    /*endpoints.push({"fs": require('./fs')(house, {
         ds: house.dataSources.fileSystem, 
         path: process.cwd()
-    })});
+    })});*/
     
     //
     // ## Mongo Collections
     //
     // Information about the collections
     //
-    endpoints.push({"collections": require('./collections')(house, {ds: mongoDs})});
+    //endpoints.push({"collections": require('./collections')(house, {ds: mongoDs})});
     
     //
     // Mongo GridFs

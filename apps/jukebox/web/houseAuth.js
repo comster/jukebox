@@ -335,7 +335,7 @@
                     $localFile.find('progress').show();
                     uploadFile(f, {complete: function(data){
                         $localFile.remove();
-                        self.updateAvatar(data.filename);
+                        self.updateAvatar(data.file.filename);
                     }, progress: function(percent){
                         self.$el.find('progress').val(percent);
                     }});

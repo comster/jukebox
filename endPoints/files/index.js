@@ -285,6 +285,9 @@ var spawn = require('child_process').spawn;
                                         if(exif.Title) {
                                             newSong.title = exif.Title;
                                             newSong.ss += exif.Title;
+                                        } else {
+                                            newSong.title = newSong.filename;
+                                            newSong.ss += newSong.filename;
                                         }
                                         if(exif.Album) {
                                             newSong.album = exif.Album;
