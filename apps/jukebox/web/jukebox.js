@@ -1918,24 +1918,24 @@
         this.initAuth(function(loginStatus){
             
             if($el && loginStatus && loginStatus.has('groups') && loginStatus.get('groups').indexOf('friend') !== -1) {
-                var $app = $('<div id="app"></div>');
-                $el.append($app);
-                require(['aurora.js'], function() {
-                    require(['mp3.js'], function() { require(['flac.js'], function() { require(['alac.js'], function() { require(['aac.js'], function() {
-                        require(['dancer.js'], function() {
-                            require(['moment.min.js'], function(){
-                                self.view = new AppView({el: $app});
-                                
-                                self.view.render();
-                                
-                                if(callback) callback();
-                            });
-                        });
-                    }); }); }); });
-                });
             } else {
-                alert('401');
             }
+            
+            var $app = $('<div id="app"></div>');
+            $el.append($app);
+            require(['aurora.js'], function() {
+                require(['mp3.js'], function() { require(['flac.js'], function() { require(['alac.js'], function() { require(['aac.js'], function() {
+                    require(['dancer.js'], function() {
+                        require(['moment.min.js'], function(){
+                            self.view = new AppView({el: $app});
+                            
+                            self.view.render();
+                            
+                            if(callback) callback();
+                        });
+                    });
+                }); }); }); });
+            });
         });
     }
     
@@ -1947,11 +1947,11 @@
                 if(err) {
                     
                 } else if(loginStatus) {
+                    callback(loginStatus);
                     if(loginStatus && loginStatus.has('user')) {
                         jukebox.user = loginStatus.user;
                         var profileView = loginStatus.getView();
                         $profile.html(profileView.render().el);
-                        callback(loginStatus);
                     } else {
                         if(!jukebox.hasOwnProperty('$loginPrompt')) {
                             var $auth = $('<div></div>');

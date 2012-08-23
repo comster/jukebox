@@ -483,15 +483,15 @@
                 $r.show();
                 $r.attr('selected', true);
             });
-            
-            require(['https://'+window.location.host+':843/socket.io/socket.io.js'], function() {
+            var socketUrl = 'http://'+window.location.host+':8888/socket.io/';
+            require([socketUrl+'socket.io.js'], function() {
                 var socketOpts = {};
                 if(window.location.protocol.indexOf('https') !== -1) {
                     socketOpts.secure = true;
                 } else {
                     socketOpts.secure = false;
                 }
-                var socket = self.io = io.connect('https://'+window.location.host+':843/socket.io/chat', socketOpts);
+                var socket = self.io = io.connect(socketUrl+'chat', socketOpts);
                 socket.on('connect', function(data) {
                     self.systemMsg('connected');
                 });
