@@ -644,11 +644,13 @@
             this.$player = $('<div class="mediaPlayer"><meter min="0.0" max="100.0" value="0.1"></meter>\
 <span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span>\
 <button class="mute" title="Mute">♫</button>\
+<button class="toggleVisual" title="Visualize">V</button>\
 <span class="actions"></span>\
 <div class="playerInfo"><span class="loading"></span><span class="songInfo"></span><span class="albumInfo"><span class="albumName"></span></span>\
 <input class="rating" type="range" min="0" max="100" title="Rating" value="0" /><span class="ratings"></span>\
 </div>\
 <span class="coverArt"></span>\
+<div class="visual"></div>\
 </div>');
             this.preloads = {};
             this.songRatings = {};
@@ -656,6 +658,7 @@
         events: {
             "click button.playPause": "playPause"
             , "click button.mute": "mute"
+            , "click button.toggleVisual": "toggleVisual"
             , "click button.seek": "seek"
             , "mouseup input.rating": "rating"
             , "click .stopPreview": "stopPreview"
@@ -713,6 +716,9 @@
             }
             // persist volume between songs
             this.playerVolume = this.player.volume;
+        },
+        toggleVisual: function() {
+            this.$player.find('.visual').toggle();
         },
         listenToPlayer: function(player) {
             var self = this;
@@ -829,6 +835,9 @@
                             // todo this later when it works
                             //player.device.seek(diff);
                         }
+                        
+                        console.log('visualize player');
+                        self.visualizePlayer(player);
                     });
                     player.on('error', function(err){
                         console.log(err);
@@ -898,46 +907,126 @@
                 player.on('ready', function(){ // in case its not loaded yet
                     self.$el.find('.loading').html('');
                     player.play();
-                    
+                    self.visualizePlayer(player);
                     if(diff) {
                         player.device.seek(diff);
                     }
                 });
                 self.$el.find('.loading').html('');
                 player.play();
+                console.log('visualize player preloaded');
+                self.visualizePlayer(player);
             } else {
                 player.preload();
             }
         },
-        visualizePlayer: function() {
+        visualizePlayer: function(player) {
+            console.log(player.device.device.node)
+            var self = this;
+            var $v = $('.visual');
+            var w = $v.width(),
+                h = $v.height(),
+                z = d3.scale.category20c(),
+                i = 0;
+            var b = 0;
+            if(w == 0) {
+                console.log('width 0');
+                setTimeout(function() {
+                    self.visualizePlayer(player);
+                }, 1000);
+                return;
+            }
+            var prog = 0;
+            $(".visual").html('');
+            var svg = d3.select(".visual").append("svg:svg")
+                .attr("width", w)
+                .attr("height", h)
+                .style("pointer-events", "all");
+            self.cx = function() {
+                if(prog) {
+                    prog += w/10;
+                    if(prog > w) {
+                        prog = 1;
+                    }
+                    return prog;
+                }
+                if(self.leftRight) {
+                    if(b++ % 2 == 0) {
+                        return 0;
+                    } else {
+                        return w;
+                    }
+                }
+                return w/2;
+            }
+            self.cy = function() {
+                if(prog) {
+                    if(prog > h) {
+                        prog = 1;
+                    }
+                    return prog;
+                }
+                if(!self.upDownCenter) {
+                    return h/2;
+                } else if(self.upDownCenter == 1) {
+                    return 0;
+                } else if(self.upDownCenter == 2) {
+                    return h;
+                }
+            }
+            function particle(mag, color) {
+              var rv = Math.floor(mag * 255) + 55;
+              var strokeColor = color ? z(i++) : 'rgb('+rv+','+rv+','+rv+')';
+              var r = w/1.3;
+              svg.append("svg:circle")
+                  .attr("cx", self.cx())
+                  .attr("cy", self.cy())
+                  .attr("r", 1e-6)
+                  .style("stroke", strokeColor)
+                  .style("stroke-width", mag*100)
+                  .style("stroke-opacity", 1)
+                .transition()
+                  .duration(6000)
+                  .ease(Math.sqrt)
+                  .attr("r", r)
+                  .style("stroke-opacity", 1e-6)
+                  .remove();
+            }
             
-            return;
+            if(!player.device.device) {
+                console.log('device not ready');
+                return;
+            }
+            
+            var dancerSource = player.device.device.node;
              var
-              dancer = new Dancer( player ),
+              dancer = new Dancer(),
               beat = dancer.createBeat({
                 onBeat: function ( mag ) {
-                  //console.log('Beat!');
+                  //console.log('Beat! '+mag);
+                  particle(mag*2, true);
                 },
                 offBeat: function ( mag ) {
-                  //console.log('no beat :(');
+                  //console.log('no beat :( '+mag);
+                  particle(mag);
                 }
               });
+            
+            var toggleLeftRight = function() {
+                self.leftRight = !self.leftRight;
+                self.upDownCenter = (b % 3);
+                if(prog) prog = 0;
+                else prog = (b % 4);
+            }
+            setInterval(function(){
+                toggleLeftRight();
+            }, 22000);
+            //toggleLeftRight();
             
             // Let's turn this beat on right away
             beat.on();
             
-            dancer.onceAt( 10, function() {
-              // Let's set up some things once at 10 seconds
-            }).between( 10, 60, function() {
-              // After 10s, let's do something on every frame for the first minute
-            }).after( 60, function() {
-              // After 60s, let's get this real and map a frequency to an object's y position
-              // Note that the instance of dancer is bound to "this"
-              object.y = this.getFrequency( 400 );
-            }).onceAt( 120, function() {
-              // After 120s, we'll turn the beat off as another object's y position is still being mapped from the previous "after" method
-              beat.off();
-            });
+            dancer.load(dancerSource);
         },
         next: function() {
         },
@@ -1534,21 +1623,23 @@
         tag: 'span',
         className: 'songp',
         render: function() {
-            if(this.model.get('song')) {
+            if(this.model.has('song') && this.model.has('dj')) {
                 this.$el.html('<span class="dj" title="'+this.model.get('dj').name+'"></span><span class="title">'+this.model.get('song').title+'</span> - <span class="artist">'+this.model.get('song').artist+'</span>');
+                this.$el.find('.dj').append(this.userAvatar.render().el);
             }
             if(this.model.has('pAt')) {
                 this.$el.append('<span class="pAt" title="'+this.model.get('pAt')+'">'+moment(this.model.get('pAt')).fromNow()+'</span>');
             }
             this.$el.attr('data-id', this.model.get('id'));
-            this.$el.find('.dj').append(this.userAvatar.render().el);
             this.setElement(this.$el);
             return this;
         },
         initialize: function() {
             var self = this;
-            this.user = window.usersCollection.get(this.model.get('dj').id);
-            this.userAvatar = new UserAvatar({model: this.user});
+            if(this.model.get('dj')) {
+                this.user = window.usersCollection.get(this.model.get('dj').id);
+                this.userAvatar = new UserAvatar({model: this.user});
+            }
         },
         events: {
         }
@@ -1923,15 +2014,18 @@
             
             var $app = $('<div id="app"></div>');
             $el.append($app);
+            
             require(['aurora.js'], function() {
                 require(['mp3.js'], function() { require(['flac.js'], function() { require(['alac.js'], function() { require(['aac.js'], function() {
                     require(['dancer.js'], function() {
-                        require(['moment.min.js'], function(){
-                            self.view = new AppView({el: $app});
-                            
-                            self.view.render();
-                            
-                            if(callback) callback();
+                        require(['http://d3js.org/d3.v2.min.js'], function(d3) {
+                            require(['moment.min.js'], function(){
+                                self.view = new AppView({el: $app});
+                                
+                                self.view.render();
+                                
+                                if(callback) callback();
+                            });
                         });
                     });
                 }); }); }); });
