@@ -1,5 +1,5 @@
 //
-// # Posts Collection API Endpoint
+// # Songs Collection API Endpoint
 //
 var ObjectID = mongo.ObjectID;
 (exports = module.exports = function(house, options){
@@ -8,9 +8,12 @@ var ObjectID = mongo.ObjectID;
     var ds = options.ds;
     var col = options.collection;
     
+    // This endpoint behavior is to handles requests 
     var handleReq = function(req, res, next) {
+        // The request path sans the matching route to this endpoint
         var path = req.hasOwnProperty('urlRouted') ? req.urlRouted : req.url;
         
+        // Helper method to query the data source and respsond with the results
         var findQuery = function(query) {
             ds.find(col, query, function(err, data){
                 if(err) {
@@ -23,13 +26,19 @@ var ObjectID = mongo.ObjectID;
             });
         }
         
+        // Attempt to see if the request path included a document id
         var docId;
         
+        
+        // We'll accept id's after a slash, such as endpoint/documentId
         if(path.length > 1 && path.indexOf('/') === 0) {
             var docId = path.substr(1);
             docId = new ObjectID(docId);
         }
         
+        /*
+         * GET requests
+         */
         if(req.method == 'GET') {
             var query = {};
             
@@ -46,6 +55,7 @@ var ObjectID = mongo.ObjectID;
                         delete query.id;
                     }
                     
+                    // querying against our search string 
                     if(query.hasOwnProperty('ss')) {
                         var re = query.ss;
                         query.ss = {$regex: re, $options: 'gi'}; // var regex = new RegExp(re, "i");
@@ -53,11 +63,11 @@ var ObjectID = mongo.ObjectID;
                 }
                 findQuery(query);
             }
-            
+        /*
+         * POST requests
+         */    
         } else if(req.method == 'POST') {
-            house.log.debug('post');
-            console.log(path)
-            console.log(req.fields)
+            // Create new songs
             if(path == '') {
                 ds.insert(col, req.fields, function(err, data){
                     if(err) {

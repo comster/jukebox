@@ -8,6 +8,7 @@ var ObjectID = mongo.ObjectID;
     var ds = options.ds;
     var col = options.collection;
     
+    // Helper function to return the largest rank for the room id
     var getRoomIdMaxRank = function(roomId, callback) {
         ds.find(col, {room_id: roomId, limit: 1, sort: 'rank-'}, function(err, data){
             if(err) {
