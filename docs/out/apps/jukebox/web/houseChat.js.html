@@ -1,0 +1,614 @@
+<!DOCTYPE html><html><head><title>houseChat.js</title><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><link rel="stylesheet" media="all" href="../../../docco.css"></head><body><div id="container"><div id="background"></div><div id="jump_to">Jump To &hellip;<div id="jump_wrapper"><div id="jump_page"><a href="../../../index.html" class="source"><span class="file_name">README</span></a><a href="../../../apps/jukebox/web/moment.min.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">moment.min.js</span></a><a href="../../../apps/jukebox/web/backbone.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">backbone.js</span></a><a href="../../../apps/jukebox/web/chat.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">chat.js</span></a><a href="../../../apps/jukebox/web/mp3.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">mp3.js</span></a><a href="../../../apps/jukebox/web/jsmad.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jsmad.js</span></a><a href="../../../apps/jukebox/web/require.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">require.js</span></a><a href="../../../apps/jukebox/web/houseChat.js.html" class="source selected"><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseChat.js</span></a><a href="../../../apps/jukebox/web/houseAuth.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseAuth.js</span></a><a href="../../../apps/jukebox/web/houseUsers.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseUsers.js</span></a><a href="../../../apps/jukebox/web/jukebox.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jukebox.js</span></a><a href="../../../apps/jukebox/web/jquery.idle-timer.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.idle-timer.js</span></a><a href="../../../apps/jukebox/web/aac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">aac.js</span></a><a href="../../../apps/jukebox/web/aurora.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">aurora.js</span></a><a href="../../../apps/jukebox/web/jquery.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.js</span></a><a href="../../../apps/jukebox/web/houseSongs.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseSongs.js</span></a><a href="../../../apps/jukebox/web/jquery.ui.min.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.ui.min.js</span></a><a href="../../../apps/jukebox/web/chart.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">chart.js</span></a><a href="../../../apps/jukebox/web/backbone-house.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">backbone-house.js</span></a><a href="../../../apps/jukebox/web/alac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">alac.js</span></a><a href="../../../apps/jukebox/web/underscore.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">underscore.js</span></a><a href="../../../apps/jukebox/web/pitch.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">pitch.js</span></a><a href="../../../apps/jukebox/web/flac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">flac.js</span></a><a href="../../../apps/jukebox/web/id3v2.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">id3v2.js</span></a><a href="../../../apps/jukebox/web/index.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">index.js</span></a><a href="../../../apps/jukebox/config/config.js.html" class="source "><span class="base_path">apps / jukebox / config / </span><span class="file_name">config.js</span></a><a href="../../../apps/jukebox/index.js.html" class="source "><span class="base_path">apps / jukebox / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songs/index.js.html" class="source "><span class="base_path">endPoints / songs / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/apps/index.js.html" class="source "><span class="base_path">endPoints / apps / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/files/index.js.html" class="source "><span class="base_path">endPoints / files / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/auth/index.js.html" class="source "><span class="base_path">endPoints / auth / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/users/index.js.html" class="source "><span class="base_path">endPoints / users / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/collections/index.js.html" class="source "><span class="base_path">endPoints / collections / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/chat/index.js.html" class="source "><span class="base_path">endPoints / chat / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songr/index.js.html" class="source "><span class="base_path">endPoints / songr / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/fs/index.js.html" class="source "><span class="base_path">endPoints / fs / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songq/index.js.html" class="source "><span class="base_path">endPoints / songq / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/artists/index.js.html" class="source "><span class="base_path">endPoints / artists / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/albums/index.js.html" class="source "><span class="base_path">endPoints / albums / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songp/index.js.html" class="source "><span class="base_path">endPoints / songp / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/index.js.html" class="source "><span class="base_path">endPoints / </span><span class="file_name">index.js</span></a></div></div></div><table cellpadding="0" cellspacing="0"><thead><tr><th class="docs"><h1>houseChat.js</h1><div class="filepath">apps/jukebox/web/</div></th><th class="code"></th></tr></thead><tbody><tr id="section-1"><td class="docs"><div class="pilwrap"><a href="#section-1" class="pilcrow">&#182;</a></div>
+</td><td class="code"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">chat</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">apiUrl</span> <span class="o">=</span> <span class="nx">houseApi</span><span class="o">+</span><span class="s1">&#39;/chat&#39;</span><span class="p">;</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">UserModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">getView</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">viewType</span> <span class="o">=</span> <span class="s1">&#39;UserName&#39;</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;viewType&#39;</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">viewType</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">viewType</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">viewType</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">)</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+                <span class="nx">options</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">[</span><span class="nx">viewType</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">[</span><span class="nx">viewType</span><span class="p">](</span><span class="nx">options</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">[</span><span class="nx">viewType</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">getView</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">roomView</span> <span class="o">=</span> <span class="s1">&#39;RoomName&#39;</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;roomView&#39;</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">roomView</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">roomView</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">roomView</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">)</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+                <span class="nx">options</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">[</span><span class="nx">roomView</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">[</span><span class="nx">roomView</span><span class="p">](</span><span class="nx">options</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">[</span><span class="nx">roomView</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">MessageModel</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">getView</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">viewType</span> <span class="o">=</span> <span class="s1">&#39;MessageView&#39;</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">options</span> <span class="o">&amp;&amp;</span> <span class="nx">options</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s1">&#39;viewType&#39;</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">viewType</span> <span class="o">=</span> <span class="nx">options</span><span class="p">.</span><span class="nx">viewType</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">viewType</span><span class="p">))</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">options</span><span class="p">)</span> <span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+                <span class="nx">options</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+                <span class="k">this</span><span class="p">[</span><span class="nx">viewType</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">[</span><span class="nx">viewType</span><span class="p">](</span><span class="nx">options</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">[</span><span class="nx">viewType</span><span class="p">];</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">UserCollection</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">model</span><span class="o">:</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">UserModel</span><span class="p">,</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">apiUrl</span><span class="p">,</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">docs</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">options</span><span class="p">.</span><span class="nx">roomId</span> <span class="o">+</span> <span class="s1">&#39;/users&#39;</span><span class="p">;</span>
+        <span class="p">},</span> <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">fo</span> <span class="o">=</span> <span class="p">{</span><span class="nx">add</span><span class="o">:</span><span class="kc">true</span><span class="p">};</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="nx">fo</span><span class="p">.</span><span class="nx">success</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">fetch</span><span class="p">(</span><span class="nx">fo</span><span class="p">);</span>
+        <span class="p">},</span> <span class="nx">comparator</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">a</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomCollection</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">model</span><span class="o">:</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomModel</span><span class="p">,</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">apiUrl</span><span class="p">,</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            
+        <span class="p">},</span> <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+            <span class="kd">var</span> <span class="nx">fo</span> <span class="o">=</span> <span class="p">{</span><span class="nx">add</span><span class="o">:</span><span class="kc">true</span><span class="p">};</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="nx">fo</span><span class="p">.</span><span class="nx">success</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">fetch</span><span class="p">(</span><span class="nx">fo</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">MessageCollection</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">Collection</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">model</span><span class="o">:</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">MessageModel</span><span class="p">,</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">apiUrl</span><span class="p">,</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">docs</span><span class="p">,</span> <span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">url</span> <span class="o">+</span> <span class="s1">&#39;/&#39;</span> <span class="o">+</span> <span class="nx">options</span><span class="p">.</span><span class="nx">roomId</span><span class="p">;</span>
+        <span class="p">},</span> <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">fetch</span><span class="p">({</span><span class="nx">add</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span><span class="p">{</span><span class="nx">limit</span><span class="o">:</span><span class="mi">100</span><span class="p">,</span> <span class="nx">sort</span><span class="o">:</span> <span class="s1">&#39;_id-&#39;</span><span class="p">},</span> <span class="nx">success</span><span class="o">:</span><span class="nx">callback</span><span class="p">});</span>
+        <span class="p">},</span> <span class="nx">comparator</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;at&#39;</span><span class="p">)).</span><span class="nx">getTime</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">UserListView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;userList&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$ul</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$ul</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;ul class=&quot;users&quot;&gt;&lt;/ul&gt;&#39;</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span> <span class="nx">col</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">$li</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;li&gt;&lt;/li&gt;&#39;</span><span class="p">);</span>
+                <span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">getView</span><span class="p">({</span><span class="nx">viewType</span><span class="o">:</span><span class="s1">&#39;UserAvatar&#39;</span><span class="p">});</span>
+                <span class="nx">$li</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">view</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+                <span class="nx">$li</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">$ul</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$li</span><span class="p">);</span>
+                
+                <span class="nx">doc</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;remove&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+                    <span class="nx">$li</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+                    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="p">});</span>
+            <span class="p">});</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;click li&quot;</span><span class="o">:</span> <span class="s2">&quot;selectLi&quot;</span>
+        <span class="p">},</span>
+        <span class="nx">selectLi</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">room</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="nx">room</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">MessageListView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;messageList&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$ul</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$ul</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;ul class=&quot;messages&quot;&gt;&lt;/ul&gt;&#39;</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span> <span class="nx">col</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">$li</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;li&gt;&lt;/li&gt;&#39;</span><span class="p">);</span>
+                <span class="nx">$li</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">getView</span><span class="p">().</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+                <span class="nx">$li</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">$ul</span><span class="p">.</span><span class="nx">prepend</span><span class="p">(</span><span class="nx">$li</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;click li&quot;</span><span class="o">:</span> <span class="s2">&quot;selectLi&quot;</span>
+        <span class="p">},</span>
+        <span class="nx">selectLi</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">room</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="nx">room</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomNewFormView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;roomForm&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&lt;form&gt;&lt;input type=&quot;text&quot; name=&quot;name&quot; placeholder=&quot;enter a room name&quot; /&gt;&lt;input type=&quot;submit&quot; value=&quot;Make a Room&quot; /&gt;&lt;/form&gt;&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomModel</span><span class="p">({},</span> <span class="p">{</span><span class="nx">collection</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;change&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">model</span><span class="p">,</span> <span class="nx">options</span><span class="p">){</span>
+                <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="nx">silent</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">wait</span><span class="o">:</span> <span class="kc">true</span><span class="p">})</span>
+                <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">typeStr</span><span class="p">,</span> <span class="nx">respStr</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;saved&#39;</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">model</span><span class="p">);</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">model</span><span class="p">);</span>
+                <span class="p">})</span>
+            <span class="p">});</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;submit&quot;</span><span class="o">:</span> <span class="s2">&quot;submit&quot;</span>
+        <span class="p">},</span>
+        <span class="nx">submit</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input[name=&quot;name&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()},</span> <span class="p">{</span><span class="nx">wait</span><span class="o">:</span> <span class="kc">true</span><span class="p">});</span>
+            
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">clear</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input[name=&quot;name&quot;]&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">focus</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">).</span><span class="nx">first</span><span class="p">().</span><span class="nx">focus</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">MessageFormView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;messageForm&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&lt;form data-room-id=&quot;&#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">roomId</span><span class="o">+</span><span class="s1">&#39;&quot;&gt;&lt;input type=&quot;text&quot; name=&quot;msg&quot; placeholder=&quot;enter a message&quot; autocomplete=&quot;off&quot; /&gt;&lt;input type=&quot;submit&quot; value=&quot;Send&quot; /&gt;&lt;/form&gt;&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$msg</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s1">&#39;input[name=&quot;msg&quot;]&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;submit&quot;</span><span class="o">:</span> <span class="s2">&quot;submit&quot;</span>
+        <span class="p">},</span>
+        <span class="nx">submit</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">m</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">MessageModel</span><span class="p">({},</span> <span class="p">{</span><span class="nx">collection</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">});</span>
+            <span class="nx">m</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span><span class="nx">msg</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">$msg</span><span class="p">.</span><span class="nx">val</span><span class="p">()});</span>
+            <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">m</span><span class="p">.</span><span class="nx">save</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span><span class="nx">silent</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span> <span class="nx">wait</span><span class="o">:</span> <span class="kc">true</span><span class="p">})</span>
+                <span class="p">.</span><span class="nx">done</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;saved&#39;</span><span class="p">,</span> <span class="nx">m</span><span class="p">);</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">m</span><span class="p">);</span>
+                <span class="p">});</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span> <span class="c1">// clear as soon as we save, not waiting for the response</span>
+            
+            <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">checkPermission</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 0 is PERMISSION_ALLOWED</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">requestPermission</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">clear</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$msg</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+        <span class="p">},</span>
+        <span class="nx">focus</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$msg</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomListView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;roomList&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$ul</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$ul</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;ul class=&quot;rooms&quot;&gt;&lt;/ul&gt;&#39;</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">,</span> <span class="nx">col</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">$li</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;li&gt;&lt;/li&gt;&#39;</span><span class="p">);</span>
+                <span class="nx">$li</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">getView</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">roomView</span><span class="p">).</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+                <span class="nx">$li</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">,</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">$ul</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$li</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;click li&quot;</span><span class="o">:</span> <span class="s2">&quot;selectLi&quot;</span>
+        <span class="p">},</span>
+        <span class="nx">selectLi</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">room</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">));</span>
+            <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">parent</span><span class="p">().</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+            <span class="nx">$</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">parent</span><span class="p">().</span><span class="nx">siblings</span><span class="p">().</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s1">&#39;selected&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="nx">room</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomName</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;span&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;room&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">UserName</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;span&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">colors</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s1">&#39;#B971E3&#39;</span><span class="p">,</span> <span class="s1">&#39;#FFF7C2&#39;</span><span class="p">,</span> <span class="s1">&#39;#A5C3FB&#39;</span><span class="p">,</span> <span class="s1">&#39;#70C586&#39;</span>
+    <span class="p">];</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">UserAvatar</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;span&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">userColor</span> <span class="o">=</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">colors</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+            <span class="nx">chat</span><span class="p">.</span><span class="nx">colors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">userColor</span><span class="p">);</span> <span class="c1">// reuse our colors</span>
+            <span class="kd">var</span> <span class="nx">sty</span> <span class="o">=</span> <span class="s1">&#39;&lt;style&gt;.&#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39; { color: &#39;</span><span class="o">+</span><span class="nx">userColor</span><span class="o">+</span><span class="s1">&#39;; }&lt;/style&gt;&#39;</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="nx">sty</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">));</span>
+            <span class="kd">var</span> <span class="nx">$avatar</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;img src=&quot;/jukebox/assets/img/icons/library.png&quot; /&gt;&#39;</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;avatar&#39;</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">$avatar</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;src&#39;</span><span class="p">,</span> <span class="s1">&#39;/api/files/&#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;avatar&#39;</span><span class="p">));</span>
+            <span class="p">}</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">prepend</span><span class="p">(</span><span class="nx">$avatar</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;chatroom&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">userListView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">messageFormView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">messageListView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+            
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">docs</span><span class="p">,</span> <span class="nx">users</span><span class="p">;</span>
+            
+            <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;messages&#39;</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">docs</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;messages&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">has</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">users</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;users&#39;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">messageCollection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">MessageCollection</span><span class="p">(</span><span class="nx">docs</span><span class="p">,</span> <span class="p">{</span><span class="nx">roomId</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">messageListView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">MessageListView</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">messageCollection</span><span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">messageFormView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">MessageFormView</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">messageCollection</span><span class="p">,</span> <span class="nx">roomId</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)});</span>
+            
+            <span class="k">this</span><span class="p">.</span><span class="nx">userCollection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">UserCollection</span><span class="p">(</span><span class="nx">users</span><span class="p">,</span> <span class="p">{</span><span class="nx">roomId</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">userListView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">UserListView</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">userCollection</span><span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">userCollection</span><span class="p">.</span><span class="nx">load</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">messageCollection</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">messageCollection</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;add&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">){</span>
+                    <span class="kd">var</span> <span class="nx">notifyOpt</span> <span class="o">=</span> <span class="p">{</span><span class="nx">title</span><span class="o">:</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">).</span><span class="nx">name</span><span class="p">,</span> <span class="nx">msg</span><span class="o">:</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">),</span> <span class="nx">img</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">};</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">).</span><span class="nx">avatar</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">notifyOpt</span><span class="p">.</span><span class="nx">img</span> <span class="o">=</span> <span class="s1">&#39;/api/files/&#39;</span><span class="o">+</span><span class="nx">doc</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">).</span><span class="nx">avatar</span><span class="p">;</span>
+                    <span class="p">}</span>
+                    <span class="kd">var</span> <span class="nx">userDoc</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">usersCollection</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">doc</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">).</span><span class="nx">id</span><span class="p">);</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">userDoc</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">notifyOpt</span><span class="p">.</span><span class="nx">img</span> <span class="o">=</span> <span class="s1">&#39;/api/files/&#39;</span><span class="o">+</span><span class="nx">userDoc</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;avatar&#39;</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="nx">chat</span><span class="p">.</span><span class="nx">notify</span><span class="p">(</span><span class="nx">notifyOpt</span><span class="p">);</span>
+                <span class="p">});</span>
+            <span class="p">});</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">MessageView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;span&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;msg&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&lt;span class=&quot;msg&quot;&gt;&#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;msg&#39;</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;&lt;/span&gt;&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">prepend</span><span class="p">(</span><span class="s1">&#39;&lt;span data-id=&quot;&#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">).</span><span class="nx">id</span><span class="o">+</span><span class="s1">&#39;&quot; class=&quot;&#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">).</span><span class="nx">name</span><span class="o">+</span><span class="s1">&#39;&quot;&gt;&#39;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">).</span><span class="nx">name</span><span class="o">+</span><span class="s1">&#39;&lt;/span&gt; &#39;</span><span class="p">);</span></pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><p>this.$el.append('<span class="at" title="'+this.model.get('at')+'">'+moment(this.model.get('at')).fromNow()+'</span>');</p>
+</td><td class="code"><div class="highlight"><pre>            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;data-id&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">AppView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span></pre></div></td></tr><tr id="section-3"><td class="docs"><div class="pilwrap"><a href="#section-3" class="pilcrow">&#182;</a></div><p>this.$el.html('');</p>
+</td><td class="code"><div class="highlight"><pre>            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">roomsOpenView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomsOpenView</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">roomsOpenView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">notify</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">notification</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">webkitNotifications</span><span class="p">.</span><span class="nx">createNotification</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">img</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">title</span><span class="p">,</span> <span class="nx">options</span><span class="p">.</span><span class="nx">msg</span><span class="p">);</span></pre></div></td></tr><tr id="section-4"><td class="docs"><div class="pilwrap"><a href="#section-4" class="pilcrow">&#182;</a></div><p>return window.webkitNotifications.createHTMLNotification('http://someurl.com');</p>
+</td><td class="code"><div class="highlight"><pre>            <span class="nx">notification</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+            <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">notification</span><span class="p">.</span><span class="nx">cancel</span><span class="p">();</span>
+            <span class="p">},</span> <span class="mi">5500</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">notification</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomsOpenView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;roomsOpen&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">initialized</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;initialized&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">render</span><span class="p">);</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+            
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">roomsFindOrCreateView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+            
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">roomsOpenListView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+            
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$chatFrame</span><span class="p">);</span>
+            
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">initialized</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            
+            <span class="nx">self</span><span class="p">.</span><span class="nx">rooms</span> <span class="o">=</span> <span class="p">{};</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$chatFrame</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div id=&quot;chats&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">);</span>
+            <span class="nx">self</span><span class="p">.</span><span class="nx">openFrames</span> <span class="o">=</span> <span class="p">{};</span>
+            
+            <span class="k">this</span><span class="p">.</span><span class="nx">collection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomCollection</span><span class="p">();</span>
+            
+            <span class="k">this</span><span class="p">.</span><span class="nx">roomsOpenListView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomListView</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">})</span>
+            <span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">room</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">room</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">selectedRoom</span> <span class="o">=</span> <span class="nx">room</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+                <span class="kd">var</span> <span class="nx">$r</span><span class="p">;</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">openFrames</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">room</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)))</span> <span class="p">{</span>
+                    <span class="nx">$r</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">openFrames</span><span class="p">[</span><span class="nx">room</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)];</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">roomview</span> <span class="o">=</span> <span class="nx">room</span><span class="p">.</span><span class="nx">getView</span><span class="p">({</span><span class="nx">roomView</span><span class="o">:</span> <span class="s1">&#39;RoomView&#39;</span><span class="p">});</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">rooms</span><span class="p">[</span><span class="nx">room</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="nx">roomview</span><span class="p">;</span>
+                    <span class="nx">$r</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">openFrames</span><span class="p">[</span><span class="nx">room</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)]</span> <span class="o">=</span> <span class="nx">roomview</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">$el</span><span class="p">;</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">$chatFrame</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$r</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="nx">$r</span><span class="p">.</span><span class="nx">siblings</span><span class="p">().</span><span class="nx">hide</span><span class="p">().</span><span class="nx">removeAttr</span><span class="p">(</span><span class="s1">&#39;selected&#39;</span><span class="p">);</span>
+                <span class="nx">$r</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+                <span class="nx">$r</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;selected&#39;</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+            <span class="p">});</span>
+            <span class="kd">var</span> <span class="nx">socketUrl</span> <span class="o">=</span> <span class="s1">&#39;http://&#39;</span><span class="o">+</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">host</span><span class="o">+</span><span class="s1">&#39;:8888/socket.io/&#39;</span><span class="p">;</span>
+            <span class="nx">require</span><span class="p">([</span><span class="nx">socketUrl</span><span class="o">+</span><span class="s1">&#39;socket.io.js&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">socketOpts</span> <span class="o">=</span> <span class="p">{};</span>
+                <span class="k">if</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">protocol</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;https&#39;</span><span class="p">)</span> <span class="o">!==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">socketOpts</span><span class="p">.</span><span class="nx">secure</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nx">socketOpts</span><span class="p">.</span><span class="nx">secure</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="kd">var</span> <span class="nx">socket</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">io</span> <span class="o">=</span> <span class="nx">io</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">socketUrl</span><span class="o">+</span><span class="s1">&#39;chat&#39;</span><span class="p">,</span> <span class="nx">socketOpts</span><span class="p">);</span>
+                <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;connect&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">systemMsg</span><span class="p">(</span><span class="s1">&#39;connected&#39;</span><span class="p">);</span>
+                <span class="p">});</span>
+                <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">rooms</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">room_id</span><span class="p">].</span><span class="nx">messageCollection</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+                <span class="p">});</span>
+                
+                <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">rooms</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">room_id</span><span class="p">].</span><span class="nx">userCollection</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">user</span><span class="p">);</span>
+                <span class="p">});</span>
+                <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;exited&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">user</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">u</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">rooms</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">room_id</span><span class="p">].</span><span class="nx">userCollection</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+                        <span class="k">if</span><span class="p">(</span><span class="nx">u</span><span class="p">)</span> <span class="nx">u</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;remove&#39;</span><span class="p">);</span>
+                        <span class="nx">self</span><span class="p">.</span><span class="nx">rooms</span><span class="p">[</span><span class="nx">data</span><span class="p">.</span><span class="nx">room_id</span><span class="p">].</span><span class="nx">userCollection</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+                    <span class="p">}</span>
+                <span class="p">});</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">roomsFindOrCreateView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomsFindOrCreateView</span><span class="p">();</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">roomsFindOrCreateView</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;room&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">room</span><span class="p">){</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">openRoom</span><span class="p">(</span><span class="nx">room</span><span class="p">);</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">roomsOpenListView</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="nx">room</span><span class="p">);</span>
+                <span class="p">});</span>
+                
+                <span class="nb">window</span><span class="p">.</span><span class="nx">chatSocket</span> <span class="o">=</span> <span class="nx">socket</span><span class="p">;</span>
+                
+                <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;songqLoad&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">songq</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//loadSong</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">songq</span><span class="p">.</span><span class="nx">room_id</span> <span class="o">==</span> <span class="nx">self</span><span class="p">.</span><span class="nx">selectedRoom</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">JukeBoxPlayer</span><span class="p">.</span><span class="nx">preloadSong</span><span class="p">(</span><span class="nx">songq</span><span class="p">.</span><span class="nx">song</span><span class="p">)</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        
+                    <span class="p">}</span>
+                <span class="p">});</span>
+                
+                <span class="nx">socket</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;songqPlay&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">songq</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">songq</span><span class="p">.</span><span class="nx">room_id</span> <span class="o">==</span> <span class="nx">self</span><span class="p">.</span><span class="nx">selectedRoom</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">JukeBoxPlayer</span><span class="p">.</span><span class="nx">loadSong</span><span class="p">(</span><span class="s1">&#39;/api/files/&#39;</span><span class="o">+</span><span class="nx">songq</span><span class="p">.</span><span class="nx">song</span><span class="p">.</span><span class="nx">filename</span><span class="p">,</span> <span class="nx">songq</span><span class="p">.</span><span class="nx">song</span><span class="p">)</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        
+                    <span class="p">}</span>
+                    </pre></div></td></tr><tr id="section-5"><td class="docs"><div class="pilwrap"><a href="#section-5" class="pilcrow">&#182;</a></div><p>insert chat msg that song is playing</p>
+
+<div class="dox"><div class="summary"><p>ar djUser = {name:'~',id:''};<br />                    if(songq.dj) {<br />                        djUser = {name:songq.dj.name, id:songq.dj.id}<br />                    }<br />                    self.rooms[songq.room_id].messageCollection.add({user:djUser,room_id:songq.room_id,at:new Date(), msg:' playing '+songq.song.ss});</p></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>                <span class="p">});</span>
+                
+                <span class="nx">self</span><span class="p">.</span><span class="nx">initialized</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;initialized&#39;</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">},</span>
+        <span class="nx">systemMsg</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">djUser</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;[jukebox]&#39;</span><span class="p">,</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;&#39;</span><span class="p">};</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">rooms</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedRoom</span><span class="p">].</span><span class="nx">messageCollection</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="nx">user</span><span class="o">:</span><span class="nx">djUser</span><span class="p">,</span><span class="nx">room_id</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedRoom</span><span class="p">,</span><span class="nx">at</span><span class="o">:</span><span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span> <span class="nx">msg</span><span class="o">:</span> <span class="nx">msg</span><span class="p">});</span>
+        <span class="p">},</span>
+        <span class="nx">systemErr</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">msg</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">djUser</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span><span class="s1">&#39;[error]&#39;</span><span class="p">,</span><span class="nx">id</span><span class="o">:</span><span class="s1">&#39;&#39;</span><span class="p">};</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">rooms</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedRoom</span><span class="p">].</span><span class="nx">messageCollection</span><span class="p">.</span><span class="nx">add</span><span class="p">({</span><span class="nx">user</span><span class="o">:</span><span class="nx">djUser</span><span class="p">,</span><span class="nx">room_id</span><span class="o">:</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedRoom</span><span class="p">,</span><span class="nx">at</span><span class="o">:</span><span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span> <span class="nx">msg</span><span class="o">:</span> <span class="nx">msg</span><span class="p">});</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+        <span class="p">},</span>
+        <span class="nx">openRoom</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">room</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">room</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">room</span><span class="p">.</span><span class="nx">clone</span><span class="p">());</span>
+                
+                <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">io</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">io</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;join&#39;</span><span class="p">,</span> <span class="nx">room</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+                <span class="p">}</span> 
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nx">leaveRoom</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">room</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">room</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">room</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+                
+                <span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">io</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">io</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;leave&#39;</span><span class="p">,</span> <span class="nx">room</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">));</span>
+                <span class="p">}</span> 
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomsFindOrCreateView</span> <span class="o">=</span> <span class="nx">Backbone</span><span class="p">.</span><span class="nx">View</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+        <span class="nx">tag</span><span class="o">:</span> <span class="s1">&#39;div&#39;</span><span class="p">,</span>
+        <span class="nx">className</span><span class="o">:</span> <span class="s1">&#39;roomsFindOrCreate&#39;</span><span class="p">,</span>
+        <span class="nx">render</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;&lt;button class=&quot;open&quot;&gt;⚛&lt;/button&gt;&#39;</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">setElement</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">$el</span><span class="p">);</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">initialize</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">collection</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomCollection</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">roomsFindListView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomListView</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">roomNewFormView</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">RoomNewFormView</span><span class="p">({</span><span class="nx">collection</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;room&#39;</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">collection</span><span class="p">.</span><span class="nx">first</span><span class="p">());</span>
+            <span class="p">});</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">roomsFindListView</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;select&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">room</span><span class="p">){</span></pre></div></td></tr><tr id="section-6"><td class="docs"><div class="pilwrap"><a href="#section-6" class="pilcrow">&#182;</a></div><p>navigate to room</p>
+</td><td class="code"><div class="highlight"><pre>                <span class="nx">self</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;room&#39;</span><span class="p">,</span> <span class="nx">room</span><span class="p">);</span>
+                
+                <span class="nx">self</span><span class="p">.</span><span class="nx">$lightBox</span><span class="p">.</span><span class="nx">remove</span><span class="p">();</span>
+            <span class="p">});</span>
+        <span class="p">},</span>
+        <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;click .open&quot;</span><span class="o">:</span> <span class="s2">&quot;open&quot;</span>
+        <span class="p">},</span>
+        <span class="nx">open</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">$e</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div&gt;&lt;/div&gt;&#39;</span><span class="p">);</span>
+            <span class="nx">$e</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">roomsFindListView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+            <span class="nx">$e</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">roomNewFormView</span><span class="p">.</span><span class="nx">render</span><span class="p">().</span><span class="nx">el</span><span class="p">);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">$lightBox</span> <span class="o">=</span> <span class="nx">chat</span><span class="p">.</span><span class="nx">lightBox</span><span class="p">(</span><span class="nx">$e</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+    
+    <span class="nx">chat</span><span class="p">.</span><span class="nx">lightBox</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">$lightBox</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;lightbox&quot;&gt;&lt;/div&gt;&#39;</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">$close</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;p class=&quot;close&quot;&gt;&lt;a href=&quot;#&quot; title=&quot;close&quot;&gt;&lt;/a&gt;&lt;/p&gt;&#39;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nx">$lightBox</span><span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">});</span>
+        <span class="kd">var</span> <span class="nx">$div</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div&gt;&lt;/div&gt;&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">el</span><span class="p">);</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">$lightBox</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="nx">$div</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="nx">$close</span><span class="p">));</span>
+        <span class="k">return</span> <span class="nx">$lightBox</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">define</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">define</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">chat</span><span class="p">;</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">})();</span>
+
+</pre></div></td></tr></tbody></table><div id="projectname"><a href="../../../index.html">JukeboxJS</a></div></div></body></html>

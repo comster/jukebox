@@ -1,0 +1,673 @@
+<!DOCTYPE html><html><head><title>id3v2.js</title><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><link rel="stylesheet" media="all" href="../../../docco.css"></head><body><div id="container"><div id="background"></div><div id="jump_to">Jump To &hellip;<div id="jump_wrapper"><div id="jump_page"><a href="../../../index.html" class="source"><span class="file_name">README</span></a><a href="../../../apps/jukebox/web/moment.min.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">moment.min.js</span></a><a href="../../../apps/jukebox/web/backbone.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">backbone.js</span></a><a href="../../../apps/jukebox/web/chat.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">chat.js</span></a><a href="../../../apps/jukebox/web/mp3.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">mp3.js</span></a><a href="../../../apps/jukebox/web/jsmad.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jsmad.js</span></a><a href="../../../apps/jukebox/web/require.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">require.js</span></a><a href="../../../apps/jukebox/web/houseChat.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseChat.js</span></a><a href="../../../apps/jukebox/web/houseAuth.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseAuth.js</span></a><a href="../../../apps/jukebox/web/houseUsers.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseUsers.js</span></a><a href="../../../apps/jukebox/web/jukebox.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jukebox.js</span></a><a href="../../../apps/jukebox/web/jquery.idle-timer.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.idle-timer.js</span></a><a href="../../../apps/jukebox/web/aac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">aac.js</span></a><a href="../../../apps/jukebox/web/aurora.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">aurora.js</span></a><a href="../../../apps/jukebox/web/jquery.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.js</span></a><a href="../../../apps/jukebox/web/houseSongs.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseSongs.js</span></a><a href="../../../apps/jukebox/web/jquery.ui.min.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.ui.min.js</span></a><a href="../../../apps/jukebox/web/chart.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">chart.js</span></a><a href="../../../apps/jukebox/web/backbone-house.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">backbone-house.js</span></a><a href="../../../apps/jukebox/web/alac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">alac.js</span></a><a href="../../../apps/jukebox/web/underscore.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">underscore.js</span></a><a href="../../../apps/jukebox/web/pitch.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">pitch.js</span></a><a href="../../../apps/jukebox/web/flac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">flac.js</span></a><a href="../../../apps/jukebox/web/id3v2.js.html" class="source selected"><span class="base_path">apps / jukebox / web / </span><span class="file_name">id3v2.js</span></a><a href="../../../apps/jukebox/web/index.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">index.js</span></a><a href="../../../apps/jukebox/config/config.js.html" class="source "><span class="base_path">apps / jukebox / config / </span><span class="file_name">config.js</span></a><a href="../../../apps/jukebox/index.js.html" class="source "><span class="base_path">apps / jukebox / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songs/index.js.html" class="source "><span class="base_path">endPoints / songs / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/apps/index.js.html" class="source "><span class="base_path">endPoints / apps / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/files/index.js.html" class="source "><span class="base_path">endPoints / files / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/auth/index.js.html" class="source "><span class="base_path">endPoints / auth / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/users/index.js.html" class="source "><span class="base_path">endPoints / users / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/collections/index.js.html" class="source "><span class="base_path">endPoints / collections / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/chat/index.js.html" class="source "><span class="base_path">endPoints / chat / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songr/index.js.html" class="source "><span class="base_path">endPoints / songr / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/fs/index.js.html" class="source "><span class="base_path">endPoints / fs / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songq/index.js.html" class="source "><span class="base_path">endPoints / songq / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/artists/index.js.html" class="source "><span class="base_path">endPoints / artists / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/albums/index.js.html" class="source "><span class="base_path">endPoints / albums / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songp/index.js.html" class="source "><span class="base_path">endPoints / songp / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/index.js.html" class="source "><span class="base_path">endPoints / </span><span class="file_name">index.js</span></a></div></div></div><table cellpadding="0" cellspacing="0"><thead><tr><th class="docs"><h1>id3v2.js</h1><div class="filepath">apps/jukebox/web/</div></th><th class="code"></th></tr></thead><tbody><tr id="section-1"><td class="docs"><div class="pilwrap"><a href="#section-1" class="pilcrow">&#182;</a></div>
+</td><td class="code"><div class="highlight"><pre><span class="nx">ID3v2</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">parseStream</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">stream</span><span class="p">,</span> <span class="nx">onComplete</span><span class="p">){</span>
+
+  <span class="kd">var</span> <span class="nx">PICTURE_TYPES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="s2">&quot;Other&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="s2">&quot;32x32 pixels &#39;file icon&#39; (PNG only)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;2&quot;</span><span class="o">:</span> <span class="s2">&quot;Other file icon&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;3&quot;</span><span class="o">:</span> <span class="s2">&quot;Cover (front)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;4&quot;</span><span class="o">:</span> <span class="s2">&quot;Cover (back)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;5&quot;</span><span class="o">:</span> <span class="s2">&quot;Leaflet page&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;6&quot;</span><span class="o">:</span> <span class="s2">&quot;Media (e.g. lable side of CD)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;7&quot;</span><span class="o">:</span> <span class="s2">&quot;Lead artist/lead performer/soloist&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;8&quot;</span><span class="o">:</span> <span class="s2">&quot;Artist/performer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;9&quot;</span><span class="o">:</span> <span class="s2">&quot;Conductor&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;A&quot;</span><span class="o">:</span> <span class="s2">&quot;Band/Orchestra&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;B&quot;</span><span class="o">:</span> <span class="s2">&quot;Composer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;C&quot;</span><span class="o">:</span> <span class="s2">&quot;Lyricist/text writer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;D&quot;</span><span class="o">:</span> <span class="s2">&quot;Recording Location&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;E&quot;</span><span class="o">:</span> <span class="s2">&quot;During recording&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;F&quot;</span><span class="o">:</span> <span class="s2">&quot;During performance&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;10&quot;</span><span class="o">:</span> <span class="s2">&quot;Movie/video screen capture&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;11&quot;</span><span class="o">:</span> <span class="s2">&quot;A bright coloured fish&quot;</span><span class="p">,</span> <span class="c1">//&lt;--- WTF?</span>
+    <span class="s2">&quot;12&quot;</span><span class="o">:</span> <span class="s2">&quot;Illustration&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;13&quot;</span><span class="o">:</span> <span class="s2">&quot;Band/artist logotype&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;14&quot;</span><span class="o">:</span> <span class="s2">&quot;Publisher/Studio logotype&quot;</span><span class="p">,</span>
+  <span class="p">}</span></pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><p>from: http://bitbucket.org/moumar/ruby-mp3info/src/tip/lib/mp3info/id3v2.rb
+TODO: replace with something longer</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">TAGS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;AENC&quot;</span><span class="o">:</span> <span class="s2">&quot;Audio encryption&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;APIC&quot;</span><span class="o">:</span> <span class="s2">&quot;Attached picture&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;COMM&quot;</span><span class="o">:</span> <span class="s2">&quot;Comments&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;COMR&quot;</span><span class="o">:</span> <span class="s2">&quot;Commercial frame&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ENCR&quot;</span><span class="o">:</span> <span class="s2">&quot;Encryption method registration&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;EQUA&quot;</span><span class="o">:</span> <span class="s2">&quot;Equalization&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ETCO&quot;</span><span class="o">:</span> <span class="s2">&quot;Event timing codes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GEOB&quot;</span><span class="o">:</span> <span class="s2">&quot;General encapsulated object&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GRID&quot;</span><span class="o">:</span> <span class="s2">&quot;Group identification registration&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;IPLS&quot;</span><span class="o">:</span> <span class="s2">&quot;Involved people list&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LINK&quot;</span><span class="o">:</span> <span class="s2">&quot;Linked information&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MCDI&quot;</span><span class="o">:</span> <span class="s2">&quot;Music CD identifier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MLLT&quot;</span><span class="o">:</span> <span class="s2">&quot;MPEG location lookup table&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;OWNE&quot;</span><span class="o">:</span> <span class="s2">&quot;Ownership frame&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PRIV&quot;</span><span class="o">:</span> <span class="s2">&quot;Private frame&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PCNT&quot;</span><span class="o">:</span> <span class="s2">&quot;Play counter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;POPM&quot;</span><span class="o">:</span> <span class="s2">&quot;Popularimeter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;POSS&quot;</span><span class="o">:</span> <span class="s2">&quot;Position synchronisation frame&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RBUF&quot;</span><span class="o">:</span> <span class="s2">&quot;Recommended buffer size&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RVAD&quot;</span><span class="o">:</span> <span class="s2">&quot;Relative volume adjustment&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RVRB&quot;</span><span class="o">:</span> <span class="s2">&quot;Reverb&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SYLT&quot;</span><span class="o">:</span> <span class="s2">&quot;Synchronized lyric/text&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SYTC&quot;</span><span class="o">:</span> <span class="s2">&quot;Synchronized tempo codes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TALB&quot;</span><span class="o">:</span> <span class="s2">&quot;Album&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TBPM&quot;</span><span class="o">:</span> <span class="s2">&quot;BPM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TCOM&quot;</span><span class="o">:</span> <span class="s2">&quot;Composer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TCON&quot;</span><span class="o">:</span> <span class="s2">&quot;Genre&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TCOP&quot;</span><span class="o">:</span> <span class="s2">&quot;Copyright message&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TDAT&quot;</span><span class="o">:</span> <span class="s2">&quot;Date&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TDLY&quot;</span><span class="o">:</span> <span class="s2">&quot;Playlist delay&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TENC&quot;</span><span class="o">:</span> <span class="s2">&quot;Encoded by&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TEXT&quot;</span><span class="o">:</span> <span class="s2">&quot;Lyricist&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TFLT&quot;</span><span class="o">:</span> <span class="s2">&quot;File type&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TIME&quot;</span><span class="o">:</span> <span class="s2">&quot;Time&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TIT1&quot;</span><span class="o">:</span> <span class="s2">&quot;Content group description&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TIT2&quot;</span><span class="o">:</span> <span class="s2">&quot;Title&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TIT3&quot;</span><span class="o">:</span> <span class="s2">&quot;Subtitle&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TKEY&quot;</span><span class="o">:</span> <span class="s2">&quot;Initial key&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TLAN&quot;</span><span class="o">:</span> <span class="s2">&quot;Language(s)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TLEN&quot;</span><span class="o">:</span> <span class="s2">&quot;Length&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TMED&quot;</span><span class="o">:</span> <span class="s2">&quot;Media type&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TOAL&quot;</span><span class="o">:</span> <span class="s2">&quot;Original album&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TOFN&quot;</span><span class="o">:</span> <span class="s2">&quot;Original filename&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TOLY&quot;</span><span class="o">:</span> <span class="s2">&quot;Original lyricist&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TOPE&quot;</span><span class="o">:</span> <span class="s2">&quot;Original artist&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TORY&quot;</span><span class="o">:</span> <span class="s2">&quot;Original release year&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TOWN&quot;</span><span class="o">:</span> <span class="s2">&quot;File owner&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TPE1&quot;</span><span class="o">:</span> <span class="s2">&quot;Artist&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TPE2&quot;</span><span class="o">:</span> <span class="s2">&quot;Band&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TPE3&quot;</span><span class="o">:</span> <span class="s2">&quot;Conductor&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TPE4&quot;</span><span class="o">:</span> <span class="s2">&quot;Interpreted, remixed, or otherwise modified by&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TPOS&quot;</span><span class="o">:</span> <span class="s2">&quot;Part of a set&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TPUB&quot;</span><span class="o">:</span> <span class="s2">&quot;Publisher&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TRCK&quot;</span><span class="o">:</span> <span class="s2">&quot;Track number&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TRDA&quot;</span><span class="o">:</span> <span class="s2">&quot;Recording dates&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TRSN&quot;</span><span class="o">:</span> <span class="s2">&quot;Internet radio station name&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TRSO&quot;</span><span class="o">:</span> <span class="s2">&quot;Internet radio station owner&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TSIZ&quot;</span><span class="o">:</span> <span class="s2">&quot;Size&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TSRC&quot;</span><span class="o">:</span> <span class="s2">&quot;ISRC (international standard recording code)&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TSSE&quot;</span><span class="o">:</span> <span class="s2">&quot;Software/Hardware and settings used for encoding&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TYER&quot;</span><span class="o">:</span> <span class="s2">&quot;Year&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TXXX&quot;</span><span class="o">:</span> <span class="s2">&quot;User defined text information frame&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;UFID&quot;</span><span class="o">:</span> <span class="s2">&quot;Unique file identifier&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;USER&quot;</span><span class="o">:</span> <span class="s2">&quot;Terms of use&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;USLT&quot;</span><span class="o">:</span> <span class="s2">&quot;Unsychronized lyric/text transcription&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WCOM&quot;</span><span class="o">:</span> <span class="s2">&quot;Commercial information&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WCOP&quot;</span><span class="o">:</span> <span class="s2">&quot;Copyright/Legal information&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WOAF&quot;</span><span class="o">:</span> <span class="s2">&quot;Official audio file webpage&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WOAR&quot;</span><span class="o">:</span> <span class="s2">&quot;Official artist/performer webpage&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WOAS&quot;</span><span class="o">:</span> <span class="s2">&quot;Official audio source webpage&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WORS&quot;</span><span class="o">:</span> <span class="s2">&quot;Official internet radio station homepage&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WPAY&quot;</span><span class="o">:</span> <span class="s2">&quot;Payment&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WPUB&quot;</span><span class="o">:</span> <span class="s2">&quot;Publishers official webpage&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WXXX&quot;</span><span class="o">:</span> <span class="s2">&quot;User defined URL link frame&quot;</span>
+  <span class="p">};</span>
+
+  <span class="kd">var</span> <span class="nx">TAG_MAPPING_2_2_to_2_3</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;BUF&quot;</span><span class="o">:</span> <span class="s2">&quot;RBUF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;COM&quot;</span><span class="o">:</span> <span class="s2">&quot;COMM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CRA&quot;</span><span class="o">:</span> <span class="s2">&quot;AENC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;EQU&quot;</span><span class="o">:</span> <span class="s2">&quot;EQUA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ETC&quot;</span><span class="o">:</span> <span class="s2">&quot;ETCO&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GEO&quot;</span><span class="o">:</span> <span class="s2">&quot;GEOB&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MCI&quot;</span><span class="o">:</span> <span class="s2">&quot;MCDI&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;MLL&quot;</span><span class="o">:</span> <span class="s2">&quot;MLLT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PIC&quot;</span><span class="o">:</span> <span class="s2">&quot;APIC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;POP&quot;</span><span class="o">:</span> <span class="s2">&quot;POPM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;REV&quot;</span><span class="o">:</span> <span class="s2">&quot;RVRB&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;RVA&quot;</span><span class="o">:</span> <span class="s2">&quot;RVAD&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SLT&quot;</span><span class="o">:</span> <span class="s2">&quot;SYLT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;STC&quot;</span><span class="o">:</span> <span class="s2">&quot;SYTC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TAL&quot;</span><span class="o">:</span> <span class="s2">&quot;TALB&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TBP&quot;</span><span class="o">:</span> <span class="s2">&quot;TBPM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TCM&quot;</span><span class="o">:</span> <span class="s2">&quot;TCOM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TCO&quot;</span><span class="o">:</span> <span class="s2">&quot;TCON&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TCR&quot;</span><span class="o">:</span> <span class="s2">&quot;TCOP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TDA&quot;</span><span class="o">:</span> <span class="s2">&quot;TDAT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TDY&quot;</span><span class="o">:</span> <span class="s2">&quot;TDLY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TEN&quot;</span><span class="o">:</span> <span class="s2">&quot;TENC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TFT&quot;</span><span class="o">:</span> <span class="s2">&quot;TFLT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TIM&quot;</span><span class="o">:</span> <span class="s2">&quot;TIME&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TKE&quot;</span><span class="o">:</span> <span class="s2">&quot;TKEY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TLA&quot;</span><span class="o">:</span> <span class="s2">&quot;TLAN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TLE&quot;</span><span class="o">:</span> <span class="s2">&quot;TLEN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TMT&quot;</span><span class="o">:</span> <span class="s2">&quot;TMED&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TOA&quot;</span><span class="o">:</span> <span class="s2">&quot;TOPE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TOF&quot;</span><span class="o">:</span> <span class="s2">&quot;TOFN&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TOL&quot;</span><span class="o">:</span> <span class="s2">&quot;TOLY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TOR&quot;</span><span class="o">:</span> <span class="s2">&quot;TORY&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TOT&quot;</span><span class="o">:</span> <span class="s2">&quot;TOAL&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TP1&quot;</span><span class="o">:</span> <span class="s2">&quot;TPE1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TP2&quot;</span><span class="o">:</span> <span class="s2">&quot;TPE2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TP3&quot;</span><span class="o">:</span> <span class="s2">&quot;TPE3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TP4&quot;</span><span class="o">:</span> <span class="s2">&quot;TPE4&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TPA&quot;</span><span class="o">:</span> <span class="s2">&quot;TPOS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TPB&quot;</span><span class="o">:</span> <span class="s2">&quot;TPUB&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TRC&quot;</span><span class="o">:</span> <span class="s2">&quot;TSRC&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TRD&quot;</span><span class="o">:</span> <span class="s2">&quot;TRDA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TRK&quot;</span><span class="o">:</span> <span class="s2">&quot;TRCK&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TSI&quot;</span><span class="o">:</span> <span class="s2">&quot;TSIZ&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TSS&quot;</span><span class="o">:</span> <span class="s2">&quot;TSSE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TT1&quot;</span><span class="o">:</span> <span class="s2">&quot;TIT1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TT2&quot;</span><span class="o">:</span> <span class="s2">&quot;TIT2&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TT3&quot;</span><span class="o">:</span> <span class="s2">&quot;TIT3&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TXT&quot;</span><span class="o">:</span> <span class="s2">&quot;TEXT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TXX&quot;</span><span class="o">:</span> <span class="s2">&quot;TXXX&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TYE&quot;</span><span class="o">:</span> <span class="s2">&quot;TYER&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;UFI&quot;</span><span class="o">:</span> <span class="s2">&quot;UFID&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;ULT&quot;</span><span class="o">:</span> <span class="s2">&quot;USLT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WAF&quot;</span><span class="o">:</span> <span class="s2">&quot;WOAF&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WAR&quot;</span><span class="o">:</span> <span class="s2">&quot;WOAR&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WAS&quot;</span><span class="o">:</span> <span class="s2">&quot;WOAS&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WCM&quot;</span><span class="o">:</span> <span class="s2">&quot;WCOM&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WCP&quot;</span><span class="o">:</span> <span class="s2">&quot;WCOP&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WPB&quot;</span><span class="o">:</span> <span class="s2">&quot;WPB&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;WXX&quot;</span><span class="o">:</span> <span class="s2">&quot;WXXX&quot;</span>
+  <span class="p">};</span></pre></div></td></tr><tr id="section-3"><td class="docs"><div class="pilwrap"><a href="#section-3" class="pilcrow">&#182;</a></div><p>pulled from http://www.id3.org/id3v2-00 and changed with a simple replace
+probably should be an array instead, but thats harder to convert -_-</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">ID3_2_GENRES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;0&quot;</span><span class="o">:</span> <span class="s2">&quot;Blues&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;1&quot;</span><span class="o">:</span> <span class="s2">&quot;Classic Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;2&quot;</span><span class="o">:</span> <span class="s2">&quot;Country&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;3&quot;</span><span class="o">:</span> <span class="s2">&quot;Dance&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;4&quot;</span><span class="o">:</span> <span class="s2">&quot;Disco&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;5&quot;</span><span class="o">:</span> <span class="s2">&quot;Funk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;6&quot;</span><span class="o">:</span> <span class="s2">&quot;Grunge&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;7&quot;</span><span class="o">:</span> <span class="s2">&quot;Hip-Hop&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;8&quot;</span><span class="o">:</span> <span class="s2">&quot;Jazz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;9&quot;</span><span class="o">:</span> <span class="s2">&quot;Metal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;10&quot;</span><span class="o">:</span> <span class="s2">&quot;New Age&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;11&quot;</span><span class="o">:</span> <span class="s2">&quot;Oldies&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;12&quot;</span><span class="o">:</span> <span class="s2">&quot;Other&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;13&quot;</span><span class="o">:</span> <span class="s2">&quot;Pop&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;14&quot;</span><span class="o">:</span> <span class="s2">&quot;R&amp;B&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;15&quot;</span><span class="o">:</span> <span class="s2">&quot;Rap&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;16&quot;</span><span class="o">:</span> <span class="s2">&quot;Reggae&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;17&quot;</span><span class="o">:</span> <span class="s2">&quot;Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;18&quot;</span><span class="o">:</span> <span class="s2">&quot;Techno&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;19&quot;</span><span class="o">:</span> <span class="s2">&quot;Industrial&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;20&quot;</span><span class="o">:</span> <span class="s2">&quot;Alternative&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;21&quot;</span><span class="o">:</span> <span class="s2">&quot;Ska&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;22&quot;</span><span class="o">:</span> <span class="s2">&quot;Death Metal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;23&quot;</span><span class="o">:</span> <span class="s2">&quot;Pranks&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;24&quot;</span><span class="o">:</span> <span class="s2">&quot;Soundtrack&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;25&quot;</span><span class="o">:</span> <span class="s2">&quot;Euro-Techno&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;26&quot;</span><span class="o">:</span> <span class="s2">&quot;Ambient&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;27&quot;</span><span class="o">:</span> <span class="s2">&quot;Trip-Hop&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;28&quot;</span><span class="o">:</span> <span class="s2">&quot;Vocal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;29&quot;</span><span class="o">:</span> <span class="s2">&quot;Jazz+Funk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;30&quot;</span><span class="o">:</span> <span class="s2">&quot;Fusion&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;31&quot;</span><span class="o">:</span> <span class="s2">&quot;Trance&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;32&quot;</span><span class="o">:</span> <span class="s2">&quot;Classical&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;33&quot;</span><span class="o">:</span> <span class="s2">&quot;Instrumental&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;34&quot;</span><span class="o">:</span> <span class="s2">&quot;Acid&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;35&quot;</span><span class="o">:</span> <span class="s2">&quot;House&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;36&quot;</span><span class="o">:</span> <span class="s2">&quot;Game&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;37&quot;</span><span class="o">:</span> <span class="s2">&quot;Sound Clip&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;38&quot;</span><span class="o">:</span> <span class="s2">&quot;Gospel&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;39&quot;</span><span class="o">:</span> <span class="s2">&quot;Noise&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;40&quot;</span><span class="o">:</span> <span class="s2">&quot;AlternRock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;41&quot;</span><span class="o">:</span> <span class="s2">&quot;Bass&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;42&quot;</span><span class="o">:</span> <span class="s2">&quot;Soul&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;43&quot;</span><span class="o">:</span> <span class="s2">&quot;Punk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;44&quot;</span><span class="o">:</span> <span class="s2">&quot;Space&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;45&quot;</span><span class="o">:</span> <span class="s2">&quot;Meditative&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;46&quot;</span><span class="o">:</span> <span class="s2">&quot;Instrumental Pop&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;47&quot;</span><span class="o">:</span> <span class="s2">&quot;Instrumental Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;48&quot;</span><span class="o">:</span> <span class="s2">&quot;Ethnic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;49&quot;</span><span class="o">:</span> <span class="s2">&quot;Gothic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;50&quot;</span><span class="o">:</span> <span class="s2">&quot;Darkwave&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;51&quot;</span><span class="o">:</span> <span class="s2">&quot;Techno-Industrial&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;52&quot;</span><span class="o">:</span> <span class="s2">&quot;Electronic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;53&quot;</span><span class="o">:</span> <span class="s2">&quot;Pop-Folk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;54&quot;</span><span class="o">:</span> <span class="s2">&quot;Eurodance&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;55&quot;</span><span class="o">:</span> <span class="s2">&quot;Dream&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;56&quot;</span><span class="o">:</span> <span class="s2">&quot;Southern Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;57&quot;</span><span class="o">:</span> <span class="s2">&quot;Comedy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;58&quot;</span><span class="o">:</span> <span class="s2">&quot;Cult&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;59&quot;</span><span class="o">:</span> <span class="s2">&quot;Gangsta&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;60&quot;</span><span class="o">:</span> <span class="s2">&quot;Top 40&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;61&quot;</span><span class="o">:</span> <span class="s2">&quot;Christian Rap&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;62&quot;</span><span class="o">:</span> <span class="s2">&quot;Pop/Funk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;63&quot;</span><span class="o">:</span> <span class="s2">&quot;Jungle&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;64&quot;</span><span class="o">:</span> <span class="s2">&quot;Native American&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;65&quot;</span><span class="o">:</span> <span class="s2">&quot;Cabaret&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;66&quot;</span><span class="o">:</span> <span class="s2">&quot;New Wave&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;67&quot;</span><span class="o">:</span> <span class="s2">&quot;Psychadelic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;68&quot;</span><span class="o">:</span> <span class="s2">&quot;Rave&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;69&quot;</span><span class="o">:</span> <span class="s2">&quot;Showtunes&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;70&quot;</span><span class="o">:</span> <span class="s2">&quot;Trailer&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;71&quot;</span><span class="o">:</span> <span class="s2">&quot;Lo-Fi&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;72&quot;</span><span class="o">:</span> <span class="s2">&quot;Tribal&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;73&quot;</span><span class="o">:</span> <span class="s2">&quot;Acid Punk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;74&quot;</span><span class="o">:</span> <span class="s2">&quot;Acid Jazz&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;75&quot;</span><span class="o">:</span> <span class="s2">&quot;Polka&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;76&quot;</span><span class="o">:</span> <span class="s2">&quot;Retro&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;77&quot;</span><span class="o">:</span> <span class="s2">&quot;Musical&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;78&quot;</span><span class="o">:</span> <span class="s2">&quot;Rock &amp; Roll&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;79&quot;</span><span class="o">:</span> <span class="s2">&quot;Hard Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;80&quot;</span><span class="o">:</span> <span class="s2">&quot;Folk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;81&quot;</span><span class="o">:</span> <span class="s2">&quot;Folk-Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;82&quot;</span><span class="o">:</span> <span class="s2">&quot;National Folk&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;83&quot;</span><span class="o">:</span> <span class="s2">&quot;Swing&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;84&quot;</span><span class="o">:</span> <span class="s2">&quot;Fast Fusion&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;85&quot;</span><span class="o">:</span> <span class="s2">&quot;Bebob&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;86&quot;</span><span class="o">:</span> <span class="s2">&quot;Latin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;87&quot;</span><span class="o">:</span> <span class="s2">&quot;Revival&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;88&quot;</span><span class="o">:</span> <span class="s2">&quot;Celtic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;89&quot;</span><span class="o">:</span> <span class="s2">&quot;Bluegrass&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;90&quot;</span><span class="o">:</span> <span class="s2">&quot;Avantgarde&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;91&quot;</span><span class="o">:</span> <span class="s2">&quot;Gothic Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;92&quot;</span><span class="o">:</span> <span class="s2">&quot;Progressive Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;93&quot;</span><span class="o">:</span> <span class="s2">&quot;Psychedelic Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;94&quot;</span><span class="o">:</span> <span class="s2">&quot;Symphonic Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;95&quot;</span><span class="o">:</span> <span class="s2">&quot;Slow Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;96&quot;</span><span class="o">:</span> <span class="s2">&quot;Big Band&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;97&quot;</span><span class="o">:</span> <span class="s2">&quot;Chorus&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;98&quot;</span><span class="o">:</span> <span class="s2">&quot;Easy Listening&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;99&quot;</span><span class="o">:</span> <span class="s2">&quot;Acoustic&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;100&quot;</span><span class="o">:</span> <span class="s2">&quot;Humour&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;101&quot;</span><span class="o">:</span> <span class="s2">&quot;Speech&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;102&quot;</span><span class="o">:</span> <span class="s2">&quot;Chanson&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;103&quot;</span><span class="o">:</span> <span class="s2">&quot;Opera&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;104&quot;</span><span class="o">:</span> <span class="s2">&quot;Chamber Music&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;105&quot;</span><span class="o">:</span> <span class="s2">&quot;Sonata&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;106&quot;</span><span class="o">:</span> <span class="s2">&quot;Symphony&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;107&quot;</span><span class="o">:</span> <span class="s2">&quot;Booty Bass&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;108&quot;</span><span class="o">:</span> <span class="s2">&quot;Primus&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;109&quot;</span><span class="o">:</span> <span class="s2">&quot;Porn Groove&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;110&quot;</span><span class="o">:</span> <span class="s2">&quot;Satire&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;111&quot;</span><span class="o">:</span> <span class="s2">&quot;Slow Jam&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;112&quot;</span><span class="o">:</span> <span class="s2">&quot;Club&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;113&quot;</span><span class="o">:</span> <span class="s2">&quot;Tango&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;114&quot;</span><span class="o">:</span> <span class="s2">&quot;Samba&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;115&quot;</span><span class="o">:</span> <span class="s2">&quot;Folklore&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;116&quot;</span><span class="o">:</span> <span class="s2">&quot;Ballad&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;117&quot;</span><span class="o">:</span> <span class="s2">&quot;Power Ballad&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;118&quot;</span><span class="o">:</span> <span class="s2">&quot;Rhythmic Soul&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;119&quot;</span><span class="o">:</span> <span class="s2">&quot;Freestyle&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;120&quot;</span><span class="o">:</span> <span class="s2">&quot;Duet&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;121&quot;</span><span class="o">:</span> <span class="s2">&quot;Punk Rock&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;122&quot;</span><span class="o">:</span> <span class="s2">&quot;Drum Solo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;123&quot;</span><span class="o">:</span> <span class="s2">&quot;A capella&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;124&quot;</span><span class="o">:</span> <span class="s2">&quot;Euro-House&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;125&quot;</span><span class="o">:</span> <span class="s2">&quot;Dance Hall&quot;</span>
+    <span class="p">};</span>
+    
+  <span class="kd">var</span> <span class="nx">tag</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">pictures</span><span class="o">:</span> <span class="p">[]</span>
+  <span class="p">};</span>
+  
+  
+  <span class="kd">var</span> <span class="nx">max_size</span> <span class="o">=</span> <span class="kc">Infinity</span><span class="p">;</span>
+  
+  <span class="kd">function</span> <span class="nx">read</span><span class="p">(</span><span class="nx">bytes</span><span class="p">,</span> <span class="nx">callback</span><span class="p">){</span>
+    <span class="nx">stream</span><span class="p">(</span><span class="nx">bytes</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">max_size</span><span class="p">);</span>
+  <span class="p">}</span>
+  
+  
+  <span class="kd">function</span> <span class="nx">encode_64</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span>
+    <span class="nx">key</span> <span class="o">=</span> <span class="s2">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=&quot;</span><span class="p">,</span> 
+    <span class="nx">chr1</span><span class="p">,</span> <span class="nx">chr2</span><span class="p">,</span> <span class="nx">chr3</span><span class="p">,</span> <span class="nx">enc1</span><span class="p">,</span> <span class="nx">enc2</span><span class="p">,</span> <span class="nx">enc3</span><span class="p">,</span> <span class="nx">enc4</span><span class="p">;</span>
+    <span class="k">while</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">chr1</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span><span class="o">++</span><span class="p">);</span>
+      <span class="nx">chr2</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span><span class="o">++</span><span class="p">);</span>
+      <span class="nx">chr3</span> <span class="o">=</span> <span class="nx">input</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span><span class="o">++</span><span class="p">);</span>
+      <span class="nx">enc1</span> <span class="o">=</span> <span class="nx">chr1</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="nx">enc2</span> <span class="o">=</span> <span class="p">((</span><span class="nx">chr1</span> <span class="o">&amp;</span> <span class="mi">3</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="nx">chr2</span> <span class="o">&gt;&gt;</span> <span class="mi">4</span><span class="p">);</span>
+      <span class="nx">enc3</span> <span class="o">=</span> <span class="p">((</span><span class="nx">chr2</span> <span class="o">&amp;</span> <span class="mi">15</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="nx">chr3</span> <span class="o">&gt;&gt;</span> <span class="mi">6</span><span class="p">);</span>
+      <span class="nx">enc4</span> <span class="o">=</span> <span class="nx">chr3</span> <span class="o">&amp;</span> <span class="mi">63</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">chr2</span><span class="p">))</span> <span class="nx">enc3</span> <span class="o">=</span> <span class="nx">enc4</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">chr3</span><span class="p">))</span> <span class="nx">enc4</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>
+      <span class="nx">output</span> <span class="o">=</span> <span class="nx">output</span> <span class="o">+</span> <span class="nx">key</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">enc1</span><span class="p">)</span> <span class="o">+</span> <span class="nx">key</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">enc2</span><span class="p">)</span> <span class="o">+</span> <span class="nx">key</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">enc3</span><span class="p">)</span> <span class="o">+</span> <span class="nx">key</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">enc4</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">output</span><span class="p">;</span>
+  <span class="p">}</span>
+
+
+
+  <span class="kd">function</span> <span class="nx">parseDuration</span><span class="p">(</span><span class="nx">ms</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">msec</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">cleanText</span><span class="p">(</span><span class="nx">ms</span><span class="p">))</span> <span class="c1">//leading nulls screw up parseInt</span>
+    <span class="kd">var</span> <span class="nx">secs</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">msec</span><span class="o">/</span><span class="mi">1000</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">mins</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">secs</span><span class="o">/</span><span class="mi">60</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">hours</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">mins</span><span class="o">/</span><span class="mi">60</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">days</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nx">hours</span><span class="o">/</span><span class="mi">24</span><span class="p">);</span>
+  
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">milliseconds</span><span class="o">:</span> <span class="nx">msec</span><span class="o">%</span><span class="mi">1000</span><span class="p">,</span>
+      <span class="nx">seconds</span><span class="o">:</span> <span class="nx">secs</span><span class="o">%</span><span class="mi">60</span><span class="p">,</span>
+      <span class="nx">minutes</span><span class="o">:</span> <span class="nx">mins</span><span class="o">%</span><span class="mi">60</span><span class="p">,</span>
+      <span class="nx">hours</span><span class="o">:</span> <span class="nx">hours</span><span class="o">%</span><span class="mi">24</span><span class="p">,</span>
+      <span class="nx">days</span><span class="o">:</span> <span class="nx">days</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+
+  <span class="kd">function</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">num</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="nx">num</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">(</span><span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="mi">8</span><span class="o">-</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="o">+</span><span class="mi">1</span><span class="p">)).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">arr</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">arr2int</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">4</span><span class="p">){</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">tag</span><span class="p">.</span><span class="nx">revision</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">size</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mh">0x15</span><span class="p">;</span>
+        <span class="nx">size</span> <span class="o">+=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">14</span><span class="p">;</span>
+        <span class="nx">size</span> <span class="o">+=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">7</span><span class="p">;</span>
+        <span class="nx">size</span> <span class="o">+=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+      <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">size</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">24</span><span class="p">;</span>
+        <span class="nx">size</span> <span class="o">+=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">;</span>
+        <span class="nx">size</span> <span class="o">+=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">;</span>
+        <span class="nx">size</span> <span class="o">+=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+      <span class="p">}</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">size</span> <span class="o">=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">;</span>
+      <span class="nx">size</span> <span class="o">+=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="mi">8</span><span class="p">;</span>
+      <span class="nx">size</span> <span class="o">+=</span> <span class="nx">data</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">size</span><span class="p">;</span>
+  <span class="p">}</span>
+  
+  <span class="kd">function</span> <span class="nx">parseImage</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">TextEncoding</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="nx">str</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">MimeTypePos</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;\0&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">MimeType</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">MimeTypePos</span><span class="p">);</span>
+    <span class="nx">str</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">MimeTypePos</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">PictureType</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">TextPictureType</span> <span class="o">=</span> <span class="nx">PICTURE_TYPES</span><span class="p">[</span><span class="nx">PictureType</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">()];</span>
+    <span class="nx">str</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">DescriptionPos</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;\0&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">Description</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">DescriptionPos</span><span class="p">);</span>
+    <span class="nx">str</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">DescriptionPos</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">PictureData</span> <span class="o">=</span> <span class="nx">str</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">Magic</span> <span class="o">=</span> <span class="nx">PictureData</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="k">return</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)}).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">dataURL</span><span class="o">:</span> <span class="s1">&#39;data:&#39;</span><span class="o">+</span><span class="nx">MimeType</span><span class="o">+</span><span class="s1">&#39;;base64,&#39;</span><span class="o">+</span><span class="nx">encode_64</span><span class="p">(</span><span class="nx">Magic</span><span class="p">),</span>
+      <span class="nx">PictureType</span><span class="o">:</span> <span class="nx">TextPictureType</span><span class="p">,</span>
+      <span class="nx">Description</span><span class="o">:</span> <span class="nx">Description</span><span class="p">,</span>
+      <span class="nx">MimeType</span><span class="o">:</span> <span class="nx">MimeType</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+  
+  <span class="kd">function</span> <span class="nx">parseImage2</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">TextEncoding</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="nx">str</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">Type</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+    <span class="nx">str</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+    
+    <span class="kd">var</span> <span class="nx">PictureType</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">TextPictureType</span> <span class="o">=</span> <span class="nx">PICTURE_TYPES</span><span class="p">[</span><span class="nx">PictureType</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">).</span><span class="nx">toUpperCase</span><span class="p">()];</span>
+    
+    <span class="nx">str</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">DescriptionPos</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;\0&#39;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">Description</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">DescriptionPos</span><span class="p">);</span>
+    <span class="nx">str</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">DescriptionPos</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">PictureData</span> <span class="o">=</span> <span class="nx">str</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">Magic</span> <span class="o">=</span> <span class="nx">PictureData</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="k">return</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)}).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">dataURL</span><span class="o">:</span> <span class="s1">&#39;data:img/&#39;</span><span class="o">+</span><span class="nx">Type</span><span class="o">+</span><span class="s1">&#39;;base64,&#39;</span><span class="o">+</span><span class="nx">encode_64</span><span class="p">(</span><span class="nx">Magic</span><span class="p">),</span>
+      <span class="nx">PictureType</span><span class="o">:</span> <span class="nx">TextPictureType</span><span class="p">,</span>
+      <span class="nx">Description</span><span class="o">:</span> <span class="nx">Description</span><span class="p">,</span>
+      <span class="nx">MimeType</span><span class="o">:</span> <span class="nx">MimeType</span>
+    <span class="p">};</span>
+  <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">TAG_HANDLERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;APIC&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
+      <span class="nx">tag</span><span class="p">.</span><span class="nx">pictures</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">parseImage</span><span class="p">(</span><span class="nx">s</span><span class="p">));</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;PIC&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
+      <span class="nx">tag</span><span class="p">.</span><span class="nx">pictures</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">parseImage2</span><span class="p">(</span><span class="nx">s</span><span class="p">));</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;TLEN&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
+      <span class="nx">tag</span><span class="p">.</span><span class="nx">Length</span> <span class="o">=</span> <span class="nx">parseDuration</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;TCON&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">size</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
+      <span class="nx">s</span> <span class="o">=</span> <span class="nx">cleanText</span><span class="p">(</span><span class="nx">s</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="sr">/\([0-9]+\)/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">s</span><span class="p">)){</span>
+        <span class="kd">var</span> <span class="nx">genre</span> <span class="o">=</span> <span class="nx">ID3_2_GENRES</span><span class="p">[</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[\(\)]/g</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))]</span>
+      <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">genre</span> <span class="o">=</span> <span class="nx">s</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="nx">tag</span><span class="p">.</span><span class="nx">Genre</span> <span class="o">=</span> <span class="nx">genre</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="kd">function</span> <span class="nx">read_frame</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">tag</span><span class="p">.</span><span class="nx">revision</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">){</span>
+      <span class="nx">read</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">frame_id</span><span class="p">){</span></pre></div></td></tr><tr id="section-4"><td class="docs"><div class="pilwrap"><a href="#section-4" class="pilcrow">&#182;</a></div><p>console.log(frame_id)</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">if</span><span class="p">(</span><span class="sr">/[A-Z0-9]{3}/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">frame_id</span><span class="p">)){</span>
+          <span class="kd">var</span> <span class="nx">new_frame_id</span> <span class="o">=</span> <span class="nx">TAG_MAPPING_2_2_to_2_3</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)];</span>
+          <span class="nx">read_frame2</span><span class="p">(</span><span class="nx">frame_id</span><span class="p">,</span> <span class="nx">new_frame_id</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+          <span class="nx">onComplete</span><span class="p">(</span><span class="nx">tag</span><span class="p">);</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">})</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      <span class="nx">read</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">frame_id</span><span class="p">){</span></pre></div></td></tr><tr id="section-5"><td class="docs"><div class="pilwrap"><a href="#section-5" class="pilcrow">&#182;</a></div><p>console.log(frame_id)</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">if</span><span class="p">(</span><span class="sr">/[A-Z0-9]{4}/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">frame_id</span><span class="p">)){</span>
+          <span class="nx">read_frame3</span><span class="p">(</span><span class="nx">frame_id</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+          <span class="nx">onComplete</span><span class="p">(</span><span class="nx">tag</span><span class="p">);</span>
+          <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">})</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  
+  
+  <span class="kd">function</span> <span class="nx">cleanText</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;http://&#39;</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">TextEncoding</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+      <span class="nx">str</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span></pre></div></td></tr><tr id="section-6"><td class="docs"><div class="pilwrap"><a href="#section-6" class="pilcrow">&#182;</a></div><p>screw it i have no clue</p>
+</td><td class="code"><div class="highlight"><pre>    <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[^A-Za-z0-9\(\)\{\}\[\]\!\@\#\$\%\^\&amp;\* \/\&quot;\&#39;\;\&gt;\&lt;\?\,\~\`\.\n\t]/g</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+  
+  
+  <span class="kd">function</span> <span class="nx">read_frame3</span><span class="p">(</span><span class="nx">frame_id</span><span class="p">){</span>
+    <span class="nx">read</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">size</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">intsize</span> <span class="o">=</span> <span class="nx">arr2int</span><span class="p">(</span><span class="nx">size</span><span class="p">);</span>
+      <span class="nx">read</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">flags</span><span class="p">){</span>
+        <span class="nx">flags</span> <span class="o">=</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">flags</span><span class="p">[</span><span class="mi">0</span><span class="p">]).</span><span class="nx">concat</span><span class="p">(</span><span class="nx">pad</span><span class="p">(</span><span class="nx">flags</span><span class="p">[</span><span class="mi">1</span><span class="p">]));</span>
+        <span class="nx">read</span><span class="p">(</span><span class="nx">intsize</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
+          <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">TAG_HANDLERS</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;function&#39;</span><span class="p">){</span>
+            <span class="nx">TAG_HANDLERS</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">](</span><span class="nx">intsize</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">);</span>
+          <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">TAGS</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">]){</span>
+            <span class="nx">tag</span><span class="p">[</span><span class="nx">TAGS</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="nx">tag</span><span class="p">[</span><span class="nx">TAGS</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">]]</span><span class="o">||</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">cleanText</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+          <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nx">tag</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">cleanText</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+          <span class="p">}</span>
+          <span class="nx">read_frame</span><span class="p">();</span>
+        <span class="p">})</span>
+      <span class="p">})</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+  
+  <span class="kd">function</span> <span class="nx">read_frame2</span><span class="p">(</span><span class="nx">v2ID</span><span class="p">,</span> <span class="nx">frame_id</span><span class="p">){</span>
+    <span class="nx">read</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">size</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">intsize</span> <span class="o">=</span> <span class="nx">arr2int</span><span class="p">(</span><span class="nx">size</span><span class="p">);</span>
+      <span class="nx">read</span><span class="p">(</span><span class="nx">intsize</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">TAG_HANDLERS</span><span class="p">[</span><span class="nx">v2ID</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;function&#39;</span><span class="p">){</span>
+          <span class="nx">TAG_HANDLERS</span><span class="p">[</span><span class="nx">v2ID</span><span class="p">](</span><span class="nx">intsize</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="k">typeof</span> <span class="nx">TAG_HANDLERS</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;function&#39;</span><span class="p">){</span>
+          <span class="nx">TAG_HANDLERS</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">](</span><span class="nx">intsize</span><span class="p">,</span> <span class="nx">s</span><span class="p">,</span> <span class="nx">a</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">TAGS</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">]){</span>
+          <span class="nx">tag</span><span class="p">[</span><span class="nx">TAGS</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(</span><span class="nx">tag</span><span class="p">[</span><span class="nx">TAGS</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">]]</span><span class="o">||</span><span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">cleanText</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nx">tag</span><span class="p">[</span><span class="nx">frame_id</span><span class="p">]</span> <span class="o">=</span> <span class="nx">cleanText</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span>
+          <span class="p">}</span></pre></div></td></tr><tr id="section-7"><td class="docs"><div class="pilwrap"><a href="#section-7" class="pilcrow">&#182;</a></div><p>console.log(tag)</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="nx">read_frame</span><span class="p">();</span>
+      <span class="p">})</span>
+    <span class="p">})</span>
+  <span class="p">}</span>
+  
+  
+  <span class="nx">read</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">header</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">header</span> <span class="o">==</span> <span class="s2">&quot;ID3&quot;</span><span class="p">){</span>
+      <span class="nx">read</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">version</span><span class="p">){</span>
+        <span class="nx">tag</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="s2">&quot;ID3v2.&quot;</span><span class="o">+</span><span class="nx">version</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="s1">&#39;.&#39;</span><span class="o">+</span><span class="nx">version</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="nx">tag</span><span class="p">.</span><span class="nx">revision</span> <span class="o">=</span> <span class="nx">version</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span></pre></div></td></tr><tr id="section-8"><td class="docs"><div class="pilwrap"><a href="#section-8" class="pilcrow">&#182;</a></div><p>console.log('version',tag.version);</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="nx">read</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">flags</span><span class="p">){</span></pre></div></td></tr><tr id="section-9"><td class="docs"><div class="pilwrap"><a href="#section-9" class="pilcrow">&#182;</a></div><p>todo: parse flags</p>
+</td><td class="code"><div class="highlight"><pre>          <span class="nx">flags</span> <span class="o">=</span> <span class="nx">pad</span><span class="p">(</span><span class="nx">flags</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+          <span class="nx">read</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">size</span><span class="p">){</span>
+            <span class="nx">max_size</span> <span class="o">=</span> <span class="nx">arr2int</span><span class="p">(</span><span class="nx">size</span><span class="p">);</span>
+            <span class="nx">read</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){});</span> <span class="c1">//signal max</span>
+            <span class="nx">read_frame</span><span class="p">()</span>
+          <span class="p">})</span>
+        <span class="p">})</span>
+      <span class="p">})</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+      <span class="nx">onComplete</span><span class="p">(</span><span class="nx">tag</span><span class="p">);</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span> <span class="c1">//no header found</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+  <span class="k">return</span> <span class="nx">tag</span><span class="p">;</span>
+<span class="p">},</span>
+
+<span class="nx">parseURL</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">onComplete</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">();</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">overrideMimeType</span><span class="p">(</span><span class="s1">&#39;text/plain; charset=x-user-defined&#39;</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> 
+      <span class="nx">bits_required</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> 
+      <span class="nx">handle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){},</span>
+      <span class="nx">maxdata</span> <span class="o">=</span> <span class="kc">Infinity</span><span class="p">;</span>
+
+  <span class="kd">function</span> <span class="nx">read</span><span class="p">(</span><span class="nx">bytes</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">newmax</span><span class="p">){</span>
+    <span class="nx">bits_required</span> <span class="o">=</span> <span class="nx">bytes</span><span class="p">;</span>
+    <span class="nx">handle</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span>
+    <span class="nx">maxdata</span> <span class="o">=</span> <span class="nx">newmax</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">bytes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="nx">callback</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,[]);</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">responseText</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">){</span>
+      <span class="nx">responseText</span> <span class="o">=</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">xhr</span><span class="p">.</span><span class="nx">responseText</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">maxdata</span><span class="p">)</span> <span class="nx">xhr</span><span class="p">.</span><span class="nx">abort</span><span class="p">();</span>
+
+    <span class="k">if</span><span class="p">(</span><span class="nx">responseText</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">pos</span> <span class="o">+</span> <span class="nx">bits_required</span> <span class="o">&amp;&amp;</span> <span class="nx">bits_required</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">responseText</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span class="nx">bits_required</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">arrdata</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="k">return</span> <span class="nx">e</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">});</span>
+      <span class="nx">pos</span> <span class="o">+=</span> <span class="nx">bits_required</span><span class="p">;</span>
+      <span class="nx">bits_required</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">handle</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">arrdata</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span><span class="p">){</span>
+        <span class="nx">xhr</span><span class="p">.</span><span class="nx">abort</span><span class="p">();</span>
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">callee</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">})()</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="k">return</span> <span class="p">[</span><span class="nx">xhr</span><span class="p">,</span> <span class="nx">ID3v2</span><span class="p">.</span><span class="nx">parseStream</span><span class="p">(</span><span class="nx">read</span><span class="p">,</span> <span class="nx">onComplete</span><span class="p">)];</span>
+<span class="p">},</span>
+<span class="nx">parseFile</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">onComplete</span><span class="p">){</span>
+
+  <span class="kd">var</span> <span class="nx">reader</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FileReader</span><span class="p">();</span>
+
+  <span class="kd">var</span> <span class="nx">pos</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> 
+      <span class="nx">bits_required</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> 
+      <span class="nx">handle</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){},</span>
+      <span class="nx">maxdata</span> <span class="o">=</span> <span class="kc">Infinity</span><span class="p">;</span>
+
+  <span class="kd">function</span> <span class="nx">read</span><span class="p">(</span><span class="nx">bytes</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">newmax</span><span class="p">){</span>
+    <span class="nx">bits_required</span> <span class="o">=</span> <span class="nx">bytes</span><span class="p">;</span>
+    <span class="nx">handle</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span>
+    <span class="nx">maxdata</span> <span class="o">=</span> <span class="nx">newmax</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">bytes</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="nx">callback</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,[]);</span>
+  <span class="p">}</span>
+  <span class="kd">var</span> <span class="nx">responseText</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="nx">reader</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">responseText</span> <span class="o">=</span> <span class="nx">reader</span><span class="p">.</span><span class="nx">result</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  
+    <span class="k">if</span><span class="p">(</span><span class="nx">responseText</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="nx">pos</span> <span class="o">+</span> <span class="nx">bits_required</span> <span class="o">&amp;&amp;</span> <span class="nx">bits_required</span><span class="p">){</span>
+      <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">responseText</span><span class="p">.</span><span class="nx">substr</span><span class="p">(</span><span class="nx">pos</span><span class="p">,</span> <span class="nx">bits_required</span><span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">arrdata</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span><span class="k">return</span> <span class="nx">e</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">});</span>
+      <span class="nx">pos</span> <span class="o">+=</span> <span class="nx">bits_required</span><span class="p">;</span>
+      <span class="nx">bits_required</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">handle</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">arrdata</span><span class="p">)</span> <span class="o">===</span> <span class="kc">false</span><span class="p">){</span>
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="nx">setTimeout</span><span class="p">(</span><span class="nx">arguments</span><span class="p">.</span><span class="nx">callee</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="p">})()</span>
+  <span class="nx">reader</span><span class="p">.</span><span class="nx">readAsBinaryString</span><span class="p">(</span><span class="nx">fileSlice</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">128</span> <span class="o">*</span> <span class="mi">1024</span><span class="p">));</span>
+  <span class="k">return</span> <span class="p">[</span><span class="nx">reader</span><span class="p">,</span> <span class="nx">ID3v2</span><span class="p">.</span><span class="nx">parseStream</span><span class="p">(</span><span class="nx">read</span><span class="p">,</span> <span class="nx">onComplete</span><span class="p">)];</span>
+<span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="kd">function</span> <span class="nx">fileSlice</span><span class="p">(</span><span class="nx">file</span><span class="p">,</span> <span class="nx">start</span><span class="p">,</span> <span class="nx">length</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">mozSlice</span><span class="p">)</span> <span class="k">return</span> <span class="nx">file</span><span class="p">.</span><span class="nx">mozSlice</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">length</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">slice</span><span class="p">)</span> <span class="k">return</span> <span class="nx">file</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">start</span> <span class="o">+</span> <span class="nx">length</span><span class="p">);</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">slice</span><span class="p">)</span> <span class="k">return</span> <span class="nx">file</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">start</span><span class="p">,</span> <span class="nx">length</span><span class="p">);</span>
+<span class="p">}</span></pre></div></td></tr><tr id="section-10"><td class="docs"><div class="pilwrap"><a href="#section-10" class="pilcrow">&#182;</a></div><p>doesnt quite belong here but doesnt quite belong elsewhere either</p>
+</td><td class="code"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">guessSong</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">parts</span> <span class="o">=</span> <span class="nx">unescape</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^.*(music|desktop|document|video|home)/gi</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\[[^\]]+\]/g</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/_/g</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[0-9]+\s*(kbps|\-)/</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/[\/]/</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">reverse</span><span class="p">();</span>
+
+  <span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\.(mp3|ogg|flac)/</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\s|\s$/g</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\d+\s*/</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">artist</span><span class="o">=</span><span class="s1">&#39;Unknown&#39;</span><span class="p">,</span><span class="nx">album</span><span class="o">=</span><span class="s1">&#39;Unknown&#39;</span><span class="p">;</span>
+
+  <span class="k">if</span><span class="p">(</span><span class="sr">/\-/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">name</span><span class="p">)){</span>
+    <span class="kd">var</span> <span class="nx">np</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">).</span><span class="nx">reverse</span><span class="p">();</span>
+    <span class="nx">name</span> <span class="o">=</span> <span class="nx">np</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">np</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">){</span>
+      <span class="nx">artist</span> <span class="o">=</span> <span class="nx">np</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">np</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">){</span>
+      <span class="nx">artist</span> <span class="o">=</span> <span class="nx">np</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+      <span class="nx">album</span> <span class="o">=</span> <span class="nx">np</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]){</span>
+      <span class="kd">var</span> <span class="nx">album</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\s|\s$/g</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">album</span><span class="p">){</span>
+        <span class="nx">album</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\s|\s$/g</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]){</span>
+      <span class="kd">var</span> <span class="nx">album</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\s|\s$/g</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]){</span>
+      <span class="kd">var</span> <span class="nx">artist</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\s|\s$/g</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/^\d+\s*/</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">if</span><span class="p">(</span><span class="sr">/\-/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">album</span><span class="p">)){</span>
+    <span class="kd">var</span> <span class="nx">as</span> <span class="o">=</span> <span class="nx">album</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">);</span>
+    <span class="nx">album</span> <span class="o">=</span> <span class="nx">as</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">artist</span><span class="p">){</span>
+      <span class="nx">artist</span> <span class="o">=</span> <span class="nx">as</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">Title</span><span class="o">:</span> <span class="nx">name</span><span class="p">,</span>
+    <span class="nx">Artist</span><span class="o">:</span> <span class="nx">artist</span><span class="p">,</span>
+    <span class="nx">Album</span><span class="o">:</span> <span class="nx">album</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+</pre></div></td></tr></tbody></table><div id="projectname"><a href="../../../index.html">JukeboxJS</a></div></div></body></html>

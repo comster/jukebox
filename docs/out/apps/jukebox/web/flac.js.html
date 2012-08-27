@@ -1,0 +1,626 @@
+<!DOCTYPE html><html><head><title>flac.js</title><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><link rel="stylesheet" media="all" href="../../../docco.css"></head><body><div id="container"><div id="background"></div><div id="jump_to">Jump To &hellip;<div id="jump_wrapper"><div id="jump_page"><a href="../../../index.html" class="source"><span class="file_name">README</span></a><a href="../../../apps/jukebox/web/moment.min.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">moment.min.js</span></a><a href="../../../apps/jukebox/web/backbone.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">backbone.js</span></a><a href="../../../apps/jukebox/web/chat.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">chat.js</span></a><a href="../../../apps/jukebox/web/mp3.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">mp3.js</span></a><a href="../../../apps/jukebox/web/jsmad.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jsmad.js</span></a><a href="../../../apps/jukebox/web/require.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">require.js</span></a><a href="../../../apps/jukebox/web/houseChat.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseChat.js</span></a><a href="../../../apps/jukebox/web/houseAuth.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseAuth.js</span></a><a href="../../../apps/jukebox/web/houseUsers.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseUsers.js</span></a><a href="../../../apps/jukebox/web/jukebox.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jukebox.js</span></a><a href="../../../apps/jukebox/web/jquery.idle-timer.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.idle-timer.js</span></a><a href="../../../apps/jukebox/web/aac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">aac.js</span></a><a href="../../../apps/jukebox/web/aurora.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">aurora.js</span></a><a href="../../../apps/jukebox/web/jquery.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.js</span></a><a href="../../../apps/jukebox/web/houseSongs.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseSongs.js</span></a><a href="../../../apps/jukebox/web/jquery.ui.min.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.ui.min.js</span></a><a href="../../../apps/jukebox/web/chart.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">chart.js</span></a><a href="../../../apps/jukebox/web/backbone-house.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">backbone-house.js</span></a><a href="../../../apps/jukebox/web/alac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">alac.js</span></a><a href="../../../apps/jukebox/web/underscore.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">underscore.js</span></a><a href="../../../apps/jukebox/web/pitch.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">pitch.js</span></a><a href="../../../apps/jukebox/web/flac.js.html" class="source selected"><span class="base_path">apps / jukebox / web / </span><span class="file_name">flac.js</span></a><a href="../../../apps/jukebox/web/id3v2.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">id3v2.js</span></a><a href="../../../apps/jukebox/web/index.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">index.js</span></a><a href="../../../apps/jukebox/config/config.js.html" class="source "><span class="base_path">apps / jukebox / config / </span><span class="file_name">config.js</span></a><a href="../../../apps/jukebox/index.js.html" class="source "><span class="base_path">apps / jukebox / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songs/index.js.html" class="source "><span class="base_path">endPoints / songs / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/apps/index.js.html" class="source "><span class="base_path">endPoints / apps / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/files/index.js.html" class="source "><span class="base_path">endPoints / files / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/auth/index.js.html" class="source "><span class="base_path">endPoints / auth / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/users/index.js.html" class="source "><span class="base_path">endPoints / users / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/collections/index.js.html" class="source "><span class="base_path">endPoints / collections / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/chat/index.js.html" class="source "><span class="base_path">endPoints / chat / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songr/index.js.html" class="source "><span class="base_path">endPoints / songr / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/fs/index.js.html" class="source "><span class="base_path">endPoints / fs / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songq/index.js.html" class="source "><span class="base_path">endPoints / songq / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/artists/index.js.html" class="source "><span class="base_path">endPoints / artists / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/albums/index.js.html" class="source "><span class="base_path">endPoints / albums / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songp/index.js.html" class="source "><span class="base_path">endPoints / songp / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/index.js.html" class="source "><span class="base_path">endPoints / </span><span class="file_name">index.js</span></a></div></div></div><table cellpadding="0" cellspacing="0"><thead><tr><th class="docs"><h1>flac.js</h1><div class="filepath">apps/jukebox/web/</div></th><th class="code"></th></tr></thead><tbody><tr id="section-1"><td class="docs"><div class="pilwrap"><a href="#section-1" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>FLAC.js - Free Lossless Audio Codec decoder in JavaScript<br />By Devon Govett and Jens Nockert of Official.fm Labs</p></div><div class="body"><p>FLAC.js is free software; you can redistribute it and/or<br />modify it under the terms of the GNU Lesser General Public<br />License as published by the Free Software Foundation; either<br />version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>FLAC.js is distributed in the hope that it will be useful,<br />but WITHOUT ANY WARRANTY; without even the implied warranty of<br />MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br />Lesser General Public License for more details.</p></div></div>
+</td><td class="code"><div class="highlight"><pre><span class="nx">FLACDemuxer</span> <span class="o">=</span> <span class="nx">Demuxer</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Demuxer</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">probe</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">peekString</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;fLaC&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="kr">const</span> <span class="nx">STREAMINFO</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nx">PADDING</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+          <span class="nx">APPLICATION</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+          <span class="nx">SEEKTABLE</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+          <span class="nx">VORBIS_COMMENT</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
+          <span class="nx">CUESHEET</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+          <span class="nx">PICTURE</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
+          <span class="nx">INVALID</span> <span class="o">=</span> <span class="mi">127</span><span class="p">,</span>
+          <span class="nx">STREAMINFO_SIZE</span> <span class="o">=</span> <span class="mi">34</span><span class="p">;</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">readChunk</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">stream</span><span class="p">;</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">readHeader</span> <span class="o">&amp;&amp;</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">available</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">readString</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">!==</span> <span class="s1">&#39;fLaC&#39;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Invalid FLAC file.&#39;</span><span class="p">);</span>
+                
+            <span class="k">this</span><span class="p">.</span><span class="nx">readHeader</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">while</span> <span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">available</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">last</span><span class="p">)</span> <span class="p">{</span>                     
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">readBlockHeaders</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt8</span><span class="p">();</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">last</span> <span class="o">=</span> <span class="p">(</span><span class="nx">tmp</span> <span class="o">&amp;</span> <span class="mh">0x80</span><span class="p">)</span> <span class="o">===</span> <span class="mh">0x80</span><span class="p">,</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">tmp</span> <span class="o">&amp;</span> <span class="mh">0x7F</span><span class="p">,</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">size</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt24</span><span class="p">();</span>
+            <span class="p">}</span>
+            
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">foundStreamInfo</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">!==</span> <span class="nx">STREAMINFO</span><span class="p">)</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;STREAMINFO must be the first block&#39;</span><span class="p">);</span>
+                
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">stream</span><span class="p">.</span><span class="nx">available</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">size</span><span class="p">))</span>
+                <span class="k">return</span><span class="p">;</span>
+            
+            <span class="k">switch</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">case</span> <span class="nx">STREAMINFO</span><span class="o">:</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">foundStreamInfo</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;STREAMINFO can only occur once.&#39;</span><span class="p">);</span>
+                    
+                    <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">size</span> <span class="o">!==</span> <span class="nx">STREAMINFO_SIZE</span><span class="p">)</span>
+                        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;STREAMINFO size is wrong.&#39;</span><span class="p">);</span>
+                    
+                    <span class="k">this</span><span class="p">.</span><span class="nx">foundStreamInfo</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                    <span class="kd">var</span> <span class="nx">bitstream</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Bitstream</span><span class="p">(</span><span class="nx">stream</span><span class="p">);</span>
+                
+                    <span class="kd">var</span> <span class="nx">cookie</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="nx">minBlockSize</span><span class="o">:</span> <span class="nx">bitstream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span>
+                        <span class="nx">maxBlockSize</span><span class="o">:</span> <span class="nx">bitstream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">16</span><span class="p">),</span>
+                        <span class="nx">minFrameSize</span><span class="o">:</span> <span class="nx">bitstream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">24</span><span class="p">),</span>
+                        <span class="nx">maxFrameSize</span><span class="o">:</span> <span class="nx">bitstream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">24</span><span class="p">)</span>
+                    <span class="p">};</span>
+                
+                    <span class="k">this</span><span class="p">.</span><span class="nx">format</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="nx">formatID</span><span class="o">:</span> <span class="s1">&#39;flac&#39;</span><span class="p">,</span>
+                        <span class="nx">sampleRate</span><span class="o">:</span> <span class="nx">bitstream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
+                        <span class="nx">channelsPerFrame</span><span class="o">:</span> <span class="nx">bitstream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                        <span class="nx">bitsPerChannel</span><span class="o">:</span> <span class="nx">bitstream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="p">};</span>
+                
+                    <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;format&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">format</span><span class="p">);</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;cookie&#39;</span><span class="p">,</span> <span class="nx">cookie</span><span class="p">);</span>
+                
+                    <span class="kd">var</span> <span class="nx">sampleCount</span> <span class="o">=</span> <span class="nx">bitstream</span><span class="p">.</span><span class="nx">readBig</span><span class="p">(</span><span class="mi">36</span><span class="p">);</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;duration&#39;</span><span class="p">,</span> <span class="nx">sampleCount</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">sampleRate</span> <span class="o">*</span> <span class="mi">1000</span> <span class="o">|</span> <span class="mi">0</span><span class="p">);</span>
+                
+                    <span class="nx">stream</span><span class="p">.</span><span class="nx">advance</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span> <span class="c1">// skip MD5 hashes</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">readBlockHeaders</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                    
+                <span class="k">case</span> <span class="nx">VORBIS_COMMENT</span><span class="o">:</span></pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><p>see http://www.xiph.org/vorbis/doc/v-comment.html</p>
+</td><td class="code"><div class="highlight"><pre>                    <span class="k">this</span><span class="p">.</span><span class="nx">metadata</span> <span class="o">||</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">metadata</span> <span class="o">=</span> <span class="p">{});</span>
+                    <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                    
+                    <span class="k">this</span><span class="p">.</span><span class="nx">metadata</span><span class="p">.</span><span class="nx">vendor</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readString</span><span class="p">(</span><span class="nx">len</span><span class="p">);</span>
+                    <span class="kd">var</span> <span class="nx">length</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                    
+                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">len</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                        <span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUTF8</span><span class="p">(</span><span class="nx">len</span><span class="p">),</span>
+                            <span class="nx">idx</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">);</span>
+                            
+                        <span class="k">this</span><span class="p">.</span><span class="nx">metadata</span><span class="p">[</span><span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nx">idx</span><span class="p">)]</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    </pre></div></td></tr><tr id="section-3"><td class="docs"><div class="pilwrap"><a href="#section-3" class="pilcrow">&#182;</a></div><p>TODO: standardize field names across formats</p>
+</td><td class="code"><div class="highlight"><pre>                    <span class="k">break</span><span class="p">;</span>
+                    
+                <span class="k">case</span> <span class="nx">PICTURE</span><span class="o">:</span>
+                    <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">();</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">!==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// make sure this is album art (type 3)</span>
+                        <span class="nx">stream</span><span class="p">.</span><span class="nx">advance</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">size</span> <span class="o">-</span> <span class="mi">4</span><span class="p">);</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="kd">var</span> <span class="nx">mimeLen</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">(),</span>
+                            <span class="nx">mime</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readString</span><span class="p">(</span><span class="nx">mimeLen</span><span class="p">),</span>
+                            <span class="nx">descLen</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">(),</span>
+                            <span class="nx">description</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readString</span><span class="p">(</span><span class="nx">descLen</span><span class="p">),</span>
+                            <span class="nx">width</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">(),</span>
+                            <span class="nx">height</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">(),</span>
+                            <span class="nx">depth</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">(),</span>
+                            <span class="nx">colors</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">(),</span>
+                            <span class="nx">length</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readUInt32</span><span class="p">(),</span>
+                            <span class="nx">picture</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readBuffer</span><span class="p">(</span><span class="nx">length</span><span class="p">);</span>
+                    
+                        <span class="k">this</span><span class="p">.</span><span class="nx">metadata</span> <span class="o">||</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">metadata</span> <span class="o">=</span> <span class="p">{});</span>
+                        <span class="k">this</span><span class="p">.</span><span class="nx">metadata</span><span class="p">[</span><span class="s1">&#39;Cover Art&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">picture</span><span class="p">;</span>
+                    <span class="p">}</span>
+                    </pre></div></td></tr><tr id="section-4"><td class="docs"><div class="pilwrap"><a href="#section-4" class="pilcrow">&#182;</a></div><p>does anyone want the rest of the info?</p>
+</td><td class="code"><div class="highlight"><pre>                    <span class="k">break</span><span class="p">;</span>
+                
+                <span class="k">default</span><span class="o">:</span>
+                    <span class="nx">stream</span><span class="p">.</span><span class="nx">advance</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">size</span><span class="p">);</span>
+                    <span class="k">this</span><span class="p">.</span><span class="nx">readBlockHeaders</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+            
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">last</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">metadata</span><span class="p">)</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;metadata&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">metadata</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="k">while</span> <span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">available</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">last</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">buffer</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSingleBuffer</span><span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">remainingBytes</span><span class="p">());</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">buffer</span><span class="p">,</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">remainingBytes</span><span class="p">()</span> <span class="o">===</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+<span class="p">});</span></pre></div></td></tr><tr id="section-5"><td class="docs"><div class="pilwrap"><a href="#section-5" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>FLAC.js - Free Lossless Audio Codec decoder in JavaScript<br />Original C version from FFmpeg (c) 2003 Alex Beregszaszi<br />JavaScript port by Devon Govett and Jens Nockert of Official.fm Labs</p></div><div class="body"><p>Licensed under the same terms as the original.  The original<br />license follows.</p>
+
+<p>FLAC.js is free software; you can redistribute it and/or<br />modify it under the terms of the GNU Lesser General Public<br />License as published by the Free Software Foundation; either<br />version 2.1 of the License, or (at your option) any later version.</p>
+
+<p>FLAC.js is distributed in the hope that it will be useful,<br />but WITHOUT ANY WARRANTY; without even the implied warranty of<br />MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU<br />Lesser General Public License for more details.</p></div></div>
+</td><td class="code"><div class="highlight"><pre><span class="nx">FLACDecoder</span> <span class="o">=</span> <span class="nx">Decoder</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">Decoder</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;flac&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">);</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">setCookie</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cookie</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">cookie</span> <span class="o">=</span> <span class="nx">cookie</span><span class="p">;</span>
+        </pre></div></td></tr><tr id="section-6"><td class="docs"><div class="pilwrap"><a href="#section-6" class="pilcrow">&#182;</a></div><p>initialize arrays</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">this</span><span class="p">.</span><span class="nx">decoded</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">channelsPerFrame</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Int32Array</span><span class="p">(</span><span class="nx">cookie</span><span class="p">.</span><span class="nx">maxBlockSize</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+    
+    <span class="kr">const</span> <span class="nx">BLOCK_SIZES</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Int16Array</span><span class="p">([</span>
+               <span class="mi">0</span><span class="p">,</span>      <span class="mi">192</span><span class="p">,</span> <span class="mi">576</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">576</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">576</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">576</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">,</span>        <span class="mi">0</span><span class="p">,</span>        <span class="mi">0</span><span class="p">,</span>
+        <span class="mi">256</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">256</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">256</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">256</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">256</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">256</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">256</span> <span class="o">&lt;&lt;</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">256</span> <span class="o">&lt;&lt;</span> <span class="mi">7</span>
+    <span class="p">]);</span>
+    
+    <span class="kr">const</span> <span class="nx">SAMPLE_RATES</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Int32Array</span><span class="p">([</span>
+        <span class="mi">0</span><span class="p">,</span> <span class="mi">88200</span><span class="p">,</span> <span class="mi">176400</span><span class="p">,</span> <span class="mi">192000</span><span class="p">,</span>
+        <span class="mi">8000</span><span class="p">,</span> <span class="mi">16000</span><span class="p">,</span> <span class="mi">22050</span><span class="p">,</span> <span class="mi">24000</span><span class="p">,</span> <span class="mi">32000</span><span class="p">,</span> <span class="mi">44100</span><span class="p">,</span> <span class="mi">48000</span><span class="p">,</span> <span class="mi">96000</span><span class="p">,</span>
+        <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="p">]);</span>
+    
+    <span class="kr">const</span> <span class="nx">SAMPLE_SIZES</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Int8Array</span><span class="p">([</span>
+        <span class="mi">0</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="p">]);</span>
+    
+    <span class="kr">const</span> <span class="nx">MAX_CHANNELS</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+          <span class="nx">CHMODE_INDEPENDENT</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nx">CHMODE_LEFT_SIDE</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
+          <span class="nx">CHMODE_RIGHT_SIDE</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span>
+          <span class="nx">CHMODE_MID_SIDE</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">readChunk</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bitstream</span><span class="p">;</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">available</span><span class="p">(</span><span class="mi">4096</span> <span class="o">&lt;&lt;</span> <span class="mi">6</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">receivedFinalBuffer</span> <span class="o">&amp;&amp;</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">available</span><span class="p">(</span><span class="mi">48</span><span class="p">))))</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">once</span><span class="p">(</span><span class="s1">&#39;available&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">readChunk</span><span class="p">);</span>
+                    </pre></div></td></tr><tr id="section-7"><td class="docs"><div class="pilwrap"><a href="#section-7" class="pilcrow">&#182;</a></div><p>frame sync code</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">if</span> <span class="p">((</span><span class="nx">stream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0x7FFF</span><span class="p">)</span> <span class="o">!==</span> <span class="mh">0x7FFC</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Invalid sync code&#39;</span><span class="p">);</span>
+            
+        <span class="kd">var</span> <span class="nx">isVarSize</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readOne</span><span class="p">(),</span>  <span class="c1">// variable block size stream code</span>
+            <span class="nx">bsCode</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>  <span class="c1">// block size</span>
+            <span class="nx">srCode</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>  <span class="c1">// sample rate code</span>
+            <span class="nx">chMode</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>  <span class="c1">// channel mode</span>
+            <span class="nx">bpsCode</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// bits per sample</span>
+            
+        <span class="nx">stream</span><span class="p">.</span><span class="nx">advance</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// reserved bit</span>
+        </pre></div></td></tr><tr id="section-8"><td class="docs"><div class="pilwrap"><a href="#section-8" class="pilcrow">&#182;</a></div><p>channels</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">this</span><span class="p">.</span><span class="nx">chMode</span> <span class="o">=</span> <span class="nx">chMode</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">channels</span><span class="p">;</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">chMode</span> <span class="o">&lt;</span> <span class="nx">MAX_CHANNELS</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">channels</span> <span class="o">=</span> <span class="nx">chMode</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">chMode</span> <span class="o">=</span> <span class="nx">CHMODE_INDEPENDENT</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">chMode</span> <span class="o">&lt;=</span> <span class="nx">CHMODE_MID_SIDE</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">channels</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Invalid channel mode&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">channels</span> <span class="o">!==</span> <span class="k">this</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">channelsPerFrame</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Switching channel layout mid-stream not supported.&#39;</span><span class="p">);</span>
+        </pre></div></td></tr><tr id="section-9"><td class="docs"><div class="pilwrap"><a href="#section-9" class="pilcrow">&#182;</a></div><p>bits per sample    </p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">if</span> <span class="p">(</span><span class="nx">bpsCode</span> <span class="o">===</span> <span class="mi">3</span> <span class="o">||</span> <span class="nx">bpsCode</span> <span class="o">===</span> <span class="mi">7</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Invalid sample size code&#39;</span><span class="p">);</span>
+            
+        <span class="k">this</span><span class="p">.</span><span class="nx">bps</span> <span class="o">=</span> <span class="nx">SAMPLE_SIZES</span><span class="p">[</span><span class="nx">bpsCode</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bps</span> <span class="o">!==</span> <span class="k">this</span><span class="p">.</span><span class="nx">format</span><span class="p">.</span><span class="nx">bitsPerChannel</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Switching bits per sample mid-stream not supported.&#39;</span><span class="p">);</span>
+        
+        <span class="kd">var</span> <span class="nx">sampleShift</span><span class="p">,</span> <span class="nx">is32</span><span class="p">;</span>    
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bps</span> <span class="o">&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">sampleShift</span> <span class="o">=</span> <span class="mi">32</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">bps</span><span class="p">;</span>
+            <span class="nx">is32</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">sampleShift</span> <span class="o">=</span> <span class="mi">16</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">bps</span><span class="p">;</span>
+            <span class="nx">is32</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        </pre></div></td></tr><tr id="section-10"><td class="docs"><div class="pilwrap"><a href="#section-10" class="pilcrow">&#182;</a></div><p>sample number or frame number
+see http://www.hydrogenaudio.org/forums/index.php?s=ea7085ffe6d57132c36e6105c0d434c9&amp;showtopic=88390&amp;pid=754269&amp;st=0&amp;#entry754269</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="kd">var</span> <span class="nx">ones</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">readOne</span><span class="p">()</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="nx">ones</span><span class="o">++</span><span class="p">;</span>
+        
+        <span class="kd">var</span> <span class="nx">frame_or_sample_num</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">7</span> <span class="o">-</span> <span class="nx">ones</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(;</span> <span class="nx">ones</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">ones</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">stream</span><span class="p">.</span><span class="nx">advance</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">// == 2</span>
+            <span class="nx">frame_or_sample_num</span> <span class="o">=</span> <span class="p">(</span><span class="nx">frame_or_sample_num</span> <span class="o">&lt;&lt;</span> <span class="mi">6</span><span class="p">)</span> <span class="o">|</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+        <span class="p">}</span>
+                </pre></div></td></tr><tr id="section-11"><td class="docs"><div class="pilwrap"><a href="#section-11" class="pilcrow">&#182;</a></div><p>block size</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">if</span> <span class="p">(</span><span class="nx">bsCode</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Reserved blocksize code&#39;</span><span class="p">);</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">bsCode</span> <span class="o">===</span> <span class="mi">6</span><span class="p">)</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">blockSize</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">bsCode</span> <span class="o">===</span> <span class="mi">7</span><span class="p">)</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">blockSize</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">blockSize</span> <span class="o">=</span> <span class="nx">BLOCK_SIZES</span><span class="p">[</span><span class="nx">bsCode</span><span class="p">];</span>
+            </pre></div></td></tr><tr id="section-12"><td class="docs"><div class="pilwrap"><a href="#section-12" class="pilcrow">&#182;</a></div><p>sample rate</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="kd">var</span> <span class="nx">sampleRate</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">srCode</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">)</span>
+            <span class="nx">sampleRate</span> <span class="o">=</span> <span class="nx">SAMPLE_RATES</span><span class="p">[</span><span class="nx">srCode</span><span class="p">];</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">srCode</span> <span class="o">===</span> <span class="mi">12</span><span class="p">)</span>
+            <span class="nx">sampleRate</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">;</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">srCode</span> <span class="o">===</span> <span class="mi">13</span><span class="p">)</span>
+            <span class="nx">sampleRate</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">srCode</span> <span class="o">===</span> <span class="mi">14</span><span class="p">)</span>
+            <span class="nx">sampleRate</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Invalid sample rate code&#39;</span><span class="p">);</span>
+            
+        <span class="nx">stream</span><span class="p">.</span><span class="nx">advance</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span> <span class="c1">// skip CRC check</span>
+        </pre></div></td></tr><tr id="section-13"><td class="docs"><div class="pilwrap"><a href="#section-13" class="pilcrow">&#182;</a></div><p>subframes</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">channels</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">decodeSubframe</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Error decoding subframe &#39;</span> <span class="o">+</span> <span class="nx">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="nx">stream</span><span class="p">.</span><span class="nx">align</span><span class="p">();</span>
+        <span class="nx">stream</span><span class="p">.</span><span class="nx">advance</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span> <span class="c1">// skip CRC frame footer</span>
+        
+        <span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ArrayBuffer</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">blockSize</span> <span class="o">*</span> <span class="nx">channels</span> <span class="o">*</span> <span class="k">this</span><span class="p">.</span><span class="nx">bps</span> <span class="o">/</span> <span class="mi">8</span><span class="p">),</span>
+            <span class="nx">buf</span> <span class="o">=</span> <span class="nx">is32</span> <span class="o">?</span> <span class="k">new</span> <span class="nx">Int32Array</span><span class="p">(</span><span class="nx">output</span><span class="p">)</span> <span class="o">:</span> <span class="k">new</span> <span class="nx">Int16Array</span><span class="p">(</span><span class="nx">output</span><span class="p">),</span>
+            <span class="nx">blockSize</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">blockSize</span><span class="p">,</span>
+            <span class="nx">decoded</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">decoded</span><span class="p">,</span>
+            <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            
+        <span class="k">switch</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">chMode</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="nx">CHMODE_INDEPENDENT</span><span class="o">:</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">k</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">k</span> <span class="o">&lt;</span> <span class="nx">blockSize</span><span class="p">;</span> <span class="nx">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">channels</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">buf</span><span class="p">[</span><span class="nx">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">k</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="nx">sampleShift</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="k">break</span><span class="p">;</span>
+                
+            <span class="k">case</span> <span class="nx">CHMODE_LEFT_SIDE</span><span class="o">:</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">blockSize</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">i</span><span class="p">],</span>
+                        <span class="nx">right</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="nx">i</span><span class="p">];</span>
+
+                    <span class="nx">buf</span><span class="p">[</span><span class="nx">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="nx">left</span> <span class="o">&lt;&lt;</span> <span class="nx">sampleShift</span><span class="p">;</span>
+                    <span class="nx">buf</span><span class="p">[</span><span class="nx">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nx">left</span> <span class="o">-</span> <span class="nx">right</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nx">sampleShift</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">break</span><span class="p">;</span>
+                
+            <span class="k">case</span> <span class="nx">CHMODE_RIGHT_SIDE</span><span class="o">:</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">blockSize</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">i</span><span class="p">],</span>
+                        <span class="nx">right</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="nx">i</span><span class="p">];</span>
+
+                    <span class="nx">buf</span><span class="p">[</span><span class="nx">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nx">left</span> <span class="o">+</span> <span class="nx">right</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nx">sampleShift</span><span class="p">;</span>
+                    <span class="nx">buf</span><span class="p">[</span><span class="nx">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="nx">right</span> <span class="o">&lt;&lt;</span> <span class="nx">sampleShift</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">break</span><span class="p">;</span>
+                
+            <span class="k">case</span> <span class="nx">CHMODE_MID_SIDE</span><span class="o">:</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">blockSize</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">var</span> <span class="nx">left</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="nx">i</span><span class="p">],</span>
+                        <span class="nx">right</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="nx">i</span><span class="p">];</span>
+                    
+                    <span class="nx">left</span> <span class="o">-=</span> <span class="nx">right</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="nx">buf</span><span class="p">[</span><span class="nx">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nx">left</span> <span class="o">+</span> <span class="nx">right</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nx">sampleShift</span><span class="p">;</span>
+                    <span class="nx">buf</span><span class="p">[</span><span class="nx">j</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="nx">left</span> <span class="o">&lt;&lt;</span> <span class="nx">sampleShift</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">break</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="nx">buf</span><span class="p">);</span>
+    <span class="p">};</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">decodeSubframe</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">channel</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">wasted</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">stream</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bitstream</span><span class="p">,</span>
+            <span class="nx">blockSize</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">blockSize</span><span class="p">,</span>
+            <span class="nx">decoded</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">decoded</span><span class="p">;</span>
+        
+        <span class="k">this</span><span class="p">.</span><span class="nx">curr_bps</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bps</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">channel</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">chMode</span> <span class="o">===</span> <span class="nx">CHMODE_RIGHT_SIDE</span><span class="p">)</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">curr_bps</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">chMode</span> <span class="o">===</span> <span class="nx">CHMODE_LEFT_SIDE</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">chMode</span> <span class="o">===</span> <span class="nx">CHMODE_MID_SIDE</span><span class="p">)</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">curr_bps</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">readOne</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s2">&quot;Invalid subframe padding&quot;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">stream</span><span class="p">.</span><span class="nx">readOne</span><span class="p">())</span> <span class="p">{</span>
+            <span class="nx">wasted</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="nx">stream</span><span class="p">.</span><span class="nx">readOne</span><span class="p">())</span>
+                <span class="nx">wasted</span><span class="o">++</span><span class="p">;</span>
+
+            <span class="k">this</span><span class="p">.</span><span class="nx">curr_bps</span> <span class="o">-=</span> <span class="nx">wasted</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">curr_bps</span> <span class="o">&gt;</span> <span class="mi">32</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s2">&quot;decorrelated bit depth &gt; 32 (&quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">curr_bps</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSigned</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">curr_bps</span><span class="p">);</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">blockSize</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+                <span class="nx">decoded</span><span class="p">[</span><span class="nx">channel</span><span class="p">][</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">tmp</span><span class="p">;</span>
+                
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">===</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">bps</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">curr_bps</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">blockSize</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+                <span class="nx">decoded</span><span class="p">[</span><span class="nx">channel</span><span class="p">][</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSigned</span><span class="p">(</span><span class="nx">bps</span><span class="p">);</span>
+                
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">((</span><span class="nx">type</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">type</span> <span class="o">&lt;=</span> <span class="mi">12</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">decode_subframe_fixed</span><span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">type</span> <span class="o">&amp;</span> <span class="o">~</span><span class="mh">0x8</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+                
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">type</span> <span class="o">&gt;=</span> <span class="mi">32</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">decode_subframe_lpc</span><span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="p">(</span><span class="nx">type</span> <span class="o">&amp;</span> <span class="o">~</span><span class="mh">0x20</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s2">&quot;Invalid coding type&quot;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">wasted</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">blockSize</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+                <span class="nx">decoded</span><span class="p">[</span><span class="nx">channel</span><span class="p">][</span><span class="nx">i</span><span class="p">]</span> <span class="o">&lt;&lt;=</span> <span class="nx">wasted</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">};</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">decode_subframe_fixed</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">predictor_order</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">decoded</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">decoded</span><span class="p">[</span><span class="nx">channel</span><span class="p">],</span>
+            <span class="nx">stream</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bitstream</span><span class="p">,</span>
+            <span class="nx">bps</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">curr_bps</span><span class="p">;</span>
+    </pre></div></td></tr><tr id="section-14"><td class="docs"><div class="pilwrap"><a href="#section-14" class="pilcrow">&#182;</a></div><p>warm up samples</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">predictor_order</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSigned</span><span class="p">(</span><span class="nx">bps</span><span class="p">);</span>
+    
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">decode_residuals</span><span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">predictor_order</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        
+        <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">predictor_order</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> 
+            <span class="nx">a</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">predictor_order</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">predictor_order</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="nx">b</span> <span class="o">=</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">predictor_order</span> <span class="o">-</span> <span class="mi">2</span><span class="p">];</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">predictor_order</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">)</span> 
+            <span class="nx">c</span> <span class="o">=</span> <span class="nx">b</span> <span class="o">-</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">predictor_order</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">predictor_order</span> <span class="o">-</span> <span class="mi">3</span><span class="p">];</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">predictor_order</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="nx">d</span> <span class="o">=</span> <span class="nx">c</span> <span class="o">-</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">predictor_order</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">predictor_order</span> <span class="o">-</span> <span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">predictor_order</span> <span class="o">-</span> <span class="mi">4</span><span class="p">];</span>
+            
+        <span class="k">switch</span> <span class="p">(</span><span class="nx">predictor_order</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">case</span> <span class="mi">0</span><span class="o">:</span>
+                <span class="k">break</span><span class="p">;</span>
+                
+            <span class="k">case</span> <span class="mi">1</span><span class="o">:</span>
+            <span class="k">case</span> <span class="mi">2</span><span class="o">:</span>
+            <span class="k">case</span> <span class="mi">3</span><span class="o">:</span>
+            <span class="k">case</span> <span class="mi">4</span><span class="o">:</span>
+                <span class="kd">var</span> <span class="nx">abcd</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Int32Array</span><span class="p">([</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">,</span> <span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">]),</span>
+                    <span class="nx">blockSize</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">blockSize</span><span class="p">;</span>
+                    
+                <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">predictor_order</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">blockSize</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">abcd</span><span class="p">[</span><span class="nx">predictor_order</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+                    
+                    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">predictor_order</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">abcd</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">abcd</span><span class="p">[</span><span class="nx">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+                    <span class="p">}</span>
+                    
+                    <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">abcd</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                <span class="p">}</span>
+                
+                <span class="k">break</span><span class="p">;</span>
+                
+            <span class="k">default</span><span class="o">:</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s2">&quot;Invalid Predictor Order &quot;</span> <span class="o">+</span> <span class="nx">predictor_order</span><span class="p">);</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+         
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">};</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">decode_subframe_lpc</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">predictor_order</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bitstream</span><span class="p">,</span>
+            <span class="nx">decoded</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">decoded</span><span class="p">[</span><span class="nx">channel</span><span class="p">],</span>
+            <span class="nx">bps</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">curr_bps</span><span class="p">,</span>
+            <span class="nx">blockSize</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">blockSize</span><span class="p">;</span>
+            </pre></div></td></tr><tr id="section-15"><td class="docs"><div class="pilwrap"><a href="#section-15" class="pilcrow">&#182;</a></div><p>warm up samples</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">predictor_order</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSigned</span><span class="p">(</span><span class="nx">bps</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">coeff_prec</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">coeff_prec</span> <span class="o">===</span> <span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s2">&quot;Invalid coefficient precision&quot;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="kd">var</span> <span class="nx">qlevel</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSigned</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">qlevel</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s2">&quot;Negative qlevel, maybe buggy stream&quot;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="kd">var</span> <span class="nx">coeffs</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Int32Array</span><span class="p">(</span><span class="mi">32</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">predictor_order</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">coeffs</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSigned</span><span class="p">(</span><span class="nx">coeff_prec</span><span class="p">);</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">decode_residuals</span><span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">predictor_order</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">bps</span> <span class="o">&gt;</span> <span class="mi">16</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s2">&quot;no 64-bit integers in JS, could probably use doubles though&quot;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+            
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">predictor_order</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">blockSize</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="nx">predictor_order</span><span class="p">],</span>
+                <span class="nx">s0</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">s1</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">c</span><span class="p">;</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="nx">predictor_order</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">c</span> <span class="o">=</span> <span class="nx">coeffs</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+                <span class="nx">s0</span> <span class="o">+=</span> <span class="nx">c</span> <span class="o">*</span> <span class="nx">d</span><span class="p">;</span>
+                <span class="nx">d</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="nx">j</span><span class="p">];</span>
+                <span class="nx">s1</span> <span class="o">+=</span> <span class="nx">c</span> <span class="o">*</span> <span class="nx">d</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nx">c</span> <span class="o">=</span> <span class="nx">coeffs</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+            <span class="nx">s0</span> <span class="o">+=</span> <span class="nx">c</span> <span class="o">*</span> <span class="nx">d</span><span class="p">;</span>
+            <span class="nx">d</span> <span class="o">=</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">s0</span> <span class="o">&gt;&gt;</span> <span class="nx">qlevel</span><span class="p">);</span>
+            <span class="nx">s1</span> <span class="o">+=</span> <span class="nx">c</span> <span class="o">*</span> <span class="nx">d</span><span class="p">;</span>
+            <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">s1</span> <span class="o">&gt;&gt;</span> <span class="nx">qlevel</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">blockSize</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="o">&lt;</span> <span class="nx">predictor_order</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span><span class="p">)</span>
+                <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">coeffs</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="o">*</span> <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span> <span class="o">-</span> <span class="nx">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+
+            <span class="nx">decoded</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="nx">sum</span> <span class="o">&gt;&gt;</span> <span class="nx">qlevel</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">};</span>
+    
+    <span class="kr">const</span> <span class="nx">INT_MAX</span> <span class="o">=</span> <span class="mi">32767</span><span class="p">;</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">decode_residuals</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">channel</span><span class="p">,</span> <span class="nx">predictor_order</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">stream</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bitstream</span><span class="p">,</span>
+            <span class="nx">method_type</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+            
+        <span class="k">if</span> <span class="p">(</span><span class="nx">method_type</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Illegal residual coding method &#39;</span> <span class="o">+</span> <span class="nx">method_type</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="kd">var</span> <span class="nx">rice_order</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+            <span class="nx">samples</span> <span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">blockSize</span> <span class="o">&gt;&gt;&gt;</span> <span class="nx">rice_order</span><span class="p">);</span>
+            
+        <span class="k">if</span> <span class="p">(</span><span class="nx">predictor_order</span> <span class="o">&gt;</span> <span class="nx">samples</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">,</span> <span class="s1">&#39;Invalid predictor order &#39;</span> <span class="o">+</span> <span class="nx">predictor_order</span> <span class="o">+</span> <span class="s1">&#39; &gt; &#39;</span> <span class="o">+</span> <span class="nx">samples</span><span class="p">);</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="kd">var</span> <span class="nx">decoded</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">decoded</span><span class="p">[</span><span class="nx">channel</span><span class="p">],</span>
+            <span class="nx">sample</span> <span class="o">=</span> <span class="nx">predictor_order</span><span class="p">,</span> 
+            <span class="nx">i</span> <span class="o">=</span> <span class="nx">predictor_order</span><span class="p">;</span>
+        
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">partition</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">partition</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="nx">rice_order</span><span class="p">);</span> <span class="nx">partition</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="nx">method_type</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">4</span> <span class="o">:</span> <span class="mi">5</span><span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="nx">tmp</span> <span class="o">===</span> <span class="p">(</span><span class="nx">method_type</span> <span class="o">===</span> <span class="mi">0</span> <span class="o">?</span> <span class="mi">15</span> <span class="o">:</span> <span class="mi">31</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nx">tmp</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSmall</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+                <span class="k">for</span> <span class="p">(;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">samples</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+                    <span class="nx">decoded</span><span class="p">[</span><span class="nx">sample</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="nx">stream</span><span class="p">.</span><span class="nx">readSigned</span><span class="p">(</span><span class="nx">tmp</span><span class="p">);</span>
+                    
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">samples</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+                    <span class="nx">decoded</span><span class="p">[</span><span class="nx">sample</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">golomb</span><span class="p">(</span><span class="nx">tmp</span><span class="p">,</span> <span class="nx">INT_MAX</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+            <span class="p">}</span>
+            
+            <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">};</span>
+    
+    <span class="kr">const</span> <span class="nx">MIN_CACHE_BITS</span> <span class="o">=</span> <span class="mi">25</span><span class="p">;</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">golomb</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">k</span><span class="p">,</span> <span class="nx">limit</span><span class="p">,</span> <span class="nx">esc_len</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bitstream</span><span class="p">,</span>
+            <span class="nx">offset</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">bitPosition</span><span class="p">,</span>
+            <span class="nx">buf</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">peekBig</span><span class="p">(</span><span class="mi">32</span> <span class="o">-</span> <span class="nx">offset</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nx">offset</span><span class="p">,</span>
+            <span class="nx">v</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        
+        <span class="kd">var</span> <span class="nx">log</span> <span class="o">=</span> <span class="mi">31</span> <span class="o">-</span> <span class="nx">clz</span><span class="p">(</span><span class="nx">buf</span> <span class="o">|</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// log2(buf)</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">log</span> <span class="o">-</span> <span class="nx">k</span> <span class="o">&gt;=</span> <span class="mi">32</span> <span class="o">-</span> <span class="nx">MIN_CACHE_BITS</span> <span class="o">&amp;&amp;</span> <span class="mi">32</span> <span class="o">-</span> <span class="nx">log</span> <span class="o">&lt;</span> <span class="nx">limit</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">buf</span> <span class="o">&gt;&gt;&gt;=</span> <span class="nx">log</span> <span class="o">-</span> <span class="nx">k</span><span class="p">;</span>
+            <span class="nx">buf</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">30</span> <span class="o">-</span> <span class="nx">log</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nx">k</span><span class="p">;</span>
+
+            <span class="nx">data</span><span class="p">.</span><span class="nx">advance</span><span class="p">(</span><span class="mi">32</span> <span class="o">+</span> <span class="nx">k</span> <span class="o">-</span> <span class="nx">log</span><span class="p">);</span>
+            <span class="nx">v</span> <span class="o">=</span> <span class="nx">buf</span><span class="p">;</span>
+            
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span>
+                <span class="nx">buf</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">peekBig</span><span class="p">(</span><span class="mi">32</span> <span class="o">-</span> <span class="nx">offset</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="nx">offset</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">limit</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">k</span><span class="p">)</span>
+                    <span class="nx">buf</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="nx">k</span><span class="p">);</span>
+                <span class="k">else</span>
+                    <span class="nx">buf</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+                <span class="nx">v</span> <span class="o">=</span> <span class="nx">buf</span> <span class="o">+</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;&lt;</span> <span class="nx">k</span><span class="p">);</span>
+                
+            <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">i</span> <span class="o">===</span> <span class="nx">limit</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">buf</span> <span class="o">=</span> <span class="nx">data</span><span class="p">.</span><span class="nx">read</span><span class="p">(</span><span class="nx">esc_len</span><span class="p">);</span>
+                <span class="nx">v</span> <span class="o">=</span> <span class="nx">buf</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+                
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="p">(</span><span class="nx">v</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">^</span> <span class="o">-</span><span class="p">(</span><span class="nx">v</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">};</span>
+    </pre></div></td></tr><tr id="section-16"><td class="docs"><div class="pilwrap"><a href="#section-16" class="pilcrow">&#182;</a></div><p>Should be in the damned standard library...</p>
+</td><td class="code"><div class="highlight"><pre>    <span class="kd">function</span> <span class="nx">clz</span><span class="p">(</span><span class="nx">input</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">output</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">curbyte</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// emulate goto in JS using the break statement :D</span>
+            <span class="nx">curbyte</span> <span class="o">=</span> <span class="nx">input</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">24</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">curbyte</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+            <span class="nx">output</span> <span class="o">+=</span> <span class="mi">8</span><span class="p">;</span>
+
+            <span class="nx">curbyte</span> <span class="o">=</span> <span class="nx">input</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">16</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">curbyte</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+            <span class="nx">output</span> <span class="o">+=</span> <span class="mi">8</span><span class="p">;</span>
+
+            <span class="nx">curbyte</span> <span class="o">=</span> <span class="nx">input</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">8</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">curbyte</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+            <span class="nx">output</span> <span class="o">+=</span> <span class="mi">8</span><span class="p">;</span>
+
+            <span class="nx">curbyte</span> <span class="o">=</span> <span class="nx">input</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">curbyte</span> <span class="o">&amp;</span> <span class="mh">0xff</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+            <span class="nx">output</span> <span class="o">+=</span> <span class="mi">8</span><span class="p">;</span>
+
+            <span class="k">return</span> <span class="nx">output</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="p">(</span><span class="nx">curbyte</span> <span class="o">&amp;</span> <span class="mh">0xf0</span><span class="p">))</span>
+            <span class="nx">output</span> <span class="o">+=</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="nx">curbyte</span> <span class="o">&gt;&gt;&gt;=</span> <span class="mi">4</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">curbyte</span> <span class="o">&amp;</span> <span class="mh">0x8</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nx">output</span><span class="p">;</span>
+            
+        <span class="k">if</span> <span class="p">(</span><span class="nx">curbyte</span> <span class="o">&amp;</span> <span class="mh">0x4</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nx">output</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+            
+        <span class="k">if</span> <span class="p">(</span><span class="nx">curbyte</span> <span class="o">&amp;</span> <span class="mh">0x2</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nx">output</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span>
+            
+        <span class="k">if</span> <span class="p">(</span><span class="nx">curbyte</span> <span class="o">&amp;</span> <span class="mh">0x1</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nx">output</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span></pre></div></td></tr><tr id="section-17"><td class="docs"><div class="pilwrap"><a href="#section-17" class="pilcrow">&#182;</a></div><p>shouldn't get here</p>
+</td><td class="code"><div class="highlight"><pre>        <span class="k">return</span> <span class="nx">output</span> <span class="o">+</span> <span class="mi">4</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+</pre></div></td></tr></tbody></table><div id="projectname"><a href="../../../index.html">JukeboxJS</a></div></div></body></html>
