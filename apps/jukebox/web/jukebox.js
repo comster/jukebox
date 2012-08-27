@@ -820,6 +820,17 @@
             //console.log(this.preloads)
             if(typeof fileName == 'string') {
                 
+                if(false && fileName.indexOf('http') == 0) {
+                    // let's try loading cross domain without ajax
+                    var a = new Audio();
+                    a.src = fileName;
+                    a.load();
+                    //a.play();
+                    console.log(a);
+                    window.audTest = a;
+                    return;
+                }
+                
                 if(this.preloads.hasOwnProperty(fileName)) {
                     player = this.preloads[fileName];
                     player.on('ready', function(){
@@ -921,24 +932,23 @@
             }
         },
         visualizePlayer: function(player) {
-            console.log(player.device.device.node)
             var self = this;
-            var $v = $('.visual');
+            var $v = this.$player.find('.visual');
             var w = $v.width(),
                 h = $v.height(),
-                z = d3.scale.category20c(),
+                z = d3.scale.category20(),
                 i = 0;
             var b = 0;
-            if(w == 0) {
-                console.log('width 0');
+            if(w == 0 || h == 0) {
+                console.log('no width');
                 setTimeout(function() {
                     self.visualizePlayer(player);
                 }, 1000);
                 return;
             }
             var prog = 0;
-            $(".visual").html('');
-            var svg = d3.select(".visual").append("svg:svg")
+            $v.html('');
+            var svg = d3.select($v[0]).append("svg:svg")
                 .attr("width", w)
                 .attr("height", h)
                 .style("pointer-events", "all");
@@ -974,10 +984,11 @@
                     return h;
                 }
             }
+            var r = w/1.3;
+            var txDuration = (window.navigator.userAgent.indexOf('iPhone') === -1) ? 8500 : 1100;
             function particle(mag, color) {
               var rv = Math.floor(mag * 255) + 55;
               var strokeColor = color ? z(i++) : 'rgb('+rv+','+rv+','+rv+')';
-              var r = w/1.3;
               svg.append("svg:circle")
                   .attr("cx", self.cx())
                   .attr("cy", self.cy())
@@ -986,7 +997,7 @@
                   .style("stroke-width", mag*100)
                   .style("stroke-opacity", 1)
                 .transition()
-                  .duration(6000)
+                  .duration(txDuration)
                   .ease(Math.sqrt)
                   .attr("r", r)
                   .style("stroke-opacity", 1e-6)
@@ -997,20 +1008,27 @@
                 console.log('device not ready');
                 return;
             }
+            console.log(player);
+            var dancerSource = player.device;
+            var dancer = new Dancer();
+            var kickOpts = {
+              onKick: function ( mag ) {
+                //console.log('onKick! '+mag);
+                particle(mag*2, true);
+              }
+            }
             
-            var dancerSource = player.device.device.node;
-             var
-              dancer = new Dancer(),
-              beat = dancer.createBeat({
-                onBeat: function ( mag ) {
-                  //console.log('Beat! '+mag);
-                  particle(mag*2, true);
-                },
-                offBeat: function ( mag ) {
-                  //console.log('no beat :( '+mag);
+            if(window.navigator.userAgent.indexOf('iPhone') === -1) {
+                kickOpts.offKick = function ( mag ) {
+                  //console.log('offKick '+mag);
                   particle(mag);
                 }
-              });
+            } else {
+                particle(1, false);
+            }
+            particle(.5, true);
+            
+            var kick = dancer.createKick(kickOpts);
             
             var toggleLeftRight = function() {
                 self.leftRight = !self.leftRight;
@@ -1023,8 +1041,7 @@
             }, 22000);
             //toggleLeftRight();
             
-            // Let's turn this beat on right away
-            beat.on();
+            kick.on();
             
             dancer.load(dancerSource);
         },
