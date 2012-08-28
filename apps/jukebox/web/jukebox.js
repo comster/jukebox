@@ -1,5 +1,5 @@
 //
-//
+// JUKEBOX!
 //
 (function(){
 
@@ -8,14 +8,10 @@
     var AppView = Backbone.View.extend({
         render: function() {
             this.$el.html('');
-            
             this.headerNavView.render();
-            
             this.$el.append(this.$appHeader);
             this.$el.append(this.$appFrames);
-            
             this.headerNavView.go('Jukebox');
-            
             this.setElement(this.$el);
             
             return this;
@@ -37,8 +33,6 @@
                 self.headerNavView.addView('Queue', new QueueView({el: $('<div id="queue"></div>'), chat: chatApp}));
             });
             this.$mediaPreviewer.addClass('hidden');
-        },
-        events: {
         }
     });
     
@@ -157,14 +151,11 @@
                 self.$queue = $('<ul class="queue"></ul>');
                 self.$div.append(self.$played);
                 self.$div.append(self.$queue);
-                //console.log('update queue with room '+room.get('id'));
-                //self.$queue.html('');
                 self.songsQueueList = new SongqListView({el: self.$queue, roomId: room.get('id')});
-                //self.songsQueueList = self.queues[room.get('id')];
+                self.songsPlayedList = new SongpListView({el: self.$played, roomId: room.get('id')});
                 
                 // request the room information
                 chatSocket.emit('info', room.get('id'), function(roomInfo){
-                    //console.log(roomInfo);
                     
                     if(roomInfo.song) {
                     
@@ -177,35 +168,24 @@
                         JukeBoxPlayer.player.play();
                     }
                 });
-                //self.$played.html('');
-                self.songsPlayedList = new SongpListView({el: self.$played, roomId: room.get('id')}); // self.plays[room.get('id')] = 
                 
                 self.songsQueueList.render();
                 self.songsPlayedList.render();
             });
-            
-        },
-        events: {
         }
     });
     
-    //
-    
     function parseFile(file, callback){
-        //console.log(file);
         var parsed = false;
         setTimeout(function(){
-            if(parsed) {
-                
-            } else {
+            if(!parsed) {
                 callback({});
             }
         }, 1000);
-      ID3v2.parseFile(file, function(tags){
-          parsed = true;
-        //console.log(tags);
-        callback(tags);
-      });
+        ID3v2.parseFile(file, function(tags){
+            parsed = true;
+            callback(tags);
+        });
     }
     
     var UploadFrame = Backbone.View.extend({
@@ -277,22 +257,13 @@
             
             var formData = new FormData();
             var xhr = new XMLHttpRequest();
-                         
-            var onReady = function(e) {
-             // ready state
-            };
-            
-            var onError = function(err) {
-              // something went wrong with upload
-            };
-            
             formData.append('files', blobOrFile);
             xhr.open('POST', '/api/files', true);
-            xhr.addEventListener('error', onError, false);
+            //xhr.addEventListener('error', onError, false);
             //xhr.addEventListener('progress', onProgress, false);
-            xhr.addEventListener('readystatechange', onReady, false);
+            //xhr.addEventListener('readystatechange', onReady, false);
             
-          xhr.onload = function(e) {
+            xhr.onload = function(e) {
               //console.log('upload complete');
               var data = JSON.parse(e.target.response);
               
@@ -301,26 +272,23 @@
               }
               
               if(callback) callback();
-          };
-        
-          // Listen to the upload progress.
-          var progressBar = $row.find('progress');
-          xhr.upload.onprogress = function(e) {
-            if (e.lengthComputable) {
-              progressBar.val((e.loaded / e.total) * 100);
-              //progressBar.textContent = progressBar.value; // Fallback for unsupported browsers.
-            }
-          };
+            };
+            
+            // Listen to the upload progress.
+            var progressBar = $row.find('progress');
+            xhr.upload.onprogress = function(e) {
+                if (e.lengthComputable) {
+                  progressBar.val((e.loaded / e.total) * 100);
+                  progressBar.textContent = progressBar.value; // Fallback for unsupported browsers.
+                }
+            };
         
             xhr.send(formData);
         },
         appendFile: function(f, callback) {
             var self = window.UploadFrame;
             parseFile(f,function(tags){
-                //console.log(tags);
-                
-                // TODO make this a backbone view
-                
+                // TODO make this a backbone view.  this is the lazy jquery way
                 var $localFile = $('<div class="localFile"></div>');
                 var $actions = $('<span class="actions"></span> ');
                 var $title = $('<span class="title"></span> ');
@@ -330,7 +298,6 @@
                 var $genre = $('<span class="genre"></span> ');
                 
                 var t2 = guessSong(f.webkitRelativePath || f.mozFullPath || f.name); 
-                //console.log(t2);
                 $actions.html('');
                 
                 var title = tags.Title || t2.Title;
@@ -354,20 +321,8 @@
                 $localFile.append($album);
                 $localFile.append($year);
                 $localFile.append($genre);
-                
                 $localFile.append('<progress min="0" max="100" value="0" style="display:none;">0% complete</progress>');
-                
-                var url;
-                if(window.createObjectURL){
-                  url = window.createObjectURL(f)
-                }else if(window.createBlobURL){
-                  url = window.createBlobURL(f)
-                }else if(window.URL && window.URL.createObjectURL){
-                  url = window.URL.createObjectURL(f)
-                }else if(window.webkitURL && window.webkitURL.createObjectURL){
-                  url = window.webkitURL.createObjectURL(f)
-                }
-                
+                                
                 var $remove = $('<button>x</button>').click(function(){
                     $localFile.remove();
                     return false;
@@ -1392,6 +1347,7 @@
         tagName: 'span',
         className: 'user',
         render: function() {
+            if(!this.model) return;
             this.$el.html('');
             var $avatar = $('<img src="/jukebox/assets/img/icons/library.png" />');
             if(this.model && this.model.has('avatar')) {
@@ -2080,8 +2036,7 @@
                                 jukebox.$loginPrompt.hide();
                                 var profileView = loginStatus.getView();
                                 $profile.html(profileView.render().el);
-                                
-                                callback(loginStatus);
+                                //callback(loginStatus);
                             });
                         }
                     }

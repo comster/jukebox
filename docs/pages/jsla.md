@@ -140,8 +140,6 @@ Backbone application static files served from apps/jukebox/web to /jukebox
 
 Organizing a backbone project
 
- - Routing URLs
- - [Can I Use?: History](http://caniuse.com/#feat=history)
  - [Require.js](http://requirejs.org/) & [Why AMD?](http://requirejs.org/docs/whyamd.html)
 
 Example Bootstrap:
@@ -192,8 +190,35 @@ Understand how Views, Models and Collections work together:
 
 Example:
 
-    asda
-    asdasd
+    var MyListView = Backbone.View.extend({
+
+        initialize: function() {
+            
+            this.collection = new MyCollection();
+
+            // listen for new documents to add to the list
+            this.collection.on('add', function(doc){
+                self.$el.append(doc.getView().el);
+            });
+
+            // load initial data from the server
+            this.collection.fetch();
+        },
+        render: function() {
+            this.$el.html('<ul></ul>');
+            return this;
+        },
+        events: {
+            "click": "alert"
+        },
+        alert: function() {
+            alert('you clicked on the view el');
+        }
+    });
+
+    var view = new MyView({el: $('#div-id')});
+
+    view.render();
 
 
 
@@ -266,6 +291,7 @@ Example:
 
  - [Can I Use?: Audio API](http://caniuse.com/#feat=audio-api)
  - [Aurora on github](https://github.com/ofmlabs/aurora.js)
+ - mp3, flac, alac, m4a, aac, ogg
 
 Example:
 
@@ -372,10 +398,10 @@ Example:
 
 ##Vizualizing audio using dancer.js & d3
 
- - [Basic D3 Sample](http://bl.ocks.org/1062544)
- - Dancer [patch](https://github.com/comster/dancer.js/commit/1b369a78dce26829b495b86d4aa0f5fddfeded1f) to work with Aurora [forked on github](https://github.com/comster/dancer.js)
- - [Dancer.js & Aurora Example](http://comster.github.com/dancer.js/examples/aurora/)
  - [Dancer API](http://jsantell.github.com/dancer.js/)
+ - Dancer [patch](https://github.com/comster/dancer.js/commit/1b369a78dce26829b495b86d4aa0f5fddfeded1f) to work with Aurora [forked on github](https://github.com/comster/dancer.js)
+ - [Basic D3 Sample](http://bl.ocks.org/1062544)
+ - [Dancer.js & Aurora Example](http://comster.github.com/dancer.js/examples/aurora/)
 
 Example:
 
@@ -384,9 +410,11 @@ Example:
     var kick = dancer.createKick({
         onKick: function ( mag ) {
           console.log('Kick!');
+          drawRadParticles(mag);
         },
         offKick: function ( mag ) {
           console.log('no kick :(');
+          drawSadParticles(mag);
         }
       }).on();
 
@@ -419,16 +447,24 @@ Example:
 
 ##Where to go from here?
 
+Other cool HTML5
+ - Routing URLs - [Can I Use?: History](http://caniuse.com/#feat=history)
  - Web Workers
- - Reference files remotely, without CORS
- - Podcast player
+
+
+TODO
+
  - Visualizations as plug-ins
  - Skins
+ - Podcast player
  - Drag and drop images to chat
- - DJ more than the audio
+ - DJ more than the audio (visual, skin, etc)
  - Drag and drop queue
  - Round Robin Queue
  - Compress HTML app css & js.
+ - Reference files remotely, without CORS
+ - Youtube API
+ - Last.fm
 
 
 

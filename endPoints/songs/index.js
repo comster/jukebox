@@ -29,7 +29,6 @@ var ObjectID = mongo.ObjectID;
         // Attempt to see if the request path included a document id
         var docId;
         
-        
         // We'll accept id's after a slash, such as endpoint/documentId
         if(path.length > 1 && path.indexOf('/') === 0) {
             var docId = path.substr(1);
@@ -68,7 +67,7 @@ var ObjectID = mongo.ObjectID;
          */    
         } else if(req.method == 'POST') {
             // Create new songs
-            if(path == '') {
+            if(path == '' && req.session.data.user) {
                 ds.insert(col, req.fields, function(err, data){
                     if(err) {
                         house.log.err(err);
@@ -80,7 +79,7 @@ var ObjectID = mongo.ObjectID;
             }
         } else if(req.method == 'PUT') {
             var query = {};
-            if(docId) {
+            if(docId && req.session.data.user) {
                 query._id = docId;
             
                 ds.update(col, query, req.fields, function(err, data){
@@ -95,7 +94,7 @@ var ObjectID = mongo.ObjectID;
             }
         } else if(req.method == 'DELETE') {
             var query = {};
-            if(docId) {
+            if(docId && req.session.data.user) {
                 query._id = docId;
                 ds.remove(col, query, function(err, data){
                     if(err) {
