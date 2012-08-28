@@ -1,5 +1,5 @@
 //
-// # Authentication API Endpoint
+// # Chat API Endpoint
 //
 
 var ObjectID = mongo.ObjectID;
@@ -15,12 +15,16 @@ var ObjectID = mongo.ObjectID;
     var songplaying = {};
     var advancingQueue = {};
     
+    //
+    // Chat I/O
+    //
     var io = house.ioChat = house.io.of('/socket.io/chat');
     io.authorization(function (data, accept) {
         console.log('socket auth');
         accept(null, true);
     });
     
+    // helper function get get currently playing song for the roomId
     var getCurrentlyPlaying = function(roomId, callback) {
         ds.find('songq', {room_id:roomId, pAt: {$exists: true}}, function(err, data) {
             callback(data);
@@ -78,6 +82,9 @@ var ObjectID = mongo.ObjectID;
         });
     }
     
+    //
+    // Advance the Room Song Queue
+    //
     var advanceRoomSongQ = function(roomId, userSkip) {
         
         if(advancingQueue[roomId]) {

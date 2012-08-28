@@ -7,7 +7,7 @@
     auth.apiUrl = houseApi+'/auth';
     
     //
-    // Get
+    // Auth Get
     //
     // Use backbone to get our current user session data
     //
@@ -21,7 +21,7 @@
     var users = {};
     
     //
-    // AvatarView
+    // User AvatarView
     //
     // Renders an image of the user
     //
@@ -41,6 +41,11 @@
         }
     });
     
+    //
+    // User Model
+    //
+    // getAvatarView helper method to get a view for this data
+    //
     users.Model = Backbone.Model.extend({
         initialize: function() {
             var self = this;
@@ -55,6 +60,9 @@
         }
     });
     
+    //
+    // User Collection
+    //
     users.Collection = Backbone.Collection.extend({
         model: users.Model,
         url: houseApi+"/users",

@@ -903,16 +903,18 @@
                 delete this.player;
             }
             
+            // keep a reference to our player
             this.player = player;
+            
+            // set the volume
             this.player.volume = (this.playerVolume || this.playerVolume === 0) ? this.playerVolume : 100;
+            
+            // render ratings for the song
             if(song) {
                 this.song = song;
                 this.songRatingListView = new SongRatingListView({song_id:this.song.id});
                 this.render();
             }
-            //console.log('loadSong: '+fileName);
-            
-            //this.visualizePlayer(player);
             
             if(this.preloads.hasOwnProperty(fileName)) {
                 player.on('ready', function(){ // in case its not loaded yet
@@ -1084,9 +1086,7 @@
         events: {
             "keyup input": "search"
         }, search: function(e){
-            // TODO web worker this or something not to disrupt playback
             var searchStr = this.$search.val().trim();
-            
             var regex = new RegExp(searchStr.replace(/\s+/g, '.*'), 'ig');
             for(var i = $('.songList .song'), l = i.length; l--;){
               if(regex.test(i[l].dataset.ss)){
@@ -1097,25 +1097,9 @@
             }
             
             // also search the server
-            
             this.options.library.songListView.collection.search(searchStr);
         }
     });
-    
-    var VisualView = Backbone.View.extend({
-        className: 'visual',
-        element: 'div',
-        render: function() {
-            this.$el.html('<canvas />');
-            this.setElement(this.$el);
-            return this;
-        },
-        initialize: function() {
-        },
-        events: {
-        }
-    });
-    
     
     var SongModel = Backbone.Model.extend({
         initialize: function() {
@@ -1135,11 +1119,11 @@
                     var songqCollection = JukeBoxQueue.songsQueueList.collection;
                     var songq = new SongqModel({}, {collection: songqCollection});
                     songq.on("change", function(songq, options){
-                        var s = songq.save(null, {silent: true, wait: true})
-                            .done(function(s, typeStr, respStr) {
-                                self.trigger('saved', songq);
-                                songqCollection.add(songq);
-                            });
+                        var s = songq.save(null, {silent: true, wait: true});
+                        s.done(function(s, typeStr, respStr) {
+                            self.trigger('saved', songq);
+                            songqCollection.add(songq);
+                        });
                     });
                     var newSongq = {
                         song: songModel.attributes,
@@ -1287,7 +1271,7 @@
         }
     });
     
-    SongqListView = Backbone.View.extend({
+    var SongqListView = Backbone.View.extend({
         tag: 'div',
         className: 'songsQueueList',
         render: function() {
@@ -1535,7 +1519,7 @@
     });
     
     
-    SongpModel = Backbone.Model.extend({
+    var SongpModel = Backbone.Model.extend({
         initialize: function() {
             var self = this;
         },
@@ -1553,7 +1537,7 @@
         }
     });
     
-    SongpCollection = Backbone.Collection.extend({
+    var SongpCollection = Backbone.Collection.extend({
         model: SongpModel,
         url: '/api/songp',
         initialize: function(docs, options) {
@@ -1577,7 +1561,7 @@
         }
     });
     
-    SongpListView = Backbone.View.extend({
+    var SongpListView = Backbone.View.extend({
         tag: 'div',
         className: 'songsPlayedList',
         render: function() {
@@ -1636,7 +1620,7 @@
         }
     });
     
-    SongpRow = Backbone.View.extend({
+    var SongpRow = Backbone.View.extend({
         tag: 'span',
         className: 'songp',
         render: function() {
@@ -2021,14 +2005,16 @@
         }
     });
     
+    
+    //
+    // init
+    //
+    // - init authentication
+    // - load required scripts
+    //
     jukebox.init = function($el, callback) {
         var self = this;
         this.initAuth(function(loginStatus){
-            
-            if($el && loginStatus && loginStatus.has('groups') && loginStatus.get('groups').indexOf('friend') !== -1) {
-            } else {
-            }
-            
             var $app = $('<div id="app"></div>');
             $el.append($app);
             
@@ -2050,6 +2036,9 @@
         });
     }
     
+    //
+    // initAuth
+    //
     jukebox.initAuth = function(callback) {
         require(['houseAuth.js'], function(auth) {
             auth.get(function(err, loginStatus){
