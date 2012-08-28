@@ -45,11 +45,15 @@ var crypto = require('crypto');
             }
             findUser(query);
         }
-        
+        var getSessionConfig = function() {
+            return {
+                socketPort: house.config.socketPort || house.config.webPort
+            };
+        }
         // Handle GET requests for session data / status
         if(req.method == 'GET') {
             var query = {};
-            
+            req.session.data.config = getSessionConfig();
             if(path === '' || path === '/') {
                 res.data(req.session.data);
             } else {

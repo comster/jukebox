@@ -2059,6 +2059,11 @@
                     
                 } else if(loginStatus) {
                     callback(loginStatus);
+                    
+                    if(loginStatus && loginStatus.has('config')) {
+                        window.config = loginStatus.get('config');
+                    }
+                    
                     if(loginStatus && loginStatus.has('user')) {
                         jukebox.user = loginStatus.user;
                         var profileView = loginStatus.getView();

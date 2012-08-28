@@ -484,7 +484,8 @@
                 $r.show();
                 $r.attr('selected', true);
             });
-            var socketUrl = 'http://'+window.location.hostname+':8888/socket.io/';
+            var socketPort = config.socketPort;
+            var socketUrl = 'http://'+window.location.hostname+':'+socketPort+'/socket.io/';
             require([socketUrl+'socket.io.js'], function() {
                 var socketOpts = {};
                 if(window.location.protocol.indexOf('https') !== -1) {

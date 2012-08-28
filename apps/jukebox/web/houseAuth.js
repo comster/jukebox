@@ -14,52 +14,9 @@
             callback(null, doc);
         });
         this.collection.load();
-        return;
-        $.ajax({
-            url: auth.apiUrl,
-            dataType: 'json',
-            success: callback,
-            xhrFields: {
-               withCredentials: true
-            }
-        });
-    }
-    /*
-    auth.post = function(data,callback) {
-        $.ajax({
-          type: "POST",
-          url: auth.apiUrl,
-          data: data,
-          success: function(json) {
-            callback(json);
-          },
-          xhrFields: {
-             withCredentials: true
-          }
-        });
     }
     
-    auth.register = function(newUser,callback) {
-        auth.post(newUser, callback);
-    }
     
-    auth.login = function(myUser,callback) {
-        auth.post(myUser, callback);
-    }
-    
-    auth.logout = function(callback) {
-        $.ajax({
-          type: "DELETE",
-          url: auth.apiUrl,
-          success: function(json) {
-            callback(json);
-          },
-          xhrFields: {
-             withCredentials: true
-          }
-        });
-    }
-    */
     var users = {};
     
     users.AvatarView = Backbone.View.extend({
@@ -357,7 +314,7 @@
         className: "profile",
         htmlTemplate: '<span class="user">\
                         <span class="name"><%= name %></span>\
-                       <button class="logout" title="Log off">✌</button>\
+                       <button class="logout" title="Log off">logout</button>\
                         <span class="avatar"></span>\
                         </span>',
         template: function(doc) {
@@ -428,3 +385,42 @@
         });
     }
 })();
+
+
+
+/*
+auth.post = function(data,callback) {
+    $.ajax({
+      type: "POST",
+      url: auth.apiUrl,
+      data: data,
+      success: function(json) {
+        callback(json);
+      },
+      xhrFields: {
+         withCredentials: true
+      }
+    });
+}
+
+auth.register = function(newUser,callback) {
+    auth.post(newUser, callback);
+}
+
+auth.login = function(myUser,callback) {
+    auth.post(myUser, callback);
+}
+
+auth.logout = function(callback) {
+    $.ajax({
+      type: "DELETE",
+      url: auth.apiUrl,
+      success: function(json) {
+        callback(json);
+      },
+      xhrFields: {
+         withCredentials: true
+      }
+    });
+}
+*/
