@@ -985,7 +985,7 @@
                 }
             }
             var r = w/1.3;
-            var txDuration = (window.navigator.userAgent.indexOf('iPhone') === -1) ? 8500 : 1100;
+            var txDuration = (window.navigator.userAgent.indexOf('iPhone') === -1) ? 2200 : 1100;
             function particle(mag, color) {
               var rv = Math.floor(mag * 255) + 55;
               var strokeColor = color ? z(i++) : 'rgb('+rv+','+rv+','+rv+')';
@@ -1018,7 +1018,7 @@
               }
             }
             
-            if(window.navigator.userAgent.indexOf('iPhone') === -1) {
+            if(false && window.navigator.userAgent.indexOf('iPhone') === -1) {
                 kickOpts.offKick = function ( mag ) {
                   //console.log('offKick '+mag);
                   particle(mag);

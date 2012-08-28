@@ -229,9 +229,9 @@ Example:
 ##Vizualizing audio using dancer.js & d3
 
  - [Basic D3 Sample](http://bl.ocks.org/1062544)
- - Dancer API
  - Dancer [patch](https://github.com/comster/dancer.js/commit/1b369a78dce26829b495b86d4aa0f5fddfeded1f) to work with Aurora [forked on github](https://github.com/comster/dancer.js)
- - [Result]() & Demo
+ - [Dancer.js & Aurora Example](http://comster.github.com/dancer.js/examples/aurora/)
+ - [Dancer API](http://jsantell.github.com/dancer.js/)
 
 Example:
 
@@ -282,6 +282,6 @@ h2 {
   margin: 180px 0px 15px 0px;
 }
 ul li {
-  padding: 8px 0px;
+  padding: 4px 0px;
 }
 </style>

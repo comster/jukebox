@@ -396,7 +396,8 @@
         tag: 'span',
         className: 'msg',
         render: function() {
-            this.$el.html('<span class="msg">'+this.model.get('msg')+'</span>');
+            this.$el.html('<span class="msg"></span>');
+            this.$el.find('.msg').text(this.model.get('msg'));
             this.$el.prepend('<span data-id="'+this.model.get('user').id+'" class="'+this.model.get('user').name+'">'+this.model.get('user').name+'</span> ');
             //this.$el.append('<span class="at" title="'+this.model.get('at')+'">'+moment(this.model.get('at')).fromNow()+'</span>');
             this.$el.attr('data-id', this.model.get('id'));
@@ -483,7 +484,7 @@
                 $r.show();
                 $r.attr('selected', true);
             });
-            var socketUrl = 'http://'+window.location.host+':8888/socket.io/';
+            var socketUrl = 'http://'+window.location.hostname+':8888/socket.io/';
             require([socketUrl+'socket.io.js'], function() {
                 var socketOpts = {};
                 if(window.location.protocol.indexOf('https') !== -1) {

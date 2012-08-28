@@ -23,4 +23,4 @@ house --start
 
 #Documentation
 
-Docs are generated using [docco-husky](https://github.com/mbrevoort/docco-husky) and [available at /docs/out/index.html in the repo](https://github.com/comster/jukebox/tree/master/docs/out), and available via github here.
+Docs are generated using [docco-husky](https://github.com/mbrevoort/docco-husky) and [available at /docs/out/index.html in the repo](https://github.com/comster/jukebox/tree/master/docs/out), and [available via github here](http://comster.github.com/jukebox/docs/out/index.html).
