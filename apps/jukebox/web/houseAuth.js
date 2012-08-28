@@ -1,14 +1,16 @@
 //
-//
-//
-//
-//
+// Auth
 //
 (function(){
     var auth = this;
     
     auth.apiUrl = houseApi+'/auth';
     
+    //
+    // Get
+    //
+    // Use backbone to get our current user session data
+    //
     auth.get = function(callback) {
         this.collection.bind("add", function(doc) {
             callback(null, doc);
@@ -16,9 +18,13 @@
         this.collection.load();
     }
     
-    
     var users = {};
     
+    //
+    // AvatarView
+    //
+    // Renders an image of the user
+    //
     users.AvatarView = Backbone.View.extend({
         tagName: 'span',
         render: function() {
@@ -28,12 +34,7 @@
             } else {
                 this.$el.html('<img src="/jukebox/assets/img/stylistica-icons-set/png/64x64/user.png" />');
             }
-            this.setElement(this.$el);
             return this;
-        },
-        initialize: function() {
-        },
-        events: {
         },
         remove: function() {
           $(this.el).remove();
@@ -69,9 +70,16 @@
             }});
         }
     });
+    
+    // Global reference to our users collection
     window.usersCollection = new users.Collection();
     window.usersCollection.load();
     
+    //
+    // Prompt
+    //
+    // Helper method to authorize the user
+    //
     auth.prompt = function($el, callback) {
         var thisPrompt = this;
         this.user = new this.Model({}, {collection: this.collection});
@@ -94,13 +102,13 @@
             }
         };
     }
-        
+
     auth.Model = Backbone.Model.extend({
         initialize: function() {
             var self = this;
             this.on("change", function(model, options){
-                var s = model.save(null, {silent: true})
-                .done(function(s, typeStr, respStr) {
+                var s = model.save(null, {silent: true});
+                s.done(function(s, typeStr, respStr) {
                     self.trigger('login');
                 })
                 .fail(function(s, typeStr, respStr) {
@@ -151,7 +159,6 @@
         },
         render: function() {
             this.$el.html(this.template({}));
-            this.setElement(this.$el);
             return this;
         },
         initialize: function() {
@@ -308,7 +315,12 @@
               process();
         }
     });
-        
+
+    //
+    // View
+    //
+    // Current user profile view with actions to log out
+    //
     auth.View = Backbone.View.extend({
         tagName: "span",
         className: "profile",
@@ -327,7 +339,6 @@
                 this.$el.find('.avatar').append(this.userModel.getAvatarView().render().el);
             }
             
-            this.setElement(this.$el);
             return this;
         },
         initialize: function() {
@@ -377,8 +388,7 @@
         }
     });
     
-    
-    
+    // if we have require define this as a module
     if(define) {
         define(function () {
             return auth;
