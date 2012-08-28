@@ -6,7 +6,7 @@ exports = module.exports.config = {
     filters: [
 	{parser:{}},
         {session:{houseGuest:{
-		guestName: "Anonymous Coward",
+		guestName: "Anonymous Punk",
 		cookieDomain: "",
 		ds: "mongo",
 		col: "sessions"
@@ -22,9 +22,9 @@ exports = module.exports.config = {
   dataSources: {
     mongo: {
       mongodb: {
-        url: process.env.MONGOHQ_URL
-	//server: 'jeffshouse',
-        //db: 'jukebox'
+        //url: process.env.MONGOHQ_URL
+	server: 'localhost',
+        db: 'jukebox'
       }
     },
     memcache: {
