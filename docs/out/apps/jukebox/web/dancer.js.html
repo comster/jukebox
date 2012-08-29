@@ -1,0 +1,1011 @@
+<!DOCTYPE html><html><head><title>dancer.js</title><meta http-equiv="Content-Type" content="text/html" charset="UTF-8"><link rel="stylesheet" media="all" href="../../../docco.css"></head><body><div id="container"><div id="background"></div><div id="jump_to">Jump To &hellip;<div id="jump_wrapper"><div id="jump_page"><a href="../../../index.html" class="source"><span class="file_name">README</span></a><a href="../../../apps/jukebox/web/moment.min.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">moment.min.js</span></a><a href="../../../apps/jukebox/web/backbone.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">backbone.js</span></a><a href="../../../apps/jukebox/web/chat.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">chat.js</span></a><a href="../../../apps/jukebox/web/d3.v2.min.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">d3.v2.min.js</span></a><a href="../../../apps/jukebox/web/mp3.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">mp3.js</span></a><a href="../../../apps/jukebox/web/jsmad.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jsmad.js</span></a><a href="../../../apps/jukebox/web/require.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">require.js</span></a><a href="../../../apps/jukebox/web/houseChat.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseChat.js</span></a><a href="../../../apps/jukebox/web/houseAuth.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseAuth.js</span></a><a href="../../../apps/jukebox/web/jukebox.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jukebox.js</span></a><a href="../../../apps/jukebox/web/dancer.js.html" class="source selected"><span class="base_path">apps / jukebox / web / </span><span class="file_name">dancer.js</span></a><a href="../../../apps/jukebox/web/jquery.idle-timer.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.idle-timer.js</span></a><a href="../../../apps/jukebox/web/aac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">aac.js</span></a><a href="../../../apps/jukebox/web/aurora.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">aurora.js</span></a><a href="../../../apps/jukebox/web/jquery.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.js</span></a><a href="../../../apps/jukebox/web/houseSongs.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">houseSongs.js</span></a><a href="../../../apps/jukebox/web/jquery.ui.min.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">jquery.ui.min.js</span></a><a href="../../../apps/jukebox/web/chart.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">chart.js</span></a><a href="../../../apps/jukebox/web/backbone-house.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">backbone-house.js</span></a><a href="../../../apps/jukebox/web/alac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">alac.js</span></a><a href="../../../apps/jukebox/web/underscore.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">underscore.js</span></a><a href="../../../apps/jukebox/web/pitch.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">pitch.js</span></a><a href="../../../apps/jukebox/web/flac.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">flac.js</span></a><a href="../../../apps/jukebox/web/id3v2.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">id3v2.js</span></a><a href="../../../apps/jukebox/web/index.js.html" class="source "><span class="base_path">apps / jukebox / web / </span><span class="file_name">index.js</span></a><a href="../../../apps/jukebox/config/config.js.html" class="source "><span class="base_path">apps / jukebox / config / </span><span class="file_name">config.js</span></a><a href="../../../apps/jukebox/index.js.html" class="source "><span class="base_path">apps / jukebox / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songs/index.js.html" class="source "><span class="base_path">endPoints / songs / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/apps/index.js.html" class="source "><span class="base_path">endPoints / apps / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/files/index.js.html" class="source "><span class="base_path">endPoints / files / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/auth/index.js.html" class="source "><span class="base_path">endPoints / auth / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/users/index.js.html" class="source "><span class="base_path">endPoints / users / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/collections/index.js.html" class="source "><span class="base_path">endPoints / collections / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/chat/index.js.html" class="source "><span class="base_path">endPoints / chat / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songr/index.js.html" class="source "><span class="base_path">endPoints / songr / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/fs/index.js.html" class="source "><span class="base_path">endPoints / fs / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songq/index.js.html" class="source "><span class="base_path">endPoints / songq / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/artists/index.js.html" class="source "><span class="base_path">endPoints / artists / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/albums/index.js.html" class="source "><span class="base_path">endPoints / albums / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/songp/index.js.html" class="source "><span class="base_path">endPoints / songp / </span><span class="file_name">index.js</span></a><a href="../../../endPoints/index.js.html" class="source "><span class="base_path">endPoints / </span><span class="file_name">index.js</span></a></div></div></div><table cellpadding="0" cellspacing="0"><thead><tr><th class="docs"><h1>dancer.js</h1><div class="filepath">apps/jukebox/web/</div></th><th class="code"></th></tr></thead><tbody><tr id="section-1"><td class="docs"><div class="pilwrap"><a href="#section-1" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Dancer.js (c) 2012 Jordan Santell<br />MIT License<br /><a href='http://github.com/jsantell/dancer.js'>http://github.com/jsantell/dancer.js</a></p></div><div class="body"><p>v0.3.1</p></div></div>
+</td><td class="code"><div class="highlight"><pre><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="kd">var</span> <span class="nx">Dancer</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span> <span class="o">=</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">_getAdapter</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">sections</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span> <span class="s1">&#39;update&#39;</span><span class="p">,</span> <span class="nx">update</span> <span class="p">);</span>
+  <span class="p">};</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">version</span> <span class="o">=</span> <span class="s1">&#39;0.3.1&#39;</span><span class="p">;</span>
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">adapters</span> <span class="o">=</span> <span class="p">{};</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="nx">load</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">source</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">path</span><span class="p">;</span></pre></div></td></tr><tr id="section-2"><td class="docs"><div class="pilwrap"><a href="#section-2" class="pilcrow">&#182;</a></div><p>Loading an Audio element</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="k">if</span> <span class="p">(</span> <span class="nx">source</span> <span class="k">instanceof</span> <span class="nx">HTMLElement</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">source</span> <span class="o">=</span> <span class="nx">source</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">isSupported</span><span class="p">()</span> <span class="o">===</span> <span class="s1">&#39;flash&#39;</span> <span class="p">)</span> <span class="p">{</span>
+          <span class="k">this</span><span class="p">.</span><span class="nx">source</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">src</span><span class="o">:</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">_getMP3SrcFromAudio</span><span class="p">(</span> <span class="nx">source</span> <span class="p">)</span> <span class="p">};</span>
+        <span class="p">}</span></pre></div></td></tr><tr id="section-3"><td class="docs"><div class="pilwrap"><a href="#section-3" class="pilcrow">&#182;</a></div><p>Loading an audio device</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">source</span><span class="p">.</span><span class="nx">device</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">source</span> <span class="o">=</span> <span class="nx">source</span><span class="p">;</span></pre></div></td></tr><tr id="section-4"><td class="docs"><div class="pilwrap"><a href="#section-4" class="pilcrow">&#182;</a></div><p>Loading an object with src, [codecs]</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">source</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">Audio</span> <span class="o">?</span> <span class="k">new</span> <span class="nx">Audio</span><span class="p">()</span> <span class="o">:</span> <span class="p">{};</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">_makeSupportedPath</span><span class="p">(</span> <span class="nx">source</span><span class="p">.</span><span class="nx">src</span><span class="p">,</span> <span class="nx">source</span><span class="p">.</span><span class="nx">codecs</span> <span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">load</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">source</span> <span class="p">);</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span></pre></div></td></tr><tr id="section-5"><td class="docs"><div class="pilwrap"><a href="#section-5" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Controls</p></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">play</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">pause</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">setVolume</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">volume</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">setVolume</span><span class="p">(</span> <span class="nx">volume</span> <span class="p">);</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span></pre></div></td></tr><tr id="section-6"><td class="docs"><div class="pilwrap"><a href="#section-6" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Actions</p></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">createKick</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">options</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">Kick</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">options</span> <span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">bind</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">callback</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span> <span class="nx">name</span> <span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span> <span class="nx">name</span> <span class="p">]</span> <span class="o">=</span> <span class="p">[];</span>
+      <span class="p">}</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span> <span class="nx">name</span> <span class="p">].</span><span class="nx">push</span><span class="p">(</span> <span class="nx">callback</span> <span class="p">);</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">unbind</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">name</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span> <span class="nx">name</span> <span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">delete</span> <span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span> <span class="nx">name</span> <span class="p">];</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">trigger</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">name</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span> <span class="nx">name</span> <span class="p">]</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">events</span><span class="p">[</span> <span class="nx">name</span> <span class="p">].</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span> <span class="nx">callback</span> <span class="p">)</span> <span class="p">{</span>
+          <span class="nx">callback</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_this</span> <span class="p">);</span>
+        <span class="p">});</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span></pre></div></td></tr><tr id="section-7"><td class="docs"><div class="pilwrap"><a href="#section-7" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Getters</p></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">getVolume</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">getVolume</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">getProgress</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">getProgress</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">getTime</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">getTime</span><span class="p">();</span>
+    <span class="p">},</span></pre></div></td></tr><tr id="section-8"><td class="docs"><div class="pilwrap"><a href="#section-8" class="pilcrow">&#182;</a></div><p>Returns the magnitude of a frequency or average over a range of frequencies</p>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">getFrequency</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">freq</span><span class="p">,</span> <span class="nx">endFreq</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="nx">endFreq</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">freq</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">endFreq</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+          <span class="nx">sum</span> <span class="o">+=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getSpectrum</span><span class="p">()[</span> <span class="nx">i</span> <span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">sum</span> <span class="o">/</span> <span class="p">(</span> <span class="nx">endFreq</span> <span class="o">-</span> <span class="nx">freq</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getSpectrum</span><span class="p">()[</span> <span class="nx">freq</span> <span class="p">];</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="nx">getWaveform</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">getWaveform</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">getSpectrum</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">getSpectrum</span><span class="p">();</span>
+    <span class="p">},</span>
+
+    <span class="nx">isLoaded</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">isLoaded</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">isPlaying</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audioAdapter</span><span class="p">.</span><span class="nx">isPlaying</span><span class="p">;</span>
+    <span class="p">},</span></pre></div></td></tr><tr id="section-9"><td class="docs"><div class="pilwrap"><a href="#section-9" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Sections</p></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">after</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">time</span><span class="p">,</span> <span class="nx">callback</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">sections</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+        <span class="nx">condition</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&gt;</span> <span class="nx">time</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">callback</span> <span class="o">:</span> <span class="nx">callback</span>
+      <span class="p">});</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">before</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">time</span><span class="p">,</span> <span class="nx">callback</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">sections</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+        <span class="nx">condition</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nx">time</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">callback</span> <span class="o">:</span> <span class="nx">callback</span>
+      <span class="p">});</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">between</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">startTime</span><span class="p">,</span> <span class="nx">endTime</span><span class="p">,</span> <span class="nx">callback</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">sections</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+        <span class="nx">condition</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&gt;</span> <span class="nx">startTime</span> <span class="o">&amp;&amp;</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&lt;</span> <span class="nx">endTime</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">callback</span> <span class="o">:</span> <span class="nx">callback</span>
+      <span class="p">});</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">onceAt</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">time</span><span class="p">,</span> <span class="nx">callback</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span>
+        <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span>
+        <span class="nx">thisSection</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">sections</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+        <span class="nx">condition</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">_this</span><span class="p">.</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">&gt;</span> <span class="nx">time</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">called</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">callback</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="nx">callback</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+          <span class="nx">thisSection</span><span class="p">.</span><span class="nx">called</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">called</span> <span class="o">:</span> <span class="kc">false</span>
+      <span class="p">});</span></pre></div></td></tr><tr id="section-10"><td class="docs"><div class="pilwrap"><a href="#section-10" class="pilcrow">&#182;</a></div><p>Baking the section in the closure due to callback's this being the dancer instance</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="nx">thisSection</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sections</span><span class="p">[</span> <span class="k">this</span><span class="p">.</span><span class="nx">sections</span><span class="p">.</span><span class="nx">length</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">];</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="kd">function</span> <span class="nx">update</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="k">this</span><span class="p">.</span><span class="nx">sections</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">sections</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">condition</span><span class="p">()</span> <span class="p">)</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">sections</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">callback</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="nb">window</span><span class="p">.</span><span class="nx">Dancer</span> <span class="o">=</span> <span class="nx">Dancer</span><span class="p">;</span>
+<span class="p">})();</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span> <span class="nx">Dancer</span> <span class="p">)</span> <span class="p">{</span>
+
+  <span class="kd">var</span> <span class="nx">CODECS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;mp3&#39;</span> <span class="o">:</span> <span class="s1">&#39;audio/mpeg;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;ogg&#39;</span> <span class="o">:</span> <span class="s1">&#39;audio/ogg; codecs=&quot;vorbis&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;wav&#39;</span> <span class="o">:</span> <span class="s1">&#39;audio/wav; codecs=&quot;1&quot;&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;aac&#39;</span> <span class="o">:</span> <span class="s1">&#39;audio/mp4; codecs=&quot;mp4a.40.2&quot;&#39;</span>
+  <span class="p">},</span>
+  <span class="nx">audioEl</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="s1">&#39;audio&#39;</span> <span class="p">);</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">options</span> <span class="o">=</span> <span class="p">{};</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">setOptions</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">o</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">option</span> <span class="k">in</span> <span class="nx">o</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="nx">o</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span> <span class="nx">option</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">Dancer</span><span class="p">.</span><span class="nx">options</span><span class="p">[</span> <span class="nx">option</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">o</span><span class="p">[</span> <span class="nx">option</span> <span class="p">];</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">isSupported</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">Float32Array</span> <span class="o">||</span> <span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">Uint32Array</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="p">(</span> <span class="nb">window</span><span class="p">.</span><span class="nx">AudioContext</span> <span class="o">||</span> <span class="nb">window</span><span class="p">.</span><span class="nx">webkitAudioContext</span> <span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s1">&#39;webaudio&#39;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">audioEl</span> <span class="o">&amp;&amp;</span> <span class="nx">audioEl</span><span class="p">.</span><span class="nx">mozSetup</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s1">&#39;audiodata&#39;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span> <span class="nx">FlashDetect</span><span class="p">.</span><span class="nx">versionAtLeast</span><span class="p">(</span> <span class="mi">9</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s1">&#39;flash&#39;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">canPlay</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">type</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">canPlay</span> <span class="o">=</span> <span class="nx">audioEl</span><span class="p">.</span><span class="nx">canPlayType</span><span class="p">;</span>
+    <span class="k">return</span> <span class="o">!!</span><span class="p">(</span>
+      <span class="nx">Dancer</span><span class="p">.</span><span class="nx">isSupported</span><span class="p">()</span> <span class="o">===</span> <span class="s1">&#39;flash&#39;</span> <span class="o">?</span>
+        <span class="nx">type</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="o">===</span> <span class="s1">&#39;mp3&#39;</span> <span class="o">:</span>
+        <span class="nx">audioEl</span><span class="p">.</span><span class="nx">canPlayType</span> <span class="o">&amp;&amp;</span>
+        <span class="nx">audioEl</span><span class="p">.</span><span class="nx">canPlayType</span><span class="p">(</span> <span class="nx">CODECS</span><span class="p">[</span> <span class="nx">type</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">()</span> <span class="p">]</span> <span class="p">).</span><span class="nx">replace</span><span class="p">(</span> <span class="sr">/no/</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">));</span>
+  <span class="p">};</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">addPlugin</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">fn</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">[</span> <span class="nx">name</span> <span class="p">]</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="nx">Dancer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">[</span> <span class="nx">name</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">fn</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">_makeSupportedPath</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">source</span><span class="p">,</span> <span class="nx">codecs</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">codecs</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">source</span><span class="p">;</span> <span class="p">}</span>
+
+    <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">codecs</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">canPlay</span><span class="p">(</span> <span class="nx">codecs</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">source</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="nx">codecs</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">source</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">_getAdapter</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">instance</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">isSupported</span><span class="p">()</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="s1">&#39;webaudio&#39;</span><span class="o">:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">adapters</span><span class="p">.</span><span class="nx">webkit</span><span class="p">(</span> <span class="nx">instance</span> <span class="p">);</span>
+      <span class="k">case</span> <span class="s1">&#39;audiodata&#39;</span><span class="o">:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">adapters</span><span class="p">.</span><span class="nx">moz</span><span class="p">(</span> <span class="nx">instance</span> <span class="p">);</span>
+      <span class="k">case</span> <span class="s1">&#39;flash&#39;</span><span class="o">:</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">adapters</span><span class="p">.</span><span class="nx">flash</span><span class="p">(</span> <span class="nx">instance</span> <span class="p">);</span>
+      <span class="k">default</span><span class="o">:</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">_getMP3SrcFromAudio</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">audioEl</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">sources</span> <span class="o">=</span> <span class="nx">audioEl</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="nx">audioEl</span><span class="p">.</span><span class="nx">src</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">audioEl</span><span class="p">.</span><span class="nx">src</span><span class="p">;</span> <span class="p">}</span>
+    <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">sources</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span><span class="p">;</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">((</span> <span class="nx">sources</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">type</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span> <span class="p">).</span><span class="nx">match</span><span class="p">(</span> <span class="sr">/audio\/mpeg/</span> <span class="p">))</span> <span class="k">return</span> <span class="nx">sources</span><span class="p">[</span> <span class="nx">i</span> <span class="p">].</span><span class="nx">src</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">};</span></pre></div></td></tr><tr id="section-11"><td class="docs"><div class="pilwrap"><a href="#section-11" class="pilcrow">&#182;</a></div><p>Browser detection is lame, but Safari 6 has Web Audio API,
+but does not support processing audio from a Media Element Source
+https://gist.github.com/3265344</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="kd">function</span> <span class="nx">isUnsupportedSafari</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span>
+      <span class="nx">isApple</span> <span class="o">=</span> <span class="o">!!</span><span class="p">(</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">vendor</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span> <span class="p">).</span><span class="nx">match</span><span class="p">(</span> <span class="sr">/Apple/</span> <span class="p">),</span>
+      <span class="nx">version</span> <span class="o">=</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span> <span class="sr">/Version\/([^ ]*)/</span> <span class="p">);</span>
+    <span class="nx">version</span> <span class="o">=</span> <span class="nx">version</span> <span class="o">?</span> <span class="nb">parseFloat</span><span class="p">(</span> <span class="nx">version</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="p">)</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">isApple</span> <span class="o">&amp;&amp;</span> <span class="nx">version</span> <span class="o">&lt;=</span> <span class="mi">6</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">})(</span> <span class="nb">window</span><span class="p">.</span><span class="nx">Dancer</span> <span class="p">);</span>
+
+<span class="p">(</span><span class="kd">function</span> <span class="p">(</span> <span class="kc">undefined</span> <span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">Kick</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dancer</span><span class="p">,</span> <span class="nx">o</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="nx">o</span> <span class="o">=</span> <span class="nx">o</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span>    <span class="o">=</span> <span class="nx">dancer</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">frequency</span> <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">frequency</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="nx">o</span><span class="p">.</span><span class="nx">frequency</span> <span class="o">:</span> <span class="p">[</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span> <span class="p">];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">threshold</span> <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">threshold</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="nx">o</span><span class="p">.</span><span class="nx">threshold</span> <span class="o">:</span>  <span class="mf">0.3</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">decay</span>     <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">decay</span>     <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="nx">o</span><span class="p">.</span><span class="nx">decay</span>     <span class="o">:</span>  <span class="mf">0.02</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">onKick</span>    <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">onKick</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">offKick</span>   <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">offKick</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">isOn</span>      <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">currentThreshold</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">threshold</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span> <span class="s1">&#39;update&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">_this</span><span class="p">.</span><span class="nx">onUpdate</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">};</span>
+
+  <span class="nx">Kick</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">on</span>  <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> 
+      <span class="k">this</span><span class="p">.</span><span class="nx">isOn</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">off</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">isOn</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">set</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">o</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="nx">o</span> <span class="o">=</span> <span class="nx">o</span> <span class="o">||</span> <span class="p">{};</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">frequency</span> <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">frequency</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="nx">o</span><span class="p">.</span><span class="nx">frequency</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">frequency</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">threshold</span> <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">threshold</span> <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="nx">o</span><span class="p">.</span><span class="nx">threshold</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">threshold</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">decay</span>     <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">decay</span>     <span class="o">!==</span> <span class="kc">undefined</span> <span class="o">?</span> <span class="nx">o</span><span class="p">.</span><span class="nx">decay</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">decay</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">onKick</span>    <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">onKick</span>    <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">onKick</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">offKick</span>   <span class="o">=</span> <span class="nx">o</span><span class="p">.</span><span class="nx">offKick</span>   <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">offKick</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">onUpdate</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isOn</span> <span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+      <span class="kd">var</span> <span class="nx">magnitude</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">maxAmplitude</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">frequency</span> <span class="p">);</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="nx">magnitude</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentThreshold</span> <span class="o">&amp;&amp;</span>
+          <span class="nx">magnitude</span> <span class="o">&gt;=</span> <span class="k">this</span><span class="p">.</span><span class="nx">threshold</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">currentThreshold</span> <span class="o">=</span> <span class="nx">magnitude</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">onKick</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">onKick</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">,</span> <span class="nx">magnitude</span> <span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">offKick</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">offKick</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">,</span> <span class="nx">magnitude</span> <span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">currentThreshold</span> <span class="o">-=</span> <span class="k">this</span><span class="p">.</span><span class="nx">decay</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">maxAmplitude</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">frequency</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span>
+        <span class="nx">max</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">fft</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">getSpectrum</span><span class="p">();</span></pre></div></td></tr><tr id="section-12"><td class="docs"><div class="pilwrap"><a href="#section-12" class="pilcrow">&#182;</a></div><p>Sloppy array check</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="nx">frequency</span><span class="p">.</span><span class="nx">length</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">frequency</span> <span class="o">&lt;</span> <span class="nx">fft</span><span class="p">.</span><span class="nx">length</span> <span class="o">?</span>
+          <span class="nx">fft</span><span class="p">[</span> <span class="o">~~</span><span class="nx">frequency</span> <span class="p">]</span> <span class="o">:</span>
+          <span class="kc">null</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">frequency</span><span class="p">[</span> <span class="mi">0</span> <span class="p">],</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">frequency</span><span class="p">[</span> <span class="mi">1</span> <span class="p">];</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">fft</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">&gt;</span> <span class="nx">max</span> <span class="p">)</span> <span class="p">{</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">fft</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span> <span class="p">}</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">max</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="nb">window</span><span class="p">.</span><span class="nx">Dancer</span><span class="p">.</span><span class="nx">Kick</span> <span class="o">=</span> <span class="nx">Kick</span><span class="p">;</span>
+<span class="p">})();</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span>
+    <span class="nx">SAMPLE_SIZE</span> <span class="o">=</span> <span class="mi">2048</span><span class="p">,</span>
+    <span class="nx">SAMPLE_RATE</span> <span class="o">=</span> <span class="mi">44100</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">adapter</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dancer</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span> <span class="o">=</span> <span class="nx">dancer</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">audio</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Audio</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">context</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">AudioContext</span> <span class="o">?</span>
+      <span class="k">new</span> <span class="nb">window</span><span class="p">.</span><span class="nx">AudioContext</span><span class="p">()</span> <span class="o">:</span>
+      <span class="k">new</span> <span class="nb">window</span><span class="p">.</span><span class="nx">webkitAudioContext</span><span class="p">();</span>
+  <span class="p">};</span>
+
+  <span class="nx">adapter</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="nx">load</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">_source</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span> <span class="o">=</span> <span class="nx">_source</span><span class="p">;</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">_source</span><span class="p">.</span><span class="nx">device</span> <span class="o">&amp;&amp;</span> <span class="nx">_source</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">proc</span> <span class="o">=</span> <span class="nx">_source</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">node</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">_procOnAudioProc</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">proc</span><span class="p">.</span><span class="nx">onaudioprocess</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">proc</span><span class="p">.</span><span class="nx">onaudioprocess</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">{</span>
+          <span class="nx">_procOnAudioProc</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+          <span class="nx">_this</span><span class="p">.</span><span class="nx">update</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_this</span><span class="p">,</span> <span class="p">{</span><span class="nx">inputBuffer</span><span class="o">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">outputBuffer</span><span class="p">});</span>
+        <span class="p">};</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">fft</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FFT</span><span class="p">(</span> <span class="nx">SAMPLE_SIZE</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">SAMPLE_RATE</span> <span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">signal</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span> <span class="nx">SAMPLE_SIZE</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">);</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span> <span class="s1">&#39;loaded&#39;</span> <span class="p">);</span>
+
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">proc</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">createJavaScriptNode</span><span class="p">(</span> <span class="nx">SAMPLE_SIZE</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">proc</span><span class="p">.</span><span class="nx">onaudioprocess</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">_this</span><span class="p">.</span><span class="nx">update</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_this</span><span class="p">,</span> <span class="nx">e</span> <span class="p">);</span>
+      <span class="p">};</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">gain</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">createGainNode</span><span class="p">();</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">fft</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FFT</span><span class="p">(</span> <span class="nx">SAMPLE_SIZE</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">SAMPLE_RATE</span> <span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">signal</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span> <span class="nx">SAMPLE_SIZE</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">);</span>
+
+      <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span> <span class="s1">&#39;canplay&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="nx">connectContext</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_this</span> <span class="p">);</span>
+        <span class="p">});</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">connectContext</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_this</span> <span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span> <span class="s1">&#39;progress&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">duration</span> <span class="p">)</span> <span class="p">{</span>
+          <span class="nx">_this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">seekable</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span> <span class="mi">0</span> <span class="p">)</span> <span class="o">/</span> <span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">duration</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">});</span>
+
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">play</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">pause</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">setVolume</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">volume</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">gain</span><span class="p">.</span><span class="nx">gain</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">volume</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getVolume</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">gain</span><span class="p">.</span><span class="nx">gain</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getProgress</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">progress</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getWaveform</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">signal</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getSpectrum</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">fft</span><span class="p">.</span><span class="nx">spectrum</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getTime</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">currentTime</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">update</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">||</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+      <span class="kd">var</span>
+        <span class="nx">buffers</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nx">channels</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">inputBuffer</span><span class="p">.</span><span class="nx">numberOfChannels</span><span class="p">,</span>
+        <span class="nx">resolution</span> <span class="o">=</span> <span class="nx">SAMPLE_SIZE</span> <span class="o">/</span> <span class="nx">channels</span><span class="p">,</span>
+        <span class="nx">i</span><span class="p">,</span>
+        <span class="nx">sum</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">prev</span><span class="p">,</span> <span class="nx">curr</span> <span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="nx">prev</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">+</span> <span class="nx">curr</span><span class="p">[</span> <span class="nx">i</span> <span class="p">];</span>
+        <span class="p">};</span>
+
+      <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">channels</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span><span class="p">;</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">buffers</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">e</span><span class="p">.</span><span class="nx">inputBuffer</span><span class="p">.</span><span class="nx">getChannelData</span><span class="p">(</span> <span class="nx">i</span> <span class="p">)</span> <span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">for</span> <span class="p">(</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">resolution</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">signal</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">channels</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="o">?</span>
+          <span class="nx">buffers</span><span class="p">.</span><span class="nx">reduce</span><span class="p">(</span> <span class="nx">sum</span> <span class="p">)</span> <span class="o">/</span> <span class="nx">channels</span> <span class="o">:</span>
+          <span class="nx">buffers</span><span class="p">[</span> <span class="mi">0</span> <span class="p">][</span> <span class="nx">i</span> <span class="p">];</span>
+      <span class="p">}</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">fft</span><span class="p">.</span><span class="nx">forward</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">signal</span> <span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span> <span class="s1">&#39;update&#39;</span> <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="kd">function</span> <span class="nx">connectContext</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">source</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">createMediaElementSource</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">proc</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">source</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">gain</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">gain</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">destination</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">proc</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">context</span><span class="p">.</span><span class="nx">destination</span> <span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span> <span class="s1">&#39;loaded&#39;</span> <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">adapters</span><span class="p">.</span><span class="nx">webkit</span> <span class="o">=</span> <span class="nx">adapter</span><span class="p">;</span>
+
+<span class="p">})();</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+
+  <span class="kd">var</span> <span class="nx">adapter</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dancer</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span> <span class="o">=</span> <span class="nx">dancer</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">audio</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Audio</span><span class="p">();</span>
+  <span class="p">};</span>
+
+  <span class="nx">adapter</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="nx">load</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">_source</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span> <span class="o">=</span> <span class="nx">_source</span><span class="p">;</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">_source</span><span class="p">.</span><span class="nx">device</span><span class="p">);</span>
+<span class="k">return</span><span class="p">;</span>
+      <span class="k">if</span><span class="p">(</span><span class="nx">_source</span><span class="p">.</span><span class="nx">device</span> <span class="o">&amp;&amp;</span> <span class="nx">_source</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">proc</span> <span class="o">=</span> <span class="nx">_source</span><span class="p">.</span><span class="nx">device</span><span class="p">.</span><span class="nx">node</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">_procOnAudioProc</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">proc</span><span class="p">.</span><span class="nx">onaudioprocess</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">proc</span><span class="p">.</span><span class="nx">onaudioprocess</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">{</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+          <span class="nx">_procOnAudioProc</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span>
+          <span class="nx">_this</span><span class="p">.</span><span class="nx">update</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_this</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+        <span class="p">};</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">fft</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FFT</span><span class="p">(</span> <span class="nx">SAMPLE_SIZE</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">SAMPLE_RATE</span> <span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">signal</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span> <span class="nx">SAMPLE_SIZE</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">);</span>
+<span class="k">this</span><span class="p">.</span><span class="nx">fbLength</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">mozFrameBufferLength</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">channels</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">mozChannels</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">rate</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">mozSampleRate</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">fft</span>      <span class="o">=</span> <span class="k">new</span> <span class="nx">FFT</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">fbLength</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">channels</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">rate</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">signal</span>   <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">fbLength</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">channels</span> <span class="p">);</span>
+
+        <span class="k">this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span> <span class="s1">&#39;loaded&#39;</span> <span class="p">);</span>
+ 
+        <span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span> <span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">readyState</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span> <span class="s1">&#39;loadedmetadata&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="nx">getMetadata</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_this</span> <span class="p">);</span>
+        <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">getMetadata</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">_this</span> <span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span> <span class="s1">&#39;MozAudioAvailable&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">_this</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span> <span class="nx">e</span> <span class="p">);</span>
+      <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span> <span class="s1">&#39;progress&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">duration</span> <span class="p">)</span> <span class="p">{</span>
+          <span class="nx">_this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">seekable</span><span class="p">.</span><span class="nx">end</span><span class="p">(</span> <span class="mi">0</span> <span class="p">)</span> <span class="o">/</span> <span class="nx">e</span><span class="p">.</span><span class="nx">currentTarget</span><span class="p">.</span><span class="nx">duration</span><span class="p">;</span>
+        <span class="p">}</span>
+      <span class="p">},</span> <span class="kc">false</span><span class="p">);</span>
+
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">play</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">pause</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">setVolume</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">volume</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">volume</span> <span class="o">=</span> <span class="nx">volume</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getVolume</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">volume</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getProgress</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">progress</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getWaveform</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">signal</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getSpectrum</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">fft</span><span class="p">.</span><span class="nx">spectrum</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getTime</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">currentTime</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">update</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">e</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">||</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+
+      <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">j</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">fbLength</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">j</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">signal</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">=</span> <span class="p">(</span> <span class="nx">e</span><span class="p">.</span><span class="nx">frameBuffer</span><span class="p">[</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">i</span> <span class="p">]</span> <span class="o">+</span> <span class="nx">e</span><span class="p">.</span><span class="nx">frameBuffer</span><span class="p">[</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">i</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">]</span> <span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">fft</span><span class="p">.</span><span class="nx">forward</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">signal</span> <span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span> <span class="s1">&#39;update&#39;</span> <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="kd">function</span> <span class="nx">getMetadata</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">fbLength</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">mozFrameBufferLength</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">channels</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">mozChannels</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">rate</span>     <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">mozSampleRate</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">fft</span>      <span class="o">=</span> <span class="k">new</span> <span class="nx">FFT</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">fbLength</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">channels</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">rate</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">signal</span>   <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">fbLength</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">channels</span> <span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span> <span class="s1">&#39;loaded&#39;</span> <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">adapters</span><span class="p">.</span><span class="nx">moz</span> <span class="o">=</span> <span class="nx">adapter</span><span class="p">;</span>
+
+<span class="p">})();</span>
+
+<span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span>
+    <span class="nx">SAMPLE_SIZE</span>  <span class="o">=</span> <span class="mi">1024</span><span class="p">,</span>
+    <span class="nx">SAMPLE_RATE</span>  <span class="o">=</span> <span class="mi">44100</span><span class="p">,</span>
+    <span class="nx">smLoaded</span>     <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">smLoading</span>    <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">CONVERSION_COEFFICIENT</span> <span class="o">=</span> <span class="mf">0.93</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">adapter</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">dancer</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span> <span class="o">=</span> <span class="nx">dancer</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">wave_L</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">wave_R</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">spectrum</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">SM2_DEFER</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="nx">adapter</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{</span></pre></div></td></tr><tr id="section-13"><td class="docs"><div class="pilwrap"><a href="#section-13" class="pilcrow">&#182;</a></div><p><code>source</code> can be either an Audio element, if supported, or an object
+either way, the path is stored in the <code>src</code> property</p>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">load</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">source</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="kd">var</span> <span class="nx">_this</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">path</span> <span class="o">=</span> <span class="nx">source</span> <span class="o">?</span> <span class="nx">source</span><span class="p">.</span><span class="nx">src</span> <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">path</span><span class="p">;</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+      <span class="o">!</span><span class="nb">window</span><span class="p">.</span><span class="nx">soundManager</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">smLoading</span> <span class="o">&amp;&amp;</span> <span class="nx">loadSM</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="k">this</span> <span class="p">);</span>
+
+      <span class="k">if</span> <span class="p">(</span> <span class="nb">window</span><span class="p">.</span><span class="nx">soundManager</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">audio</span> <span class="o">=</span> <span class="nx">soundManager</span><span class="p">.</span><span class="nx">createSound</span><span class="p">({</span>
+          <span class="nx">id</span>       <span class="o">:</span> <span class="s1">&#39;dancer&#39;</span> <span class="o">+</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+          <span class="nx">url</span>      <span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span>
+          <span class="nx">stream</span>   <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nx">autoPlay</span> <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="nx">autoLoad</span> <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+          <span class="nx">whileplaying</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">update</span><span class="p">();</span>
+          <span class="p">},</span>
+          <span class="nx">whileloading</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bytesLoaded</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">bytesTotal</span><span class="p">;</span>
+          <span class="p">},</span>
+          <span class="nx">onload</span>   <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">fft</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FFT</span><span class="p">(</span> <span class="nx">SAMPLE_SIZE</span><span class="p">,</span> <span class="nx">SAMPLE_RATE</span> <span class="p">);</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">signal</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span> <span class="nx">SAMPLE_SIZE</span> <span class="p">);</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">waveform</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span> <span class="nx">SAMPLE_SIZE</span> <span class="p">);</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">progress</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="nx">_this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span> <span class="s1">&#39;loaded&#39;</span> <span class="p">);</span>
+          <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">audio</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">;</span>
+      <span class="p">}</span></pre></div></td></tr><tr id="section-14"><td class="docs"><div class="pilwrap"><a href="#section-14" class="pilcrow">&#182;</a></div><p>Returns audio if SM already loaded -- otherwise,
+sets dancer instance's audio property after load</p>
+</td><td class="code"><div class="highlight"><pre>      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">play</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">pause</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">pause</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">setVolume</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span> <span class="nx">volume</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">setVolume</span><span class="p">(</span> <span class="nx">volume</span> <span class="o">*</span> <span class="mi">100</span> <span class="p">);</span>
+    <span class="p">},</span>
+
+    <span class="nx">getVolume</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">volume</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getProgress</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">progress</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getWaveform</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">waveform</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getSpectrum</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">fft</span><span class="p">.</span><span class="nx">spectrum</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">getTime</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">position</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">;</span>
+    <span class="p">},</span>
+
+    <span class="nx">update</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="k">if</span> <span class="p">(</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isPlaying</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isLoaded</span> <span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">wave_L</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">waveformData</span><span class="p">.</span><span class="nx">left</span><span class="p">;</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">wave_R</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">audio</span><span class="p">.</span><span class="nx">waveformData</span><span class="p">.</span><span class="nx">right</span><span class="p">;</span>
+      <span class="kd">var</span> <span class="nx">avg</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span> <span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">j</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">wave_L</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">j</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">)</span> <span class="p">{</span>
+        <span class="nx">avg</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wave_L</span><span class="p">[</span> <span class="nx">i</span> <span class="p">])</span> <span class="o">+</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">wave_R</span><span class="p">[</span> <span class="nx">i</span> <span class="p">]);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">waveform</span><span class="p">[</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">i</span> <span class="p">]</span>     <span class="o">=</span> <span class="nx">avg</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">waveform</span><span class="p">[</span> <span class="nx">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">=</span> <span class="nx">avg</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">signal</span><span class="p">[</span> <span class="mi">2</span> <span class="o">*</span> <span class="nx">i</span> <span class="p">]</span>       <span class="o">=</span> <span class="nx">avg</span> <span class="o">*</span> <span class="nx">CONVERSION_COEFFICIENT</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">signal</span><span class="p">[</span> <span class="nx">i</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">]</span>   <span class="o">=</span> <span class="nx">avg</span> <span class="o">*</span> <span class="nx">CONVERSION_COEFFICIENT</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">this</span><span class="p">.</span><span class="nx">fft</span><span class="p">.</span><span class="nx">forward</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">signal</span> <span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">dancer</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span> <span class="s1">&#39;update&#39;</span> <span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+
+  <span class="kd">function</span> <span class="nx">loadSM</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">adapter</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="nx">smLoading</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="nx">loadScript</span><span class="p">(</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">flashJS</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+      <span class="nx">soundManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SoundManager</span><span class="p">();</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">flashVersion</span> <span class="o">=</span> <span class="mi">9</span><span class="p">;</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">flash9Options</span><span class="p">.</span><span class="nx">useWaveformData</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">useWaveformData</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">useHighPerformance</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">useFastPolling</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">multiShot</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">debugMode</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">debugFlash</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">url</span> <span class="o">=</span> <span class="nx">Dancer</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">flashSWF</span><span class="p">;</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">onready</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">smLoaded</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="nx">adapter</span><span class="p">.</span><span class="nx">load</span><span class="p">();</span>
+      <span class="p">});</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">ontimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span> <span class="s1">&#39;Error loading SoundManager2.swf&#39;</span> <span class="p">);</span>
+      <span class="p">});</span>
+      <span class="nx">soundManager</span><span class="p">.</span><span class="nx">beginDelayedInit</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">}</span>
+
+  <span class="kd">function</span> <span class="nx">loadScript</span> <span class="p">(</span> <span class="nx">url</span><span class="p">,</span> <span class="nx">callback</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span>
+      <span class="nx">script</span>   <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span> <span class="s1">&#39;script&#39;</span> <span class="p">),</span>
+      <span class="nx">appender</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span> <span class="s1">&#39;script&#39;</span> <span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="nx">script</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;text/javascript&#39;</span><span class="p">;</span>
+    <span class="nx">script</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="nx">url</span><span class="p">;</span>
+    <span class="nx">script</span><span class="p">.</span><span class="nx">onload</span> <span class="o">=</span> <span class="nx">callback</span><span class="p">;</span>
+    <span class="nx">appender</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span> <span class="nx">script</span><span class="p">,</span> <span class="nx">appender</span> <span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">Dancer</span><span class="p">.</span><span class="nx">adapters</span><span class="p">.</span><span class="nx">flash</span> <span class="o">=</span> <span class="nx">adapter</span><span class="p">;</span>
+
+<span class="p">})();</span></pre></div></td></tr><tr id="section-15"><td class="docs"><div class="pilwrap"><a href="#section-15" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>DSP.js - a comprehensive digital signal processing  library for javascript</p></div><div class="body"><p>Created by Corban Brook <a href="&#109;&#x61;i&#108;t&#111;:&#99;&#x6F;&#x72;&#98;&#x61;&#110;&#98;&#114;&#111;ok&#64;&#103;&#x6D;&#97;&#x69;&#108;&#x2E;&#99;&#111;&#109;">&#99;&#x6F;&#x72;&#98;&#x61;&#110;&#98;&#114;&#111;ok&#64;&#103;&#x6D;&#97;&#x69;&#108;&#x2E;&#99;&#111;&#109;</a> on 2010-01-01.<br /> Copyright 2010 Corban Brook. All rights reserved.</p></div></div>
+</td><td class="code"><div class="highlight"><pre></pre></div></td></tr><tr id="section-16"><td class="docs"><div class="pilwrap"><a href="#section-16" class="pilcrow">&#182;</a></div><p>Fourier Transform Module used by DFT, FFT, RFFT</p>
+</td><td class="code"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">FourierTransform</span><span class="p">(</span><span class="nx">bufferSize</span><span class="p">,</span> <span class="nx">sampleRate</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">bufferSize</span> <span class="o">=</span> <span class="nx">bufferSize</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">sampleRate</span> <span class="o">=</span> <span class="nx">sampleRate</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">bandwidth</span>  <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="nx">bufferSize</span> <span class="o">*</span> <span class="nx">sampleRate</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">spectrum</span>   <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">bufferSize</span><span class="o">/</span><span class="mi">2</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">real</span>       <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">bufferSize</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">imag</span>       <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">bufferSize</span><span class="p">);</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">peakBand</span>   <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">peak</span>       <span class="o">=</span> <span class="mi">0</span><span class="p">;</span></pre></div></td></tr><tr id="section-17"><td class="docs"><div class="pilwrap"><a href="#section-17" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Calculates the <em>middle</em> frequency of an FFT band.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>index </span><span class="dox_type">Number</span><span>- The index of the FFT band.</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>  <span class="k">this</span><span class="p">.</span><span class="nx">getBandFrequency</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">bandwidth</span> <span class="o">*</span> <span class="nx">index</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">bandwidth</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="p">};</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">calculateSpectrum</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">spectrum</span>  <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">spectrum</span><span class="p">,</span>
+        <span class="nx">real</span>      <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">real</span><span class="p">,</span>
+        <span class="nx">imag</span>      <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">imag</span><span class="p">,</span>
+        <span class="nx">bSi</span>       <span class="o">=</span> <span class="mi">2</span> <span class="o">/</span> <span class="k">this</span><span class="p">.</span><span class="nx">bufferSize</span><span class="p">,</span>
+        <span class="nx">sqrt</span>      <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sqrt</span><span class="p">,</span>
+        <span class="nx">rval</span><span class="p">,</span> 
+        <span class="nx">ival</span><span class="p">,</span>
+        <span class="nx">mag</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">N</span> <span class="o">=</span> <span class="nx">bufferSize</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">rval</span> <span class="o">=</span> <span class="nx">real</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="nx">ival</span> <span class="o">=</span> <span class="nx">imag</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="nx">mag</span> <span class="o">=</span> <span class="nx">bSi</span> <span class="o">*</span> <span class="nx">sqrt</span><span class="p">(</span><span class="nx">rval</span> <span class="o">*</span> <span class="nx">rval</span> <span class="o">+</span> <span class="nx">ival</span> <span class="o">*</span> <span class="nx">ival</span><span class="p">);</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="nx">mag</span> <span class="o">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">peak</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">peakBand</span> <span class="o">=</span> <span class="nx">i</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">peak</span> <span class="o">=</span> <span class="nx">mag</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nx">spectrum</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">mag</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">};</span>
+<span class="p">}</span></pre></div></td></tr><tr id="section-18"><td class="docs"><div class="pilwrap"><a href="#section-18" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>FFT is a class for calculating the Discrete Fourier Transform of a signal<br />with the Fast Fourier Transform algorithm.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>bufferSize </span><span class="dox_type">Number</span><span>- The size of the sample buffer to be computed. Must be power of 2</span></div><div class="dox_tag_detail"><span>sampleRate </span><span class="dox_type">Number</span><span>- The sampleRate of the buffer (eg. 44100)</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre><span class="kd">function</span> <span class="nx">FFT</span><span class="p">(</span><span class="nx">bufferSize</span><span class="p">,</span> <span class="nx">sampleRate</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">FourierTransform</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">bufferSize</span><span class="p">,</span> <span class="nx">sampleRate</span><span class="p">);</span>
+   
+  <span class="k">this</span><span class="p">.</span><span class="nx">reverseTable</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint32Array</span><span class="p">(</span><span class="nx">bufferSize</span><span class="p">);</span>
+
+  <span class="kd">var</span> <span class="nx">limit</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">bit</span> <span class="o">=</span> <span class="nx">bufferSize</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">i</span><span class="p">;</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="nx">limit</span> <span class="o">&lt;</span> <span class="nx">bufferSize</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">limit</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">reverseTable</span><span class="p">[</span><span class="nx">i</span> <span class="o">+</span> <span class="nx">limit</span><span class="p">]</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">reverseTable</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="nx">bit</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">limit</span> <span class="o">=</span> <span class="nx">limit</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="nx">bit</span> <span class="o">=</span> <span class="nx">bit</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">this</span><span class="p">.</span><span class="nx">sinTable</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">bufferSize</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">cosTable</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Float32Array</span><span class="p">(</span><span class="nx">bufferSize</span><span class="p">);</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">bufferSize</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">sinTable</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="o">-</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="nx">i</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">cosTable</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="o">-</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="nx">i</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span></pre></div></td></tr><tr id="section-19"><td class="docs"><div class="pilwrap"><a href="#section-19" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Performs a forward transform on the sample buffer.<br />Converts a time domain signal to frequency domain spectra.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>buffer </span><span class="dox_type">Array</span><span>- The sample buffer. Buffer Length must be power of 2</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre><span class="nx">FFT</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">forward</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">buffer</span><span class="p">)</span> <span class="p">{</span></pre></div></td></tr><tr id="section-20"><td class="docs"><div class="pilwrap"><a href="#section-20" class="pilcrow">&#182;</a></div><p>Locally scope variables for speed up</p>
+</td><td class="code"><div class="highlight"><pre>  <span class="kd">var</span> <span class="nx">bufferSize</span>      <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">bufferSize</span><span class="p">,</span>
+      <span class="nx">cosTable</span>        <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">cosTable</span><span class="p">,</span>
+      <span class="nx">sinTable</span>        <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">sinTable</span><span class="p">,</span>
+      <span class="nx">reverseTable</span>    <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">reverseTable</span><span class="p">,</span>
+      <span class="nx">real</span>            <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">real</span><span class="p">,</span>
+      <span class="nx">imag</span>            <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">imag</span><span class="p">,</span>
+      <span class="nx">spectrum</span>        <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">spectrum</span><span class="p">;</span>
+
+  <span class="kd">var</span> <span class="nx">k</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bufferSize</span><span class="p">)</span> <span class="o">/</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">LN2</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="nx">k</span><span class="p">)</span> <span class="o">!==</span> <span class="nx">bufferSize</span><span class="p">)</span> <span class="p">{</span> <span class="k">throw</span> <span class="s2">&quot;Invalid buffer size, must be a power of 2.&quot;</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">bufferSize</span> <span class="o">!==</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>  <span class="p">{</span> <span class="k">throw</span> <span class="s2">&quot;Supplied buffer is not the same size as defined FFT. FFT Size: &quot;</span> <span class="o">+</span> <span class="nx">bufferSize</span> <span class="o">+</span> <span class="s2">&quot; Buffer Size: &quot;</span> <span class="o">+</span> <span class="nx">buffer</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="p">}</span>
+
+  <span class="kd">var</span> <span class="nx">halfSize</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+      <span class="nx">phaseShiftStepReal</span><span class="p">,</span>
+      <span class="nx">phaseShiftStepImag</span><span class="p">,</span>
+      <span class="nx">currentPhaseShiftReal</span><span class="p">,</span>
+      <span class="nx">currentPhaseShiftImag</span><span class="p">,</span>
+      <span class="nx">off</span><span class="p">,</span>
+      <span class="nx">tr</span><span class="p">,</span>
+      <span class="nx">ti</span><span class="p">,</span>
+      <span class="nx">tmpReal</span><span class="p">,</span>
+      <span class="nx">i</span><span class="p">;</span>
+
+  <span class="k">for</span> <span class="p">(</span><span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">bufferSize</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">real</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">buffer</span><span class="p">[</span><span class="nx">reverseTable</span><span class="p">[</span><span class="nx">i</span><span class="p">]];</span>
+    <span class="nx">imag</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">while</span> <span class="p">(</span><span class="nx">halfSize</span> <span class="o">&lt;</span> <span class="nx">bufferSize</span><span class="p">)</span> <span class="p">{</span></pre></div></td></tr><tr id="section-21"><td class="docs"><div class="pilwrap"><a href="#section-21" class="pilcrow">&#182;</a></div><p>phaseShiftStepReal = Math.cos(-Math.PI/halfSize);
+phaseShiftStepImag = Math.sin(-Math.PI/halfSize);</p>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">phaseShiftStepReal</span> <span class="o">=</span> <span class="nx">cosTable</span><span class="p">[</span><span class="nx">halfSize</span><span class="p">];</span>
+    <span class="nx">phaseShiftStepImag</span> <span class="o">=</span> <span class="nx">sinTable</span><span class="p">[</span><span class="nx">halfSize</span><span class="p">];</span>
+    
+    <span class="nx">currentPhaseShiftReal</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="nx">currentPhaseShiftImag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">fftStep</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">fftStep</span> <span class="o">&lt;</span> <span class="nx">halfSize</span><span class="p">;</span> <span class="nx">fftStep</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">i</span> <span class="o">=</span> <span class="nx">fftStep</span><span class="p">;</span>
+
+      <span class="k">while</span> <span class="p">(</span><span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">bufferSize</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">off</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="nx">halfSize</span><span class="p">;</span>
+        <span class="nx">tr</span> <span class="o">=</span> <span class="p">(</span><span class="nx">currentPhaseShiftReal</span> <span class="o">*</span> <span class="nx">real</span><span class="p">[</span><span class="nx">off</span><span class="p">])</span> <span class="o">-</span> <span class="p">(</span><span class="nx">currentPhaseShiftImag</span> <span class="o">*</span> <span class="nx">imag</span><span class="p">[</span><span class="nx">off</span><span class="p">]);</span>
+        <span class="nx">ti</span> <span class="o">=</span> <span class="p">(</span><span class="nx">currentPhaseShiftReal</span> <span class="o">*</span> <span class="nx">imag</span><span class="p">[</span><span class="nx">off</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span><span class="nx">currentPhaseShiftImag</span> <span class="o">*</span> <span class="nx">real</span><span class="p">[</span><span class="nx">off</span><span class="p">]);</span>
+
+        <span class="nx">real</span><span class="p">[</span><span class="nx">off</span><span class="p">]</span> <span class="o">=</span> <span class="nx">real</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">-</span> <span class="nx">tr</span><span class="p">;</span>
+        <span class="nx">imag</span><span class="p">[</span><span class="nx">off</span><span class="p">]</span> <span class="o">=</span> <span class="nx">imag</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">-</span> <span class="nx">ti</span><span class="p">;</span>
+        <span class="nx">real</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">tr</span><span class="p">;</span>
+        <span class="nx">imag</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+=</span> <span class="nx">ti</span><span class="p">;</span>
+
+        <span class="nx">i</span> <span class="o">+=</span> <span class="nx">halfSize</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="nx">tmpReal</span> <span class="o">=</span> <span class="nx">currentPhaseShiftReal</span><span class="p">;</span>
+      <span class="nx">currentPhaseShiftReal</span> <span class="o">=</span> <span class="p">(</span><span class="nx">tmpReal</span> <span class="o">*</span> <span class="nx">phaseShiftStepReal</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="nx">currentPhaseShiftImag</span> <span class="o">*</span> <span class="nx">phaseShiftStepImag</span><span class="p">);</span>
+      <span class="nx">currentPhaseShiftImag</span> <span class="o">=</span> <span class="p">(</span><span class="nx">tmpReal</span> <span class="o">*</span> <span class="nx">phaseShiftStepImag</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="nx">currentPhaseShiftImag</span> <span class="o">*</span> <span class="nx">phaseShiftStepReal</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">halfSize</span> <span class="o">=</span> <span class="nx">halfSize</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">calculateSpectrum</span><span class="p">();</span>
+<span class="p">};</span></pre></div></td></tr><tr id="section-22"><td class="docs"><div class="pilwrap"><a href="#section-22" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Copyright (c) Copyright (c) 2007, Carl S. Yestrau All rights reserved.<br />Code licensed under the BSD License: <a href='http://www.featureblend.com/license.txt'>http://www.featureblend.com/license.txt</a><br />Version: 1.0.4</p></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">FlashDetect</span> <span class="o">=</span> <span class="k">new</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">installed</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">raw</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">major</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">minor</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">revision</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="nx">self</span><span class="p">.</span><span class="nx">revisionStr</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">activeXDetectRules</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="s2">&quot;ShockwaveFlash.ShockwaveFlash.7&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+                <span class="k">return</span> <span class="nx">getActiveXVersion</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="s2">&quot;ShockwaveFlash.ShockwaveFlash.6&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+                <span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="s2">&quot;6,0,21&quot;</span><span class="p">;</span>
+                <span class="k">try</span><span class="p">{</span>
+                    <span class="nx">obj</span><span class="p">.</span><span class="nx">AllowScriptAccess</span> <span class="o">=</span> <span class="s2">&quot;always&quot;</span><span class="p">;</span>
+                    <span class="nx">version</span> <span class="o">=</span> <span class="nx">getActiveXVersion</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+                <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">){}</span>
+                <span class="k">return</span> <span class="nx">version</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="s2">&quot;ShockwaveFlash.ShockwaveFlash&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;version&quot;</span><span class="o">:</span><span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">){</span>
+                <span class="k">return</span> <span class="nx">getActiveXVersion</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">];</span></pre></div></td></tr><tr id="section-23"><td class="docs"><div class="pilwrap"><a href="#section-23" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Extract the ActiveX version of the plugin.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>The </span><span class="dox_type">Object</span><span>- flash ActiveX object.</span></div><div class="dox_tag_title">Type</div><div class="dox_tag_detail"><span class="dox_type">String</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">getActiveXVersion</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">activeXObj</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">try</span><span class="p">{</span>
+            <span class="nx">version</span> <span class="o">=</span> <span class="nx">activeXObj</span><span class="p">.</span><span class="nx">GetVariable</span><span class="p">(</span><span class="s2">&quot;$version&quot;</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">){}</span>
+        <span class="k">return</span> <span class="nx">version</span><span class="p">;</span>
+    <span class="p">};</span></pre></div></td></tr><tr id="section-24"><td class="docs"><div class="pilwrap"><a href="#section-24" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Try and retrieve an ActiveX object having a specified name.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>name </span><span class="dox_type">String</span><span>- The ActiveX object name lookup.</span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">One</span><span>of ActiveX object or a simple object having an attribute of activeXError with a value of true.</span></div><div class="dox_tag_title">Type</div><div class="dox_tag_detail"><span class="dox_type">Object</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">getActiveXObject</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">try</span><span class="p">{</span>
+            <span class="nx">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ActiveXObject</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">err</span><span class="p">){</span>
+            <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span><span class="nx">activeXError</span><span class="o">:</span><span class="kc">true</span><span class="p">};</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nx">obj</span><span class="p">;</span>
+    <span class="p">};</span></pre></div></td></tr><tr id="section-25"><td class="docs"><div class="pilwrap"><a href="#section-25" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Parse an ActiveX $version string into an object.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>str </span><span class="dox_type">String</span><span>- The ActiveX Object GetVariable($version) return value. </span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">An</span><span>object having raw, major, minor, revision and revisionStr attributes.</span></div><div class="dox_tag_title">Type</div><div class="dox_tag_detail"><span class="dox_type">Object</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">parseActiveXVersion</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">versionArray</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">);</span><span class="c1">//replace with regex</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;raw&quot;</span><span class="o">:</span><span class="nx">str</span><span class="p">,</span>
+            <span class="s2">&quot;major&quot;</span><span class="o">:</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">versionArray</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">10</span><span class="p">),</span>
+            <span class="s2">&quot;minor&quot;</span><span class="o">:</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">versionArray</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">10</span><span class="p">),</span>
+            <span class="s2">&quot;revision&quot;</span><span class="o">:</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">versionArray</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">10</span><span class="p">),</span>
+            <span class="s2">&quot;revisionStr&quot;</span><span class="o">:</span><span class="nx">versionArray</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="p">};</span>
+    <span class="p">};</span></pre></div></td></tr><tr id="section-26"><td class="docs"><div class="pilwrap"><a href="#section-26" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Parse a standard enabledPlugin.description into an object.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>str </span><span class="dox_type">String</span><span>- The enabledPlugin.description value.</span></div><div class="dox_tag_title">Returns</div><div class="dox_tag_detail"><span class="dox_type">An</span><span>object having raw, major, minor, revision and revisionStr attributes.</span></div><div class="dox_tag_title">Type</div><div class="dox_tag_detail"><span class="dox_type">Object</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">parseStandardVersion</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">descParts</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="sr">/ +/</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">majorMinor</span> <span class="o">=</span> <span class="nx">descParts</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="sr">/\./</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">revisionStr</span> <span class="o">=</span> <span class="nx">descParts</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;raw&quot;</span><span class="o">:</span><span class="nx">str</span><span class="p">,</span>
+            <span class="s2">&quot;major&quot;</span><span class="o">:</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">majorMinor</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">10</span><span class="p">),</span>
+            <span class="s2">&quot;minor&quot;</span><span class="o">:</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">majorMinor</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">10</span><span class="p">),</span> 
+            <span class="s2">&quot;revisionStr&quot;</span><span class="o">:</span><span class="nx">revisionStr</span><span class="p">,</span>
+            <span class="s2">&quot;revision&quot;</span><span class="o">:</span><span class="nx">parseRevisionStrToInt</span><span class="p">(</span><span class="nx">revisionStr</span><span class="p">)</span>
+        <span class="p">};</span>
+    <span class="p">};</span></pre></div></td></tr><tr id="section-27"><td class="docs"><div class="pilwrap"><a href="#section-27" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Parse the plugin revision string into an integer.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>The </span><span class="dox_type">String</span><span>- revision in string format.</span></div><div class="dox_tag_title">Type</div><div class="dox_tag_detail"><span class="dox_type">Number</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="kd">var</span> <span class="nx">parseRevisionStrToInt</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">str</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">str</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[a-zA-Z]/g</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span> <span class="mi">10</span><span class="p">)</span> <span class="o">||</span> <span class="nx">self</span><span class="p">.</span><span class="nx">revision</span><span class="p">;</span>
+    <span class="p">};</span></pre></div></td></tr><tr id="section-28"><td class="docs"><div class="pilwrap"><a href="#section-28" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Is the major version greater than or equal to a specified version.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>version </span><span class="dox_type">Number</span><span>- The minimum required major version.</span></div><div class="dox_tag_title">Type</div><div class="dox_tag_detail"><span class="dox_type">Boolean</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">self</span><span class="p">.</span><span class="nx">majorAtLeast</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">version</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">major</span> <span class="o">&gt;=</span> <span class="nx">version</span><span class="p">;</span>
+    <span class="p">};</span></pre></div></td></tr><tr id="section-29"><td class="docs"><div class="pilwrap"><a href="#section-29" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Is the minor version greater than or equal to a specified version.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>version </span><span class="dox_type">Number</span><span>- The minimum required minor version.</span></div><div class="dox_tag_title">Type</div><div class="dox_tag_detail"><span class="dox_type">Boolean</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">self</span><span class="p">.</span><span class="nx">minorAtLeast</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">version</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">minor</span> <span class="o">&gt;=</span> <span class="nx">version</span><span class="p">;</span>
+    <span class="p">};</span></pre></div></td></tr><tr id="section-30"><td class="docs"><div class="pilwrap"><a href="#section-30" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Is the revision version greater than or equal to a specified version.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>version </span><span class="dox_type">Number</span><span>- The minimum required revision version.</span></div><div class="dox_tag_title">Type</div><div class="dox_tag_detail"><span class="dox_type">Boolean</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">self</span><span class="p">.</span><span class="nx">revisionAtLeast</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">version</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">self</span><span class="p">.</span><span class="nx">revision</span> <span class="o">&gt;=</span> <span class="nx">version</span><span class="p">;</span>
+    <span class="p">};</span></pre></div></td></tr><tr id="section-31"><td class="docs"><div class="pilwrap"><a href="#section-31" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Is the version greater than or equal to a specified major, minor and revision.</p></div><div class="details"><div class="dox_tag_title">Params</div><div class="dox_tag_detail"><span>major </span><span class="dox_type">Number</span><span>- The minimum required major version.</span></div><div class="dox_tag_detail"><span>(Optional) </span><span class="dox_type">Number</span><span>- minor The minimum required minor version.</span></div><div class="dox_tag_detail"><span>(Optional) </span><span class="dox_type">Number</span><span>- revision The minimum required revision version.</span></div><div class="dox_tag_title">Type</div><div class="dox_tag_detail"><span class="dox_type">Boolean</span></div></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">self</span><span class="p">.</span><span class="nx">versionAtLeast</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">major</span><span class="p">){</span>
+        <span class="kd">var</span> <span class="nx">properties</span> <span class="o">=</span> <span class="p">[</span><span class="nx">self</span><span class="p">.</span><span class="nx">major</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">minor</span><span class="p">,</span> <span class="nx">self</span><span class="p">.</span><span class="nx">revision</span><span class="p">];</span>
+        <span class="kd">var</span> <span class="nx">len</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="nx">properties</span><span class="p">.</span><span class="nx">length</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+        <span class="k">for</span><span class="p">(</span><span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">len</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">properties</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">&gt;=</span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">]){</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="o">&lt;</span><span class="nx">len</span> <span class="o">&amp;&amp;</span> <span class="nx">properties</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="o">==</span><span class="nx">arguments</span><span class="p">[</span><span class="nx">i</span><span class="p">]){</span>
+                    <span class="k">continue</span><span class="p">;</span>
+                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">};</span></pre></div></td></tr><tr id="section-32"><td class="docs"><div class="pilwrap"><a href="#section-32" class="pilcrow">&#182;</a></div><div class="dox"><div class="summary"><p>Constructor, sets raw, major, minor, revisionStr, revision and installed public properties.</p></div><div class="body"></div></div>
+</td><td class="code"><div class="highlight"><pre>    <span class="nx">self</span><span class="p">.</span><span class="nx">FlashDetect</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">plugins</span> <span class="o">&amp;&amp;</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">plugins</span><span class="p">.</span><span class="nx">length</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="s1">&#39;application/x-shockwave-flash&#39;</span><span class="p">;</span>
+            <span class="kd">var</span> <span class="nx">mimeTypes</span> <span class="o">=</span> <span class="nx">navigator</span><span class="p">.</span><span class="nx">mimeTypes</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">mimeTypes</span> <span class="o">&amp;&amp;</span> <span class="nx">mimeTypes</span><span class="p">[</span><span class="nx">type</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="nx">mimeTypes</span><span class="p">[</span><span class="nx">type</span><span class="p">].</span><span class="nx">enabledPlugin</span> <span class="o">&amp;&amp;</span> <span class="nx">mimeTypes</span><span class="p">[</span><span class="nx">type</span><span class="p">].</span><span class="nx">enabledPlugin</span><span class="p">.</span><span class="nx">description</span><span class="p">){</span>
+                <span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="nx">mimeTypes</span><span class="p">[</span><span class="nx">type</span><span class="p">].</span><span class="nx">enabledPlugin</span><span class="p">.</span><span class="nx">description</span><span class="p">;</span>
+                <span class="kd">var</span> <span class="nx">versionObj</span> <span class="o">=</span> <span class="nx">parseStandardVersion</span><span class="p">(</span><span class="nx">version</span><span class="p">);</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">raw</span> <span class="o">=</span> <span class="nx">versionObj</span><span class="p">.</span><span class="nx">raw</span><span class="p">;</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">major</span> <span class="o">=</span> <span class="nx">versionObj</span><span class="p">.</span><span class="nx">major</span><span class="p">;</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">minor</span> <span class="o">=</span> <span class="nx">versionObj</span><span class="p">.</span><span class="nx">minor</span><span class="p">;</span> 
+                <span class="nx">self</span><span class="p">.</span><span class="nx">revisionStr</span> <span class="o">=</span> <span class="nx">versionObj</span><span class="p">.</span><span class="nx">revisionStr</span><span class="p">;</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">revision</span> <span class="o">=</span> <span class="nx">versionObj</span><span class="p">.</span><span class="nx">revision</span><span class="p">;</span>
+                <span class="nx">self</span><span class="p">.</span><span class="nx">installed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">navigator</span><span class="p">.</span><span class="nx">appVersion</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s2">&quot;Mac&quot;</span><span class="p">)</span><span class="o">==-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nb">window</span><span class="p">.</span><span class="nx">execScript</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">activeXDetectRules</span><span class="p">.</span><span class="nx">length</span> <span class="o">&amp;&amp;</span> <span class="nx">version</span><span class="o">==-</span><span class="mi">1</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+                <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="nx">getActiveXObject</span><span class="p">(</span><span class="nx">activeXDetectRules</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">name</span><span class="p">);</span>
+                <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">obj</span><span class="p">.</span><span class="nx">activeXError</span><span class="p">){</span>
+                    <span class="nx">self</span><span class="p">.</span><span class="nx">installed</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+                    <span class="nx">version</span> <span class="o">=</span> <span class="nx">activeXDetectRules</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">version</span><span class="p">(</span><span class="nx">obj</span><span class="p">);</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nx">version</span><span class="o">!=-</span><span class="mi">1</span><span class="p">){</span>
+                        <span class="kd">var</span> <span class="nx">versionObj</span> <span class="o">=</span> <span class="nx">parseActiveXVersion</span><span class="p">(</span><span class="nx">version</span><span class="p">);</span>
+                        <span class="nx">self</span><span class="p">.</span><span class="nx">raw</span> <span class="o">=</span> <span class="nx">versionObj</span><span class="p">.</span><span class="nx">raw</span><span class="p">;</span>
+                        <span class="nx">self</span><span class="p">.</span><span class="nx">major</span> <span class="o">=</span> <span class="nx">versionObj</span><span class="p">.</span><span class="nx">major</span><span class="p">;</span>
+                        <span class="nx">self</span><span class="p">.</span><span class="nx">minor</span> <span class="o">=</span> <span class="nx">versionObj</span><span class="p">.</span><span class="nx">minor</span><span class="p">;</span> 
+                        <span class="nx">self</span><span class="p">.</span><span class="nx">revision</span> <span class="o">=</span> <span class="nx">versionObj</span><span class="p">.</span><span class="nx">revision</span><span class="p">;</span>
+                        <span class="nx">self</span><span class="p">.</span><span class="nx">revisionStr</span> <span class="o">=</span> <span class="nx">versionObj</span><span class="p">.</span><span class="nx">revisionStr</span><span class="p">;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}();</span>
+<span class="p">};</span>
+<span class="nx">FlashDetect</span><span class="p">.</span><span class="nx">JS_RELEASE</span> <span class="o">=</span> <span class="s2">&quot;1.0.4&quot;</span><span class="p">;</span>
+
+</pre></div></td></tr></tbody></table><div id="projectname"><a href="../../../index.html">JukeboxJS</a></div></div></body></html>
