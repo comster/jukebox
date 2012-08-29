@@ -628,7 +628,6 @@
         },
         rating: function() {
             var self = this;
-            //console.log(this.$el.find('.rating').val());
             
             if(!this.songRatings.hasOwnProperty(this.song.id)) {
                 this.songRatings[this.song.id] = new SongRatingModel({}, {collection: this.songRatingListView.collection});
@@ -652,7 +651,7 @@
                 });
                 var newSongr = {
                     song_id: this.song.id,
-                    score: this.$el.find('.rating').val()
+                    score: this.$player.find('.rating').val()
                 };
                 var ts = Math.floor(this.player.currentTime / 1000);
                 if(ts) {
@@ -660,7 +659,7 @@
                 }
                 this.songRatings[this.song.id].set(newSongr, {wait: true});
             } else {
-                this.songRatings[this.song.id].set({score: this.$el.find('.rating').val()}, {wait: true});
+                this.songRatings[this.song.id].set({score: this.$player.find('.rating').val()}, {wait: true});
                 this.songRatings[this.song.id].getView().render();
             }
         },
@@ -948,7 +947,6 @@
             function particle(mag, color) {
               var intensity = ($visualDetail.val() / 100) + 1; // float from 1 to x
               var strokeColor;
-              console.log(intensity)
               if(!color) {
                   var rv = Math.floor(mag * 255) + 55;
                   strokeColor = 'rgb('+rv+','+rv+','+rv+')'; // a shade of gray
@@ -1899,8 +1897,8 @@
         className: 'songRating',
         render: function() {
             
-            if(!this.user && this.model.has('dj')) {
-                this.user = window.usersCollection.get(this.model.get('dj').id);
+            if(!this.user && this.model.has('user')) {
+                this.user = window.usersCollection.get(this.model.get('user').id);
                 this.userAvatar = new UserAvatar({model: this.user});
             }
             var ts = '';
