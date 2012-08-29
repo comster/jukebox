@@ -477,7 +477,9 @@
     //
     //  Let's try using html notifications
     //
+    chat.notifyMe = true; // preference toggle
     chat.notify = function(options) {
+        if(!chat.notifyMe) return;
         if (window.webkitNotifications) {
             var notification = window.webkitNotifications.createNotification(options.img, options.title, options.msg);
             //return window.webkitNotifications.createHTMLNotification('http://someurl.com');
@@ -506,9 +508,12 @@
                 return this;
             }
             this.$el.html('');
+            this.$el.append($('<button class="popupNotify" data-popups="true">popups</button>'));
             this.$el.append(this.roomsFindOrCreateView.render().el);
             this.$el.append(this.roomsOpenListView.render().el);
             this.$el.append(this.$chatFrame);
+            
+            this.setElement(this.$el);
             
             return this;
         },
@@ -620,6 +625,22 @@
                 self.trigger('initialized');
             });
         },
+        events: {
+            "click button.popupNotify": "togglePopups"
+        },
+        togglePopups: function() {
+            var $p = this.$el.find('.popupNotify');
+            var p = $p.attr('data-popups');
+            if(p) {
+                $p.html('no popups');
+                $p.attr('data-popups', false);
+                chat.notifyMe = false;
+            } else {
+                $p.html('popups');
+                $p.attr('data-popups', true);
+                chat.notifyMe = true;
+            }
+        },
         
         //
         //  Helper functions for sending system messages and error messages into a chat room
@@ -631,8 +652,6 @@
         systemErr: function(msg) {
             var djUser = {name:'[error]',id:''};
             this.rooms[this.selectedRoom].messageCollection.add({user:djUser,room_id:this.selectedRoom,at:new Date(), msg: msg});
-        },
-        events: {
         },
         
         //

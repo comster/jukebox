@@ -600,6 +600,7 @@
 <span class="time"><span class="currentTime"></span><span class="duration"></span> <span class="progress"></span></span>\
 <button class="mute" title="Mute">♫</button>\
 <button class="toggleVisual" title="Visualize">V</button>\
+<input class="visualDetail" type="range" min="-1" max="600" step="1" title="visual detail" value="0">\
 <span class="actions"></span>\
 <div class="playerInfo"><span class="loading"></span><span class="songInfo"></span><span class="albumInfo"><span class="albumName"></span></span>\
 <input class="rating" type="range" min="0" max="100" title="Rating" value="0" /><span class="ratings"></span>\
@@ -943,9 +944,18 @@
             }
             var r = w/1.3;
             var txDuration = (window.navigator.userAgent.indexOf('iPhone') === -1) ? 2200 : 1100;
+            var $visualDetail = self.$player.find('input.visualDetail');
             function particle(mag, color) {
-              var rv = Math.floor(mag * 255) + 55;
-              var strokeColor = color ? z(i++) : 'rgb('+rv+','+rv+','+rv+')';
+              var intensity = ($visualDetail.val() / 100) + 1; // float from 1 to x
+              var strokeColor;
+              console.log(intensity)
+              if(!color) {
+                  var rv = Math.floor(mag * 255) + 55;
+                  strokeColor = 'rgb('+rv+','+rv+','+rv+')'; // a shade of gray
+                  if(intensity < 1.6) return; // dont do off beats
+              } else {
+                  strokeColor = z(i++); // colors from d3
+              }
               svg.append("svg:circle")
                   .attr("cx", self.cx())
                   .attr("cy", self.cy())
@@ -954,7 +964,7 @@
                   .style("stroke-width", mag*100)
                   .style("stroke-opacity", 1)
                 .transition()
-                  .duration(txDuration)
+                  .duration(txDuration * intensity)
                   .ease(Math.sqrt)
                   .attr("r", r)
                   .style("stroke-opacity", 1e-6)
@@ -975,10 +985,10 @@
               }
             }
             
-            if(false && window.navigator.userAgent.indexOf('iPhone') === -1) {
+            if(window.navigator.userAgent.indexOf('iPhone') === -1) {
                 kickOpts.offKick = function ( mag ) {
                   //console.log('offKick '+mag);
-                  particle(mag);
+                  particle(mag, false);
                 }
             } else {
                 particle(1, false);
@@ -1347,7 +1357,8 @@
         tagName: 'span',
         className: 'user',
         render: function() {
-            if(!this.model) return;
+            console.log(this.model);
+            if(!this.model) return this;
             this.$el.html('');
             var $avatar = $('<img src="/jukebox/assets/img/icons/library.png" />');
             if(this.model && this.model.has('avatar')) {
@@ -1888,8 +1899,8 @@
         className: 'songRating',
         render: function() {
             
-            if(!this.user && this.model.has('user')) {
-                this.user = window.usersCollection.get(this.model.get('user').id);
+            if(!this.user && this.model.has('dj')) {
+                this.user = window.usersCollection.get(this.model.get('dj').id);
                 this.userAvatar = new UserAvatar({model: this.user});
             }
             var ts = '';
@@ -1977,7 +1988,7 @@
             require(['aurora.js'], function() {
                 require(['mp3.js'], function() { require(['flac.js'], function() { require(['alac.js'], function() { require(['aac.js'], function() {
                     require(['dancer.js'], function() {
-                        require(['http://d3js.org/d3.v2.min.js'], function(d3) {
+                        require(['d3.v2.min.js'], function(d3) {
                             require(['moment.min.js'], function(){
                                 self.view = new AppView({el: $app});
                                 
