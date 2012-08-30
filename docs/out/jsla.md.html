@@ -63,6 +63,7 @@
 <ul>
 <li>Browser compatability</li>
 <li>URLs &amp; SEO</li>
+<li>App Stores</li>
 <li>Device screen resolutions</li>
 <li>Network connection, Offline &amp; Caching</li>
 </ul>
@@ -178,6 +179,8 @@
     }
 })();
 </code></pre>
+
+<h2>Backbone Components</h2>
 
 <p>Understand how Views, Models and Collections work together:</p>
 
@@ -330,28 +333,6 @@ player.on('duration', function(msecs){
 });
 </code></pre>
 
-<h2>HTML sliders and progress bars, drag and drop</h2>
-
-<ul>
-<li><a href="http://caniuse.com/#feat=input-range">Can I Use?: Input range</a></li>
-<li><a href="http://caniuse.com/#feat=progressmeter">Can I Use?: Progress Meter</a></li>
-<li><a href="http://caniuse.com/#feat=dragndrop">Can I Use?: DragnDrop</a></li>
-<li><a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd">http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd</a></li>
-</ul>
-
-<p>Example:</p>
-
-<pre><code>&lt;input class="rating" type="range" min="0" max="100" title="Rating" value="50"&gt;
-
-&lt;meter min="0.0" max="100.0" value="33.33"&gt;&lt;/meter&gt;
-</code></pre>
-
-<p>Result:</p>
-
-<p><input class="rating" type="range" min="0" max="100" title="Rating" value="50"></p>
-
-<p><meter min="0.0" max="100.0" value="33.33"></meter></p>
-
 <h2>Uploading with xhr2</h2>
 
 <ul>
@@ -386,6 +367,28 @@ xhr.onload = function(e) {
 
 xhr.send(formData);
 </code></pre>
+
+<h2>HTML sliders and progress bars, drag and drop</h2>
+
+<ul>
+<li><a href="http://caniuse.com/#feat=input-range">Can I Use?: Input range</a></li>
+<li><a href="http://caniuse.com/#feat=progressmeter">Can I Use?: Progress Meter</a></li>
+<li><a href="http://caniuse.com/#feat=dragndrop">Can I Use?: DragnDrop</a></li>
+<li><a href="http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd">http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd</a></li>
+</ul>
+
+<p>Example:</p>
+
+<pre><code>&lt;input class="rating" type="range" min="0" max="100" title="Rating" value="50"&gt;
+
+&lt;meter min="0.0" max="100.0" value="33.33"&gt;&lt;/meter&gt;
+</code></pre>
+
+<p>Result:</p>
+
+<p><input class="rating" type="range" min="0" max="100" title="Rating" value="50"></p>
+
+<p><meter min="0.0" max="100.0" value="33.33"></meter></p>
 
 <h2>Vizualizing audio using dancer.js &amp; d3</h2>
 
@@ -440,9 +443,13 @@ var kick = dancer.createKick({
 
 <h2>Where to go from here?</h2>
 
-<p>Other cool HTML5
- - Routing URLs - <a href="http://caniuse.com/#feat=history">Can I Use?: History</a>
- - Web Workers</p>
+<p>Other cool HTML5</p>
+
+<ul>
+<li>Routing URLs</li>
+<li><a href="http://caniuse.com/#feat=history">Can I Use?: History</a></li>
+<li>Web Workers</li>
+</ul>
 
 <p>TODO</p>
 
@@ -460,29 +467,7 @@ var kick = dancer.createKick({
 <li>Last.fm</li>
 </ul>
 
-<p><style>
-h2 {
-  margin: 180px 0px 15px 0px;
-}
-ul {
-  list-style: none;
-  margin: 0 8px 16px;
-  padding: 0 0;
-}
-ul li {
-  padding: 4px 10px;
-  border-bottom: 1px dashed #ccc;
-}
-ul li:hover {
-  font-weight: bold;
-background: rgb(254,252,234);
-background: -moz-linear-gradient(left, rgb(254,252,234) 79%, rgb(241,218,54) 86%);
-background: -webkit-gradient(linear, left top, right top, color-stop(79%,rgb(254,252,234)), color-stop(86%,rgb(241,218,54)));
-background: -webkit-linear-gradient(left, rgb(254,252,234) 79%,rgb(241,218,54) 86%);
-background: -o-linear-gradient(left, rgb(254,252,234) 79%,rgb(241,218,54) 86%);
-background: -ms-linear-gradient(left, rgb(254,252,234) 79%,rgb(241,218,54) 86%);
-background: linear-gradient(to right, rgb(254,252,234) 79%,rgb(241,218,54) 86%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=1 );
-}
-</style></p>
+<h2>Thank you</h2>
+
+<p>Tell me what you think @comster and git the code at https://github.com/comster</p>
 </div></div><div id="projectname"><a href="./index.html">JukeboxJS</a></div></div></body></html>

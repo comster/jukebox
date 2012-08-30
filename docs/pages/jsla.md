@@ -67,6 +67,7 @@ Applications targeting the browser.  HTML5, JS & CSS.
  
  - Browser compatability
  - URLs & SEO
+ - App Stores
  - Device screen resolutions
  - Network connection, Offline & Caching
 
@@ -181,6 +182,13 @@ Example Bootstrap:
         }
     })();
 
+
+
+
+
+
+
+##Backbone Components
 
 Understand how Views, Models and Collections work together:
 
@@ -337,28 +345,6 @@ Metadata from aurora:
 
 
 
-##HTML sliders and progress bars, drag and drop
-
- - [Can I Use?: Input range](http://caniuse.com/#feat=input-range)
- - [Can I Use?: Progress Meter](http://caniuse.com/#feat=progressmeter)
- - [Can I Use?: DragnDrop](http://caniuse.com/#feat=dragndrop)
- - [http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd](http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd)
-
-Example:
-
-    <input class="rating" type="range" min="0" max="100" title="Rating" value="50">
-    
-    <meter min="0.0" max="100.0" value="33.33"></meter>
-
-
-Result:
-
-<input class="rating" type="range" min="0" max="100" title="Rating" value="50">
-
-<meter min="0.0" max="100.0" value="33.33"></meter>
-
-
-
 
 ##Uploading with xhr2
 
@@ -392,6 +378,31 @@ Example:
     };
     
     xhr.send(formData);
+
+
+
+
+
+##HTML sliders and progress bars, drag and drop
+
+ - [Can I Use?: Input range](http://caniuse.com/#feat=input-range)
+ - [Can I Use?: Progress Meter](http://caniuse.com/#feat=progressmeter)
+ - [Can I Use?: DragnDrop](http://caniuse.com/#feat=dragndrop)
+ - [http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd](http://www.html5rocks.com/en/tutorials/file/dndfiles/#toc-selecting-files-dnd)
+
+Example:
+
+    <input class="rating" type="range" min="0" max="100" title="Rating" value="50">
+    
+    <meter min="0.0" max="100.0" value="33.33"></meter>
+
+
+Result:
+
+<input class="rating" type="range" min="0" max="100" title="Rating" value="50">
+
+<meter min="0.0" max="100.0" value="33.33"></meter>
+
 
 
 
@@ -448,7 +459,9 @@ Example:
 ##Where to go from here?
 
 Other cool HTML5
- - Routing URLs - [Can I Use?: History](http://caniuse.com/#feat=history)
+
+ - Routing URLs
+ - [Can I Use?: History](http://caniuse.com/#feat=history)
  - Web Workers
 
 
@@ -469,29 +482,9 @@ TODO
 
 
 
+##Thank you
 
-<style>
-h2 {
-  margin: 180px 0px 15px 0px;
-}
-ul {
-  list-style: none;
-  margin: 0 8px 16px;
-  padding: 0 0;
-}
-ul li {
-  padding: 4px 10px;
-  border-bottom: 1px dashed #ccc;
-}
-ul li:hover {
-  font-weight: bold;
-background: rgb(254,252,234);
-background: -moz-linear-gradient(left, rgb(254,252,234) 79%, rgb(241,218,54) 86%);
-background: -webkit-gradient(linear, left top, right top, color-stop(79%,rgb(254,252,234)), color-stop(86%,rgb(241,218,54)));
-background: -webkit-linear-gradient(left, rgb(254,252,234) 79%,rgb(241,218,54) 86%);
-background: -o-linear-gradient(left, rgb(254,252,234) 79%,rgb(241,218,54) 86%);
-background: -ms-linear-gradient(left, rgb(254,252,234) 79%,rgb(241,218,54) 86%);
-background: linear-gradient(to right, rgb(254,252,234) 79%,rgb(241,218,54) 86%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=1 );
-}
-</style>
+Tell me what you think @comster and git the code at https://github.com/comster
+
+
+
