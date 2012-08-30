@@ -325,3 +325,9 @@ background: linear-gradient(to right, rgb(0,0,0) 79%,rgb(241,218,54) 86%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=1 );
 }
 
+
+
+td.code, th.code {
+    background: black;
+    
+}
