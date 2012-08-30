@@ -517,7 +517,7 @@
             var str = '';
             console.log(this.metadata);
             this.$el.find('input[type="range"]').val(50);
-            //this.$el.find('.coverArt').html('');
+            this.$el.find('.coverArt').html('');
             var title, artist, album;
             if(this.metadata) {
                 title = this.metadata.title || this.metadata.Title || '';
