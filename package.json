@@ -16,6 +16,7 @@
     "url": "git://github.com/comster/jukebox.git"
   },
   "docco_husky": {
+    "css": "docs/pages/style.css",
     "output_dir": "docs/out",
     "content_dir": "docs/pages",
     "project_name": "JukeboxJS",

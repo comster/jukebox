@@ -34,9 +34,9 @@ header center {
 header .openNav {
     background: #CCC;
     display: block;
-    height: 50px;
-    width: 50px;
-    padding: 10px;
+    height: 70px;
+    width: 70px;
+    padding: 0px;
     border-radius: 50%;
     border: 1px solid white;
     position: absolute;
@@ -44,8 +44,8 @@ header .openNav {
     left: 0;
 }
 header .openNav img {
-    height: 50px;
-    width: 50px;
+    height: 70px;
+    width: 70px;
 }
 .avatar img {
     height: 70px;
@@ -507,15 +507,14 @@ ul.messages .msg {
 }
 ul.messages .msg > span {
     font-weight: bolder;
-    width: 28%;
+    min-width: 24%;
     display: block;
     float: left;
 }
 ul.messages .msg .msg {
     font-weight: normal;
-    width: 72%;
-    display: block;
-    float: right;
+    margin-left: 10px;
+    max-width: 70%;
 }
 ul.messages li .at {
     width: 30%;

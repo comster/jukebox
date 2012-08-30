@@ -509,14 +509,15 @@
             }
             
             // pass this along to the ratings for hightlight this.song.duration
-            this.songRatingListView.trigger('currentTime', this.player.currentTime);
+            if(this.songRatingListView)
+                this.songRatingListView.trigger('currentTime', this.player.currentTime);
         },
         renderSongInfo: function() {
             var self = this;
             var str = '';
-            //console.log(this.metadata);
+            console.log(this.metadata);
             this.$el.find('input[type="range"]').val(50);
-            this.$el.find('.coverArt').html('');
+            //this.$el.find('.coverArt').html('');
             var title, artist, album;
             if(this.metadata) {
                 title = this.metadata.title || this.metadata.Title || '';
@@ -536,8 +537,12 @@
                     if(cover) {
                         if(!cover.toBlob) cover = cover.data
                         window.URL = window.URL || window.webkitURL;
-                        var src = window.URL.createObjectURL(cover.toBlob());
-                        this.$el.find('.coverArt').append('<img src="' + src + '" />');
+                        if(!cover) {
+                            console.log('no cover art');
+                        } else {
+                            var src = window.URL.createObjectURL(cover.toBlob());
+                            this.$el.find('.coverArt').append('<img src="' + src + '" />');
+                        }
                     } else {
                         
                     }
@@ -821,6 +826,12 @@
                     });
                     player.on('progress', function(msecs){
                         self.renderDuration();
+                    });
+                    player.on('metadata', function(metadata){
+                        self.metadata = metadata;
+                        if(metadata) {
+                            self.renderSongInfo();
+                        }
                     });
                 }
             } else {

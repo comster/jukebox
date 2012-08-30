@@ -329,22 +329,6 @@
         }
     });
     
-    //
-    // UserName
-    //
-    // Simple view to render a user name
-    //
-    chat.UserName = Backbone.View.extend({
-        tag: 'span',
-        className: 'user',
-        render: function() {
-            this.$el.text(this.model.get('name'));
-            this.$el.attr('data-id', this.model.get('id'));
-            this.$el.addClass(this.model.get('name'));
-            return this;
-        }
-    });
-    
     // colors for our usernames
     chat.colors = [
         '#B971E3', '#FFF7C2', '#A5C3FB', '#70C586'
@@ -359,9 +343,10 @@
         tag: 'span',
         className: 'user',
         render: function() {
+            var userClassName = this.model.get('name').replace('@', '\\@').replace(' ', '').replace('.', '');
             var userColor = chat.colors.shift();
             chat.colors.push(userColor); // reuse our colors
-            var sty = '<style>.'+this.model.get('name')+' { color: '+userColor+'; }</style>';
+            var sty = '<style>.'+userClassName+' { color: '+userColor+'; }</style>';
             this.$el.text(this.model.get('name'));
             this.$el.append(sty);
             var $avatar = $('<img src="/jukebox/assets/img/icons/library.png" />');
@@ -369,7 +354,7 @@
                 $avatar.attr('src', '/api/files/'+this.model.get('avatar'));
             }
             this.$el.prepend($avatar);
-            this.$el.addClass(this.model.get('name'));
+            this.$el.addClass(userClassName);
             this.$el.attr('data-id', this.model.get('id'));
             
             return this;
@@ -451,7 +436,11 @@
         render: function() {
             this.$el.html('<span class="msg"></span>');
             this.$el.find('.msg').text(this.model.get('msg'));
-            var $sp = $('<span data-id="'+this.model.get('user').id+'" class="'+this.model.get('user').name+'"></span> ');
+            var $sp = $('<span></span> ');
+            $sp.addClass(this.model.get('user').name);
+            if(this.model.get('user').id) {
+                $sp.attr('data-id', this.model.get('user').id);
+            }
             $sp.text(this.model.get('user').name);
             this.$el.prepend($sp);
             this.$el.attr('data-id', this.model.get('id'));
